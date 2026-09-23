@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Sólo porque ZIG? Únete al ZAG — Portal 30 años · Publicidad EAM</title>
+  <meta name="description" content="Portal de la campaña de los 30 años del programa de Publicidad Digital y Mercadeo de la EAM. La teoría ZAG de Marty Neumeier hecha comunidad: perfiles, sellos, Muro de Quiebre, mentorías, ZAG Room y tienda.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000000'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='18' font-weight='900' fill='%23fff8ee' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/content.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/zag-logo-principal.svg"
+          alt="ZAG — logotipo del portal"
+          width="48" height="48"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div id="hero-box"></div>
+      </div>
+    </section>
+
+    <!-- 2 · MARQUEE -->
+    <div class="marquee" role="presentation">
+      <div id="marquee-track" class="marquee-track" aria-hidden="true"></div>
+    </div>
+
+    <!-- 3 · CONTEXTO ZIG vs ZAG -->
+    <section class="section section--surface" aria-labelledby="contexto-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 id="contexto-title" class="section-title">ZIG vs. ZAG</h2>
+        </div>
+        <div id="zig-grid" class="zig-grid" data-reveal></div>
+        <figure id="quote-box" data-reveal></figure>
+        <div id="zig-close" class="zig-close" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- 4 · CARRUSEL — FOTOS DEL PRIMER EVENTO -->
+    <section id="eventos" class="section" aria-labelledby="carousel-title">
+      <div class="container">
+        <p id="carousel-kicker" class="kicker"></p>
+        <div class="section-head" data-reveal>
+          <h2 id="carousel-title" class="section-title"></h2>
+          <p id="carousel-sub" class="section-sub"></p>
+        </div>
+        <div class="carousel-wrap" data-reveal>
+          <div id="carousel-track" class="carousel" tabindex="0" aria-label="Fotos de las activaciones ZAG. Desliza para ver todas."></div>
+          <div class="carousel-nav">
+            <button id="carousel-prev" class="carousel-btn" type="button" aria-label="Fotos anteriores">←</button>
+            <button id="carousel-next" class="carousel-btn" type="button" aria-label="Fotos siguientes">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · MURO DE QUIEBRE -->
+    <section id="muro" class="section section--surface" aria-labelledby="muro-title">
+      <div class="container">
+        <p id="muro-kicker" class="kicker"></p>
+        <div class="section-head" data-reveal>
+          <h2 id="muro-title" class="section-title"></h2>
+          <p id="muro-sub" class="section-sub"></p>
+        </div>
+        <div id="muro-masonry" class="muro-masonry" data-reveal></div>
+        <p id="muro-note" class="muro-note"></p>
+      </div>
+    </section>
+
+    <!-- 6 · PERFILES ZAG -->
+    <section id="perfiles" class="section" aria-labelledby="niv-title">
+      <div class="container">
+        <p id="niv-kicker" class="kicker"></p>
+        <div class="section-head" data-reveal>
+          <h2 id="niv-title" class="section-title"></h2>
+          <p id="niv-sub" class="section-sub"></p>
+          <p id="sellos-line" class="sellos-line"></p>
+        </div>
+        <div id="profiles-grid" class="profiles-grid" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- 7 · ACORDEÓN — DESCUBRE EL ZAG -->
+    <section id="descubre" class="section section--surface" aria-labelledby="acc-title">
+      <div class="container">
+        <p id="acc-kicker" class="kicker"></p>
+        <div class="section-head" data-reveal>
+          <h2 id="acc-title" class="section-title"></h2>
+        </div>
+        <div id="acc-list" class="accordion" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- ÚNETE — salida explícita para quien no tiene tira (corrección H2) -->
+    <section id="unirme" class="section" aria-labelledby="unirme-title">
+      <div class="container">
+        <p id="unirme-kicker" class="kicker"></p>
+        <div class="section-head" data-reveal>
+          <h2 id="unirme-title" class="section-title"></h2>
+          <p id="unirme-sub" class="section-sub"></p>
+        </div>
+        <div id="unirme-grid" class="unirme-grid" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- 8 · FRASE FINAL -->
+    <section class="close-block" aria-labelledby="close-text">
+      <div class="container" data-reveal>
+        <p id="close-kicker" class="kicker"></p>
+        <p id="close-text" class="close-text"></p>
+        <a id="close-cta" class="btn"></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 9 · FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img
+            class="footer-logo"
+            src="assets/logos/zag-logo-principal.svg"
+            alt="ZAG — logotipo"
+            width="48" height="48"
+            data-fallback="ZAG">
+          <img
+            class="footer-logo footer-logo--lockup"
+            src="assets/logos/zag-30-anos-lockup.svg"
+            alt="Publicidad ZAG · 30 años — logo combinado con el sello Cultura Zaggista"
+            width="160" height="44"
+            data-fallback="ZAG · 30 AÑOS">
+        </div>
+        <nav class="footer-nav" aria-label="Mapa del portal">
+          <h4>PORTAL</h4>
+          <ul id="footer-nav"></ul>
+        </nav>
+        <div class="footer-social">
+          <h4>REDES</h4>
+          <ul id="footer-social"></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="footer-institutional"></p>
+        <p id="footer-legal" class="footer-legal"></p>
+      </div>
+    </div>
+  </footer>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      El Portal ZAG necesita JavaScript para mostrar su contenido. Volvé a activarlo
+      o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>
