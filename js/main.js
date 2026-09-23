@@ -102,16 +102,14 @@
     var h1 = document.createElement('h1');
     h1.className = 'hero-title';
     h.title.forEach(function (part) {
-      if (part.text) h1.appendChild(el('span', null, part.text));
-      if (part.accent) {
-        var s = document.createElement('span');
-        s.className = 'accent';
-        s.textContent = part.accent;
-        h1.appendChild(s);
-      }
-      h1.appendChild(document.createTextNode(' '));
+      var sp = el(
+        'span',
+        part.zag ? 'hero-line hero-line--zag' : 'hero-line',
+        part.text || ''
+      );
+      if (part.zag) sp.appendChild(tipButton('zag')); // glosario al lado de "ZAG."
+      h1.appendChild(sp);
     });
-    h1.appendChild(tipButton('zag')); // glosario al primer encuentro con ZAG
 
     var sub = el('p', 'hero-sub', h.sub);
 

@@ -24,7 +24,7 @@ window.ZAG_CONTENT = {
     eyebrow: 'PUBLICIDAD DIGITAL Y MERCADEO · EAM · 30 AÑOS',
     title: [
       { text: '¿SÓLO PORQUE ZIG?' },
-      { text: 'ÚNETE AL ', accent: 'ZAG.' },
+      { text: 'ÚNETE AL ZAG.', zag: true },
     ],
     sub: 'Hace 30 años el programa de Publicidad de la EAM eligió el camino opuesto al de todos. No fue un error. Fue una decisión.',
     ctaPrimary: {
