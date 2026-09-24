@@ -153,14 +153,11 @@ window.ZAG_CONTENT = {
     kicker: 'LA SOCIEDAD ZAG',
     title: 'Descubre todo lo que el ZAG tiene para ti',
     items: [
-      { title: 'Muro de Quiebre', desc: 'El mural vivo de testimonios reales de la comunidad.', link: '#muro' },
-      { title: 'Blog de fracasos de campaña', desc: 'Casos reales de lo que no funcionó, contados sin filtro.', link: 'proximamente.html' },
-      { title: 'Eventos', desc: 'El calendario de activaciones ZAG, presenciales y digitales.', link: '#eventos' },
-      { title: 'Podcast Zaggista', desc: 'La voz real de docentes: errores, fracasos y decisiones difíciles.', tips: ['zaggista'], link: 'proximamente.html' },
-      { title: 'Mentorías con egresados y estudiantes', desc: 'Sesiones grupales mensuales y acompañamiento 1:1 para niveles altos.', link: 'proximamente.html' },
-      { title: 'Cursos Extraclase ZAG', desc: 'Growth hacking, branding experimental, IA aplicada, UX/UI y más — no calificables, son cultura.', link: 'proximamente.html' },
-      { title: 'ZAG Room', desc: 'El territorio físico de la Sociedad ZAG: espacio de creación, mentorías y encuentro.', tips: ['zagroom', 'sociedadzag'], link: 'proximamente.html' },
-      { title: 'Tienda ZAG', desc: 'Merchandising oficial que se desbloquea según tu nivel.', link: 'proximamente.html' },
+      { title: 'Comunidad', img: 'assets/img/comunidad.jpg', desc: 'El Muro de Quiebre y el blog de fracasos: testimonios reales de la tribu y casos que no funcionaron, contados sin filtro.', link: '#muro' },
+      { title: 'Eventos', desc: 'Fogatas, mentorías y activaciones ZAG — presenciales y digitales, para que nunca te quedes por fuera.', tips: ['fogata'], link: 'proximamente.html' },
+      { title: 'Aprende más', desc: 'Cursos Extraclase de growth hacking, branding experimental, IA aplicada y UX/UI. No califican: son cultura.', link: 'proximamente.html' },
+      { title: 'ZAG Room', desc: 'El territorio físico de la Sociedad ZAG: espacio de creación, mentorías y encuentro para niveles altos.', tips: ['zagroom', 'sociedadzag'], link: 'proximamente.html' },
+      { title: 'Tienda ZAG', desc: 'Merchandising oficial que se desbloquea según tu nivel. Tu nivel desbloquea tu estilo.', link: 'proximamente.html' },
     ],
   },
 
@@ -194,9 +191,8 @@ window.ZAG_CONTENT = {
     legal: 'Portal ZAG — campaña de los 30 años del programa de Publicidad Digital y Mercadeo. Este es un sitio de demostración; las pantallas del portal se conectan progresivamente.',
     social: [
       { label: 'Instagram', href: '#' },
-      { label: 'Facebook', href: '#' },
       { label: 'TikTok', href: '#' },
-      { label: 'YouTube', href: '#' },
+      { label: 'Web ZAG', href: 'index.html' },
     ],
   },
 

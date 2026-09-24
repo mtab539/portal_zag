@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>¿Sólo porque ZIG? Únete al ZAG — Portal 30 años · Publicidad EAM</title>
+  <title>Portal ZAG - EAM</title>
   <meta name="description" content="Portal de la campaña de los 30 años del programa de Publicidad Digital y Mercadeo de la EAM. La teoría ZAG de Marty Neumeier hecha comunidad: perfiles, sellos, Muro de Quiebre, mentorías, ZAG Room y tienda.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000000'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='18' font-weight='900' fill='%23fff8ee' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,9 +23,8 @@
       <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
         <img
           class="brand-logo"
-          src="assets/logos/zag-logo-principal.svg"
+          src="assets/logos/logozag.svg"
           alt="ZAG — logotipo del portal"
-          width="48" height="48"
           data-fallback="ZAG">
         <span class="brand-caption">PORTAL · 30 AÑOS</span>
       </a>
@@ -109,28 +109,51 @@
       </div>
     </section>
 
-    <!-- 6 · PERFILES ZAG -->
-    <section id="perfiles" class="section" aria-labelledby="niv-title">
-      <div class="container">
-        <p id="niv-kicker" class="kicker"></p>
-        <div class="section-head" data-reveal>
-          <h2 id="niv-title" class="section-title"></h2>
-          <p id="niv-sub" class="section-sub"></p>
-          <p id="sellos-line" class="sellos-line"></p>
+    <!-- 6 · PERFILES ZAG · Settle — el stack se asienta con el scroll -->
+    <section id="perfiles" class="section perfiles-settle" aria-labelledby="niv-title">
+      <div class="settle-root">
+        <div class="settle-track" id="settle-track">
+          <section class="settle-stage">
+            <div class="settle-headline">
+              <p id="niv-kicker" class="kicker"></p>
+              <h2 id="niv-title" class="section-title"></h2>
+              <p id="niv-sub" class="section-sub"></p>
+            </div>
+
+            <header class="settle-chrome settle-chrome--top">
+              <img class="settle-seal" src="assets/logos/sellozagnaranja.png" alt="Sello ZAG naranja" width="56" height="56">
+              <span class="settle-label">Perfiles</span>
+            </header>
+
+            <div class="settle-deck">
+              <div id="settle-front" class="settle-card settle-card--front"></div>
+              <div id="settle-back"></div>
+            </div>
+            <div class="settle-sticker-wrap">
+              <img id="settle-sticker" class="settle-sticker" src="assets/img/sticker-noapto.png" alt="Sticker no apto — ZAG" width="160" height="160" loading="lazy">
+            </div>
+
+            <footer class="settle-chrome settle-chrome--bottom">
+              <span class="settle-hint">Desliza para verlos todos</span>
+              <span class="settle-meta">05 NIVELES</span>
+            </footer>
+          </section>
         </div>
-        <div id="profiles-grid" class="profiles-grid" data-reveal></div>
+
+        <section class="settle-about">
+          <p id="sellos-line" class="settle-about-text"></p>
+        </section>
       </div>
-      <img class="patron-strip" src="assets/img/patronzag2.svg" alt="" role="presentation" width="1269" height="105">
     </section>
 
-    <!-- 7 · ACORDEÓN — DESCUBRE EL ZAG -->
+    <!-- 7 · PANELES — DESCUBRE EL ZAG -->
     <section id="descubre" class="section section--surface" aria-labelledby="acc-title">
       <div class="container">
         <p id="acc-kicker" class="kicker"></p>
         <div class="section-head" data-reveal>
           <h2 id="acc-title" class="section-title"></h2>
         </div>
-        <div id="acc-list" class="accordion" data-reveal></div>
+        <div id="panel-grid" class="zpanel-grid" data-reveal></div>
       </div>
     </section>
 
@@ -159,35 +182,22 @@
   <!-- 9 · FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img
-            class="footer-logo"
-            src="assets/logos/zag-logo-principal.svg"
-            alt="ZAG — logotipo"
-            width="48" height="48"
-            data-fallback="ZAG">
-          <img
-            class="footer-logo footer-logo--lockup"
-            src="assets/logos/zag-30-anos-lockup.svg"
-            alt="Publicidad ZAG · 30 años — logo combinado con el sello Cultura Zaggista"
-            width="160" height="44"
-            data-fallback="ZAG · 30 AÑOS">
-        </div>
-        <nav class="footer-nav" aria-label="Mapa del portal">
-          <h4>PORTAL</h4>
-          <ul id="footer-nav"></ul>
-        </nav>
+      <div class="footer-row">
         <div class="footer-social">
-          <h4>REDES</h4>
-          <ul id="footer-social"></ul>
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p id="footer-institutional"></p>
-        <p id="footer-legal" class="footer-legal"></p>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+        </div>
       </div>
     </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
   </footer>
 
   <noscript>

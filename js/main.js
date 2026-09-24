@@ -82,6 +82,7 @@
 
   /* ---------- render: nav ---------- */
   function renderNav(container, items, proximity) {
+    if (!container) return;
     container.textContent = '';
     items.forEach(function (item) {
       var li = el('li');
@@ -304,10 +305,11 @@
       var leaving = list.lastElementChild;
       if (leaving) {
         leaving.classList.add('is-leaving');
+        leaving.style.pointerEvents = 'none';
         (function (n) {
           window.setTimeout(function () {
             if (n && n.parentNode) n.parentNode.removeChild(n);
-          }, 280);
+          }, 360);
         })(leaving);
       }
       p = (p + 1) % quotes.length;
@@ -316,6 +318,7 @@
     }
 
     function schedule() {
+      if (timer) window.clearInterval(timer);
       timer = window.setInterval(tick, 2600);
     }
 
@@ -326,76 +329,290 @@
     schedule();
   }
 
-  /* ---------- render: perfiles ---------- */
+  /* ---------- render: perfiles (Settle — el stack se asienta con el scroll) ---------- */
+
+  /* helpers de easing del stack (equivalentes a la animación Settle) */
+  function clamp01S(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function mapRangeS(a, b, x) { return clamp01S((x - a) / (b - a)); }
+  function smoothS(t) { return t * t * (3 - 2 * t); }
+  function lerpS(a, b, t) { return a + (b - a) * t; }
+  function easeOutBackS(t) {
+    var c = 1.7;
+    var u = t - 1;
+    return 1 + (c + 1) * u * u * u + c * u * u;
+  }
+
+  var SETTLE_CARDS = [
+    {
+      id: 'senior',
+      bg: '#000000', fg: '#fff8ee',
+      flipTilt: 18, dismissTilt: 62,
+      icon: 'M12 2 20 6v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6zM9 12l2 2 4-4'
+    },
+    {
+      id: 'master',
+      bg: '#041dad', fg: '#fff8ee',
+      flipTilt: 12, dismissTilt: 50,
+      icon: 'M3 17h18M4 17 5 9l5 3 2-6 2 6 5-3 1 8z'
+    },
+    {
+      id: 'creator',
+      bg: '#ff5c01', fg: '#fff8ee',
+      flipTilt: -6, dismissTilt: -40,
+      icon: 'M13 2 4 14h6l-1 8 9-12h-6z'
+    },
+    {
+      id: 'strategist',
+      bg: '#c0ccff', fg: '#041dad',
+      flipTilt: -16, dismissTilt: -56,
+      icon: 'M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 1-5 5M12 11a1 1 0 1 1-1 1'
+    },
+    {
+      id: 'rookie',
+      bg: '#fff8ee', fg: '#041dad',
+      flipTilt: -8, dismissTilt: -44,
+      icon: 'M12 3c1.5 2.5 3 4 3 6.5a3 3 0 0 1-6 0c0-1.2.6-2.3 1.5-3.2C11 8 11.5 7 12 3zM12 21c-2.5 0-4.5-2-4.5-4.5S9.5 12 12 12s4.5 2 4.5 4.5S14.5 21 12 21z'
+    },
+  ];
+
+  var SETTLE_FLIP_START = 0.3;
+  var SETTLE_FLIP_END = 0.46;
+  var SETTLE_DISMISS_START = 0.52;
+
+  function settleSvgIcon(pathD) {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathD);
+    svg.appendChild(path);
+    return svg;
+  }
+
+  function buildSettleCard(cfg) {
+    var card = el('article', 'settle-card settle-card--back');
+    card.style.background = cfg.bg;
+    card.style.color = cfg.fg;
+    card.dataset.flipTilt = String(cfg.flipTilt);
+    card.dataset.dismissTilt = String(cfg.dismissTilt);
+    card.appendChild(el('h3', null, cfg.name));
+    card.appendChild(el('span', 'settle-tag', cfg.identity));
+    var iconBox = el('div', 'settle-icon');
+    iconBox.appendChild(settleSvgIcon(cfg.icon));
+    card.appendChild(iconBox);
+    var body = el('p', null, cfg.benefit);
+    if (cfg.id === 'rookie') {
+      body.textContent = '';
+      addTip(body, cfg.benefit, 'fogata');
+    }
+    card.appendChild(body);
+    return card;
+  }
+
   function renderNiveles() {
     var n = C.niveles;
     document.getElementById('niv-kicker').textContent = n.kicker;
-    document.getElementById('niv-title').textContent = n.title;
+
+    var title = document.getElementById('niv-title');
+    title.textContent = '';
+    var accent = 'ZAG';
+    var at = n.title.indexOf(accent);
+    if (at !== -1) {
+      title.appendChild(document.createTextNode(n.title.slice(0, at)));
+      title.appendChild(el('span', 'settle-title-accent', accent));
+      title.appendChild(document.createTextNode(n.title.slice(at + accent.length)));
+    } else {
+      title.textContent = n.title;
+    }
+
     document.getElementById('niv-sub').textContent = n.sub;
 
     var sellos = document.getElementById('sellos-line');
     sellos.textContent = '';
     addTip(sellos, n.sellosLine, 'sello');
 
-    var grid = document.getElementById('profiles-grid');
-    n.levels.forEach(function (lv) {
-      var card = el('article', 'profile-card profile-card--' + lv.color);
-      card.appendChild(el('div', 'profile-level', lv.name));
-      card.appendChild(el('div', 'profile-identity', lv.identity));
-      var benefit = el('div', 'profile-benefit');
-      if (lv.id === 'rookie') {
-        addTip(benefit, lv.benefit, 'fogata');
-      } else {
-        benefit.textContent = lv.benefit;
-      }
-      card.appendChild(benefit);
-      var link = document.createElement('a');
-      link.className = 'profile-link';
-      link.href = C.urls.proximamente;
-      link.textContent = n.cta;
-      card.appendChild(link);
-      grid.appendChild(card);
+    /* portada (front card) — marca los perfiles igual que la animación Settle */
+    var front = document.getElementById('settle-front');
+    front.textContent = '';
+    front.appendChild(el('h3', null, 'PERFILES ZAG'));
+    front.appendChild(el('span', 'settle-tag', 'Empezá acá'));
+    var fIcon = el('div', 'settle-icon');
+    fIcon.appendChild(settleSvgIcon('M8 10l4 4 4-4'));
+    front.appendChild(fIcon);
+    front.appendChild(el('p', null, 'Cinco niveles, seis sellos cada uno. Desplazá y mirá el stack asentarse.'));
+
+    /* cinco tarjetas de nivel (back cards) */
+    var backWrap = document.getElementById('settle-back');
+    backWrap.textContent = '';
+    var built = [];
+    SETTLE_CARDS.forEach(function (cfg) {
+      var lv = null;
+      n.levels.forEach(function (x) { if (x.id === cfg.id) lv = x; });
+      if (!lv) return;
+      cfg.name = lv.name;
+      cfg.identity = lv.identity;
+      cfg.benefit = lv.benefit;
+      var card = buildSettleCard(cfg);
+      card.style.zIndex = String(10 + built.length);
+      backWrap.appendChild(card);
+      built.push(card);
     });
+    if (!built.length) return;
+
+    /* ---- motor del stack: un rAF lee el progreso del scroll ---- */
+    var track = document.getElementById('settle-track');
+    var headline = track.querySelector('.settle-headline');
+    var frontEl = front;
+    var stickerWrap = document.querySelector('.settle-sticker-wrap');
+    var count = built.length;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function applySettle(p) {
+      var enter = mapRangeS(0, 0.18, p);
+      var deckY = lerpS(46, -6, enter);
+      if (headline) {
+        headline.style.transform = 'translateY(' + lerpS(0, -120, enter) + '%)';
+        headline.style.opacity = String(1 - enter);
+      }
+
+      /* el sticker acompaña al stack: se mueve con el deck y aparece con el despegue */
+      if (stickerWrap) {
+        stickerWrap.style.transform = 'translateY(calc(-50% + ' + deckY + '%))';
+        var stickerFade = smoothS(mapRangeS(SETTLE_FLIP_START, SETTLE_FLIP_END, p));
+        stickerWrap.style.opacity = String(stickerFade);
+      }
+
+      var flip = easeOutBackS(mapRangeS(SETTLE_FLIP_START, SETTLE_FLIP_END, p));
+      if (frontEl) {
+        frontEl.style.transform =
+          'translate(-50%,calc(-50% + ' + deckY + '%)) rotateY(' + lerpS(0, 180, flip) + 'deg)';
+      }
+
+      var window_ = (1 - SETTLE_DISMISS_START) / count;
+      built.forEach(function (c, i) {
+        var order = count - 1 - i;
+        var dStart = SETTLE_DISMISS_START + order * window_;
+        var dismiss = smoothS(mapRangeS(dStart, dStart + window_, p));
+        var ry = lerpS(-180, 0, flip);
+        var y = deckY + lerpS(0, -240, dismiss);
+        var rz = lerpS(parseFloat(c.dataset.flipTilt) * clamp01S(flip), parseFloat(c.dataset.dismissTilt), dismiss);
+        c.style.transform =
+          'translate(-50%,calc(-50% + ' + y + '%)) rotateY(' + ry + 'deg) rotateZ(' + rz + 'deg)';
+        c.style.opacity = String(1 - dismiss * dismiss);
+      });
+    }
+
+    if (reduce) {
+      applySettle(0.5); /* estado asentado: stack revelado, nada se despega */
+      return;
+    }
+
+    applySettle(0);
+
+    var rafSettle = 0;
+    function settleTick() {
+      var rect = track.getBoundingClientRect();
+      var span = track.offsetHeight - window.innerHeight;
+      applySettle(clamp01S(span > 0 ? -rect.top / span : 0));
+      rafSettle = requestAnimationFrame(settleTick);
+    }
+    rafSettle = requestAnimationFrame(settleTick);
   }
 
-  /* ---------- render: acordeón ---------- */
+  /* ---------- render: paneles "Descubre el ZAG" (expandibles, estilo panel-grid) ---------- */
+  var PANEL_TONES = [
+    { tone: 'comunidad', bg: '#041dad', fg: '#fff8ee' },
+    { tone: 'eventos', bg: '#ff5c01', fg: '#fff8ee' },
+    { tone: 'aprende', bg: '#1144ff', fg: '#fff8ee' },
+    { tone: 'zagroom', bg: '#041dad', fg: '#fff8ee' },
+    { tone: 'tienda', bg: '#000000', fg: '#fff8ee' },
+  ];
+
   function renderAcordeon() {
     var a = C.acordeon;
     document.getElementById('acc-kicker').textContent = a.kicker;
-    document.getElementById('acc-title').textContent = a.title;
 
-    var list = document.getElementById('acc-list');
-    a.items.forEach(function (item) {
-      var itemEl = el('div', 'acc-item');
-      itemEl.dataset.open = 'false';
+    var accTitle = document.getElementById('acc-title');
+    accTitle.textContent = '';
+    accTitle.appendChild(el('span', 'zpanel-title-part', a.title.split(' tiene para ti')[0]));
+    accTitle.appendChild(el('span', 'zpanel-title-part zpanel-title-part--accent', ' tiene para ti'));
 
-      var trigger = document.createElement('button');
-      trigger.type = 'button';
-      trigger.className = 'acc-trigger';
-      trigger.setAttribute('aria-expanded', 'false');
+    var grid = document.getElementById('panel-grid');
 
-      var label = el('span', null, item.title);
-      (item.tips || []).forEach(function (t) {
-        label.appendChild(tipButton(t));
-      });
-      var icon = el('span', 'acc-icon', '+');
-      trigger.appendChild(label);
-      trigger.appendChild(icon);
+    a.items.forEach(function (item, idx) {
+      var tone = PANEL_TONES[idx % PANEL_TONES.length];
 
-      var panel = el('div', 'acc-panel');
-      var inner = el('div', 'acc-panel-inner');
-      var desc = el('div', 'acc-desc');
-      desc.appendChild(el('span', null, item.desc));
+      var panel = el('article', 'zpanel zpanel--' + tone.tone);
+      panel.tabIndex = 0;
+      panel.setAttribute('role', 'button');
+      panel.setAttribute('aria-pressed', 'false');
+      panel.style.setProperty('--panel-bg', tone.bg);
+      panel.style.setProperty('--panel-fg', tone.fg);
+      if (item.img) panel.style.setProperty('--panel-img-src', 'url("' + item.img + '")');
+
+      var label = el('div', 'zpanel-collapsed');
+      label.appendChild(el('span', null, item.title));
+      panel.appendChild(label);
+
+      var expanded = el('div', 'zpanel-expanded');
+      var copy = el('div', 'zpanel-copy');
+      copy.appendChild(el('h3', null, item.title));
+      var body = el('p');
+      if (item.tips && item.tips.length) {
+        addTip(body, item.desc, item.tips[0]);
+      } else {
+        body.textContent = item.desc;
+      }
+      copy.appendChild(body);
       var link = document.createElement('a');
       link.href = item.link;
       link.textContent = 'Ver más →';
-      desc.appendChild(link);
-      inner.appendChild(desc);
-      panel.appendChild(inner);
+      copy.appendChild(link);
+      expanded.appendChild(copy);
+      panel.appendChild(expanded);
 
-      itemEl.appendChild(trigger);
-      itemEl.appendChild(panel);
-      list.appendChild(itemEl);
+      var arrow = document.createElement('button');
+      arrow.type = 'button';
+      arrow.className = 'zpanel-arrow';
+      arrow.setAttribute('aria-label', 'Siguiente: ' + a.items[(idx + 1) % a.items.length].title);
+      arrow.textContent = '→';
+      panel.appendChild(arrow);
+
+      grid.appendChild(panel);
+    });
+
+    var panels = grid.querySelectorAll('.zpanel');
+    var active = 0;
+    setActive(0);
+
+    function setActive(i) {
+      panels.forEach(function (pn, j) {
+        var on = j === i;
+        pn.classList.toggle('is-active', on);
+        pn.setAttribute('aria-pressed', String(on));
+      });
+      active = i;
+    }
+
+    grid.addEventListener('click', function (e) {
+      var arrow = e.target.closest('.zpanel-arrow');
+      var pn = e.target.closest('.zpanel');
+      if (!pn) return;
+      var i = Array.prototype.indexOf.call(panels, pn);
+      if (arrow) {
+        setActive((i + 1) % panels.length);
+      } else {
+        setActive(i === active ? -1 : i);
+      }
+    });
+
+    grid.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var pn = e.target.closest('.zpanel');
+      if (!pn) return;
+      e.preventDefault();
+      var i = Array.prototype.indexOf.call(panels, pn);
+      setActive(i === active ? -1 : i);
     });
   }
 
@@ -440,17 +657,60 @@
 
   function renderFooter() {
     var f = C.footer;
-    document.getElementById('footer-institutional').textContent = f.institutional;
-    document.getElementById('footer-legal').textContent = f.legal;
+    var copyright = document.getElementById('footer-copyright');
+    if (copyright) {
+      copyright.textContent = '© 2026 Portal ZAG — Todos los derechos reservados';
+    }
+
+    var legal = document.getElementById('footer-legal');
+    if (legal) legal.textContent = f.legal;
+
+    var icons = {
+      Instagram: '<svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"/></svg>',
+      TikTok: '<svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0A121.18,121.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>',
+      'Web ZAG': '<svg viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M464 256a208 208 0 1 1-416 0 208 208 0 0 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 0 0 0 256zm512 0A256 256 0 1 1 0 256a256 256 0 0 1 512 0zm-208 0c0 60.8-34.6 112-48 112s-48-51.2-48-112 34.6-112 48-112 48 51.2 48 112zm32 0c0-79.5-35.8-144-80-144s-80 64.5-80 144 35.8 144 80 144 80-64.5 80-144zM289 9.6l-10.5 15.9c22.3 14.8 39.3 17.4 47.5 30.8l15.9-10.5C334 29 312.6 22.9 289 9.6zM147 17.6l-11.3 16.5c22.4 15.3 41.7 30.4 51.2 31.8V80h-48v32h48v48h32V112h48V80h-48V66c-2.5-1.8-10.8-7.2-22.9-15.6L147 17.6z"/></svg>',
+    };
+
+    var letters = ['Z', 'A', 'G'];
 
     var social = document.getElementById('footer-social');
-    f.social.forEach(function (s) {
-      var li = el('li');
-      var a = document.createElement('a');
-      a.href = s.href;
-      a.textContent = s.label;
-      li.appendChild(a);
-      social.appendChild(li);
+    [].forEach.call(f.social, function (s, index) {
+      var group = el('div', 'sflip-item');
+      var clip = el('div', 'sflip-clip');
+      clip.appendChild(el('span', 'sflip-line sflip-line--top'));
+      clip.appendChild(el('span', 'sflip-line sflip-line--bottom'));
+      group.appendChild(clip);
+
+      var tip = el('span', 'sflip-tip');
+      tip.textContent = s.label;
+      group.appendChild(tip);
+
+      var inner = el('span', 'sflip-inner');
+      var front = el('span', 'sflip-face sflip-face--front');
+      front.textContent = letters[index % letters.length];
+      var back = el('span', 'sflip-face sflip-face--back');
+      back.innerHTML = icons[s.label] || '';
+      inner.appendChild(front);
+      inner.appendChild(back);
+      group.appendChild(inner);
+
+      if (s.href && s.href !== '#') {
+        group.setAttribute('role', 'link');
+        group.tabIndex = 0;
+        group.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.open(s.href, '_blank', 'noopener,noreferrer');
+          }
+        });
+        group.addEventListener('click', function () {
+          window.open(s.href, '_blank', 'noopener,noreferrer');
+        });
+      } else {
+        group.setAttribute('role', 'listitem');
+      }
+      group.style.setProperty('--i', index);
+      social.appendChild(group);
     });
   }
 
@@ -514,23 +774,9 @@
     });
   }
 
-  /* ---------- acordeón (uno abierto) ---------- */
+  /* ---------- acordeón / paneles (la lógica vive en renderAcordeon) ---------- */
   function initAccordion() {
-    var items = document.querySelectorAll('#acc-list .acc-item');
-    items.forEach(function (item) {
-      var trigger = item.querySelector('.acc-trigger');
-      trigger.addEventListener('click', function () {
-        var open = item.dataset.open === 'true';
-        items.forEach(function (it) {
-          it.dataset.open = 'false';
-          it.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-        });
-        if (!open) {
-          item.dataset.open = 'true';
-          item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
+    /* noop — el panel-grid gestiona sus propios eventos */
   }
 
   /* ---------- imágenes de marca con fallback ---------- */
@@ -657,7 +903,6 @@
   /* ---------- init ---------- */
   function init() {
     renderNav(document.getElementById('primary-nav'), C.nav);
-    renderNav(document.getElementById('footer-nav'), C.nav);
     renderHero();
     renderMarquee();
     renderContexto();
