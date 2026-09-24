@@ -6,6 +6,9 @@
   <title>¿Sólo porque ZIG? Únete al ZAG — Portal 30 años · Publicidad EAM</title>
   <meta name="description" content="Portal de la campaña de los 30 años del programa de Publicidad Digital y Mercadeo de la EAM. La teoría ZAG de Marty Neumeier hecha comunidad: perfiles, sellos, Muro de Quiebre, mentorías, ZAG Room y tienda.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000000'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='18' font-weight='900' fill='%23fff8ee' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/content.js" defer></script>
@@ -44,11 +47,12 @@
 
     <!-- 1 · HERO -->
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-art" src="assets/img/fondoherozag.png" alt="" aria-hidden="true">
-      <img class="hero-art hero-art--rot" src="assets/img/manohero.png" alt="" aria-hidden="true">
+      <img class="hero-art" src="assets/img/fondoherozag.webp" alt="" aria-hidden="true" fetchpriority="high">
+      <img class="hero-art hero-art--rot" src="assets/img/manohero.webp" alt="" aria-hidden="true" fetchpriority="high">
       <div class="container">
         <div id="hero-box"></div>
       </div>
+      <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
     </section>
 
     <!-- 2 · MARQUEE -->
@@ -59,12 +63,15 @@
     <!-- 3 · CONTEXTO ZIG vs ZAG -->
     <section class="section section--surface" aria-labelledby="contexto-title">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <h2 id="contexto-title" class="section-title">ZIG vs. ZAG</h2>
+        <div class="contexto-grid" data-reveal>
+          <div class="contexto-media">
+            <img class="contexto-img" src="assets/img/zigvszag.svg" alt="Ilustración del concepto ZIG vs. ZAG: todos hacen zig, nosotros hacemos zag." role="img" width="1440" height="810" />
+          </div>
+          <div class="contexto-copy">
+            <h2 id="contexto-title" class="statement-title"></h2>
+            <div id="contexto-body" class="statement-body"></div>
+          </div>
         </div>
-        <div id="zig-grid" class="zig-grid" data-reveal></div>
-        <figure id="quote-box" data-reveal></figure>
-        <div id="zig-close" class="zig-close" data-reveal></div>
       </div>
     </section>
 
@@ -76,26 +83,29 @@
           <h2 id="carousel-title" class="section-title"></h2>
           <p id="carousel-sub" class="section-sub"></p>
         </div>
-        <div class="carousel-wrap" data-reveal>
-          <div id="carousel-track" class="carousel" tabindex="0" aria-label="Fotos de las activaciones ZAG. Desliza para ver todas."></div>
-          <div class="carousel-nav">
-            <button id="carousel-prev" class="carousel-btn" type="button" aria-label="Fotos anteriores">←</button>
-            <button id="carousel-next" class="carousel-btn" type="button" aria-label="Fotos siguientes">→</button>
-          </div>
+        <div class="film-wrap" data-reveal>
+          <div id="film-track" class="film-track" aria-label="Fotos de las activaciones ZAG que van pasando. El movimiento se pausa al pasar el cursor."></div>
         </div>
       </div>
     </section>
 
     <!-- 5 · MURO DE QUIEBRE -->
-    <section id="muro" class="section section--surface" aria-labelledby="muro-title">
+    <section id="muro" class="section muro-section" aria-labelledby="muro-title">
       <div class="container">
         <p id="muro-kicker" class="kicker"></p>
         <div class="section-head" data-reveal>
           <h2 id="muro-title" class="section-title"></h2>
           <p id="muro-sub" class="section-sub"></p>
         </div>
-        <div id="muro-masonry" class="muro-masonry" data-reveal></div>
-        <p id="muro-note" class="muro-note"></p>
+        <div class="muro-grid" data-reveal>
+          <figure class="muro-media">
+            <img src="assets/img/tribuzaggista1.svg" alt="La Tribu Zaggista celebrando el quiebre del zig" width="430" height="430">
+          </figure>
+          <div class="muro-side">
+            <div id="muro-list" class="muro-list"></div>
+            <p id="muro-note" class="muro-note"></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -110,6 +120,7 @@
         </div>
         <div id="profiles-grid" class="profiles-grid" data-reveal></div>
       </div>
+      <img class="patron-strip" src="assets/img/patronzag2.svg" alt="" role="presentation" width="1269" height="105">
     </section>
 
     <!-- 7 · ACORDEÓN — DESCUBRE EL ZAG -->

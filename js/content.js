@@ -44,53 +44,44 @@ window.ZAG_CONTENT = {
 
   contexto: {
     answerTipTerm: 'zag',
-    zig: {
-      title: 'ZIG',
-      items: ['Lo tradicional', 'Lo seguro', 'Lo esperado'],
-    },
-    zag: {
-      title: 'ZAG',
-      items: ['Lo disruptivo', 'Lo creativo', 'Lo inesperado'],
-    },
+    statementLines: [
+      { text: 'Cuando todos hacen zig' },
+      { text: 'La EAM hace ZAG', accent: 'ZAG' },
+    ],
     quote: 'En una época en la que proliferan los productos de imitación y asistimos a una saturación de la oferta, mantener el nivel de competencia ya no es una estrategia de éxito... Cuando todos hacen zig, hacer zag. En un mundo de extrema competencia, se exige algo más que ser diferente: la diferenciación radical.',
     quoteAuthor: 'Marty Neumeier',
     close: 'Cada generación de estudiantes y egresados ha sumado un «zag» más. Los 30 años no son solo un número — son la prueba viviente del concepto.',
   },
 
   carrusel: {
-    kicker: 'LA CAMPAÑA YA ARRANCÓ EN EL CAMPUS',
+    kicker: 'Ya es una cultura',
     title: 'Lo que ya pasó en el campus',
+    titleAccent: 'en el campus',
     sub: 'Activaciones de la campaña de expectativa «El fin del Zig». En fotos.',
     items: [
       {
-        img: 'assets/img/fase-incomodidad.svg',
-        alt: 'Afiches de la Fase Incomodidad pegados en el campus, con la pregunta «¿Elegiste o solo seguiste?»',
+        img: 'assets/img/evento-fase-incomodidad.webp',
+        alt: 'Fotografía de la activación de la Fase Incomodidad en el campus del ZAG',
         tag: 'Fase Incomodidad',
         caption: 'Hicimos ruido a propósito. Antes de explicarte, te molestamos.',
       },
       {
-        img: 'assets/img/museo-del-zig.svg',
-        alt: 'Vitrina del Museo del Zig con publicidad genérica y repetida',
+        img: 'assets/img/evento-museo-del-zig.webp',
+        alt: 'Fotografía de la vitrina del Museo del Zig durante el evento',
         tag: 'Museo del Zig',
         caption: 'Publicidad genérica, en vitrina. Quien no tenía nada que decir, quedó expuesto.',
       },
       {
-        img: 'assets/img/fase-quiebre.svg',
-        alt: 'Instalación de la Fase Quiebre con un ataúd conceptual y QR',
+        img: 'assets/img/evento-fase-quiebre.webp',
+        alt: 'Fotografía de la instalación de la Fase Quiebre en el campus',
         tag: 'Fase Quiebre',
         caption: 'El final de lo obvio. Un ataúd, un QR y cero ceremonia.',
       },
       {
-        img: 'assets/img/fase-transicion.svg',
-        alt: 'Línea recta pintada en el piso que se quiebra en zigzag con el texto del ZAG',
+        img: 'assets/img/evento-fase-transicion.webp',
+        alt: 'Fotografía del recorrido de la Fase Transición con el zigzag del ZAG',
         tag: 'Fase Transición',
         caption: 'La línea recta se quebró. Todos siguieron el camino fácil… ¿Solo porque zig?',
-      },
-      {
-        img: 'assets/img/zag-booth.svg',
-        alt: 'Cabina del ZAG Booth donde se toman 3 fotos a reacción frente a un reto absurdo',
-        tag: 'ZAG Booth',
-        caption: 'La cabina que te convierte en campaña: 3 fotos, una tira y tu primera pieza publicitaria.',
       },
     ],
   },
@@ -98,7 +89,8 @@ window.ZAG_CONTENT = {
   muro: {
     kicker: 'COMUNIDAD',
     title: 'El Muro de Quiebre',
-    sub: 'Esto no es marketing. Es lo que la comunidad ZAG dejó escrito, con su propia letra.',
+    titleAccent: 'Quiebre',
+    sub: '',
     note: 'Testimonios de ejemplo — los reales llegan con cada evento',
     quotes: [
       { author: 'Mariana P.', text: 'Dejé de pedir permiso para tener ideas raras.' },

@@ -115,7 +115,7 @@
 
     var actions = el('div', 'hero-actions');
     var a1 = document.createElement('a');
-    a1.className = 'btn';
+    a1.className = 'btn btn--hero';
     a1.href = h.ctaPrimary.href;
     a1.textContent = h.ctaPrimary.label;
     var a2 = document.createElement('a');
@@ -155,62 +155,101 @@
     });
   }
 
-  /* ---------- render: contexto ---------- */
+  /* ---------- render: contexto (manifiesto ZIG vs ZAG) ---------- */
   function renderContexto() {
     var ctx = C.contexto;
 
-    var grid = document.getElementById('zig-grid');
-    var zig = el('div', 'zig-card zig-card--zig');
-    zig.appendChild(el('h3', null, ctx.zig.title));
-    var ul = el('ul');
-    ctx.zig.items.forEach(function (it) { ul.appendChild(el('li', null, it)); });
-    zig.appendChild(ul);
+    /* título-manifiesto en dos líneas */
+    var title = document.getElementById('contexto-title');
+    title.textContent = '';
+    (ctx.statementLines || []).forEach(function (line, idx) {
+      var span = document.createElement('span');
+      span.className = 'statement-line statement-line--' + (idx + 1);
+      if (line.accent) {
+        var pos = line.text.indexOf(line.accent);
+        if (pos !== -1) {
+          span.appendChild(document.createTextNode(line.text.slice(0, pos)));
+          var acc = document.createElement('span');
+          acc.className = 'statement-accent';
+          acc.textContent = line.accent;
+          span.appendChild(acc);
+          span.appendChild(document.createTextNode(line.text.slice(pos + line.accent.length)));
+        } else {
+          span.textContent = line.text;
+        }
+      } else {
+        span.textContent = line.text;
+      }
+      title.appendChild(span);
+      if (idx < ctx.statementLines.length - 1) {
+        title.appendChild(document.createTextNode(' '));
+      }
+    });
 
-    var zag = el('div', 'zig-card zig-card--zag');
-    zag.appendChild(el('h3', null, ctx.zag.title));
-    var ulZ = el('ul');
-    ctx.zag.items.forEach(function (it) { ulZ.appendChild(el('li', null, it)); });
-    zag.appendChild(ulZ);
-
-    grid.appendChild(zig);
-    grid.appendChild(zag);
-
-    var quote = document.getElementById('quote-box');
-    var blockquote = document.createElement('blockquote');
-    blockquote.className = 'quote';
-    blockquote.appendChild(el('p', null, ctx.quote));
-    var fig = el('figcaption', null, '— ' + ctx.quoteAuthor);
-    blockquote.appendChild(fig);
-    quote.appendChild(blockquote);
-
-    document.getElementById('zig-close').appendChild(el('p', 'zig-close', ctx.close));
+    /* párrafos: cita sin la frase ya dicha en el título + cierre + autor */
+    var body = document.getElementById('contexto-body');
+    body.textContent = '';
+    var quote = ctx.quote
+      .replace('Cuando todos hacen zig, hacer zag.', '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    body.appendChild(el('p', null, quote));
+    body.appendChild(el('p', null, ctx.close));
+    body.appendChild(el('p', 'statement-attr', '— ' + ctx.quoteAuthor));
   }
 
-  /* ---------- render: carrusel ---------- */
+  /* ---------- render: tira de fotos del campus (en movimiento, pausa al hover) ---------- */
   function renderCarrusel() {
     var cs = C.carrusel;
     document.getElementById('carousel-kicker').textContent = cs.kicker;
-    document.getElementById('carousel-title').textContent = cs.title;
+
+    var title = document.getElementById('carousel-title');
+    title.textContent = '';
+    var accent = cs.titleAccent || '';
+    var at = accent ? cs.title.indexOf(accent) : -1;
+    if (at !== -1) {
+      title.appendChild(el('span', 'carousel-part', cs.title.slice(0, at)));
+      var accSpan = el('span', 'carousel-part carousel-part--accent', accent);
+      title.appendChild(accSpan);
+      title.appendChild(document.createTextNode(cs.title.slice(at + accent.length)));
+    } else {
+      title.textContent = cs.title;
+    }
     document.getElementById('carousel-sub').textContent = cs.sub;
 
-    var wrap = document.getElementById('carousel-track');
-    cs.items.forEach(function (item) {
-      var card = document.createElement('figure');
-      card.className = 'carousel-card';
+    var track = document.getElementById('film-track');
+
+    function buildCard(item) {
+      var card = document.createElement('article');
+      card.className = 'film-card';
+      card.setAttribute('aria-label', item.tag + '. ' + item.caption);
       var img = document.createElement('img');
-      img.className = 'carousel-photo';
+      img.className = 'film-photo';
       img.src = item.img;
       img.alt = item.alt;
       img.loading = 'lazy';
-      img.width = 400;
+      img.width = 800;
       img.height = 500;
-      var cap = document.createElement('figcaption');
-      cap.appendChild(el('span', null, item.tag));
-      cap.appendChild(el('span', null, item.caption));
+      var fig = document.createElement('div');
+      fig.className = 'film-caption';
+      fig.appendChild(el('h3', 'film-title', item.tag));
+      fig.appendChild(el('p', 'film-text', item.caption));
       card.appendChild(img);
-      card.appendChild(cap);
-      wrap.appendChild(card);
+      card.appendChild(fig);
+      return card;
+    }
+
+    cs.items.forEach(function (item) {
+      track.appendChild(buildCard(item));
     });
+
+    /* clona todo el set para que translateX(-50%) cierre el loop sin saltos */
+    Array.prototype.slice.call(track.children).forEach(function (child) {
+      track.appendChild(child.cloneNode(true));
+    });
+
+    var dur = Math.max(18, cs.items.length * 6);
+    track.style.animationDuration = dur + 's';
   }
 
   /* ---------- render: muro ---------- */
@@ -219,21 +258,75 @@
     document.getElementById('muro-kicker').textContent = m.kicker;
     var title = document.getElementById('muro-title');
     title.textContent = '';
-    title.appendChild(el('span', null, m.title));
+    title.appendChild(el('span', 'muro-part', m.titleAccent ? m.title.split(m.titleAccent)[0] : m.title));
+    var accSpan = el('span', 'muro-part muro-part--accent', m.titleAccent || '');
+    title.appendChild(accSpan);
+    title.appendChild(document.createTextNode(m.titleAccent ? m.title.split(m.titleAccent)[1] : ''));
     title.appendChild(tipButton('murodequiebre'));
-    document.getElementById('muro-sub').textContent = m.sub;
+    document.getElementById('muro-sub').textContent = '';
     document.getElementById('muro-note').textContent = m.note;
 
-    var grid = document.getElementById('muro-masonry');
-    m.quotes.forEach(function (q) {
+    var list = document.getElementById('muro-list');
+
+    function buildCard(q) {
       var card = el('figure', 'muro-card');
-      card.appendChild(el('p', null, '«' + q.text + '»'));
-      card.appendChild(el('cite', null, q.author));
-      grid.appendChild(card);
+      var head = el('div', 'post-head');
+      var initial = q.author.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ]/g, '').charAt(0).toUpperCase();
+      head.appendChild(el('span', 'post-avatar', initial || q.author.charAt(0).toUpperCase()));
+      head.appendChild(el('cite', 'post-name', q.author));
+      var handle = '@' + q.author.split(' ')[0].toLowerCase()
+        .replace(/[áàäâ]/g, 'a').replace(/[éèëê]/g, 'e').replace(/[íìïî]/g, 'i')
+        .replace(/[óòöô]/g, 'o').replace(/[úùüû]/g, 'u').replace(/[ñ]/g, 'n')
+        .replace(/[^a-z0-9]/g, '');
+      head.appendChild(el('span', 'post-handle', handle + ' · 2 h'));
+      card.appendChild(head);
+      card.appendChild(el('p', 'post-text', q.text));
+      var actions = el('div', 'post-actions');
+      actions.appendChild(el('span', null, '↩'));
+      actions.appendChild(el('span', null, '↻'));
+      actions.appendChild(el('span', null, '♡'));
+      card.appendChild(actions);
+      return card;
+    }
+
+    var max = 4;
+    var quotes = m.quotes;
+    var p = Math.min(max, quotes.length);
+    for (var i = p - 1; i >= 0; i--) {
+      list.appendChild(buildCard(quotes[i]));
+    }
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var timer = null;
+
+    function tick() {
+      var leaving = list.lastElementChild;
+      if (leaving) {
+        leaving.classList.add('is-leaving');
+        (function (n) {
+          window.setTimeout(function () {
+            if (n && n.parentNode) n.parentNode.removeChild(n);
+          }, 280);
+        })(leaving);
+      }
+      p = (p + 1) % quotes.length;
+      var fresh = buildCard(quotes[p]);
+      list.insertBefore(fresh, list.firstChild);
+    }
+
+    function schedule() {
+      timer = window.setInterval(tick, 2600);
+    }
+
+    list.addEventListener('mouseenter', function () {
+      if (timer) window.clearInterval(timer);
     });
+    list.addEventListener('mouseleave', schedule);
+    schedule();
   }
 
-  /* ---------- render: niveles ---------- */
+  /* ---------- render: perfiles ---------- */
   function renderNiveles() {
     var n = C.niveles;
     document.getElementById('niv-kicker').textContent = n.kicker;
@@ -440,24 +533,6 @@
     });
   }
 
-  /* ---------- carrusel arrows ---------- */
-  function initCarousel() {
-    var track = document.getElementById('carousel-track');
-    var prev = document.getElementById('carousel-prev');
-    var next = document.getElementById('carousel-next');
-    if (!track || !prev || !next) return;
-    var step = function () {
-      var card = track.querySelector('.carousel-card');
-      return (card ? card.offsetWidth : 320) + 16;
-    };
-    prev.addEventListener('click', function () {
-      track.scrollBy({ left: -step(), behavior: 'smooth' });
-    });
-    next.addEventListener('click', function () {
-      track.scrollBy({ left: step(), behavior: 'smooth' });
-    });
-  }
-
   /* ---------- imágenes de marca con fallback ---------- */
   function initBrandLogos() {
     document.querySelectorAll('[data-fallback]').forEach(function (img) {
@@ -467,6 +542,116 @@
         img.addEventListener('error', function () { hideBrokenImage(img); });
       }
     });
+  }
+
+  /* ---------- hero: dibujar con el cursor (canvas) ---------- */
+  function initHeroCanvas() {
+    var canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+
+    /* solo con mouse real y sin reduced-motion */
+    if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ctx = canvas.getContext('2d');
+    var hero = canvas.parentElement;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0,
+      H = 0;
+    var pts = [];
+    var tx = -100,
+      ty = -100;
+    var cx = -100,
+      cy = -100;
+    var LIFE = 950;
+    var hover = false;
+    var ready = false;
+    var started = false;
+
+    function resize() {
+      var r = hero.getBoundingClientRect();
+      W = r.width;
+      H = r.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function onEnter() { hover = true; }
+    function onLeave() { hover = false; }
+
+    function onMove(e) {
+      if (!ready) return;
+      var r = hero.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (!started) {
+        started = true;
+        cx = tx;
+        cy = ty;
+      }
+    }
+
+    function frame(now) {
+      if (!ready) {
+        requestAnimationFrame(frame);
+        return;
+      }
+      /* seguimiento suavizado: el trazo va un poco detrás del mouse */
+      cx += (tx - cx) * 0.22;
+      cy += (ty - cy) * 0.22;
+      if (hover && (Math.abs(tx - cx) + Math.abs(ty - cy)) > 0.3) {
+        pts.push({ x: cx, y: cy, t: now });
+      }
+
+      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      if (pts.length > 400) pts.splice(0, pts.length - 400);
+
+      ctx.clearRect(0, 0, W, H);
+      var n = pts.length;
+
+      /* trazo continuo liso (curvas cuadráticas por puntos medios) con desvanecido según edad */
+      if (n > 1) {
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (var i = 1; i < n - 1; i++) {
+          var mx = (pts[i].x + pts[i + 1].x) / 2;
+          var my = (pts[i].y + pts[i + 1].y) / 2;
+          ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+        }
+        var lastA = 1 - (now - pts[n - 1].t) / LIFE;
+        ctx.strokeStyle = 'rgba(255,248,238,' + (Math.max(0, lastA) * 0.85).toFixed(3) + ')';
+        ctx.lineWidth = Math.max(0.75, 1.5 * Math.max(0, lastA));
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function enable() {
+      if (ready) return;
+      ready = true;
+      started = false;
+      resize();
+    }
+
+    resize();
+    hero.addEventListener('mouseenter', onEnter);
+    hero.addEventListener('mousemove', onMove);
+    hero.addEventListener('mouseleave', onLeave);
+    window.addEventListener('resize', resize);
+
+    if (document.readyState === 'complete') {
+      enable();
+    } else {
+      window.addEventListener('load', enable);
+    }
+
+    requestAnimationFrame(frame);
   }
 
   /* ---------- init ---------- */
@@ -487,9 +672,9 @@
     initTooltips();
     initNav();
     initAccordion();
-    initCarousel();
     initBrandLogos();
     initReveals();
+    initHeroCanvas();
   }
 
   if (document.readyState === 'loading') {
