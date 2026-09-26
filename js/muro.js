@@ -15,8 +15,28 @@
 
   var UI = D.ui;
   var LS_POSTS = 'zag_muro_v3';
-  var LS_SESSION = 'zag_session';
   var LS_CC_DRAFTS = 'zag_muro_drafts';
+  var SESSION = window.ZAG_SESSION || { read: loadSessionFallback, write: setSessionFallback, clear: clearSessionFallback };
+
+  /* Fallbacks por si zag-session.js no cargó (misma clave/localStorage). */
+  function loadSessionFallback() {
+    var raw = null;
+    try { raw = window.localStorage.getItem('zag_session'); } catch (e) { /* sin storage */ }
+    if (!raw) return null;
+    try {
+      var s = JSON.parse(raw);
+      if (s && typeof s === 'object' && s.level) return s;
+    } catch (e) { /* corrupto */ }
+    return null;
+  }
+
+  function setSessionFallback(obj) {
+    try { window.localStorage.setItem('zag_session', JSON.stringify(obj)); } catch (e) { /* sin storage */ }
+  }
+
+  function clearSessionFallback() {
+    try { window.localStorage.removeItem('zag_session'); } catch (e) { /* sin storage */ }
+  }
 
   /* ---------- utilidades ---------- */
   function $(id) { return document.getElementById(id); }
@@ -96,26 +116,17 @@
   }
 
   function loadSession() {
-    var raw = null;
-    try { raw = window.localStorage.getItem(LS_SESSION); } catch (e) { /* sin storage */ }
-    if (!raw) return null;
-    try {
-      var s = JSON.parse(raw);
-      if (s && typeof s === 'object' && s.level) return s;
-    } catch (e) { /* corrupto */ }
-    return null;
+    return SESSION.read();
   }
 
   function setSession(level) {
     state.session = { name: UI.myName, level: level };
-    try {
-      window.localStorage.setItem(LS_SESSION, JSON.stringify({ name: UI.myName, level: level }));
-    } catch (e) { /* sin storage */ }
+    SESSION.write(state.session);
   }
 
   function clearSession() {
     state.session = null;
-    try { window.localStorage.removeItem(LS_SESSION); } catch (e) { /* sin storage */ }
+    SESSION.clear();
   }
 
   function resetDemo() {

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Casos ZIG — Blog de Fracasos · Portal ZAG</title>
+  <meta name="description" content="Casos ZIG (el Blog de Fracasos) del Portal ZAG: campañas reales de marcas reales que hicieron zig y salieron mal. Aquí los fracasos se estudian, no se esconden.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/casos.css">
+  <script src="js/content.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/casos-data.js" defer></script>
+  <script src="js/casos.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/logozag.svg"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="casos-session-chip" class="casos-session-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="casos-main">
+
+    <!-- 1 · HERO — fondo azul noche, titular gigante y stickers flotantes -->
+    <section id="casos-hero" class="casos-hero" aria-labelledby="casos-hero-title">
+      <div class="casos-stickers" aria-hidden="true">
+        <div class="sticker-slot" data-slot="1" data-depth="1">
+          <!-- STICKER DE MARCA: reemplazar por <img src="assets/img/stickers/..."> -->
+          <span class="sticker-vinyl">¿SOLO PORQUE ZIG…?</span>
+        </div>
+        <div class="sticker-slot" data-slot="2" data-depth="0.5"></div>
+        <div class="sticker-slot" data-slot="3" data-depth="0.8"></div>
+        <div class="sticker-slot" data-slot="4" data-depth="0.6"></div>
+        <div class="sticker-slot" data-slot="5" data-depth="0.9"></div>
+        <div class="sticker-slot" data-slot="6" data-depth="0.4"></div>
+      </div>
+
+      <div class="container casos-hero-inner">
+        <p id="casos-hero-kicker" class="kicker casos-hero-kicker"></p>
+        <h1 id="casos-hero-title" class="casos-hero-title"></h1>
+        <p id="casos-hero-sub" class="casos-hero-sub"></p>
+        <p id="casos-hero-scroll" class="casos-hero-scroll"></p>
+      </div>
+    </section>
+
+    <!-- 2 · LISTA DE CASOS (acordeón apilado) -->
+    <section class="casos-stage" aria-label="Casos de campañas que hicieron zig">
+      <div class="container">
+
+        <!-- Bloque de acceso (sin sesión): el JS lo completa -->
+        <section id="casos-access" class="casos-access" aria-labelledby="casos-access-title"></section>
+
+        <div id="casos-list-wrap" class="casos-list-wrap">
+          <div id="casos-list-utils" class="casos-list-utils"></div>
+          <div id="casos-list" class="casos-list" aria-label="Casos ZIG"></div>
+        </div>
+
+        <p id="casos-live" class="sr-only" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 3 · CTA FINAL — manda el caso que conozcas -->
+    <section id="casos-cta-section" class="casos-cta" aria-labelledby="casos-cta-title" hidden>
+      <div class="container">
+        <p id="casos-cta-kicker" class="kicker casos-cta-kicker"></p>
+        <h2 id="casos-cta-title" class="casos-cta-title"></h2>
+        <p id="casos-cta-sub" class="casos-cta-sub"></p>
+
+        <button id="casos-cta-toggle" type="button" class="btn" aria-expanded="false" aria-controls="casos-cta-form"></button>
+
+        <form id="casos-cta-form" class="casos-cta-form" novalidate hidden>
+          <label class="casos-field">
+            <span>Marca</span>
+            <input id="casos-f-marca" name="marca" type="text" autocomplete="off" required>
+          </label>
+          <label class="casos-field">
+            <span>Campaña y año</span>
+            <input id="casos-f-campana" name="campana" type="text" autocomplete="off">
+          </label>
+          <label class="casos-field">
+            <span>Categoría</span>
+            <select id="casos-f-categoria" name="categoria"></select>
+          </label>
+          <label class="casos-field casos-field--full">
+            <span>¿Qué pasó?</span>
+            <textarea id="casos-f-quepaso" name="quePaso" rows="4" maxlength="400" required></textarea>
+            <small id="casos-f-quepaso-count" class="casos-field-count"></small>
+          </label>
+          <label class="casos-field casos-field--full">
+            <span>Link de la fuente</span>
+            <input id="casos-f-link" name="link" type="url" autocomplete="off" placeholder="https://…" required>
+          </label>
+
+          <p id="casos-form-error" class="casos-form-error" role="alert" hidden></p>
+          <p id="casos-form-ok" class="casos-cta-ok" role="status"></p>
+
+          <div class="casos-form-actions">
+            <button type="submit" class="btn"></button>
+            <button id="casos-cta-close" type="button" class="casos-cta-close"></button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- 4 · FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-social">
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+        </div>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+        </div>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      Los Casos ZIG necesitan JavaScript para mostrar su contenido. Volvé a activarlo
+      o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>

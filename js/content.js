@@ -25,7 +25,7 @@ window.ZAG_CONTENT = {
           label: 'Blog de Fracasos',
           desc: 'Errores que no se repiten: los éxitos se cocinan',
           icon: 'fail',
-          href: 'proximamente.html',
+          href: 'casos.html',
         },
         {
           label: 'Proyectos fuera del ZIG',

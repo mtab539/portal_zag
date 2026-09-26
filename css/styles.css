@@ -1707,6 +1707,7 @@ h2, h3 {
   white-space: nowrap;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
   opacity: 0;
+  display: none;
   translate: -50% 10px;
   scale: 0.8;
   pointer-events: none;
@@ -1724,8 +1725,10 @@ h2, h3 {
   transform: translateX(-50%) rotate(45deg);
 }
 
-.sflip-item:hover .sflip-tip {
+.sflip-item:hover .sflip-tip,
+.sflip-item:focus-within .sflip-tip {
   opacity: 1;
+  display: block;
   translate: -50% -50px;
   scale: 1;
 }

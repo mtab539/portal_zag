@@ -95,6 +95,7 @@
   --color-white: #ffffff;          /* Blanca — fondo base del body */
   --color-cream: #fff8ee;          /* Crema — texto sobre azules/oscuros / nivel Rookie */
   --color-black: #000000;          /* Negro — nivel Senior, texto, footer, alto contraste */
+  --color-night: #0a1240;          /* Azul casi negro (derivado de brand-deep) — fondo del hero y CTA de Casos ZIG, para que los stickers y el titular respiren */
 
   /* ---- Roles derivados (semánticos) ---- */
   --color-bg: var(--color-white);
