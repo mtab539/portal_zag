@@ -81,15 +81,89 @@
   }
 
   /* ---------- render: nav ---------- */
+  var NAV_ICONS = {
+    wall: 'M4 4h16v6H4zM8 14h2v4H8zM14 14h2v4h-2zM4 8h16M6 8v3M18 8v3',
+    fail: 'M12 3l6 3v5c0 5-2.5 8-6 10-3.5-2-6-5-6-10V6zM9 10l6 6M15 10l-6 6',
+    rocket: 'M12 2c3 3 4 7 4 11H8c0-4 1-8 4-11zM8 13c-2 2-2 4-1 5M16 13c2 2 2 4 1 5M12 15l1 4',
+    fire: 'M12 3c1 3 3 4 3 7a3 3 0 0 1-6 0c0-1 .5-2 1-3 .5-.8 1-1.7 2-4zM12 21c-3 0-5-2-5-5s2-5 5-6c3 1 5 3 5 6s-2 5-5 5z',
+    talk: 'M4 5h16v11H9l-5 4zM8 9h8M8 12h5',
+    compass: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM15.5 8.5l-2 5-5 2 2-5z',
+    learn: 'M4 6c3-2 6-2 8 0 2-2 5-2 8 0v12c-3-2-6-2-8 0-2-2-5-2-8 0zM12 6v12',
+  };
+
+  function navIcon(name) {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('width', '22');
+    svg.setAttribute('height', '22');
+    svg.setAttribute('aria-hidden', 'true');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', NAV_ICONS[name] || NAV_ICONS.compass);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '1.8');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(path);
+    return svg;
+  }
+
+  function navChevron() {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('width', '14');
+    svg.setAttribute('height', '14');
+    svg.setAttribute('aria-hidden', 'true');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'm6 9 6 6 6-6');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(path);
+    return svg;
+  }
+
   function renderNav(container, items, proximity) {
     if (!container) return;
     container.textContent = '';
     items.forEach(function (item) {
       var li = el('li');
-      var a = document.createElement('a');
-      a.href = item.href;
-      a.textContent = item.label;
-      li.appendChild(a);
+      li.className = item.children && item.children.length ? 'nav-item has-dropdown' : 'nav-item';
+      if (item.children && item.children.length) {
+        var btn = el('button', 'nav-link nav-link--toggle');
+        btn.type = 'button';
+        btn.setAttribute('aria-haspopup', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.appendChild(document.createTextNode(item.label));
+        btn.appendChild(navChevron());
+        li.appendChild(btn);
+
+        var sub = el('ul', 'nav-dropdown');
+        sub.setAttribute('aria-label', 'Submenú de ' + item.label);
+        item.children.forEach(function (child) {
+          var sLi = el('li');
+          var sA = document.createElement('a');
+          sA.href = child.href;
+          var iconBox = el('span', 'nav-dropdown-icon');
+          iconBox.appendChild(navIcon(child.icon));
+          sA.appendChild(iconBox);
+          var txt = el('span', 'nav-dropdown-text');
+          txt.appendChild(el('span', 'nav-dropdown-title', child.label));
+          if (child.desc) txt.appendChild(el('span', 'nav-dropdown-desc', child.desc));
+          sA.appendChild(txt);
+          sLi.appendChild(sA);
+          sub.appendChild(sLi);
+        });
+        li.appendChild(sub);
+      } else {
+        var a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.label;
+        a.className = 'nav-link';
+        li.appendChild(a);
+      }
       container.appendChild(li);
     });
   }
@@ -127,6 +201,7 @@
     actions.appendChild(a2);
 
     var box = document.getElementById('hero-box');
+    if (!box) return;
     box.textContent = '';
     box.appendChild(eyebrow);
     box.appendChild(h1);
@@ -137,6 +212,7 @@
   /* ---------- render: marquee ---------- */
   function renderMarquee() {
     var track = document.getElementById('marquee-track');
+    if (!track) return;
     var reps = [];
     for (var i = 0; i < C.marquee.repeat; i++) {
       var r = el('div', 'marquee-repeat');
@@ -156,53 +232,12 @@
     });
   }
 
-  /* ---------- render: contexto (manifiesto ZIG vs ZAG) ---------- */
-  function renderContexto() {
-    var ctx = C.contexto;
-
-    /* título-manifiesto en dos líneas */
-    var title = document.getElementById('contexto-title');
-    title.textContent = '';
-    (ctx.statementLines || []).forEach(function (line, idx) {
-      var span = document.createElement('span');
-      span.className = 'statement-line statement-line--' + (idx + 1);
-      if (line.accent) {
-        var pos = line.text.indexOf(line.accent);
-        if (pos !== -1) {
-          span.appendChild(document.createTextNode(line.text.slice(0, pos)));
-          var acc = document.createElement('span');
-          acc.className = 'statement-accent';
-          acc.textContent = line.accent;
-          span.appendChild(acc);
-          span.appendChild(document.createTextNode(line.text.slice(pos + line.accent.length)));
-        } else {
-          span.textContent = line.text;
-        }
-      } else {
-        span.textContent = line.text;
-      }
-      title.appendChild(span);
-      if (idx < ctx.statementLines.length - 1) {
-        title.appendChild(document.createTextNode(' '));
-      }
-    });
-
-    /* párrafos: cita sin la frase ya dicha en el título + cierre + autor */
-    var body = document.getElementById('contexto-body');
-    body.textContent = '';
-    var quote = ctx.quote
-      .replace('Cuando todos hacen zig, hacer zag.', '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    body.appendChild(el('p', null, quote));
-    body.appendChild(el('p', null, ctx.close));
-    body.appendChild(el('p', 'statement-attr', '— ' + ctx.quoteAuthor));
-  }
-
   /* ---------- render: tira de fotos del campus (en movimiento, pausa al hover) ---------- */
   function renderCarrusel() {
     var cs = C.carrusel;
-    document.getElementById('carousel-kicker').textContent = cs.kicker;
+    var kicker = document.getElementById('carousel-kicker');
+    if (!kicker) return;
+    kicker.textContent = cs.kicker;
 
     var title = document.getElementById('carousel-title');
     title.textContent = '';
@@ -256,7 +291,9 @@
   /* ---------- render: muro ---------- */
   function renderMuro() {
     var m = C.muro;
-    document.getElementById('muro-kicker').textContent = m.kicker;
+    var kicker = document.getElementById('muro-kicker');
+    if (!kicker) return;
+    kicker.textContent = m.kicker;
     var title = document.getElementById('muro-title');
     title.textContent = '';
     title.appendChild(el('span', 'muro-part', m.titleAccent ? m.title.split(m.titleAccent)[0] : m.title));
@@ -266,6 +303,12 @@
     title.appendChild(tipButton('murodequiebre'));
     document.getElementById('muro-sub').textContent = '';
     document.getElementById('muro-note').textContent = m.note;
+
+    var linkEl = document.getElementById('muro-link');
+    if (m.link && linkEl) {
+      linkEl.href = m.link.href;
+      linkEl.textContent = m.link.label;
+    }
 
     var list = document.getElementById('muro-list');
 
@@ -357,6 +400,7 @@
     },
     {
       id: 'creator',
+      art: 'creador',
       bg: '#ff5c01', fg: '#fff8ee',
       flipTilt: -6, dismissTilt: -40,
       icon: 'M13 2 4 14h6l-1 8 9-12h-6z'
@@ -395,23 +439,26 @@
     card.style.color = cfg.fg;
     card.dataset.flipTilt = String(cfg.flipTilt);
     card.dataset.dismissTilt = String(cfg.dismissTilt);
-    card.appendChild(el('h3', null, cfg.name));
-    card.appendChild(el('span', 'settle-tag', cfg.identity));
-    var iconBox = el('div', 'settle-icon');
-    iconBox.appendChild(settleSvgIcon(cfg.icon));
-    card.appendChild(iconBox);
+    card.style.backgroundImage = 'url("assets/img/' + (cfg.art || cfg.id) + '-tarjeta.svg")';
+    card.style.backgroundSize = 'cover';
+    card.style.backgroundPosition = 'center';
+    card.classList.add('settle-card--imagen');
     var body = el('p', null, cfg.benefit);
-    if (cfg.id === 'rookie') {
-      body.textContent = '';
-      addTip(body, cfg.benefit, 'fogata');
-    }
     card.appendChild(body);
+    var more = document.createElement('a');
+    more.className = 'settle-more';
+    more.href = 'index.html';
+    more.textContent = 'click para ver más';
+    more.setAttribute('aria-label', 'Más sobre el nivel ' + cfg.name);
+    card.appendChild(more);
     return card;
   }
 
   function renderNiveles() {
     var n = C.niveles;
-    document.getElementById('niv-kicker').textContent = n.kicker;
+    var kicker = document.getElementById('niv-kicker');
+    if (!kicker) return;
+    kicker.textContent = n.kicker;
 
     var title = document.getElementById('niv-title');
     title.textContent = '';
@@ -434,12 +481,13 @@
     /* portada (front card) — marca los perfiles igual que la animación Settle */
     var front = document.getElementById('settle-front');
     front.textContent = '';
-    front.appendChild(el('h3', null, 'PERFILES ZAG'));
-    front.appendChild(el('span', 'settle-tag', 'Empezá acá'));
-    var fIcon = el('div', 'settle-icon');
-    fIcon.appendChild(settleSvgIcon('M8 10l4 4 4-4'));
-    front.appendChild(fIcon);
-    front.appendChild(el('p', null, 'Cinco niveles, seis sellos cada uno. Desplazá y mirá el stack asentarse.'));
+    front.classList.add('settle-card--front-img');
+    var frontBtn = document.createElement('a');
+    frontBtn.className = 'settle-more';
+    frontBtn.href = '#perfiles';
+    frontBtn.textContent = 'Click para ver';
+    frontBtn.setAttribute('aria-label', 'Ver los perfiles del ZAG');
+    front.appendChild(frontBtn);
 
     /* cinco tarjetas de nivel (back cards) */
     var backWrap = document.getElementById('settle-back');
@@ -459,7 +507,9 @@
     });
     if (!built.length) return;
 
-    /* ---- motor del stack: un rAF lee el progreso del scroll ---- */
+    /* ---- motor del stack: la animación de scroll por tarjeta queda igual,
+         pero solo se activa al hacer click en la portada (track is-open).
+         Sin click la sección mide una pantalla y la landing sigue directo. ---- */
     var track = document.getElementById('settle-track');
     var headline = track.querySelector('.settle-headline');
     var frontEl = front;
@@ -475,7 +525,6 @@
         headline.style.opacity = String(1 - enter);
       }
 
-      /* el sticker acompaña al stack: se mueve con el deck y aparece con el despegue */
       if (stickerWrap) {
         stickerWrap.style.transform = 'translateY(calc(-50% + ' + deckY + '%))';
         var stickerFade = smoothS(mapRangeS(SETTLE_FLIP_START, SETTLE_FLIP_END, p));
@@ -502,21 +551,52 @@
       });
     }
 
-    if (reduce) {
-      applySettle(0.5); /* estado asentado: stack revelado, nada se despega */
-      return;
-    }
-
-    applySettle(0);
-
+    /* estado cerrado (una pantalla): el deck se ve bajo — la portada queda
+       encima de la barra azul, esperando el click para activar el scroll */
     var rafSettle = 0;
     function settleTick() {
-      var rect = track.getBoundingClientRect();
-      var span = track.offsetHeight - window.innerHeight;
-      applySettle(clamp01S(span > 0 ? -rect.top / span : 0));
+      if (reduce) {
+        applySettle(0.5);
+      } else if (track.classList.contains('is-open')) {
+        var rect = track.getBoundingClientRect();
+        var span = track.offsetHeight - window.innerHeight;
+        applySettle(clamp01S(span > 0 ? -rect.top / span : 0));
+      } else {
+        applySettle(0);
+      }
       rafSettle = requestAnimationFrame(settleTick);
     }
     rafSettle = requestAnimationFrame(settleTick);
+
+    /* click en la portada: expande el track, entra el sticky y el usuario
+       hace scroll para ir viendo tarjeta por tarjeta */
+    var frontBtn = frontEl.querySelector('.settle-more');
+    var hintEl = track.querySelector('.settle-hint');
+    if (frontBtn) {
+      frontBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (reduce) return;
+        if (track.classList.contains('is-open')) return;
+        track.classList.add('is-open');
+        if (hintEl) hintEl.textContent = 'Desliza para ver todas las tarjetas';
+        var top = track.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    }
+
+    /* al salir de la sección, se vuelve a una pantalla (reset) */
+    if ('IntersectionObserver' in window) {
+      var settleObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting && track.classList.contains('is-open')) {
+            track.classList.remove('is-open');
+            if (hintEl) hintEl.textContent = 'Click para ver los perfiles';
+            applySettle(0);
+          }
+        });
+      });
+      settleObs.observe(track);
+    }
   }
 
   /* ---------- render: paneles "Descubre el ZAG" (expandibles, estilo panel-grid) ---------- */
@@ -530,7 +610,9 @@
 
   function renderAcordeon() {
     var a = C.acordeon;
-    document.getElementById('acc-kicker').textContent = a.kicker;
+    var kicker = document.getElementById('acc-kicker');
+    if (!kicker) return;
+    kicker.textContent = a.kicker;
 
     var accTitle = document.getElementById('acc-title');
     accTitle.textContent = '';
@@ -619,13 +701,28 @@
   /* ---------- render: únete ---------- */
   function renderUnirme() {
     var u = C.unirme;
-    document.getElementById('unirme-kicker').textContent = u.kicker;
-    document.getElementById('unirme-title').textContent = u.title;
-    document.getElementById('unirme-sub').textContent = u.sub;
+    var kicker = document.getElementById('unirme-kicker');
+    if (kicker) kicker.textContent = u.kicker;
+
+    var sideImg = document.getElementById('unirme-image');
+    if (sideImg) {
+      sideImg.src = u.image || '';
+      sideImg.addEventListener('error', function () { sideImg.remove(); });
+    }
 
     var grid = document.getElementById('unirme-grid');
+    if (!grid) return;
     u.cards.forEach(function (card) {
       var cardEl = el('div', 'unirme-card');
+      if (card.img) {
+        var img = document.createElement('img');
+        img.className = 'unirme-img';
+        img.src = card.img;
+        img.alt = '';
+        img.loading = 'lazy';
+        img.addEventListener('error', function () { img.remove(); });
+        cardEl.appendChild(img);
+      }
       cardEl.appendChild(el('h3', null, card.title));
 
       var p = document.createElement('p');
@@ -648,9 +745,8 @@
   /* ---------- render: cierre + footer ---------- */
   function renderClose() {
     var c = C.close;
-    document.getElementById('close-kicker').textContent = c.kicker;
-    document.getElementById('close-text').textContent = c.text;
     var btn = document.getElementById('close-cta');
+    if (!btn) return;
     btn.href = c.cta.href;
     btn.textContent = c.cta.label;
   }
@@ -666,14 +762,15 @@
     if (legal) legal.textContent = f.legal;
 
     var icons = {
-      Instagram: '<svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"/></svg>',
-      TikTok: '<svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0A121.18,121.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>',
-      'Web ZAG': '<svg viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M464 256a208 208 0 1 1-416 0 208 208 0 0 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 0 0 0 256zm512 0A256 256 0 1 1 0 256a256 256 0 0 1 512 0zm-208 0c0 60.8-34.6 112-48 112s-48-51.2-48-112 34.6-112 48-112 48 51.2 48 112zm32 0c0-79.5-35.8-144-80-144s-80 64.5-80 144 35.8 144 80 144 80-64.5 80-144zM289 9.6l-10.5 15.9c22.3 14.8 39.3 17.4 47.5 30.8l15.9-10.5C334 29 312.6 22.9 289 9.6zM147 17.6l-11.3 16.5c22.4 15.3 41.7 30.4 51.2 31.8V80h-48v32h48v48h32V112h48V80h-48V66c-2.5-1.8-10.8-7.2-22.9-15.6L147 17.6z"/></svg>',
+      instagram: 'assets/img/instagramlogo.svg',
+      tiktok: '<svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0A121.18,121.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>',
+      web: 'assets/img/webicon.svg',
     };
 
     var letters = ['Z', 'A', 'G'];
 
     var social = document.getElementById('footer-social');
+    if (!social) return;
     [].forEach.call(f.social, function (s, index) {
       var group = el('div', 'sflip-item');
       var clip = el('div', 'sflip-clip');
@@ -689,7 +786,17 @@
       var front = el('span', 'sflip-face sflip-face--front');
       front.textContent = letters[index % letters.length];
       var back = el('span', 'sflip-face sflip-face--back');
-      back.innerHTML = icons[s.label] || '';
+      var iconMarkup = icons[s.icon] || icons[s.label] || '';
+      if (iconMarkup.indexOf('<svg') === 0) {
+        back.innerHTML = iconMarkup;
+      } else if (iconMarkup) {
+        var iconImg = document.createElement('img');
+        iconImg.src = iconMarkup;
+        iconImg.alt = s.label;
+        iconImg.setAttribute('aria-hidden', 'true');
+        iconImg.classList.add('sflip-img');
+        back.appendChild(iconImg);
+      }
       inner.appendChild(front);
       inner.appendChild(back);
       group.appendChild(inner);
@@ -757,7 +864,15 @@
     items.forEach(function (item) { io.observe(item); });
   }
 
-  /* ---------- nav móvil ---------- */
+  /* ---------- nav (móvil + dropdowns) ---------- */
+  function closeDropdowns() {
+    document.querySelectorAll('.primary-nav .has-dropdown.is-open').forEach(function (li) {
+      li.classList.remove('is-open');
+      var btn = li.querySelector('.nav-link--toggle');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   function initNav() {
     var toggle = document.getElementById('nav-toggle');
     var nav = document.getElementById('primary-nav');
@@ -765,12 +880,41 @@
     toggle.addEventListener('click', function () {
       var open = nav.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', String(open));
+      if (!open) closeDropdowns();
     });
     nav.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
         nav.classList.remove('is-open');
         toggle.setAttribute('aria-expanded', 'false');
+        closeDropdowns();
       });
+    });
+    nav.querySelectorAll('.nav-link--toggle').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var li = btn.closest('.has-dropdown');
+        if (!li) return;
+        var open = li.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (nav.contains(e.target)) return;
+      if (toggle && toggle.contains(e.target)) return;
+      closeDropdowns();
+      if (nav.classList.contains('is-open')) {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeDropdowns();
+        if (nav.classList.contains('is-open')) {
+          nav.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      }
     });
   }
 
@@ -905,7 +1049,6 @@
     renderNav(document.getElementById('primary-nav'), C.nav);
     renderHero();
     renderMarquee();
-    renderContexto();
     renderCarrusel();
     renderMuro();
     renderNiveles();

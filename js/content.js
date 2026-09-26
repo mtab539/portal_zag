@@ -12,10 +12,63 @@ window.ZAG_CONTENT = {
 
   nav: [
     { label: 'Inicio', href: 'index.html' },
-    { label: 'Únete', href: '#unirme' },
-    { label: 'Perfil', href: 'proximamente.html' },
-    { label: 'Comunidad', href: '#muro' },
-    { label: 'Eventos', href: '#eventos' },
+    {
+      label: 'Comunidad',
+      children: [
+        {
+          label: 'Muro de quiebre',
+          desc: 'Testimonios de quienes rompieron lo obvio',
+          icon: 'wall',
+          href: 'muro.html',
+        },
+        {
+          label: 'Blog de Fracasos',
+          desc: 'Errores que no se repiten: los éxitos se cocinan',
+          icon: 'fail',
+          href: 'proximamente.html',
+        },
+        {
+          label: 'Proyectos fuera del ZIG',
+          desc: 'Ideas que nacieron fuera y terminaron haciendo ZAG',
+          icon: 'rocket',
+          href: 'proximamente.html',
+        },
+      ],
+    },
+    {
+      label: 'Eventos',
+      children: [
+        {
+          label: 'Fogatas',
+          desc: 'Encuentros informales: chocolate, risas y conversación real',
+          icon: 'fire',
+          href: 'proximamente.html',
+        },
+        {
+          label: 'Seminario',
+          desc: 'Charlas y talleres de la campaña de los 30 años',
+          icon: 'talk',
+          href: 'proximamente.html',
+        },
+      ],
+    },
+    {
+      label: 'Aprende más',
+      children: [
+        {
+          label: 'Mentorías',
+          desc: 'Tu ruta para subir de nivel, con alguien que ya la recorrió',
+          icon: 'compass',
+          href: 'proximamente.html',
+        },
+        {
+          label: 'Cursos extraclase',
+          desc: 'Lo que el pensum no te cuenta. Aprende haciendo ZAG',
+          icon: 'learn',
+          href: 'proximamente.html',
+        },
+      ],
+    },
     { label: 'ZAG Room', href: 'proximamente.html' },
     { label: 'Tienda', href: 'proximamente.html' },
   ],
@@ -92,6 +145,10 @@ window.ZAG_CONTENT = {
     titleAccent: 'Quiebre',
     sub: '',
     note: 'Testimonios de ejemplo — los reales llegan con cada evento',
+    link: {
+      label: 'Ver el muro completo →',
+      href: 'muro.html',
+    },
     quotes: [
       { author: 'Mariana P.', text: 'Dejé de pedir permiso para tener ideas raras.' },
       { author: 'Camilo R.', text: 'Si mi campaña no incomoda a alguien, la vuelvo a hacer.' },
@@ -165,16 +222,19 @@ window.ZAG_CONTENT = {
     kicker: 'ÚNETE',
     title: 'Únete al ZAG',
     sub: 'Recuerda: el portal no te pide que vuelvas a contar quién eres. Tu tira de fotos del Booth ya lo hizo por ti.',
+    image: 'assets/img/unetealzag.svg',
     cards: [
       {
-        title: 'Ya salí del Booth con mi tira',
-        desc: 'Escanea el QR del reverso de tu tira de fotos y activa tu perfil. Cero formularios desde cero.',
+        title: 'Ya soy ZAG',
+        desc: 'Escanea el QR del reverso de tu tira y activa tu perfil.',
         tips: ['booth'],
+        img: 'assets/img/cajazag.jpg',
         cta: { label: 'Ver mi perfil ZAG', href: 'proximamente.html' },
       },
       {
-        title: 'No tengo tira todavía',
-        desc: 'Erróneos o no, llevamos ZAG contigo: llega a una Fogata, a una activación abierta, o escribe al programa. La tribu no discrimina por carrera.',
+        title: 'Quiero ser parte',
+        desc: 'Llega a una Fogata o escribe al programa: la tribu no discrimina por carrera.',
+        img: 'assets/img/camiseta-zag.jpg',
         cta: { label: 'Quiero unirme', href: 'proximamente.html' },
       },
     ],
@@ -190,9 +250,9 @@ window.ZAG_CONTENT = {
     institutional: 'Publicidad Digital y Mercadeo · EAM Institución Universitaria',
     legal: 'Portal ZAG — campaña de los 30 años del programa de Publicidad Digital y Mercadeo. Este es un sitio de demostración; las pantallas del portal se conectan progresivamente.',
     social: [
-      { label: 'Instagram', href: '#' },
-      { label: 'TikTok', href: '#' },
-      { label: 'Web ZAG', href: 'index.html' },
+      { label: '@eamdelquindio', icon: 'instagram', href: 'https://www.instagram.com/eamdelquindio/' },
+      { label: '@eamdelquindio', icon: 'tiktok', href: 'https://www.tiktok.com/@eamdelquindio?lang=es' },
+      { label: 'www.eam.edu.co', icon: 'web', href: 'https://eam.edu.co/' },
     ],
   },
 

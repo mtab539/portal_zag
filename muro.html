@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muro de Quiebre — Portal ZAG</title>
+  <meta name="description" content="El Muro de Quiebre del Portal ZAG: qué le dirías al mundo si nadie te juzgara. Testimonios de la tribu Zaggista de la EAM.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/muro.css">
+  <script src="js/content.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/muro-data.js" defer></script>
+  <script src="js/muro.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/logozag.svg"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div id="muro-session-chip" class="muro-session-chip" hidden></div>
+      <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+    </div>
+  </header>
+
+  <main id="main" class="muro-main">
+
+    <!-- Hero reducido del Muro (la animación entra por JS en #muro-hero-anim) -->
+    <section class="muro-hero" aria-labelledby="muro-hero-title">
+      <div id="muro-hero-anim" class="muro-hero-anim" aria-hidden="true"></div>
+      <div class="muro-hero-pattern" aria-hidden="true">
+        <div class="muro-hero-pattern-track">
+          <div class="muro-hero-pattern-band"></div>
+          <div class="muro-hero-pattern-band"></div>
+        </div>
+      </div>
+      <div class="container muro-hero-inner">
+        <p id="muro-hero-kicker" class="kicker"></p>
+        <h1 id="muro-hero-title" class="muro-hero-title"></h1>
+        <p id="muro-hero-sub" class="muro-hero-sub"></p>
+        <div id="muro-hero-avatars" class="muro-hero-avatars" aria-label="Voces del Muro"></div>
+      </div>
+    </section>
+
+    <!-- Estado de la comunidad -->
+    <section class="muro-status" aria-label="Estado de la comunidad">
+      <div class="container muro-status-inner">
+        <span id="muro-status-members" class="muro-status-item"></span>
+        <span class="muro-status-item muro-status-online">
+          <span class="muro-dot" aria-hidden="true"></span>
+          <span id="muro-status-online"></span>
+        </span>
+        <span id="muro-status-posts" class="muro-status-item"></span>
+      </div>
+    </section>
+
+    <section class="muro-stage" aria-label="Muro de Quiebre">
+      <div class="container muro-stage-inner">
+
+        <!-- Bloque de acceso (sin sesión). El JS lo completa y controla el candado. -->
+        <section id="muro-access" class="muro-access" aria-labelledby="muro-access-title"></section>
+
+        <div id="muro-feed-wrap" class="muro-feed-wrap">
+          <div id="muro-composer" class="muro-composer"></div>
+          <div id="muro-filters" class="muro-filters"></div>
+          <div id="muro-feed" class="muro-feed" aria-label="Publicaciones del Muro"></div>
+        </div>
+
+        <p id="muro-live" class="sr-only" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 9 · FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-social">
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+        </div>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+          <button type="button" id="muro-reset-demo" class="muro-reset-demo"></button>
+        </div>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- Modal de reporte -->
+  <div id="muro-report-modal" class="muro-modal" role="dialog" aria-modal="true" aria-labelledby="muro-report-title" hidden></div>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      El Muro de Quiebre necesita JavaScript para mostrar su contenido. Volvé a activarlo
+      o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>

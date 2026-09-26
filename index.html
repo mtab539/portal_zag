@@ -19,7 +19,7 @@
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
   <header class="site-header">
-    <div class="container">
+    <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
         <img
           class="brand-logo"
@@ -40,6 +40,8 @@
       </button>
 
       <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <a class="header-unete btn btn--sm" href="#unirme">Únete</a>
     </div>
   </header>
 
@@ -61,18 +63,15 @@
     </div>
 
     <!-- 3 · CONTEXTO ZIG vs ZAG -->
-    <section class="section section--surface" aria-labelledby="contexto-title">
+    <section class="section section--surface" aria-label="Manifiesto ZIG vs ZAG">
       <div class="container">
         <div class="contexto-grid" data-reveal>
           <div class="contexto-media">
             <img class="contexto-img" src="assets/img/zigvszag.svg" alt="Ilustración del concepto ZIG vs. ZAG: todos hacen zig, nosotros hacemos zag." role="img" width="1440" height="810" />
           </div>
-          <div class="contexto-copy">
-            <h2 id="contexto-title" class="statement-title"></h2>
-            <div id="contexto-body" class="statement-body"></div>
-          </div>
         </div>
       </div>
+      <div class="contexto-copy" aria-hidden="true"></div>
     </section>
 
     <!-- 4 · CARRUSEL — FOTOS DEL PRIMER EVENTO -->
@@ -104,6 +103,7 @@
           <div class="muro-side">
             <div id="muro-list" class="muro-list"></div>
             <p id="muro-note" class="muro-note"></p>
+            <a id="muro-link" class="muro-link"></a>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@
             </div>
 
             <footer class="settle-chrome settle-chrome--bottom">
-              <span class="settle-hint">Desliza para verlos todos</span>
+              <span class="settle-hint">Click para ver los perfiles</span>
               <span class="settle-meta">05 NIVELES</span>
             </footer>
           </section>
@@ -158,23 +158,26 @@
     </section>
 
     <!-- ÚNETE — salida explícita para quien no tiene tira (corrección H2) -->
-    <section id="unirme" class="section" aria-labelledby="unirme-title">
+    <section id="unirme" class="section" aria-label="Únete al ZAG">
       <div class="container">
         <p id="unirme-kicker" class="kicker"></p>
-        <div class="section-head" data-reveal>
-          <h2 id="unirme-title" class="section-title"></h2>
-          <p id="unirme-sub" class="section-sub"></p>
+        <div class="unirme-layout" data-reveal>
+          <div class="unirme-side">
+            <img id="unirme-image" class="unirme-image" src="" alt="Únete al ZAG" loading="lazy">
+          </div>
+          <div id="unirme-grid" class="unirme-grid"></div>
         </div>
-        <div id="unirme-grid" class="unirme-grid" data-reveal></div>
       </div>
     </section>
 
     <!-- 8 · FRASE FINAL -->
-    <section class="close-block" aria-labelledby="close-text">
+    <section class="close-block" aria-labelledby="close-cta">
       <div class="container" data-reveal>
-        <p id="close-kicker" class="kicker"></p>
-        <p id="close-text" class="close-text"></p>
-        <a id="close-cta" class="btn"></a>
+        <div class="close-landing-wrap">
+          <img class="close-landing" src="assets/img/fraselanding.svg" alt="30 años rompiendo lo obvio">
+          <img class="close-icons" src="assets/img/iconosfrase.svg" alt="" aria-hidden="true">
+        </div>
+        <a id="close-cta" class="btn btn--hero"></a>
       </div>
     </section>
   </main>

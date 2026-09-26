@@ -99,13 +99,26 @@
   /* ---- Roles derivados (semánticos) ---- */
   --color-bg: var(--color-white);
   --color-surface: var(--color-cream);
+  --color-surface-soft: #f2f2f0;   /* gris muy claro — fondo del Muro, para que los tuits blancos se distingan */
   --color-text: var(--color-black);
   --color-text-on-dark: var(--color-cream);
   --color-text-muted: #6f6759;     /* cuerpo secundario sobre blanco (AA ≥ 4.5:1) */
   --color-border: rgba(0, 0, 0, 0.12);
+  --color-border-strong: rgba(0, 0, 0, 0.45);
+  --color-halo: rgba(0, 0, 0, 0.08);
   --color-link: var(--color-functional);
   --color-link-hover: var(--color-brand-deep);
   --color-focus: var(--color-functional);
+
+  /* ---- Muro de Quiebre: superficies y estados ---- */
+  --color-grey-soft: #f3f1ec;      /* gris cremoso claro — fondos de hover y áreas alternas del Muro */
+  --color-online: #1baa52;         /* verde — estado "en línea" del Muro (AA sobre blanco) */
+
+  /* ---- Hero del Muro: tooltips de perfiles ---- */
+  --color-hero-tip-bg: #191821;    /* top del degradado oscuro del tooltip */
+  --color-hero-tip-bg-deep: #0d0d11; /* base del degradado y flecha */
+  --color-hero-glow-blue: var(--color-functional); /* línea de luz decorativa (azul medio ZAG) */
+  --color-hero-glow-orange: var(--color-cta); /* línea de luz decorativa (naranja ZAG) */
 
   /* ---- Tipografía ---- */
   --font-display-giga: 'Extenda Giga', 'Arial Black', 'Helvetica Neue', 'Arial', sans-serif;

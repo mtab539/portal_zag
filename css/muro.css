@@ -1,0 +1,1945 @@
+/* ============================================================
+   PORTAL ZAG — Muro de Quiebre (muro.html)
+   Mobile-first. Icons inline SVG. Todos los colores desde tokens.css.
+   ============================================================ */
+
+/* === Estructura general === */
+.muro-main {
+  background: var(--color-surface-soft);
+}
+
+.muro-stage-inner {
+  position: relative;
+  padding-top: var(--s-5);
+  padding-bottom: calc(var(--s-8) + var(--s-6));
+}
+
+/* === Hero del Muro (estilo referencia adaptado: beige + azul medio/naranja) === */
+.muro-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  background:
+    var(--color-surface)
+    url('../assets/img/iconosfrase.svg')
+    center / 88% auto no-repeat;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+/* Franja de patrón superior que respeta el aire del hero */
+.muro-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--s-7);
+  padding-bottom: var(--s-8);
+  text-align: center;
+}
+
+/* Franja de patrón inferior en movimiento lateral (mismo marquee del home):
+   dos bandas idénticas que viajan -50% para cerrar el loop sin cortes. */
+.muro-hero-pattern {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 26px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.muro-hero-pattern-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: muro-patron 40s linear infinite;
+}
+
+.muro-hero-pattern-band {
+  flex: none;
+  width: 100vw;
+  height: 100%;
+  background-image: url('../assets/img/patronzagg.svg');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: bottom center;
+}
+
+@keyframes muro-patron {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.muro-hero-anim {
+  /* Placeholder: aquí entra la animación del muro (widnows de fotos, marcas, etc.). */
+}
+
+.muro-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: var(--s-7);
+  padding-bottom: var(--s-8);
+}
+
+.muro-hero-inner .kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: var(--radius-pill);
+  color: rgba(0, 0, 0, 0.62);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 25px rgba(33, 24, 70, 0.05);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.muro-hero-title {
+  color: var(--color-functional);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(34px, 11vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin: 19px auto 0;
+  max-width: 20ch;
+}
+
+.muro-hero-title .muro-hero-title-accent {
+  color: var(--color-cta);
+}
+
+.muro-hero-sub {
+  font-size: 15px;
+  max-width: 34em;
+  margin: var(--s-3) auto 0;
+  color: var(--color-text-muted);
+}
+
+/* --- avatares solapados con tooltip --- */
+.muro-hero-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 0;
+  padding: 25px 18px 25px;
+  isolation: isolate;
+}
+
+.muro-hero-person {
+  position: relative;
+  margin-right: -15px;
+}
+
+.muro-hero-person:last-child {
+  margin-right: 0;
+}
+
+.muro-hero-person:hover,
+.muro-hero-person:focus-within {
+  z-index: 20;
+}
+
+.muro-hero-avatar-btn {
+  position: relative;
+  display: block;
+  width: clamp(64px, 9vw, 78px);
+  height: clamp(64px, 9vw, 78px);
+  overflow: hidden;
+  padding: 0;
+  border: 3px solid var(--color-cream);
+  border-radius: 50%;
+  outline: none;
+  background: #dddddd;
+  box-shadow:
+    0 8px 20px rgba(25, 20, 49, 0.13),
+    0 0 0 1px rgba(20, 19, 26, 0.06);
+  cursor: pointer;
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 400ms ease;
+}
+
+.muro-hero-avatar-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.muro-hero-person:hover .muro-hero-avatar-btn,
+.muro-hero-avatar-btn:focus-visible {
+  z-index: 5;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow:
+    0 17px 34px rgba(25, 20, 49, 0.2),
+    0 0 0 4px rgba(17, 68, 255, 0.14);
+}
+
+.muro-hero-person:hover .muro-hero-avatar-btn img,
+.muro-hero-avatar-btn:focus-visible img {
+  transform: scale(1.08);
+}
+
+.muro-hero-avatar-btn:focus-visible {
+  outline: 2px solid var(--color-functional);
+  outline-offset: 4px;
+}
+
+/* --- tooltip --- */
+.muro-hero-tip-pos {
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  z-index: 50;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.muro-hero-tip {
+  opacity: 0;
+  transform: translateY(15px) scale(0.72);
+  transform-origin: bottom center;
+  transition:
+    opacity var(--dur-med) var(--ease-out),
+    transform var(--dur-med) var(--ease-out);
+}
+
+.muro-hero-person:hover .muro-hero-tip,
+.muro-hero-person:focus-within .muro-hero-tip,
+.muro-hero-tip.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.muro-hero-tip-card {
+  position: relative;
+  display: flex;
+  min-width: max-content;
+  flex-direction: column;
+  align-items: center;
+  padding: 11px 17px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  color: #ffffff;
+  background: linear-gradient(145deg, var(--color-hero-tip-bg), var(--color-hero-tip-bg-deep));
+  box-shadow:
+    0 22px 50px rgba(6, 12, 40, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  white-space: nowrap;
+}
+
+.muro-hero-tip-card strong {
+  position: relative;
+  z-index: 2;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+}
+
+.muro-hero-tip-card small {
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.muro-hero-tip-light {
+  position: absolute;
+  bottom: -1px;
+  z-index: 3;
+  height: 1px;
+  pointer-events: none;
+}
+
+.muro-hero-tip-light-a {
+  left: 9%;
+  width: 48%;
+  background: linear-gradient(90deg, transparent, var(--color-hero-glow-blue), transparent);
+  box-shadow: 0 0 10px rgba(17, 68, 255, 0.8);
+}
+
+.muro-hero-tip-light-b {
+  right: 7%;
+  width: 43%;
+  background: linear-gradient(90deg, transparent, var(--color-hero-glow-orange), transparent);
+  box-shadow: 0 0 10px rgba(255, 92, 1, 0.8);
+}
+
+.muro-hero-tip-arrow {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  background: var(--color-hero-tip-bg-deep);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* === Barra de estado === */
+.muro-status {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.muro-status-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  padding-top: var(--s-3);
+  padding-bottom: var(--s-3);
+}
+
+.muro-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.muro-status-item b {
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.muro-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-online);
+  animation: muro-pulse 2.2s var(--ease-out) infinite;
+}
+
+@keyframes muro-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(27, 170, 82, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(27, 170, 82, 0);
+  }
+}
+
+/* === Candado: acceso sin sesión === */
+.muro-access {
+  position: sticky;
+  top: calc(var(--header-height) + 20px);
+  z-index: 5;
+  margin-bottom: var(--s-5);
+}
+
+.muro-feed-wrap.is-locked .muro-feed,
+.muro-feed-wrap.is-locked .muro-composer,
+.muro-feed-wrap.is-locked .muro-filters {
+  filter: blur(7px);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* === Bloque de acceso === */
+.muro-access-card {
+  --muro-card-radius: var(--radius-lg);
+  background: var(--color-functional);
+  border: 0;
+  border-radius: var(--muro-card-radius);
+  padding: var(--s-6) var(--s-5);
+  text-align: center;
+  box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.35);
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--color-white);
+}
+
+.muro-access-kicker {
+  color: var(--color-white);
+  margin-bottom: var(--s-2);
+  font-weight: 800;
+}
+
+.muro-access-title {
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(22px, 6vw, 34px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: var(--color-white);
+}
+
+.muro-access-copy {
+  font-size: 14px;
+  color: var(--color-white);
+  max-width: 40em;
+  margin: var(--s-3) auto 0;
+}
+
+.muro-access-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  align-items: center;
+  margin-top: var(--s-5);
+}
+
+.muro-access-actions .btn {
+  padding: 9px 20px;
+  font-size: 14px;
+}
+
+.muro-access-actions .muro-btn--secondary {
+  min-height: 38px;
+  padding: 7px 16px;
+  font-size: 13px;
+}
+
+.muro-access-box {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.muro-access-box-label {
+  font-weight: 800;
+  margin: 0 0 var(--s-2);
+  color: var(--color-white);
+}
+
+.muro-access-box-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  margin: var(--s-2) 0 0;
+}
+
+/* === Compositor === */
+.muro-composer {
+  --muro-card-bg: var(--color-white);
+  --muro-card-radius: var(--radius-md);
+  max-width: 680px;
+  margin: 0 auto var(--s-5);
+  background: var(--muro-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--muro-card-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.muro-composer-ph {
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: 0 var(--s-4);
+  background: transparent;
+  border: 0;
+  border-radius: var(--muro-card-radius);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.muro-composer-ph:hover {
+  background: var(--color-grey-soft);
+}
+
+.muro-composer-panel {
+  display: none;
+  padding: var(--s-3);
+}
+
+.muro-composer.is-open .muro-composer-ph {
+  display: none;
+}
+
+.muro-composer.is-open .muro-composer-panel {
+  display: block;
+}
+
+.muro-composer-text {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--s-3);
+  font: inherit;
+  line-height: 1.5;
+  background: var(--color-white);
+}
+
+.muro-composer-text:focus-visible {
+  border-color: var(--color-focus);
+}
+
+.muro-composer-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.muro-composer-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  min-width: 44px;
+  text-align: right;
+}
+
+.muro-composer-count.is-warning {
+  color: var(--color-cta-text);
+  font-weight: 800;
+  animation: muro-warn 0.5s var(--ease-out);
+}
+
+@keyframes muro-warn {
+  0% { transform: translateX(0); }
+  30% { transform: translateX(-3px); }
+  60% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.muro-composer-actions {
+  display: flex;
+  gap: var(--s-2);
+  margin-left: auto;
+}
+
+/* === Filtros === */
+.muro-filters {
+  max-width: 680px;
+  margin: 0 auto var(--s-4);
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.muro-chip {
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.muro-chip:hover {
+  background: var(--color-grey-soft);
+}
+
+.muro-chip.is-active {
+  background: var(--color-brand-deep);
+  border-color: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+.muro-filters-select {
+  margin-left: auto;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--color-white);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236f6759' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0 34px 0 var(--s-3);
+  min-height: 44px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* === Feed === */
+.muro-feed {
+  --muro-card-bg: var(--color-white);
+  --muro-card-radius: var(--radius-md);
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.muro-post {
+  background: var(--muro-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--muro-card-radius);
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  animation: muro-post-in var(--dur-med) var(--ease-out) both;
+}
+
+@keyframes muro-post-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.muro-post.is-pinned {
+  border-left: 4px solid var(--color-cta);
+  border-top: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (hover: hover) {
+  .muro-post:hover {
+    box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.muro-post.is-reported::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-grey-soft);
+  opacity: 0.75;
+  border-radius: var(--muro-card-radius);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.muro-post-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.muro-avatar {
+  --muro-avatar-bg: var(--color-grey-soft);
+  --muro-avatar-fg: var(--color-black);
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--muro-avatar-bg);
+  color: var(--muro-avatar-fg);
+  font-weight: 800;
+  font-size: 15px;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.muro-avatar-photo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.muro-avatar--rookie {
+  --muro-avatar-bg: var(--color-cream);
+  --muro-avatar-fg: var(--color-black);
+  border: 1px solid var(--color-border);
+}
+
+.muro-avatar--strategist {
+  --muro-avatar-bg: var(--color-light-blue);
+  --muro-avatar-fg: var(--color-black);
+}
+
+.muro-avatar--creator {
+  --muro-avatar-bg: var(--color-cta);
+  --muro-avatar-fg: var(--color-white);
+}
+
+.muro-avatar--master {
+  --muro-avatar-bg: var(--color-brand-deep);
+  --muro-avatar-fg: var(--color-cream);
+}
+
+.muro-avatar--senior {
+  --muro-avatar-bg: var(--color-black);
+  --muro-avatar-fg: var(--color-cream);
+}
+
+.muro-avatar--small {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.muro-post-who {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.muro-post-name-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.muro-post-name {
+  font-weight: 800;
+  color: var(--color-black);
+  font-size: 14px;
+}
+
+.muro-badge {
+  --muro-badge-bg: var(--color-grey-soft);
+  --muro-badge-fg: var(--color-black);
+  --muro-badge-border: transparent;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border: 1px solid var(--muro-badge-border);
+  border-radius: var(--radius-pill);
+  background: var(--muro-badge-bg);
+  color: var(--muro-badge-fg);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 15px;
+}
+
+.muro-badge--rookie {
+  --muro-badge-bg: var(--color-cream);
+  --muro-badge-fg: var(--color-black);
+  --muro-badge-border: var(--color-border);
+}
+
+.muro-badge--strategist {
+  --muro-badge-bg: var(--color-light-blue);
+  --muro-badge-fg: var(--color-black);
+}
+
+.muro-badge--creator {
+  --muro-badge-bg: var(--color-cta);
+  --muro-badge-fg: var(--color-white);
+}
+
+.muro-badge--master {
+  --muro-badge-bg: var(--color-brand-deep);
+  --muro-badge-fg: var(--color-cream);
+}
+
+.muro-badge--senior {
+  --muro-badge-bg: var(--color-black);
+  --muro-badge-fg: var(--color-cream);
+}
+
+.muro-badge--admin {
+  --muro-badge-bg: var(--color-light-blue);
+  --muro-badge-fg: var(--color-brand-deep);
+}
+
+.muro-post-time {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  flex: none;
+}
+
+.muro-pin {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-cta-text);
+}
+
+.muro-post-body {
+  margin: var(--s-3) 0 0;
+}
+
+.muro-post-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.muro-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin: var(--s-1) 0 0;
+  padding: 6px 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-cta-text);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+}
+
+.muro-more:hover {
+  color: var(--color-brand-deep);
+}
+
+/* === Acciones del post === */
+.muro-post-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.muro-action {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--s-2);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.muro-action:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-black);
+}
+
+.muro-action.is-on {
+  color: var(--color-cta);
+}
+
+.muro-action svg {
+  flex: none;
+}
+
+.muro-likes {
+  font-variant-numeric: tabular-nums;
+}
+
+.muro-action[data-act="like"].is-on svg path,
+.muro-reply-like.is-on svg path {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.muro-action--menu {
+  margin-left: auto;
+  padding: 0;
+  justify-content: center;
+  min-width: 44px;
+}
+
+/* === Menú "⋯" === */
+.muro-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.muro-menu-pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 8;
+  min-width: 180px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.28);
+  padding: var(--s-1);
+  animation: muro-post-in var(--dur-fast) var(--ease-out) both;
+}
+
+.muro-menu-pop[hidden] {
+  display: none;
+}
+
+.muro-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--s-2) var(--s-3);
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
+}
+
+.muro-menu-item:hover {
+  background: var(--color-grey-soft);
+}
+
+.muro-menu-item--danger {
+  color: var(--color-cta-text);
+}
+
+/* === Hilos === */
+.muro-thread {
+  margin-top: var(--s-3);
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--s-3);
+}
+
+.muro-thread-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--s-2);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-cta-text);
+  cursor: pointer;
+}
+
+.muro-thread-cta:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-brand-deep);
+}
+
+.muro-thread-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.muro-thread-side {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.muro-thread-panel[hidden] {
+  display: none;
+}
+
+.muro-thread-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.muro-thread-more {
+  align-self: flex-start;
+  display: inline-flex;
+  padding: var(--s-1) var(--s-2);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.muro-thread-more:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-black);
+}
+
+.muro-reply {
+  position: relative;
+  display: flex;
+  gap: var(--s-2);
+  padding: var(--s-2);
+  border-radius: var(--radius-md);
+}
+
+.muro-reply:hover {
+  background: var(--color-grey-soft);
+}
+
+.muro-reply-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.muro-reply-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.muro-reply-meta .muro-reply-time {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-left: 6px;
+}
+
+.muro-reply-text {
+  margin: 2px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.muro-reply-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-1);
+}
+
+.muro-reply-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.muro-reply-like:hover {
+  background: var(--color-grey-soft);
+}
+
+.muro-reply-like.is-on {
+  color: var(--color-cta);
+}
+
+.muro-thread-avatars {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.muro-thread-avatars .muro-avatar--small {
+  margin-left: -6px;
+  border: 2px solid var(--color-white);
+}
+
+.muro-thread-avatars .muro-avatar--small:first-child {
+  margin-left: 0;
+}
+
+.muro-reply-note {
+  margin-left: var(--s-2);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Comment composer — componente de escritura de respuestas
+   ============================================================ */
+.muro-cc {
+  --composer-bg: var(--color-white);
+  --composer-radius: var(--radius-md);
+  --composer-border: var(--color-border);
+  --composer-border-focus: var(--color-border-strong);
+  position: relative;
+  margin-top: var(--s-3);
+}
+
+/* --- reposo: píldora + avatar con anillo del nivel --- */
+.muro-cc-rest {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+}
+
+.muro-cc-rest-avatar {
+  flex: none;
+}
+
+.muro-cc-rest-avatar .muro-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--composer-ring, var(--color-border));
+}
+
+.muro-cc-ring--rookie .muro-avatar,
+.muro-cc-avatar--rookie { --composer-ring: var(--color-black); }
+.muro-cc-ring--strategist .muro-avatar,
+.muro-cc-avatar--strategist { --composer-ring: var(--color-functional); }
+.muro-cc-ring--creator .muro-avatar,
+.muro-cc-avatar--creator { --composer-ring: var(--color-cta); }
+.muro-cc-ring--master .muro-avatar,
+.muro-cc-avatar--master { --composer-ring: var(--color-brand-deep); }
+.muro-cc-ring--senior .muro-avatar,
+.muro-cc-avatar--senior { --composer-ring: var(--color-black); }
+
+.muro-cc-pill {
+  flex: 1;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--s-4);
+  background: var(--color-grey-soft);
+  border: 1px solid var(--composer-border);
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.muro-cc-pill:hover {
+  border-color: var(--composer-border-focus);
+  background: var(--color-white);
+  color: var(--color-text);
+}
+
+/* --- foco: sin outlines internos; el indicador vive en la caja --- */
+.muro-cc :focus-visible {
+  outline: none;
+}
+
+.muro-cc-pill:focus-visible {
+  border-color: var(--composer-border-focus);
+}
+
+/* --- abierto: solo la caja, sin la píldora "Escribe un comentario…" --- */
+.muro-cc.is-open .muro-cc-rest {
+  display: none;
+}
+
+/* --- foco: caja de escritura --- */
+.muro-cc-box {
+  position: relative;
+  background: var(--composer-bg);
+  border: 1px solid var(--composer-border);
+  border-radius: var(--composer-radius);
+  transition: border-color var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+}
+
+.muro-cc-box:focus-within {
+  border-color: var(--composer-border-focus);
+  box-shadow: 0 0 0 3px var(--color-halo), 0 14px 30px -18px rgba(0, 0, 0, 0.25);
+}
+
+.muro-cc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--s-3) var(--s-3) 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.muro-cc-head b {
+  color: var(--color-black);
+  font-weight: 800;
+}
+
+.muro-cc-draftnote {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-cta-text);
+}
+
+/* --- chip "respondiendo a" --- */
+.muro-cc-chiprow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--s-2) var(--s-3) 0;
+}
+
+.muro-cc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 12px;
+  background: var(--color-light-blue);
+  color: var(--color-functional);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.muro-cc-chip b {
+  color: var(--color-black);
+}
+
+.muro-cc-chipx {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--color-functional);
+}
+
+.muro-cc-chipx:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-brand-deep);
+}
+
+.muro-cc-text {
+  display: block;
+  width: 100%;
+  margin: var(--s-2) 0 0;
+  padding: var(--s-2) var(--s-3);
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  resize: none;
+  overflow-y: auto;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  min-height: 96px;
+}
+
+.muro-cc-text::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* --- autocompletar menciones --- */
+.muro-cc-mentions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  z-index: 20;
+  max-height: 230px;
+  overflow-y: auto;
+  background: var(--composer-bg);
+  border: 1px solid var(--composer-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 32px -18px rgba(0, 0, 0, 0.3);
+  padding: var(--s-1);
+}
+
+.muro-cc-mentions[hidden] {
+  display: none;
+}
+
+.muro-cc-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.muro-cc-option.is-active {
+  background: var(--color-grey-soft);
+}
+
+.muro-cc-option-name {
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.muro-cc-option .muro-badge {
+  margin-left: auto;
+}
+
+/* --- pie: contador, hint, acciones --- */
+.muro-cc-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  padding: var(--s-2) var(--s-3) var(--s-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.muro-cc-count {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  min-width: 44px;
+}
+
+.muro-cc-count.is-warning {
+  color: var(--color-cta-text);
+  font-weight: 800;
+}
+
+.muro-cc-count.is-limit {
+  color: var(--color-cta-text);
+  font-weight: 800;
+}
+
+.muro-cc-hint {
+  display: none;
+  font-size: 9px;
+  color: var(--color-text-muted);
+}
+
+.muro-cc-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-left: auto;
+}
+
+.muro-cc-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.muro-cc .muro-btn.muro-cc-send,
+.muro-cc .muro-btn--link {
+  min-height: 32px;
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.muro-cc-send.is-sending {
+  pointer-events: none;
+}
+
+.muro-cc-send-ic {
+  display: none;
+}
+
+.muro-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-white);
+  border-top-color: transparent;
+  animation: muro-spin 0.7s linear infinite;
+}
+
+@keyframes muro-spin {
+  to { transform: rotate(360deg); }
+}
+
+.muro-cc-send.is-sending .muro-cc-send-ic,
+.muro-cc-send.is-sending .muro-cc-send-label {
+  display: none;
+}
+
+/* --- descartar comentario (confirmación inline) --- */
+.muro-cc-discard {
+  padding: 0 var(--s-3) var(--s-3);
+}
+
+.muro-cc-discard-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  padding: var(--s-3);
+  background: var(--color-grey-soft);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.muro-cc-discard-actions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--s-2);
+}
+
+/* --- sin sesión --- */
+.muro-cc-locked {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: var(--s-2) var(--s-3);
+  background: var(--color-white);
+  border: 1px dashed var(--composer-border);
+  border-radius: var(--composer-radius);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.muro-cc-locked strong {
+  color: var(--color-black);
+}
+
+.muro-cc-locked-link {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-functional);
+  cursor: pointer;
+}
+
+.muro-cc-locked-link:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-brand-deep);
+}
+
+.muro-feed-wrap.is-locked .muro-cc-locked {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+/* --- barra fija abajo (mobile) --- */
+.muro-cc-docked {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--cc-kb, 0px);
+  z-index: 90;
+  margin: 0;
+  padding: var(--s-3) var(--s-4) 0;
+  background: var(--composer-bg);
+  border-top: 1px solid var(--composer-border);
+  border-radius: var(--composer-radius) var(--composer-radius) 0 0;
+  box-shadow: 0 -8px 30px -18px rgba(0, 0, 0, 0.35);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.muro-cc-docked .muro-cc-rest {
+  display: none;
+}
+
+/* --- sacudida al llegar al límite --- */
+.muro-cc-box.is-shake {
+  animation: muro-cc-shake 0.4s var(--ease-out);
+}
+
+@keyframes muro-cc-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+}
+
+/* --- mención resaltada en comentarios publicados --- */
+.muro-reply-text .mention {
+  color: var(--color-functional);
+  font-weight: 700;
+}
+
+/* --- respuesta recién publicada: revelado y resaltado que se desvanece --- */
+.muro-reply.is-new {
+  animation: muro-reply-in var(--dur-med) var(--ease-out),
+    muro-newfade 2s var(--ease-out) both;
+}
+
+@keyframes muro-reply-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes muro-newfade {
+  from { background: var(--color-light-blue); }
+  to { background: transparent; }
+}
+
+/* --- respuesta original resaltada al responderle --- */
+.muro-reply.is-targeted {
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.muro-reply.is-targeted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-light-blue);
+  border-radius: inherit;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: muro-newfade 1.5s var(--ease-out) both;
+}
+
+@media (min-width: 720px) {
+  .muro-cc-hint {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 719px) {
+  .muro-cc-actions {
+    gap: var(--s-1);
+  }
+
+  .muro-cc-send {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+  }
+
+  .muro-cc-send .muro-cc-send-label {
+    display: none;
+  }
+
+  .muro-cc-send .muro-cc-send-ic {
+    display: inline-flex;
+  }
+}
+
+/* === Mensaje de post reportado === */
+.muro-reported-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  background: var(--color-grey-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  position: relative;
+  z-index: 2;
+}
+
+.muro-reported-bar .muro-more {
+  margin: 0;
+  padding: var(--s-1) var(--s-2);
+}
+
+/* === Botones de marca dentro del muro === */
+.muro-btn {
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background: var(--color-cta);
+  color: var(--color-white);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.muro-btn:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-cta);
+}
+
+.muro-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.muro-btn--secondary {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-border);
+}
+
+.muro-btn--secondary:hover:not(:disabled) {
+  background: var(--color-grey-soft);
+  color: var(--color-black);
+}
+
+.muro-btn--link {
+  background: none;
+  color: var(--color-cta-text);
+  font-weight: 800;
+}
+
+.muro-btn--link:hover:not(:disabled) {
+  background: var(--color-grey-soft);
+  color: var(--color-brand-deep);
+}
+
+/* === Estado vacío === */
+.muro-empty {
+  --muro-card-bg: var(--color-white);
+  --muro-card-radius: var(--radius-md);
+  background: var(--muro-card-bg);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--muro-card-radius);
+  padding: var(--s-7) var(--s-4);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* === Chip de sesión (header) === */
+.muro-session-chip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: calc(var(--gutter) - 4px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 2 * var(--gutter));
+  padding: 6px 10px 6px 6px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.3);
+  animation: muro-post-in var(--dur-med) var(--ease-out) both;
+}
+
+.muro-session-chip[hidden] {
+  display: none;
+}
+
+.muro-session-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  color: var(--color-black);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.muro-session-exit {
+  background: none;
+  border: 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-cta-text);
+  cursor: pointer;
+}
+
+.muro-session-exit:hover {
+  background: var(--color-grey-soft);
+}
+
+/* === Modal (reporte y confirmación) === */
+.muro-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+}
+
+.muro-modal[hidden] {
+  display: none;
+}
+
+.muro-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.muro-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100svh - 2 * var(--gutter));
+  overflow-y: auto;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.5);
+  padding: var(--s-5) var(--s-4);
+  animation: muro-post-in var(--dur-med) var(--ease-out) both;
+}
+
+.muro-modal-title {
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.muro-modal-intro {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: var(--s-2) 0 0;
+}
+
+.muro-modal-fieldset {
+  border: 0;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+}
+
+.muro-modal-legend {
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: var(--s-2);
+}
+
+.muro-radio {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+}
+
+.muro-radio input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-functional);
+  cursor: pointer;
+}
+
+.muro-modal-text {
+  width: 100%;
+  min-height: 80px;
+  margin-top: var(--s-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--s-2) var(--s-3);
+  font: inherit;
+  line-height: 1.5;
+  background: var(--color-white);
+}
+
+.muro-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+.muro-modal-close {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.muro-modal-close:hover {
+  background: var(--color-grey-soft);
+  color: var(--color-black);
+}
+
+/* === Reiniciar demo (footer) === */
+.muro-reset-demo {
+  display: inline-flex;
+  margin-top: var(--s-2);
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.muro-reset-demo:hover {
+  color: var(--color-black);
+}
+
+/* === Movimiento reducido === */
+@media (prefers-reduced-motion: reduce) {
+  .muro-dot,
+  .muro-post,
+  .muro-session-chip,
+  .muro-modal-card {
+    animation: none !important;
+  }
+
+  .muro-composer-count,
+  .muro-reply.is-new,
+  .muro-reply.is-targeted::before,
+  .muro-cc-box.is-shake,
+  .muro-spinner {
+    animation: none !important;
+  }
+
+  .muro-hero-avatar-btn,
+  .muro-hero-avatar-btn img,
+  .muro-hero-tip {
+    transition: none !important;
+  }
+
+  .muro-hero-pattern-track {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   ≥ 720px — tablet
+   ============================================================ */
+@media (min-width: 720px) {
+  .muro-hero {
+    min-height: 380px;
+  }
+
+  .muro-hero-title {
+    font-size: clamp(44px, 6vw, 72px);
+  }
+
+  .muro-hero-sub {
+    font-size: 17px;
+  }
+
+  .muro-access-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .muro-composer-ph {
+    min-height: 64px;
+  }
+}
+
+/* ============================================================
+   ≥ 1024px — desktop
+   ============================================================ */
+@media (min-width: 1024px) {
+  .muro-post-actions {
+    gap: var(--s-2);
+  }
+}
+
+/* ============================================================
+   ≤ 600px y ≤ 380px — hero de avatares responsive
+   ============================================================ */
+@media (max-width: 600px) {
+  .muro-hero-avatars {
+    margin-top: 0;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .muro-hero-person {
+    margin-right: -13px;
+  }
+
+  .muro-hero-tip-card {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .muro-hero-tip-card strong {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .muro-hero-person {
+    margin-right: -16px;
+  }
+
+  .muro-hero-avatars {
+    transform: scale(0.92);
+  }
+}
