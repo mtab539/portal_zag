@@ -6,88 +6,116 @@
    variables y reutilizados por JS vía data-theme.
    ============================================================ */
 
-/* ---- Temas de las tarjetas (degradé de 5 colores) ---- */
-.case-theme--t1 {
-  --cas-bg: #c74300;
-  --cas-bg-deep: #a73700;
-  --cas-soft: #ffe3cc;
+/* ---- Temas de las tarjetas cerradas (ciclo: azul oscuro → azul medio → naranja → azul claro → beige) ----
+   --cas-bg: fondo de la tarjeta cerrada y del hero abierto · --cas-fg: texto sobre ese fondo
+   --cas-pill-bg/--cas-pill-fg: píldoras y flecha (contra el fondo) · --cas-soft: cortinas claras del cuerpo */
+.case-theme--t1 {          /* azul oscuro */
+  --cas-bg: #041dad;
+  --cas-bg-deep: #020c66;
+  --cas-soft: #dbe3ff;
   --cas-ink: #fff8ee;
-  --cas-line: #8f2f00;
+  --cas-line: #020c66;
+  --cas-fg: #fff8ee;
+  --cas-pill-bg: #fff8ee;
+  --cas-pill-fg: #041dad;
 }
-.case-theme--t2 {
+.case-theme--t2 {          /* azul medio */
   --cas-bg: #1144ff;
   --cas-bg-deep: #0a2ea8;
   --cas-soft: #dbe3ff;
   --cas-ink: #fff8ee;
-  --cas-line: #05268a;
+  --cas-line: #07218f;
+  --cas-fg: #fff8ee;
+  --cas-pill-bg: #fff8ee;
+  --cas-pill-fg: #0a2ea8;
 }
-.case-theme--t3 {
-  --cas-bg: #041dad;
-  --cas-bg-deep: #03138a;
-  --cas-soft: #c0ccff;
-  --cas-ink: #fff8ee;
-  --cas-line: #041dad;
-}
-.case-theme--t4 {
-  --cas-bg: #1baa52;
-  --cas-bg-deep: #128039;
-  --cas-soft: #d9f4e3;
-  --cas-ink: #fff8ee;
-  --cas-line: #0d5c2c;
-}
-.case-theme--t5 {
+.case-theme--t3 {          /* naranja */
   --cas-bg: #ff5c01;
   --cas-bg-deep: #c74300;
-  --cas-soft: #ffe1cc;
+  --cas-soft: #ffe3cc;
   --cas-ink: #fff8ee;
   --cas-line: #a73700;
+  --cas-fg: #fff8ee;
+  --cas-pill-bg: #fff8ee;
+  --cas-pill-fg: #c74300;
+}
+.case-theme--t4 {          /* azul claro */
+  --cas-bg: #c0ccff;
+  --cas-bg-deep: #5c72c9;
+  --cas-soft: #f0f3ff;
+  --cas-ink: #041dad;
+  --cas-line: #5c72c9;
+  --cas-fg: #041dad;
+  --cas-pill-bg: #041dad;
+  --cas-pill-fg: #fff8ee;
+}
+.case-theme--t5 {          /* beige */
+  --cas-bg: #fff8ee;
+  --cas-bg-deep: #e0d5bd;
+  --cas-soft: #f5efdf;
+  --cas-ink: #041dad;
+  --cas-line: #e0d5bd;
+  --cas-fg: #1f1b2e;
+  --cas-pill-bg: #041dad;
+  --cas-pill-fg: #fff8ee;
+  --cas-meta: #1144ff;
 }
 
 /* ============================================================
-   1 · HERO (fondo azul noche, stickers flotantes)
+   1 · HERO (azul medio plano, todo centrado)
    ============================================================ */
 .casos-hero {
   position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background: var(--color-night);
+  background: var(--color-functional);
   color: var(--color-cream);
-  padding: clamp(56px, 12vw, 120px) 0 var(--s-8);
-}
-
-.casos-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(120% 90% at 82% 8%, rgba(17, 68, 255, 0.42) 0%, transparent 55%),
-    radial-gradient(110% 90% at 8% 100%, rgba(255, 92, 1, 0.28) 0%, transparent 55%);
+  padding: clamp(44px, 9vw, 72px) 0 var(--s-7);
 }
 
 .casos-hero-inner {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
 }
 
 .casos-hero-kicker {
-  color: var(--color-light-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-pill);
+  color: var(--color-cream);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .casos-hero-title {
   font-family: var(--font-display-giga);
   font-weight: 400;
-  line-height: 0.88;
+  line-height: 0.95;
   text-transform: uppercase;
-  letter-spacing: -0.005em;
-  max-width: 10em;
+  letter-spacing: -0.015em;
+  max-width: 20ch;
+  margin: 19px auto 0;
 }
 
 .casos-hero-line {
   display: block;
-  font-size: clamp(44px, 12vw, 118px);
+  font-size: clamp(34px, 11vw, 64px);
 }
 
 .casos-hero-line--light {
-  color: var(--color-light-blue);
+  color: var(--color-cream);
 }
 
 .casos-hero-line--cream {
@@ -98,118 +126,58 @@
   color: var(--color-cta);
 }
 
-.casos-hero-line .c-char {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-@keyframes c-char-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.42em) rotate(4deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.casos-hero-title .c-char {
-  animation: c-char-in 0.7s var(--ease-out) both;
-}
-
 .casos-hero-sub {
+  font-size: 16px;
   max-width: 34em;
-  margin-top: var(--s-5);
-  font-size: 17px;
-  line-height: 1.5;
-  color: rgba(255, 248, 238, 0.88);
+  margin: var(--s-3) auto 0;
+  color: rgba(255, 248, 238, 0.92);
 }
 
 .casos-hero-scroll {
-  margin-top: var(--s-6);
+  margin-top: var(--s-4);
   font-family: var(--font-display-deca);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-light-blue);
-}
-
-/* ---- Stickers (capa decorativa) ---- */
-.casos-stickers {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.sticker-slot {
-  position: absolute;
-  width: clamp(96px, 22vw, 180px);
-  height: clamp(96px, 22vw, 180px);
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-}
-
-.sticker-slot[data-slot='1'] {
-  pointer-events: auto;
-  width: clamp(150px, 30vw, 260px);
-  height: clamp(150px, 30vw, 260px);
-}
-
-.sticker-inner {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-}
-
-@keyframes sticker-idle {
-  0%, 100% {
-    transform: translateY(0) rotate(var(--tilt, 0deg));
-  }
-  50% {
-    transform: translateY(-9px) rotate(var(--tilt, 0deg));
-  }
-}
-
-.sticker-inner {
-  animation: sticker-idle 5.2s ease-in-out infinite;
-  animation-delay: var(--idle-delay, 0s);
-}
-
-/* vinilo tipográfico del slot 1 */
-.sticker-vinyl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at center, var(--color-cta) 0 10%, var(--color-black) 10.5% 13%, var(--color-cream) 13.5% 20%, var(--color-night) 20.5% 100%);
   color: var(--color-cream);
-  font-family: var(--font-accent);
-  font-size: clamp(15px, 3.6vw, 30px);
-  line-height: 1.08;
-  text-align: center;
-  padding: 18%;
-  --tilt: -9deg;
-  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+  opacity: 0.92;
 }
 
-/* posiciones del decorado (referencia visual del prompt) */
-.sticker-slot[data-slot='2'] { top: 10%; left: 8%; }
-.sticker-slot[data-slot='3'] { top: 6%; right: 6%; }
-.sticker-slot[data-slot='4'] { bottom: 18%; left: 4%; }
-.sticker-slot[data-slot='5'] { top: 40%; right: 4%; }
-.sticker-slot[data-slot='6'] { bottom: 8%; right: 22%; }
+/* Franja de patrón inferior en movimiento lateral (marquee del home):
+   dos bandas idénticas que viajan -50% para cerrar el loop sin cortes. */
+.casos-hero-pattern {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 26px;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-.sticker-slot[data-slot='2'],
-.sticker-slot[data-slot='4'] {
-  display: none;
+.casos-hero-pattern-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: casos-patron 40s linear infinite;
+}
+
+.casos-hero-pattern-band {
+  flex: none;
+  width: 100vw;
+  height: 100%;
+  background-image: url('../assets/img/patronzagg.svg');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: bottom center;
+}
+
+@keyframes casos-patron {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* ============================================================
@@ -405,16 +373,17 @@
   min-height: 88px;
   padding: var(--s-4);
   border: 0;
-  background: var(--case-soft, var(--color-surface));
-  color: var(--color-black);
+  background: var(--cas-bg, var(--color-surface));
+  color: var(--cas-fg, var(--color-black));
   text-align: left;
   cursor: pointer;
   font-family: inherit;
-  transition: background var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 
 .case-row.is-open .case-toggle {
-  background: var(--case-soft, var(--color-surface));
+  background: var(--cas-soft, var(--color-surface));
+  color: var(--color-black);
 }
 
 .case-toggle:focus-visible {
@@ -444,7 +413,13 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.case-row.is-open .case-imeta {
   color: var(--color-link);
+  opacity: 1;
 }
 
 .case-pills {
@@ -463,8 +438,8 @@
   white-space: nowrap;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--case-bg, var(--color-functional));
-  color: var(--case-ink, var(--color-cream));
+  background: var(--cas-pill-bg, var(--color-functional));
+  color: var(--cas-pill-fg, var(--color-cream));
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 700;
@@ -487,8 +462,8 @@
   min-width: 40px;
   min-height: 40px;
   border-radius: 50%;
-  background: var(--case-bg, var(--color-functional));
-  color: var(--case-ink, var(--color-cream));
+  background: var(--cas-pill-bg, var(--color-functional));
+  color: var(--cas-pill-fg, var(--color-cream));
   transition: transform 420ms var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
 
@@ -520,25 +495,63 @@
 .case-hero {
   position: relative;
   min-height: clamp(140px, 26vw, 220px);
-  background: linear-gradient(135deg, var(--case-bg, #c74300), var(--case-bg-deep, #a73700));
-  color: var(--case-ink, #fff8ee);
+  background: var(--cas-bg, #c74300);
+  color: var(--cas-ink, #fff8ee);
   display: flex;
   align-items: flex-end;
   padding: var(--s-5);
   overflow: hidden;
 }
 
-.case-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(90% 100% at 100% 0%, rgba(255, 92, 1, 0.35) 0%, transparent 60%);
-  pointer-events: none;
-}
-
 .case-hero-text {
   position: relative;
   z-index: 1;
+}
+
+/* 3 marcos cuadrados para las fotos del caso (casos con c.fotos): con margen al recuadro */
+.case-hero.has-media {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.case-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+  width: 100%;
+  margin-bottom: var(--s-4);
+}
+
+.case-photo {
+  position: relative;
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 248, 238, 0.32);
+  background: rgba(255, 248, 238, 0.08);
+  box-shadow: 0 18px 34px -18px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.case-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-photo.is-empty::before {
+  content: '+';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(22px, 6vw, 34px);
+  color: rgba(255, 248, 238, 0.45);
+  border: 1px dashed rgba(255, 248, 238, 0.22);
+  border-radius: var(--radius-md);
 }
 
 .case-ymeta {
@@ -548,7 +561,7 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-cream);
+  color: var(--cas-meta, var(--color-cream));
   opacity: 0.92;
 }
 
@@ -586,7 +599,7 @@
 .case-stat {
   flex: 1 1 140px;
   border-radius: var(--radius-md);
-  background: var(--case-soft, var(--color-surface));
+  background: var(--cas-soft, var(--color-surface));
   border: 1px solid rgba(0, 0, 0, 0.06);
   padding: var(--s-3) var(--s-4);
 }
@@ -597,7 +610,7 @@
   font-weight: 400;
   font-size: clamp(20px, 5vw, 26px);
   line-height: 1;
-  color: var(--case-bg-deep, var(--color-black));
+  color: var(--cas-bg-deep, var(--color-black));
 }
 
 .case-stat span {
@@ -619,9 +632,9 @@
   font-family: var(--font-display-deca);
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--case-bg-deep, var(--color-brand-deep));
+  color: var(--cas-bg-deep, var(--color-brand-deep));
 }
 
 .case-block p {
@@ -635,8 +648,8 @@
   margin: 0;
   padding: var(--s-3) var(--s-4);
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--case-bg, #c74300);
-  background: var(--case-soft, var(--color-surface));
+  border-left: 4px solid var(--cas-bg, #c74300);
+  background: var(--cas-soft, var(--color-surface));
   font-size: 14.5px;
   line-height: 1.5;
   font-weight: 600;
@@ -678,13 +691,24 @@
    3 · CTA FINAL — manda el caso que conozcas
    ============================================================ */
 .casos-cta {
-  background: var(--color-night);
+  background: var(--color-functional);
   color: var(--color-cream);
   padding: var(--s-8) 0;
 }
 
+.casos-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-7);
+  align-items: start;
+}
+
 .casos-cta .kicker {
-  color: var(--color-light-blue);
+  color: var(--color-white);
+}
+
+.casos-cta .casos-field > span {
+  color: var(--color-cream);
 }
 
 .casos-cta-title {
@@ -708,24 +732,13 @@
   color: rgba(255, 248, 238, 0.88);
 }
 
-.casos-cta > .container > .btn {
-  margin-top: var(--s-6);
-  background: var(--color-cta);
-  color: var(--color-white);
-}
-
-.casos-cta > .container > .btn:hover {
-  background: var(--color-cream);
-  color: var(--color-cta-text);
-}
-
 /* ---- Formulario ---- */
 .casos-cta-form {
-  margin-top: var(--s-6);
+  margin-top: 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--s-4);
-  max-width: 720px;
+  min-width: 0;
 }
 
 .casos-field {
@@ -810,6 +823,13 @@
 .casos-form-actions .btn {
   background: var(--color-cta);
   color: var(--color-white);
+  min-height: 44px;
+  min-width: 168px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .casos-form-actions .btn:hover {
@@ -818,10 +838,14 @@
 }
 
 .casos-cta-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid rgba(255, 255, 255, 0.5);
   background: transparent;
   color: var(--color-cream);
   min-height: 44px;
+  min-width: 168px;
   padding: 8px 18px;
   border-radius: var(--radius-pill);
   font-family: var(--font-body);
@@ -881,10 +905,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .casos-hero-title .c-char,
-  .sticker-inner {
+  .casos-hero-pattern-track {
     animation: none;
-    transform: none;
   }
   .case-row.reveal {
     opacity: 1;
@@ -902,15 +924,13 @@
    ============================================================ */
 @media (min-width: 720px) {
   .casos-hero {
-    padding: clamp(88px, 14vh, 160px) 0 var(--s-8);
+    min-height: 380px;
+    padding: clamp(64px, 11vh, 96px) 0 var(--s-7);
   }
 
-  .sticker-slot[data-slot='2'],
-  .sticker-slot[data-slot='4'] {
-    display: grid; /* el decorado completo respira en pantallas grandes */
+  .casos-hero-line {
+    font-size: clamp(44px, 6vw, 72px);
   }
-  .sticker-slot[data-slot='2'] { width: clamp(120px, 10vw, 160px); height: clamp(120px, 10vw, 160px); }
-  .sticker-slot[data-slot='4'] { width: clamp(120px, 10vw, 160px); height: clamp(120px, 10vw, 160px); }
 
   .casos-access-actions {
     flex-direction: row;
@@ -922,6 +942,27 @@
     grid-template-columns: auto 1fr auto;
     gap: 0 var(--s-4);
     padding: var(--s-4) var(--s-5);
+  }
+
+  .case-hero.has-media {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-5);
+  }
+
+  .case-hero-text {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .case-photos {
+    order: 2;
+    flex: none;
+    width: auto;
+    grid-template-columns: repeat(3, clamp(120px, 15vw, 200px));
+    margin-bottom: 0;
   }
 
   .case-pills {
@@ -949,15 +990,6 @@
     grid-column: 1 / -1;
   }
 
-  .casos-cta-form {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .casos-cta-form .casos-field--full {
-    grid-column: 1 / -1;
-  }
-
-  /* el grupo derecho (chip + CTA) ocupa la celda final del header */
   .header-right {
     justify-self: end;
   }
@@ -967,16 +999,21 @@
    ≥ 1024px — desktop
    ============================================================ */
 @media (min-width: 1024px) {
-  .casos-hero-sub {
-    font-size: 19px;
-  }
-
   .case-toggle {
     min-height: 104px;
   }
 
   .case-body-copy {
     gap: 0 var(--s-8);
+  }
+
+  .casos-cta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-8);
+  }
+
+  .casos-cta-info {
+    margin-top: var(--s-3);
   }
 }
 

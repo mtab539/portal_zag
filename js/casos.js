@@ -1,6 +1,6 @@
 /* ============================================================
    PORTAL ZAG — Casos ZIG (Blog de Fracasos)
-   - Hero con titular gigante animado char por char + stickers
+   - Hero centrado en plano: kicker, titular y CTA de scroll
      (parallax con el cursor y el scroll; el slot 1 se puede
      arrastrar en escritorio).
    - Acordeón apilado de casos reales. Solo se abre una tarjeta.
@@ -76,92 +76,10 @@
     if (!title) return;
     title.textContent = '';
 
-    var lines = [];
     ui.title.forEach(function (txt, idx) {
-      var span = el('span', 'casos-hero-line ' + (idx === 0 ? 'casos-hero-line--light' : 'casos-hero-line--cream'));
-      var accent = ui.titleAccent || '';
-      var at = accent ? txt.indexOf(accent) : -1;
-      txt.split('').forEach(function (ch, i) {
-        var c = el('span', 'c-char');
-        c.textContent = ch;
-        if (at !== -1 && i >= at && i < at + accent.length) c.className = 'c-char casos-hero-line--accent';
-        if (!state.reduced) c.style.animationDelay = (0.06 * (idx * 24 + i)).toFixed(3) + 's';
-        span.appendChild(c);
-      });
-      lines.push(span);
-    });
-    lines.forEach(function (s) { title.appendChild(s); });
-  }
-
-  /* ============================================================
-     Stickers: parallax (cursor + scroll) y arrastre del slot 1
-     ============================================================ */
-  function initStickers() {
-    if (state.reduced) return;
-    var slots = Array.prototype.slice.call(document.querySelectorAll('.sticker-slot'));
-    if (!slots.length) return;
-
-    var hero = $('casos-hero');
-    var nx = 0, ny = 0;
-    var cur = {};   /* {index: {x, y}} destino suavizado */
-    var drag = { active: false, dx: 0, dy: 0, px: 0, py: 0 };
-
-    hero.addEventListener('pointermove', function (e) {
-      var r = hero.getBoundingClientRect();
-      nx = ((e.clientX - r.left) / r.width) * 2 - 1;
-      ny = ((e.clientY - r.top) / r.height) * 2 - 1;
-    });
-
-    slots.forEach(function (slot, i) {
-      cur[i] = { x: 0, y: 0 };
-
-      if (slot.getAttribute('data-slot') === '1') {
-        var active = slot.firstElementChild;
-        if (!active) active = slot;
-        active.addEventListener('pointerdown', function (e) {
-          if (e.pointerType !== 'mouse') return;
-          drag.active = true;
-          drag.px = e.clientX;
-          drag.py = e.clientY;
-        });
-      }
-    });
-
-    window.addEventListener('pointermove', function (e) {
-      if (!drag.active) return;
-      drag.dx += e.clientX - drag.px;
-      drag.dy += e.clientY - drag.py;
-      drag.px = e.clientX;
-      drag.py = e.clientY;
-    });
-
-    window.addEventListener('pointerup', function () {
-      drag.active = false;
-    });
-
-    var raf;
-    function tick() {
-      var sy = window.pageYOffset || 0;
-      slots.forEach(function (slot, i) {
-        var depth = parseFloat(slot.getAttribute('data-depth') || '0.5');
-        var tx = nx * 16 * depth;
-        var ty = ny * 16 * depth + sy * 0.12 * depth;
-        if (i === 0) {
-          tx += drag.dx;
-          ty += drag.dy;
-        }
-        var c = cur[i];
-        c.x += (tx - c.x) * 0.08;
-        c.y += (ty - c.y) * 0.08;
-        slot.style.transform = 'translate3d(' + c.x.toFixed(2) + 'px,' + c.y.toFixed(2) + 'px,0)';
-      });
-      raf = window.requestAnimationFrame(tick);
-    }
-    tick();
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { if (raf) window.cancelAnimationFrame(raf); }
-      else if (!raf) tick();
+      var span = el('span', 'casos-hero-line ' + (idx === 0 ? 'casos-hero-line--light' : 'casos-hero-line--accent'));
+      span.textContent = txt;
+      title.appendChild(span);
     });
   }
 
@@ -343,6 +261,24 @@
     var content = el('div', 'case-content');
 
     var hero = el('div', 'case-hero');
+    if (c.fotos && c.fotos.length) {
+      hero.classList.add('has-media');
+      var pGroup = el('div', 'case-photos');
+      for (var fi = 0; fi < 3; fi++) {
+        var f = el('figure', 'case-photo' + (c.fotos[fi] ? ' is-filled' : ' is-empty'));
+        if (c.fotos[fi]) {
+          var im = document.createElement('img');
+          im.src = c.fotos[fi];
+          im.alt = c.marca + ' · foto ' + (fi + 1);
+          im.loading = 'lazy';
+          im.width = 400;
+          im.height = 400;
+          f.appendChild(im);
+        }
+        pGroup.appendChild(f);
+      }
+      hero.appendChild(pGroup);
+    }
     var heroText = el('div', 'case-hero-text');
     heroText.appendChild(el('p', 'case-ymeta', c.campana + ' · ' + c.anio));
     heroText.appendChild(el('h4', 'case-hero-title', c.marca));
@@ -357,7 +293,7 @@
     var strong = document.createElement('b');
     strong.textContent = c.datoDuro;
     dato.appendChild(strong);
-    dato.appendChild(el('span', null, 'El dato duro'));
+    dato.appendChild(el('span', null, 'El dato más importante'));
     stats.appendChild(dato);
     copy.appendChild(stats);
 
@@ -556,7 +492,7 @@
     var title = $('casos-cta-title');
     var sub = $('casos-cta-sub');
     var toggle = $('casos-cta-toggle');
-    var submit = $('casos-cta-form button[type="submit"]');
+    var submit = $('casos-cta-form') && $('casos-cta-form').querySelector('button[type="submit"]');
     var close = $('casos-cta-close');
 
     if (kicker) kicker.textContent = ui.ctaKicker;
@@ -617,7 +553,7 @@
     if (close && form) {
       close.addEventListener('click', function () {
         form.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
       });
     }
 
@@ -675,7 +611,6 @@
     renderHero();
     renderCtaText();
     initCta();
-    initStickers();
     initKeyboard();
 
     var locked = !sessionLevel();

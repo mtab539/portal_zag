@@ -12,12 +12,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/casos.css">
+  <link rel="stylesheet" href="css/casos.css?v=23">
   <script src="js/content.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/zag-session.js" defer></script>
-  <script src="js/casos-data.js" defer></script>
-  <script src="js/casos.js" defer></script>
+  <script src="js/casos-data.js?v=21" defer></script>
+  <script src="js/casos.js?v=22" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -54,25 +54,19 @@
 
   <main id="main" class="casos-main">
 
-    <!-- 1 · HERO — fondo azul noche, titular gigante y stickers flotantes -->
+    <!-- 1 · HERO — azul medio plano, todo centrado + patrón animado inferior -->
     <section id="casos-hero" class="casos-hero" aria-labelledby="casos-hero-title">
-      <div class="casos-stickers" aria-hidden="true">
-        <div class="sticker-slot" data-slot="1" data-depth="1">
-          <!-- STICKER DE MARCA: reemplazar por <img src="assets/img/stickers/..."> -->
-          <span class="sticker-vinyl">¿SOLO PORQUE ZIG…?</span>
-        </div>
-        <div class="sticker-slot" data-slot="2" data-depth="0.5"></div>
-        <div class="sticker-slot" data-slot="3" data-depth="0.8"></div>
-        <div class="sticker-slot" data-slot="4" data-depth="0.6"></div>
-        <div class="sticker-slot" data-slot="5" data-depth="0.9"></div>
-        <div class="sticker-slot" data-slot="6" data-depth="0.4"></div>
-      </div>
-
       <div class="container casos-hero-inner">
         <p id="casos-hero-kicker" class="kicker casos-hero-kicker"></p>
         <h1 id="casos-hero-title" class="casos-hero-title"></h1>
         <p id="casos-hero-sub" class="casos-hero-sub"></p>
         <p id="casos-hero-scroll" class="casos-hero-scroll"></p>
+      </div>
+      <div class="casos-hero-pattern" aria-hidden="true">
+        <div class="casos-hero-pattern-track">
+          <div class="casos-hero-pattern-band"></div>
+          <div class="casos-hero-pattern-band"></div>
+        </div>
       </div>
     </section>
 
@@ -95,13 +89,14 @@
     <!-- 3 · CTA FINAL — manda el caso que conozcas -->
     <section id="casos-cta-section" class="casos-cta" aria-labelledby="casos-cta-title" hidden>
       <div class="container">
-        <p id="casos-cta-kicker" class="kicker casos-cta-kicker"></p>
-        <h2 id="casos-cta-title" class="casos-cta-title"></h2>
-        <p id="casos-cta-sub" class="casos-cta-sub"></p>
+        <div class="casos-cta-grid">
+          <div class="casos-cta-info">
+            <p id="casos-cta-kicker" class="kicker casos-cta-kicker"></p>
+            <h2 id="casos-cta-title" class="casos-cta-title"></h2>
+            <p id="casos-cta-sub" class="casos-cta-sub"></p>
+          </div>
 
-        <button id="casos-cta-toggle" type="button" class="btn" aria-expanded="false" aria-controls="casos-cta-form"></button>
-
-        <form id="casos-cta-form" class="casos-cta-form" novalidate hidden>
+          <form id="casos-cta-form" class="casos-cta-form" novalidate>
           <label class="casos-field">
             <span>Marca</span>
             <input id="casos-f-marca" name="marca" type="text" autocomplete="off" required>
@@ -132,6 +127,7 @@
             <button id="casos-cta-close" type="button" class="casos-cta-close"></button>
           </div>
         </form>
+        </div>
       </div>
     </section>
   </main>
