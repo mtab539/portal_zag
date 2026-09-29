@@ -1,0 +1,989 @@
+/* ============================================================
+   FOGATAS ZAG (fogatas.html)
+
+   Organizado por bloques, de arriba hacia abajo. Los únicos colores
+   vienen de css/tokens.css; los cinco temas de tarjeta se arman
+   con esos tokens y color-mix(), sin hexadecimales sueltos.
+   ============================================================ */
+
+/* ============================================================
+   1 · SECCIÓN
+   ============================================================ */
+
+.fogatas {
+  background: var(--color-cream);
+  padding-bottom: var(--s-8);
+}
+
+.fogatas-head {
+  max-width: 760px;
+  margin: 0 auto var(--s-6);
+  text-align: center;
+}
+
+.fogatas-head-title {
+  font-family: var(--font-display-giga);
+  font-size: clamp(2rem, 5.4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
+  margin-bottom: var(--s-3);
+}
+
+.fogatas-head-copy {
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* ============================================================
+   2 · LOS CINCO TEMAS DE TARJETA
+
+   --f-bg        fondo del bloque
+   --f-ink       texto principal
+   --f-muted     texto secundario (descripción, rol del anfitrión)
+   --f-chip-bg   fondo de chips y píldoras
+   --f-cta-bg    fondo de los botones
+   --f-cta-ink   texto de los botones
+
+   El alfa de --f-muted está medido contra --f-bg para que cada
+   tema quede igual de "secundario" sin bajar de 4.5:1.
+   ============================================================ */
+
+.fogata--t1 {
+  --f-bg: var(--color-functional);
+  --f-ink: var(--color-cream);
+  --f-muted: color-mix(in srgb, var(--color-cream) 84%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
+  --f-cta-bg: var(--color-cta);
+  --f-cta-ink: var(--color-black);
+}
+
+.fogata--t2 {
+  --f-bg: var(--color-cta);
+  --f-ink: var(--color-black);
+  --f-muted: color-mix(in srgb, var(--color-black) 72%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-black) 14%, transparent);
+  --f-cta-bg: var(--color-black);
+  --f-cta-ink: var(--color-cream);
+}
+
+.fogata--t3 {
+  --f-bg: var(--color-black);
+  --f-ink: var(--color-cream);
+  --f-muted: color-mix(in srgb, var(--color-cream) 50%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
+  --f-cta-bg: var(--color-cta);
+  --f-cta-ink: var(--color-black);
+}
+
+.fogata--t4 {
+  --f-bg: var(--color-light-blue);
+  --f-ink: var(--color-brand-deep);
+  --f-muted: color-mix(in srgb, var(--color-brand-deep) 76%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-brand-deep) 14%, transparent);
+  --f-cta-bg: var(--color-brand-deep);
+  --f-cta-ink: var(--color-cream);
+}
+
+.fogata--t5 {
+  --f-bg: var(--color-brand-deep);
+  --f-ink: var(--color-cream);
+  --f-muted: color-mix(in srgb, var(--color-cream) 62%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
+  --f-cta-bg: var(--color-cta);
+  --f-cta-ink: var(--color-black);
+}
+
+/* ============================================================
+   3 · TARJETA
+   ============================================================ */
+
+.fogatas-panel {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.fogatas-panel:focus {
+  outline: none;
+}
+
+.fogatas-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.fogata-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-6);
+  border-radius: var(--radius-card);
+  background: var(--f-bg);
+  color: var(--f-ink);
+  overflow: hidden;
+}
+
+/* Medida de lectura cómoda para descripciones largas */
+.fogata-desc {
+  max-width: 62ch;
+}
+
+/* ---- Datos: número, tema, fecha, lugar ---- */
+
+.fogata-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.fogata-kicker {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--f-muted);
+  white-space: nowrap;
+}
+
+.fogata-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--f-chip-bg);
+  color: var(--f-ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+.fogata-chip--icon {
+  gap: 0.35rem;
+}
+
+.fogata-chip--icon svg {
+  flex: none;
+}
+
+.fogata-tema {
+  font-family: var(--font-display-giga);
+  font-size: clamp(1.6rem, 4.2vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.fogata-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--f-muted);
+}
+
+/* ---- Anfitrión ---- */
+
+.fogata-host {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-top: var(--s-1);
+}
+
+.fogata-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  background: var(--f-ink);
+  color: var(--f-bg);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.fogata-host-name {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.fogata-host-rol {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--f-muted);
+}
+
+/* ---- Cupos ---- */
+
+.fogata-cupos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  padding-top: var(--s-1);
+}
+
+.fogata-cupos-txt {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--f-muted);
+}
+
+.fogata-cupos-txt strong {
+  color: var(--f-ink);
+  font-weight: 800;
+}
+
+.fogata-tag-ultimos {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--f-cta-bg);
+  color: var(--f-cta-ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Barra de ocupación */
+.fogata-bar {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--f-chip-bg);
+  overflow: hidden;
+}
+
+.fogata-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--f-cta-bg);
+  transition: width 320ms var(--ease-out, ease);
+}
+
+/* ---- Fila de acción ---- */
+
+.fogata-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-top: var(--s-2);
+}
+
+.fogata-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--f-cta-bg);
+  color: var(--f-cta-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.fogata-cta:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+}
+
+.fogata-cta:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.fogata-cta:focus-visible {
+  outline: 3px solid var(--f-ink);
+  outline-offset: 3px;
+}
+
+.fogata-cta[aria-busy='true'] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* Reservado: botón que abre la confirmación de cancelación */
+.fogata-cta--reservado {
+  background: transparent;
+  color: var(--f-cta-bg);
+  border-color: var(--f-cta-bg);
+}
+
+.fogata-cta--reservado:hover:not(:disabled) {
+  background: var(--f-chip-bg);
+  box-shadow: none;
+}
+
+/* Agotada: sin acción */
+.fogata-cta--agotada {
+  background: transparent;
+  color: var(--f-muted);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.fogata-cta--agotada:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Confirmación inline de cancelación */
+.fogata-cancel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--radius-md);
+  background: var(--f-chip-bg);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.fogata-cancel-preg {
+  font-weight: 700;
+  flex: 1 1 100%;
+}
+
+.fogata-cancel-nota {
+  flex: 1 1 100%;
+  font-size: 0.85rem;
+  color: var(--f-muted);
+}
+
+.fogata-cancel-btn {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fogata-cancel-btn--si {
+  background: var(--f-cta-bg);
+  color: var(--f-cta-ink);
+}
+
+.fogata-cancel-btn--no {
+  background: transparent;
+  color: var(--f-ink);
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.fogata-cancel-btn:focus-visible {
+  outline: 3px solid var(--f-ink);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   4 · ESTADO PASADA
+
+   Se desatura y baja el peso para que se lea como archivo, y se
+   mantiene la misma estructura de datos.
+   ============================================================ */
+
+.fogata-card--pasada {
+  --f-cta-bg: var(--f-ink);
+  --f-cta-ink: var(--f-bg);
+}
+
+.fogata-card--pasada .fogata-tema {
+  font-weight: 700;
+}
+
+.fogata-pasada-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--f-chip-bg);
+  /* Tinta plena, como los otros chips: la atenuada cae bajo 4.5 sobre el chip. */
+  color: var(--f-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fogata-asistieron {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--f-ink);
+}
+
+.fogata-asistieron span {
+  color: var(--f-muted);
+  font-weight: 500;
+}
+
+.fogata-calendar-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 2px solid currentColor;
+  border-radius: var(--radius-pill);
+  color: var(--f-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+
+.fogata-calendar-link:hover {
+  transform: translateY(-2px);
+}
+
+.fogata-calendar-link:focus-visible {
+  outline: 3px solid var(--f-ink);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   5 · FILTRO PRÓXIMAS / PASADAS
+   ============================================================ */
+
+.fogatas-tabs-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--s-6);
+}
+
+.fogatas-tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-brand-deep) 8%, transparent);
+}
+
+.fogatas-tab {
+  min-height: 46px;
+  padding: 0.65rem 1.6rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-brand-deep);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.fogatas-tab:hover:not(.is-active) {
+  background: color-mix(in srgb, var(--color-brand-deep) 8%, transparent);
+}
+
+.fogatas-tab.is-active {
+  background: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+.fogatas-tab:focus-visible {
+  outline: 3px solid var(--color-cta);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   6 · ESTADO VACÍO
+   ============================================================ */
+
+.fogatas-empty {
+  padding: var(--s-8) var(--s-4);
+  border: 2px dashed color-mix(in srgb, var(--color-brand-deep) 22%, transparent);
+  border-radius: var(--radius-card);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   7 · BLOQUE DE ACCESO
+
+   Mismo criterio que el bloque del Muro de Quiebre: se despliega
+   arriba del listado solo cuando alguien intenta reservar sin
+   sesión, y la lista queda a la vista igual.
+   ============================================================ */
+
+.fogatas-access {
+  max-width: 760px;
+  margin: 0 auto var(--s-6);
+  padding: var(--s-6);
+  border-radius: var(--radius-card);
+  background: var(--color-brand-deep);
+  color: var(--color-cream);
+  text-align: center;
+}
+
+.fogatas-access-kicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-light-blue);
+  margin-bottom: var(--s-2);
+}
+
+.fogatas-access-title {
+  font-family: var(--font-display-giga);
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: var(--s-2);
+}
+
+.fogatas-access-copy {
+  max-width: 48ch;
+  margin: 0 auto var(--s-5);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-cream) 78%, transparent);
+}
+
+.fogatas-access-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.fogata-btn--primary {
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cta);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.fogata-btn--secondary {
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.fogata-btn--primary:hover,
+.fogata-btn--secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
+}
+
+.fogata-btn--secondary:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.fogata-btn--primary:focus-visible,
+.fogata-btn--secondary:focus-visible {
+  outline: 3px solid var(--color-light-blue);
+  outline-offset: 3px;
+}
+
+/* Selector de nivel, con la misma caja y flecha que Casos ZIG */
+.fogatas-access-box {
+  max-width: 420px;
+  margin: var(--s-5) auto 0;
+  text-align: left;
+}
+
+.fogatas-access-box-label {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-light-blue);
+}
+
+.fogatas-access-box-select {
+  position: relative;
+  display: block;
+}
+
+.fogatas-access-box-select select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.85rem 3rem 0.85rem 1.15rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.fogatas-access-box-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  width: 12px;
+  height: 12px;
+  margin-top: -8px;
+  border-right: 2.5px solid var(--color-black);
+  border-bottom: 2.5px solid var(--color-black);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.fogatas-access-box-select select:focus-visible {
+  outline: 3px solid var(--color-light-blue);
+  outline-offset: 3px;
+}
+
+.fogatas-access-box-hint {
+  margin-top: var(--s-2);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-cream) 72%, transparent);
+}
+
+/* ============================================================
+   8 · CHIP DE SESIÓN EN EL HEADER
+   ============================================================ */
+
+.fogatas-session-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-brand-deep) 10%, transparent);
+  color: var(--color-brand-deep);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.fogatas-session-chip::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cta);
+}
+
+/* ============================================================
+   9 · REINICIAR DEMO
+   ============================================================ */
+
+.fogatas-reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fogatas-reset:hover {
+  color: var(--color-cta);
+}
+
+.fogatas-reset:focus-visible {
+  outline: 2px solid var(--color-cta);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   10 · POPUP DE CONFIRMACIÓN
+   ============================================================ */
+
+.fogatas-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: var(--s-4);
+}
+
+.fogatas-modal[hidden] {
+  display: none;
+}
+
+.fogatas-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.6);
+  animation: fogatas-fade 200ms ease;
+}
+
+.fogatas-modal-box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  padding: var(--s-6);
+  border-radius: var(--radius-card);
+  background: var(--color-cream);
+  color: var(--color-black);
+  text-align: center;
+  animation: fogatas-pop 240ms var(--ease-out, ease);
+}
+
+.fogatas-modal-flame {
+  display: block;
+  margin: 0 auto var(--s-3);
+}
+
+.fogatas-flame-outer {
+  fill: var(--color-cta);
+  transform-origin: 50% 100%;
+  animation: fogatas-flicker 2.4s ease-in-out infinite;
+}
+
+.fogatas-flame-inner {
+  fill: var(--color-brand-deep);
+  transform-origin: 50% 100%;
+  animation: fogatas-flicker 1.7s ease-in-out infinite reverse;
+}
+
+.fogatas-modal-title {
+  font-family: var(--font-display-giga);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-brand-deep);
+  margin-bottom: var(--s-2);
+}
+
+.fogatas-modal-copy {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.fogatas-modal-detalle {
+  margin-top: var(--s-3);
+  padding: var(--s-3);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-brand-deep) 6%, transparent);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-brand-deep);
+}
+
+.fogatas-modal-detalle:empty {
+  display: none;
+}
+
+.fogatas-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+
+.fogatas-modal-calendar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 2px solid var(--color-brand-deep);
+  border-radius: var(--radius-pill);
+  color: var(--color-brand-deep);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.fogatas-modal-calendar:hover {
+  background: color-mix(in srgb, var(--color-brand-deep) 8%, transparent);
+}
+
+.fogatas-modal-calendar:focus-visible {
+  outline: 3px solid var(--color-cta);
+  outline-offset: 3px;
+}
+
+.fogatas-modal-cta {
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cta);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+.fogatas-modal-cta:hover {
+  transform: translateY(-2px);
+}
+
+.fogatas-modal-cta:focus-visible {
+  outline: 3px solid var(--color-brand-deep);
+  outline-offset: 3px;
+}
+
+@keyframes fogatas-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fogatas-pop {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fogatas-flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+  35% { transform: scaleY(1.07) scaleX(0.96); opacity: 0.92; }
+  60% { transform: scaleY(0.95) scaleX(1.03); opacity: 1; }
+}
+
+/* ============================================================
+   11 · ENTRADA DE LAS TARJETAS
+   ============================================================ */
+
+/* Las tarjetas usan la clase .reveal global de styles.css y reciben
+   .is-in desde main.js; acá solo se escalona la entrada. */
+.fogata-card.reveal {
+  transition-delay: var(--f-reveal-delay, 0ms);
+}
+
+/* ============================================================
+   12 · PANTALLAS ANCHAS
+
+   El CTA deja de ocupar la fila entera y se alinea a la izquierda,
+   al lado de los cupos.
+   ============================================================ */
+
+@media (min-width: 720px) {
+  .fogata-card {
+    padding: var(--s-7);
+  }
+
+  .fogata-actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .fogata-cta,
+  .fogata-calendar-link {
+    width: auto;
+    min-width: 220px;
+  }
+
+  .fogata-cancel {
+    flex: 1 1 auto;
+  }
+
+  .fogatas-modal-actions {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 900px) {
+  .fogatas-access-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .fogatas-access-actions .fogata-btn--primary,
+  .fogatas-access-actions .fogata-btn--secondary {
+    min-width: 200px;
+  }
+}
+
+/* ============================================================
+   13 · MOVIMIENTO REDUCIDO
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .fogata-card.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fogata-cta,
+  .fogata-btn--primary,
+  .fogata-btn--secondary,
+  .fogata-calendar-link,
+  .fogatas-modal-cta {
+    transition: none;
+  }
+
+  .fogata-cta:hover,
+  .fogata-btn--primary:hover,
+  .fogata-btn--secondary:hover,
+  .fogata-calendar-link:hover,
+  .fogatas-modal-cta:hover {
+    transform: none;
+  }
+
+  .fogatas-flame-outer,
+  .fogatas-flame-inner,
+  .fogatas-modal-backdrop,
+  .fogatas-modal-box {
+    animation: none;
+  }
+}

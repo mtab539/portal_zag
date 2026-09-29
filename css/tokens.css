@@ -88,13 +88,14 @@
 :root {
   /* ---- Paleta por rol (corregido H4: un solo azul por rol, naranja únicamente CTA) ---- */
   --color-cta: #ff5c01;            /* Naranja — acción principal. Único CTA primario. */
-  --color-cta-text: #c74300;       /* Naranja accesible para TEXTO pequeño sobre claros (AA 4.96:1). El #ff5c01 puro solo pasa AA en texto grande o sobre oscuro. */
+  --color-cta-text: #ff5c01;       /* Naranja de marca aplicado a TEXTOS. Ojo: sobre blanco/crema da 3.10:1 / 2.94:1, así que solo alcanza AA en texto grande (≥24px o ≥18.66px bold) o sobre oscuro. Para texto chico sobre claro usar --color-cta-ink. */
   --color-brand-deep: #041dad;     /* Azul profundo — marca / estructura / nivel Master */
   --color-functional: #1144ff;     /* Azul funcional — links, chips, acentos (nunca CTA) */
   --color-light-blue: #c0ccff;     /* Celeste claro — fondos suaves / nivel Strategist */
   --color-white: #ffffff;          /* Blanca — fondo base del body */
   --color-cream: #fff8ee;          /* Crema — texto sobre azules/oscuros / nivel Rookie */
   --color-black: #000000;          /* Negro — nivel Senior, texto, footer, alto contraste */
+  --color-beige: #e9dcc0;          /* Beige cálido de marca — capa revelada del hero de Proyectos */
   --color-night: #0a1240;          /* Azul casi negro (derivado de brand-deep) — fondo del hero y CTA de Casos ZIG, para que los stickers y el titular respiren */
 
   /* ---- Roles derivados (semánticos) ---- */
@@ -110,6 +111,25 @@
   --color-link: var(--color-functional);
   --color-link-hover: var(--color-brand-deep);
   --color-focus: var(--color-functional);
+
+  /* ---- Proyectos fuera del ZIG: vidrios y velos sobre el hero azul ---- */
+  --glass-fill: rgba(255, 248, 238, 0.08);      /* relleno translúcido de la tarjeta */
+  --glass-fill-strong: rgba(255, 248, 238, 0.1);
+  --glass-border: rgba(255, 248, 238, 0.15);    /* borde del vidrio */
+  --glass-border-strong: rgba(255, 248, 238, 0.22);
+  --glass-text-soft: rgba(255, 248, 238, 0.75); /* metadatos sobre vidrio */
+  --glass-text-muted: rgba(255, 248, 238, 0.7);
+  --cover-scrim: rgba(0, 0, 0, 0.45);           /* velo sobre la portada de la tarjeta */
+  --cover-scrim-soft: rgba(0, 0, 0, 0.28);
+  --cover-gradient: rgba(0, 0, 0, 0.7);         /* degradado inferior de la portada */
+  --veil-strong: rgba(0, 0, 0, 0.6);            /* fondo del modal */
+  --shadow-deep: rgba(0, 0, 0, 0.4);
+  --scrim-brand: rgba(4, 29, 173, 0.92);         /* cabecera pegajosa al hacer scroll */
+  --focus-ring-cta: rgba(255, 92, 1, 0.18);
+  --border-cta-soft: rgba(255, 92, 1, 0.6);
+  --shadow-cta: rgba(255, 92, 1, 0.22);
+  --color-border-soft: rgba(4, 29, 173, 0.14);   /* borde sutil sobre fondo blanco */
+  --shadow-card: rgba(0, 0, 0, 0.16);            /* sombra de tarjeta blanca sobre azul */
 
   /* ---- Muro de Quiebre: superficies y estados ---- */
   --color-grey-soft: #f3f1ec;      /* gris cremoso claro — fondos de hover y áreas alternas del Muro */
@@ -141,6 +161,7 @@
   /* ---- Radios ---- */
   --radius-md: 14px;
   --radius-lg: 20px;
+  --radius-card: 28px;     /* bloque de color de las tarjetas de Fogatas ZAG */
   --radius-pill: 999px;
 
   /* ---- Layout ---- */

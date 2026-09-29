@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyectos fuera del ZIG · Portal ZAG</title>
+  <meta name="description" content="Proyectos fuera del ZIG del Portal ZAG: lo mejor que hacen los zaggistas cuando viven la filosofía del ZAG. Campañas, rebranding, UX, activaciones y más, con su fuente original.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/proyectos.css?v=24">
+  <script src="js/content.js?v=28" defer></script>
+  <script src="js/main.js?v=26" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/proyectos-data.js?v=6" defer></script>
+  <script src="js/smudge-reveal.js?v=2" defer></script>
+  <script src="js/proyectos.js?v=10" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/logozag.svg"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+    </div>
+  </header>
+
+  <main id="main" class="proy-main">
+
+    <!-- 1 · HERO — Smudge Reveal: el cursor revela la frase sobre una capa beige -->
+    <section class="smudge-root" aria-labelledby="smudge-title">
+      <!-- Capa 1 · frente (azul oscuro de marca + titular) -->
+      <div class="smudge-front">
+        <p id="smudge-kicker" class="smudge-kicker"></p>
+        <h1 id="smudge-title" class="smudge-title"></h1>
+      </div>
+
+      <!-- Capa 2 · revelada por la máscara de manchas -->
+      <div class="smudge-back" aria-hidden="true">
+        <p class="smudge-frase smudge-frase-visual"></p>
+      </div>
+
+      <!-- La misma frase, accesible, cuando la capa visual está oculta -->
+      <p class="smudge-frase smudge-frase-sr sr-only"></p>
+
+      <p class="smudge-hint smudge-hint--desktop" aria-hidden="true"></p>
+      <p class="smudge-hint smudge-hint--touch" aria-hidden="true"></p>
+
+      <!-- Filtro goo + máscara (ids únicos usados por el CSS y el módulo) -->
+      <svg class="smudge-svg" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+        <defs>
+          <filter id="zag-smudge-goo" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2400" height="2400">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur"></feGaussianBlur>
+            <feColorMatrix in="blur" mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -14"></feColorMatrix>
+          </filter>
+          <mask id="zag-smudge-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+            <g id="zag-smudge-blobs" filter="url(#zag-smudge-goo)" fill="#ffffff"></g>
+          </mask>
+        </defs>
+      </svg>
+
+      <!-- Banda de líneas al pie, como el hero de Casos ZIG -->
+      <div class="smudge-pattern" aria-hidden="true">
+        <div class="smudge-pattern-track">
+          <div class="smudge-pattern-band"></div>
+          <div class="smudge-pattern-band"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · FILTROS + BUSCADOR -->
+    <section class="proy-filters-wrap" aria-labelledby="proy-filters-title">
+      <div class="container">
+        <p id="proy-filters-kicker" class="kicker"></p>
+        <div class="proy-filters-head">
+          <h2 id="proy-filters-title" class="proy-filters-title"></h2>
+          <div class="proy-filters-meta">
+            <p id="proy-count" class="proy-count" role="status" aria-live="polite"></p>
+            <div class="proy-bell-wrap">
+              <button
+                id="proy-bell"
+                class="proy-bell"
+                type="button"
+                aria-expanded="false"
+                aria-controls="proy-bell-panel"
+                aria-label="Notificaciones">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+                </svg>
+                <span class="proy-bell-dot" id="proy-bell-dot" hidden></span>
+              </button>
+              <div
+                id="proy-bell-panel"
+                class="proy-bell-panel"
+                role="region"
+                aria-label="Tus envíos en revisión"
+                hidden></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proy-search">
+          <span class="proy-search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </span>
+          <input id="proy-search-input" class="proy-search-input" type="search" autocomplete="off" spellcheck="false">
+        </div>
+
+        <div id="proy-chips" class="proy-chips" role="group" aria-label="Filtrar por categoría"></div>
+
+        <div class="proy-selects">
+          <label class="proy-select">
+            <span class="proy-select-label" id="proy-nivel-label"></span>
+            <span class="proy-select-box">
+              <select id="proy-nivel" class="proy-select-el"></select>
+            </span>
+          </label>
+          <label class="proy-select">
+            <span class="proy-select-label" id="proy-orden-label"></span>
+            <span class="proy-select-box">
+              <select id="proy-orden" class="proy-select-el">
+                <option value="recientes"></option>
+                <option value="antiguos"></option>
+              </select>
+            </span>
+          </label>
+          <button id="proy-clear" class="proy-clear" type="button" hidden></button>
+        </div>
+
+        <p id="proy-live" class="sr-only" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 3 · GRILLA DE PROYECTOS -->
+    <section class="proy-stage" aria-label="Proyectos de la comunidad">
+      <div class="container">
+        <div id="proy-grid" class="proy-grid"></div>
+        <div id="proy-empty" class="proy-empty" hidden>
+          <p id="proy-empty-titulo" class="proy-empty-titulo"></p>
+          <p id="proy-empty-copy" class="proy-empty-copy"></p>
+          <a href="#subir" class="btn" id="proy-empty-cta"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · FORMULARIO — sube tu proyecto -->
+    <section id="subir" class="proy-form-wrap" aria-labelledby="proy-form-title">
+      <div class="container">
+        <p id="proy-form-kicker" class="kicker"></p>
+        <h2 id="proy-form-title" class="proy-form-title"></h2>
+        <p id="proy-form-sub" class="proy-form-sub"></p>
+
+        <!-- Sin sesión: pedir perfil -->
+        <div id="proy-gate" class="proy-gate" hidden>
+          <p id="proy-gate-msg" class="proy-gate-msg"></p>
+          <div class="proy-gate-actions">
+            <a href="muro.html" class="btn" id="proy-gate-activar"></a>
+            <button id="proy-gate-demo" class="proy-btn-secondary" type="button" aria-expanded="false" aria-controls="proy-gate-box"></button>
+          </div>
+          <div id="proy-gate-box" class="proy-gate-box" hidden>
+            <label class="sr-only" for="proy-gate-nivel" id="proy-gate-nivel-label"></label>
+            <span class="proy-select-box">
+              <select id="proy-gate-nivel" class="proy-select-el"></select>
+            </span>
+            <p id="proy-gate-hint" class="proy-gate-hint"></p>
+          </div>
+        </div>
+
+        <!-- Con sesión: el formulario -->
+        <div id="proy-author" class="proy-author" hidden>
+          <span id="proy-author-avatar" class="proy-avatar" aria-hidden="true"></span>
+          <span id="proy-author-text" class="proy-author-text"></span>
+        </div>
+
+        <form id="proy-form" class="proy-form" novalidate hidden>
+          <div class="proy-field">
+            <label class="proy-label" for="proy-titulo" id="proy-titulo-label"></label>
+            <input id="proy-titulo" class="proy-input" type="text" maxlength="80" aria-describedby="proy-titulo-count proy-titulo-error">
+            <p class="proy-count-inline" id="proy-titulo-count" aria-hidden="true"></p>
+            <p class="proy-error" id="proy-titulo-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-field">
+            <label class="proy-label" for="proy-desc" id="proy-desc-label"></label>
+            <textarea id="proy-desc" class="proy-input" rows="4" maxlength="280" aria-describedby="proy-desc-count proy-desc-error"></textarea>
+            <p class="proy-count-inline" id="proy-desc-count" aria-hidden="true"></p>
+            <p class="proy-error" id="proy-desc-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-field">
+            <span class="proy-label" id="proy-cat-label"></span>
+            <div id="proy-cat-chips" class="proy-cat-chips" role="group" aria-labelledby="proy-cat-label" aria-describedby="proy-cat-error"></div>
+            <p class="proy-error" id="proy-cat-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-field">
+            <label class="proy-label" for="proy-link" id="proy-link-label"></label>
+            <input id="proy-link" class="proy-input" type="url" inputmode="url" placeholder="https://…" aria-describedby="proy-link-hint proy-link-drive proy-link-error">
+            <p class="proy-note" id="proy-link-hint"></p>
+            <p class="proy-note" id="proy-link-drive" hidden></p>
+            <p class="proy-error" id="proy-link-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-field">
+            <span class="proy-label" id="proy-portada-label"></span>
+            <input id="proy-portada" class="proy-input" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="proy-portada-warn proy-portada-error">
+            <div class="proy-cover-preview">
+              <div class="proy-cover-frame">
+                <img id="proy-cover-img" class="proy-cover-img" alt="" hidden>
+                <span id="proy-cover-empty" class="proy-cover-empty">16:9</span>
+              </div>
+              <details class="proy-specs">
+                <summary id="proy-specs-summary"></summary>
+                <ul id="proy-specs-list" class="proy-specs-list"></ul>
+                <p id="proy-specs-footer" class="proy-specs-footer"></p>
+              </details>
+            </div>
+            <p class="proy-warn" id="proy-portada-warn" role="status" hidden></p>
+            <p class="proy-error" id="proy-portada-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-field">
+            <label class="proy-label" for="proy-equipo" id="proy-equipo-label"></label>
+            <div class="proy-chips-input">
+              <input id="proy-equipo" class="proy-input" type="text" autocomplete="off" aria-describedby="proy-equipo-error">
+              <div id="proy-equipo-chips" class="proy-equipo-chips" aria-live="polite"></div>
+            </div>
+            <p class="proy-error" id="proy-equipo-error" role="alert" hidden></p>
+          </div>
+
+          <div class="proy-legal">
+            <label class="proy-legal-check" for="proy-legal">
+              <input id="proy-legal" type="checkbox" aria-describedby="proy-legal-error">
+              <span id="proy-legal-text" class="proy-legal-text"></span>
+            </label>
+            <p class="proy-error" id="proy-legal-error" role="alert" hidden></p>
+          </div>
+
+          <button id="proy-submit" class="btn" type="submit" disabled></button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 5 · FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-social">
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+        </div>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+          <p class="footer-legal"><button id="proy-reset" class="proy-reset" type="button"></button></p>
+        </div>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- 6 · MODAL de aprobación -->
+  <div id="proy-modal" class="proy-modal" role="dialog" aria-modal="true" aria-labelledby="proy-modal-title" hidden>
+    <div class="proy-modal-backdrop" data-close></div>
+    <div class="proy-modal-box" role="document">
+      <span class="proy-modal-logo">
+        <img class="proy-modal-sello" src="assets/logos/logozag.svg" alt="ZAG" width="76" height="76">
+      </span>
+      <h2 id="proy-modal-title" class="proy-modal-title"></h2>
+      <p id="proy-modal-copy" class="proy-modal-copy"></p>
+      <button id="proy-modal-cta" class="btn" type="button"></button>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      El Portal ZAG necesita JavaScript para mostrar los proyectos. Volvé a activarlo
+      o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>

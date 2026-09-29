@@ -258,28 +258,39 @@
   gap: var(--s-3);
 }
 
+/* Los dos botones del popup comparten alto, tipografia y padding: la
+   diferencia queda solo en el color, para que se lean como un par. */
+.casos-access-actions .btn,
+.casos-btn--secondary {
+  min-height: 48px;
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+/* El principal pasa de naranja a blanco */
 .casos-access-actions .btn {
-  background: var(--color-cta);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-brand-deep);
+  border: 2px solid var(--color-white);
 }
 
 .casos-access-actions .btn:hover {
   background: var(--color-cream);
-  color: var(--color-cta-text);
+  color: var(--color-brand-deep);
 }
 
+/* El secundario solo aporta color y borde: el alto y el padding ya vienen
+   de la regla compartida de arriba. */
 .casos-btn--secondary {
   border: 2px solid var(--color-cream);
   background: transparent;
   color: var(--color-cream);
-  padding: 11px 22px;
-  min-height: 44px;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 
 .casos-btn--secondary:hover {
@@ -295,16 +306,42 @@
   gap: var(--s-3);
 }
 
+/* caja que aloja el select y dibuja la flecha dentro del borde */
+.casos-access-box-select {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 280px;
+}
+
+.casos-access-box-select::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  transform: translateY(-50%);
+  background-color: var(--color-brand-deep);
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
 .casos-access-box select {
-  min-height: 44px;
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
-  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 38px 12px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-strong);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   background: var(--color-white);
   color: var(--color-black);
+  cursor: pointer;
 }
 
 .casos-access-box .casos-access-hint {
@@ -711,25 +748,14 @@
   color: var(--color-cream);
 }
 
-.casos-cta-title {
-  font-family: var(--font-display-giga);
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.005em;
-  font-size: clamp(38px, 10vw, 96px);
-  max-width: 9em;
-}
-
-.casos-cta-title .cta-accent {
-  color: var(--color-cta);
-}
-
-.casos-cta-sub {
-  margin-top: var(--s-4);
-  max-width: 30em;
-  font-size: 17px;
-  color: rgba(255, 248, 238, 0.88);
+/* La ilustración ocupa la misma columna que el formulario y escala con ella.
+   El SVG es cuadrado (810x810), así que el alto sale del propio ratio. */
+.casos-cta-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: var(--s-5) 0 0;
+  border-radius: var(--radius-lg);
 }
 
 /* ---- Formulario ---- */
@@ -1020,3 +1046,87 @@
 /* ============================================================
    * Movimiento reducido (JS también lo detecta)
    ============================================================ */
+/* ============================================================
+   Modal de aprobación (mismo criterio que el de Proyectos)
+   ============================================================ */
+.casos-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+}
+
+.casos-modal[hidden] {
+  display: none;
+}
+
+.casos-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--veil-strong);
+}
+
+.casos-modal-box {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  padding: var(--s-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-cream);
+  text-align: center;
+  box-shadow: 0 30px 70px var(--shadow-deep);
+}
+
+.casos-modal-logo {
+  display: inline-grid;
+  place-items: center;
+  width: 108px;
+  height: 108px;
+  border-radius: var(--radius-lg);
+}
+
+.casos-modal-sello {
+  width: 76px;
+  height: 76px;
+  animation: casos-sello 620ms var(--ease-out) both;
+}
+
+@keyframes casos-sello {
+  0% { transform: scale(2.6) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(0.92) rotate(-8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-8deg); opacity: 1; }
+}
+
+.casos-modal-title {
+  margin: var(--s-4) 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
+}
+
+.casos-modal-copy {
+  margin: 0 0 var(--s-5);
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.casos-modal-box .btn {
+  width: 100%;
+}
+
+.casos-modal-box .btn:hover {
+  background: var(--color-cream);
+  color: var(--color-cta-text);
+  box-shadow: inset 0 0 0 2px var(--color-cta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .casos-modal-sello {
+    animation: none;
+  }
+}

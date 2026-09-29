@@ -10,14 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/casos.css?v=23">
-  <script src="js/content.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <link rel="stylesheet" href="css/casos.css?v=27">
+  <script src="js/content.js?v=28" defer></script>
+  <script src="js/main.js?v=26" defer></script>
   <script src="js/zag-session.js" defer></script>
-  <script src="js/casos-data.js?v=21" defer></script>
-  <script src="js/casos.js?v=22" defer></script>
+  <script src="js/casos-data.js?v=25" defer></script>
+  <script src="js/casos.js?v=27" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -87,13 +87,13 @@
     </section>
 
     <!-- 3 · CTA FINAL — manda el caso que conozcas -->
-    <section id="casos-cta-section" class="casos-cta" aria-labelledby="casos-cta-title" hidden>
+    <section id="casos-cta-section" class="casos-cta" aria-label="Mandanos el caso que conozcas" hidden>
       <div class="container">
         <div class="casos-cta-grid">
           <div class="casos-cta-info">
             <p id="casos-cta-kicker" class="kicker casos-cta-kicker"></p>
-            <h2 id="casos-cta-title" class="casos-cta-title"></h2>
-            <p id="casos-cta-sub" class="casos-cta-sub"></p>
+            <img class="casos-cta-art" src="assets/img/formfracasos.svg" alt="" aria-hidden="true"
+                 width="810" height="810" decoding="async">
           </div>
 
           <form id="casos-cta-form" class="casos-cta-form" novalidate>
@@ -120,7 +120,7 @@
           </label>
 
           <p id="casos-form-error" class="casos-form-error" role="alert" hidden></p>
-          <p id="casos-form-ok" class="casos-cta-ok" role="status"></p>
+          <p id="casos-form-ok" class="sr-only" role="status" aria-live="polite"></p>
 
           <div class="casos-form-actions">
             <button type="submit" class="btn"></button>
@@ -152,6 +152,19 @@
       <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
     </a>
   </footer>
+
+  <!-- Modal de aprobacion -->
+  <div id="casos-modal" class="casos-modal" role="dialog" aria-modal="true" aria-labelledby="casos-modal-title" hidden>
+    <div class="casos-modal-backdrop" data-close></div>
+    <div class="casos-modal-box" role="document">
+      <span class="casos-modal-logo">
+        <img class="casos-modal-sello" src="assets/logos/logozag.svg" alt="ZAG" width="76" height="76">
+      </span>
+      <h2 id="casos-modal-title" class="casos-modal-title"></h2>
+      <p id="casos-modal-copy" class="casos-modal-copy"></p>
+      <button id="casos-modal-cta" class="btn" type="button"></button>
+    </div>
+  </div>
 
   <noscript>
     <p style="padding: 24px; font-family: system-ui; text-align: center;">

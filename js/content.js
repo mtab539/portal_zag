@@ -8,6 +8,7 @@
 window.ZAG_CONTENT = {
   urls: {
     proximamente: 'proximamente.html',
+    fogatas: 'fogatas.html',
   },
 
   nav: [
@@ -31,7 +32,7 @@ window.ZAG_CONTENT = {
           label: 'Proyectos fuera del ZIG',
           desc: 'Ideas que nacieron fuera y terminaron haciendo ZAG',
           icon: 'rocket',
-          href: 'proximamente.html',
+          href: 'proyectos.html',
         },
       ],
     },
@@ -42,7 +43,7 @@ window.ZAG_CONTENT = {
           label: 'Fogatas',
           desc: 'Encuentros informales: chocolate, risas y conversación real',
           icon: 'fire',
-          href: 'proximamente.html',
+          href: 'fogatas.html',
         },
         {
           label: 'Seminario',
@@ -211,7 +212,7 @@ window.ZAG_CONTENT = {
     title: 'Descubre todo lo que el ZAG tiene para ti',
     items: [
       { title: 'Comunidad', img: 'assets/img/comunidad.jpg', desc: 'El Muro de Quiebre y el blog de fracasos: testimonios reales de la tribu y casos que no funcionaron, contados sin filtro.', link: '#muro' },
-      { title: 'Eventos', desc: 'Fogatas, mentorías y activaciones ZAG — presenciales y digitales, para que nunca te quedes por fuera.', tips: ['fogata'], link: 'proximamente.html' },
+      { title: 'Eventos', desc: 'Fogatas, mentorías y activaciones ZAG — presenciales y digitales, para que nunca te quedes por fuera.', tips: ['fogata'], link: 'fogatas.html' },
       { title: 'Aprende más', desc: 'Cursos Extraclase de growth hacking, branding experimental, IA aplicada y UX/UI. No califican: son cultura.', link: 'proximamente.html' },
       { title: 'ZAG Room', desc: 'El territorio físico de la Sociedad ZAG: espacio de creación, mentorías y encuentro para niveles altos.', tips: ['zagroom', 'sociedadzag'], link: 'proximamente.html' },
       { title: 'Tienda ZAG', desc: 'Merchandising oficial que se desbloquea según tu nivel. Tu nivel desbloquea tu estilo.', link: 'proximamente.html' },

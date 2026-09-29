@@ -423,6 +423,28 @@
   var SETTLE_FLIP_END = 0.46;
   var SETTLE_DISMISS_START = 0.52;
 
+  /* flecha de esquina igual que la de las tarjetas de Casos ZIG */
+  function svgArrow() {
+    var S = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(S, 'svg');
+    svg.setAttribute('width', '22');
+    svg.setAttribute('height', '22');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2.4');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    var p1 = document.createElementNS(S, 'path');
+    p1.setAttribute('d', 'M6 18 18 6');
+    var p2 = document.createElementNS(S, 'path');
+    p2.setAttribute('d', 'M9 6h9v9');
+    svg.appendChild(p1);
+    svg.appendChild(p2);
+    return svg;
+  }
+
   function settleSvgIcon(pathD) {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
@@ -579,6 +601,7 @@
         if (track.classList.contains('is-open')) return;
         track.classList.add('is-open');
         if (hintEl) hintEl.textContent = 'Desliza para ver todas las tarjetas';
+        frontBtn.textContent = 'Desliza para ver perfiles';
         var top = track.getBoundingClientRect().top + window.pageYOffset;
         window.scrollTo({ top: top, behavior: 'smooth' });
       });
@@ -591,6 +614,7 @@
           if (!en.isIntersecting && track.classList.contains('is-open')) {
             track.classList.remove('is-open');
             if (hintEl) hintEl.textContent = 'Click para ver los perfiles';
+            if (frontBtn) frontBtn.textContent = 'Click para ver';
             applySettle(0);
           }
         });
@@ -648,7 +672,8 @@
       copy.appendChild(body);
       var link = document.createElement('a');
       link.href = item.link;
-      link.textContent = 'Ver más →';
+      link.textContent = 'Ver más ';
+      link.appendChild(svgArrow());
       copy.appendChild(link);
       expanded.appendChild(copy);
       panel.appendChild(expanded);
@@ -657,7 +682,7 @@
       arrow.type = 'button';
       arrow.className = 'zpanel-arrow';
       arrow.setAttribute('aria-label', 'Siguiente: ' + a.items[(idx + 1) % a.items.length].title);
-      arrow.textContent = '→';
+      arrow.appendChild(svgArrow());
       panel.appendChild(arrow);
 
       grid.appendChild(panel);

@@ -178,7 +178,12 @@
         select.appendChild(opt);
       });
     }
-    box.appendChild(select);
+
+    // La caja aloja el select y dibuja la flecha dentro de su borde,
+    // igual que los selectores de Proyectos.
+    var selectBox = el('div', 'casos-access-box-select');
+    selectBox.appendChild(select);
+    box.appendChild(selectBox);
     box.appendChild(el('p', 'casos-access-hint', ui.accesoHint));
 
     demo.addEventListener('click', function () {
@@ -489,29 +494,16 @@
   function renderCtaText() {
     var ui = D.ui;
     var kicker = $('casos-cta-kicker');
-    var title = $('casos-cta-title');
-    var sub = $('casos-cta-sub');
-    var toggle = $('casos-cta-toggle');
     var submit = $('casos-cta-form') && $('casos-cta-form').querySelector('button[type="submit"]');
     var close = $('casos-cta-close');
 
     if (kicker) kicker.textContent = ui.ctaKicker;
-    if (sub) sub.textContent = ui.ctaSub;
-    if (toggle) toggle.textContent = ui.ctaBtn;
     if (submit) submit.textContent = ui.form.send;
     if (close) close.textContent = ui.ctaClose;
-
-    if (title) {
-      title.textContent = '';
-      title.appendChild(document.createTextNode('¿CONOCES OTRO '));
-      title.appendChild(el('span', 'cta-accent', 'ZIG'));
-      title.appendChild(document.createTextNode('?'));
-    }
   }
 
   function initCta() {
     renderCtaText();
-    var toggle = $('casos-cta-toggle');
     var form = $('casos-cta-form');
     var close = $('casos-cta-close');
     var cat = $('casos-f-categoria');
@@ -540,20 +532,9 @@
       el2.hidden = !msg;
     }
 
-    if (toggle && form) {
-      toggle.addEventListener('click', function () {
-        var open = form.hidden;
-        form.hidden = !open;
-        toggle.setAttribute('aria-expanded', String(open));
-        show(error, '');
-        show(ok, '');
-        if (open) window.setTimeout(function () { $('casos-f-marca').focus(); }, 60);
-      });
-    }
     if (close && form) {
       close.addEventListener('click', function () {
         form.hidden = true;
-        if (toggle) toggle.setAttribute('aria-expanded', 'false');
       });
     }
 
@@ -572,10 +553,13 @@
 
         saveCase({ marca: marca, campana: campana, categoria: categoria, quePaso: quePaso, link: link, fecha: new Date().toISOString() });
         show(error, '');
+        /* el parrafo queda solo para lectores de pantalla: el mensaje
+           visible lo lleva el modal, igual que en Proyectos */
         show(ok, D.ui.form.ok);
         form.reset();
         count.textContent = '0 / ' + D.ui.form.maxQuePaso;
         announce(D.ui.form.ok);
+        openModal(form.querySelector('button[type="submit"]'));
       });
     }
   }
@@ -590,6 +574,62 @@
     list.push(item);
     if (list.length > 200) list = list.slice(-200);
     try { window.localStorage.setItem(LS_SENT, JSON.stringify(list)); } catch (e) { /* sin storage */ }
+  }
+
+  /* ============================================================
+     Modal de aprobacion
+     ============================================================ */
+  var modalPrevFocus = null;
+
+  function openModal(returnTo) {
+    var m = $('casos-modal');
+    if (!m) return;
+    modalPrevFocus = returnTo || document.activeElement;
+    var t = $('casos-modal-title');
+    var c = $('casos-modal-copy');
+    var cta = $('casos-modal-cta');
+    if (t) t.textContent = D.ui.modTitulo;
+    if (c) c.textContent = D.ui.modCopy;
+    if (cta) cta.textContent = D.ui.modCta;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    if (cta) cta.focus();
+  }
+
+  function closeModal() {
+    var m = $('casos-modal');
+    if (!m || m.hidden) return;
+    m.hidden = true;
+    document.body.style.overflow = '';
+    var back = modalPrevFocus;
+    var usable = back && back.focus && document.contains(back) && !back.disabled && back.offsetParent !== null;
+    if (!usable) {
+      back = $('casos-f-marca');
+      if (!back || back.offsetParent === null) back = document.body;
+    }
+    if (back && back.focus) back.focus();
+  }
+
+  function initModal() {
+    var m = $('casos-modal');
+    if (!m) return;
+    var cta = $('casos-modal-cta');
+    if (cta) cta.addEventListener('click', closeModal);
+    m.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-close')) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (m.hidden) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'Tab') {
+        var focusables = m.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
   }
 
   /* ============================================================
@@ -611,6 +651,7 @@
     renderHero();
     renderCtaText();
     initCta();
+    initModal();
     initKeyboard();
 
     var locked = !sessionLevel();

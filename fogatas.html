@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fogatas ZAG - EAM</title>
+  <meta name="description" content="Fogatas ZAG: encuentros informales con chocolate, malvaviscos y conversación real. Abiertos a todos los niveles del programa. Reserva tu lugar alrededor del fuego.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fogatas.css?v=1">
+  <script src="js/content.js?v=28" defer></script>
+  <script src="js/main.js?v=26" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/fogatas-data.js?v=1" defer></script>
+  <script src="js/fogatas.js?v=2" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/logozag.svg"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="fogatas-session-chip" class="fogatas-session-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO — mismas clases compartidas que el Muro de Quiebre -->
+    <section class="zag-hero" aria-labelledby="fogatas-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="fogatas-hero-kicker" class="kicker zag-hero__pill"></p>
+        <h1 id="fogatas-hero-title" class="zag-hero__title"></h1>
+        <p id="fogatas-hero-sub" class="zag-hero__sub"></p>
+      </div>
+    </section>
+
+    <!-- 2 · FOGATAS -->
+    <section class="fogatas" aria-labelledby="fogatas-section-title">
+      <div class="container">
+
+        <div class="fogatas-head">
+          <h2 id="fogatas-section-title" class="fogatas-head-title"></h2>
+          <p id="fogatas-section-copy" class="fogatas-head-copy"></p>
+        </div>
+
+        <!-- Bloque de acceso: solo aparece si se hace clic en un CTA sin sesión -->
+        <div id="fogatas-access" class="fogatas-access" hidden></div>
+
+        <!-- Filtro Próximas / Pasadas -->
+        <div class="fogatas-tabs-wrap">
+          <div class="fogatas-tabs" role="tablist" aria-label="Filtro de fogatas">
+            <button
+              id="fogatas-tab-proximas"
+              class="fogatas-tab is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="fogatas-panel"
+              data-tab="proximas"></button>
+            <button
+              id="fogatas-tab-pasadas"
+              class="fogatas-tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="fogatas-panel"
+              data-tab="pasadas"
+              tabindex="-1"></button>
+          </div>
+        </div>
+
+        <div
+          id="fogatas-panel"
+          class="fogatas-panel"
+          role="tabpanel"
+          aria-labelledby="fogatas-tab-proximas"
+          tabindex="0"></div>
+
+        <p id="fogatas-live" class="sr-only" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-social">
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+        </div>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+          <p class="footer-legal"><button id="fogatas-reset" class="fogatas-reset" type="button"></button></p>
+        </div>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- Popup de confirmación de reserva -->
+  <div id="fogatas-modal" class="fogatas-modal" role="dialog" aria-modal="true" aria-labelledby="fogatas-modal-title" hidden>
+    <div class="fogatas-modal-backdrop" data-close></div>
+    <div class="fogatas-modal-box" role="document">
+      <span class="fogatas-modal-flame" aria-hidden="true">
+        <svg viewBox="0 0 48 58" width="56" height="68" focusable="false">
+          <path class="fogatas-flame-outer" d="M24 2c2 10-4 13-9 18C9 26 6 33 8 41c2 9 9 15 16 15s14-6 16-15c2-8-1-15-7-21-5 6-8 5-9-18z"/>
+          <path class="fogatas-flame-inner" d="M24 28c1 5-2 7-4 9-2 3-3 6-1 9 1 2 3 3 5 3s4-1 5-3c2-3 1-6-1-9-2-2-5-4-4-9z"/>
+        </svg>
+      </span>
+      <h2 id="fogatas-modal-title" class="fogatas-modal-title"></h2>
+      <p id="fogatas-modal-copy" class="fogatas-modal-copy"></p>
+      <p id="fogatas-modal-detalle" class="fogatas-modal-detalle"></p>
+      <div class="fogatas-modal-actions">
+        <a
+          id="fogatas-modal-calendar"
+          class="fogatas-modal-calendar"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
+            <path d="M7 3v3M17 3v3M4.5 9.5h15M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="fogatas-modal-calendar-txt"></span>
+        </a>
+        <button id="fogatas-modal-cta" class="btn" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      Las Fogatas ZAG necesitan JavaScript para mostrar los encuentros y reservar tu lugar.
+      Volvé a activarlo o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>

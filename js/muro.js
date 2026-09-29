@@ -201,7 +201,7 @@
     var a = el('span', null, UI.heroTitleA);
     title.appendChild(a);
     title.appendChild(document.createTextNode(' '));
-    title.appendChild(el('span', 'muro-hero-title-accent', UI.heroTitleB));
+    title.appendChild(el('span', 'muro-hero-title-accent zag-hero__title-accent', UI.heroTitleB));
 
     $('muro-hero-sub').textContent = UI.heroSub;
   }

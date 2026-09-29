@@ -606,12 +606,14 @@ h2, h3 {
   height: auto;
 }
 
+/* La franja usa la proporción real del SVG (1280x304) para que la imagen
+   se vea COMPLETA: nada de cover recortando. El bloque crece con el ancho. */
 .contexto-copy {
   width: 100%;
-  height: clamp(120px, 24vw, 260px);
+  aspect-ratio: 1280 / 304;
   margin-top: var(--s-5);
   margin-bottom: calc(-1 * var(--s-8));
-  background: url('../assets/img/fondolineaszag.svg') center / cover no-repeat;
+  background: url('../assets/img/fondolineaszag.svg') center / 100% 100% no-repeat;
 }
 
 /*-------- Acordeón de imágenes (TailwindImageAccordion) --------*/
@@ -1864,9 +1866,129 @@ h2, h3 {
 }
 
 /* ============================================================
+   HERO COMPARTIDO — Muro de Quiebre y Fogatas ZAG
+   Extraído del hero del muro para que las dos páginas se vean
+   iguales. Quien lo use: .zag-hero > .zag-hero__pattern > .zag-hero__pattern-track
+   > .zag-hero__pattern-band + .zag-hero__inner > (.zag-hero__pill, .zag-hero__title,
+   .zag-hero__sub) y opcionalmente una fila de avatars propia de la página.
+   ============================================================ */
+.zag-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  background:
+    var(--color-surface)
+    url('../assets/img/iconosfrase.svg')
+    center / 88% auto no-repeat;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.zag-hero__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: var(--s-7);
+  padding-bottom: var(--s-8);
+}
+
+/* La píldora se scopea al hero (dos clases) para ganarle a .kicker
+   sin depender del orden de las hojas de estilo. El margin se deja
+   heredar de .kicker a propósito. */
+.zag-hero__inner .zag-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: var(--radius-pill);
+  color: rgba(0, 0, 0, 0.62);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 25px rgba(33, 24, 70, 0.05);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.zag-hero__title {
+  color: var(--color-functional);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(34px, 11vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin: 19px auto 0;
+  max-width: 20ch;
+}
+
+.zag-hero__title .zag-hero__title-accent {
+  color: var(--color-cta);
+}
+
+.zag-hero__sub {
+  font-size: 15px;
+  max-width: 34em;
+  margin: var(--s-3) auto 0;
+  color: var(--color-text-muted);
+}
+
+/* Franja de patrón en movimiento lateral: dos bandas idénticas que
+   viajan -50% para cerrar el loop sin cortes. */
+.zag-hero__pattern {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 26px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.zag-hero__pattern-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: zag-patron 40s linear infinite;
+}
+
+.zag-hero__pattern-band {
+  flex: none;
+  width: 100vw;
+  height: 100%;
+  background-image: url('../assets/img/patronzagg.svg');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: bottom center;
+}
+
+@keyframes zag-patron {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
    ≥ 720px — tablet
    ============================================================ */
 @media (min-width: 720px) {
+  .zag-hero {
+    min-height: 380px;
+  }
+
+  .zag-hero__title {
+    font-size: clamp(44px, 6vw, 72px);
+  }
+
+  .zag-hero__sub {
+    font-size: 17px;
+  }
+
   .header-inner {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -2086,6 +2208,10 @@ h2, h3 {
 
   .marquee-track {
     animation: none;
+  }
+
+  .zag-hero__pattern-track {
+    animation: none !important;
   }
 
   .reveal {

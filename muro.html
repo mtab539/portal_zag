@@ -10,11 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/muro.css">
-  <script src="js/content.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/content.js?v=28" defer></script>
+  <script src="js/main.js?v=26" defer></script>
   <script src="js/zag-session.js" defer></script>
   <script src="js/muro-data.js" defer></script>
   <script src="js/muro.js" defer></script>
@@ -53,18 +53,18 @@
   <main id="main" class="muro-main">
 
     <!-- Hero reducido del Muro (la animación entra por JS en #muro-hero-anim) -->
-    <section class="muro-hero" aria-labelledby="muro-hero-title">
+    <section class="muro-hero zag-hero" aria-labelledby="muro-hero-title">
       <div id="muro-hero-anim" class="muro-hero-anim" aria-hidden="true"></div>
-      <div class="muro-hero-pattern" aria-hidden="true">
-        <div class="muro-hero-pattern-track">
-          <div class="muro-hero-pattern-band"></div>
-          <div class="muro-hero-pattern-band"></div>
+      <div class="muro-hero-pattern zag-hero__pattern" aria-hidden="true">
+        <div class="muro-hero-pattern-track zag-hero__pattern-track">
+          <div class="muro-hero-pattern-band zag-hero__pattern-band"></div>
+          <div class="muro-hero-pattern-band zag-hero__pattern-band"></div>
         </div>
       </div>
-      <div class="container muro-hero-inner">
-        <p id="muro-hero-kicker" class="kicker"></p>
-        <h1 id="muro-hero-title" class="muro-hero-title"></h1>
-        <p id="muro-hero-sub" class="muro-hero-sub"></p>
+      <div class="container muro-hero-inner zag-hero__inner">
+        <p id="muro-hero-kicker" class="kicker zag-hero__pill"></p>
+        <h1 id="muro-hero-title" class="muro-hero-title zag-hero__title"></h1>
+        <p id="muro-hero-sub" class="muro-hero-sub zag-hero__sub"></p>
         <div id="muro-hero-avatars" class="muro-hero-avatars" aria-label="Voces del Muro"></div>
       </div>
     </section>
