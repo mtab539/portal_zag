@@ -139,6 +139,17 @@
   }
 
   function buildGoogleCalendarUrl(f) {
+    /* El armado compartido vive en js/zag-reserva.js; si el helper no está
+       cargado, se replica exactamente para no cambiar el enlace. */
+    if (window.ZAG_RESERVA) {
+      return window.ZAG_RESERVA.buildGoogleCalendarUrl({
+        text: f.tema + ' · Fogatas ZAG',
+        dates: calStamp(f.inicio) + '/' + calStamp(f.fin),
+        details: f.descripcion + '\n\nFogatas ZAG · EAM\n' + f.lugar,
+        location: f.lugar,
+        ctz: TZ
+      });
+    }
     var params = new URLSearchParams();
     params.set('action', 'TEMPLATE');
     params.set('text', f.tema + ' · Fogatas ZAG');

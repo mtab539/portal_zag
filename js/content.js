@@ -47,9 +47,9 @@ window.ZAG_CONTENT = {
         },
         {
           label: 'Seminario',
-          desc: 'Charlas y talleres de la campaña de los 30 años',
+          desc: 'Somos ZAG · 12 y 13 de noviembre',
           icon: 'talk',
-          href: 'proximamente.html',
+          href: 'seminario.html',
         },
       ],
     },

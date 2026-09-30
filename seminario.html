@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seminario Somos ZAG - EAM</title>
+  <meta name="description" content="Seminario Somos ZAG: dos días de charlas, talleres y networking por los 30 años de Publicidad EAM. 12 y 13 de noviembre, 200 cupos por día. Reserva tu lugar.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/seminario.css?v=1">
+  <script src="js/content.js?v=29" defer></script>
+  <script src="js/main.js?v=26" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/seminario-data.js?v=1" defer></script>
+  <script src="js/seminario.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/logozag.svg"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+        <span class="brand-caption">PORTAL · 30 AÑOS</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="sem-session-chip" class="sem-session-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO — voz rompedora sobre fondo negro -->
+    <section class="sem-hero" aria-labelledby="sem-hero-title">
+      <div class="sem-hero__pattern" aria-hidden="true"></div>
+      <div class="container sem-hero__inner">
+        <p id="sem-hero-kicker" class="kicker sem-hero__kicker"></p>
+        <h1 id="sem-hero-title" class="sem-hero__title" aria-label="Somos ZAG">
+          <span class="sem-hero__somos">SOMOS</span>
+          <span class="sem-hero__zag">ZAG</span>
+        </h1>
+        <p id="sem-hero-sub" class="sem-hero__sub"></p>
+
+        <ul id="sem-hero-chips" class="sem-hero__chips" aria-label="Cuándo y dónde"></ul>
+
+        <div id="sem-countdown" class="sem-countdown" aria-live="off">
+          <div class="sem-countdown__item">
+            <span id="sem-count-dias" class="sem-countdown__num">—</span>
+            <span class="sem-countdown__label">días</span>
+          </div>
+          <div class="sem-countdown__item">
+            <span id="sem-count-horas" class="sem-countdown__num">—</span>
+            <span class="sem-countdown__label">horas</span>
+          </div>
+          <div class="sem-countdown__item">
+            <span id="sem-count-min" class="sem-countdown__num">—</span>
+            <span class="sem-countdown__label">minutos</span>
+          </div>
+          <div class="sem-countdown__item">
+            <span id="sem-count-seg" class="sem-countdown__num">—</span>
+            <span class="sem-countdown__label">segundos</span>
+          </div>
+        </div>
+        <p id="sem-countdown-msg" class="sem-countdown__msg" hidden></p>
+
+        <div class="sem-hero__actions">
+          <a id="sem-hero-cta" class="sem-hero__cta sem-btn" href="#agenda"></a>
+          <p id="sem-hero-cupos" class="sem-hero__cupos"></p>
+        </div>
+
+        <div id="sem-hero-days" class="sem-hero__days"></div>
+      </div>
+    </section>
+
+    <!-- 2 · MARQUEE — mismas clases compartidas que el index -->
+    <div class="marquee" role="presentation">
+      <div id="sem-marquee" class="marquee-track"></div>
+    </div>
+
+    <!-- 3 · LINE-UP -->
+    <section class="sem-lineup" aria-labelledby="sem-lineup-title">
+      <div class="container">
+        <p id="sem-lineup-kicker" class="kicker"></p>
+        <h2 id="sem-lineup-title" class="sem-lineup__title"></h2>
+        <p id="sem-lineup-note" class="sem-lineup__note"></p>
+        <ul id="sem-speakers" class="sem-speakers"></ul>
+      </div>
+    </section>
+
+    <!-- 4 · MARCAS -->
+    <section class="sem-marcas" aria-labelledby="sem-marcas-title">
+      <div class="container">
+        <p id="sem-marcas-kicker" class="kicker"></p>
+        <h2 id="sem-marcas-title" class="sem-marcas__title"></h2>
+        <ul id="sem-brands" class="sem-brands"></ul>
+      </div>
+    </section>
+
+    <!-- 5 · AGENDA -->
+    <section id="agenda" class="sem-agenda" aria-labelledby="sem-agenda-title">
+      <div class="container">
+        <h2 id="sem-agenda-title" class="sem-agenda__title">Agenda</h2>
+
+        <div id="sem-toolbar" class="sem-toolbar">
+          <div id="sem-tablist" class="sem-tablist" role="tablist" aria-label="Día del seminario"></div>
+
+          <div class="sem-toolbar__controls">
+            <div class="sem-filtro">
+              <button
+                id="sem-filtro-btn"
+                class="sem-filtro__btn"
+                type="button"
+                aria-expanded="false"
+                aria-controls="sem-filtro-chips"></button>
+              <div id="sem-filtro-chips" class="sem-filtro__chips" hidden></div>
+            </div>
+
+            <div class="sem-vista" role="group" aria-label="Vista de la agenda">
+              <button id="sem-vista-lista" class="sem-vista__btn" type="button" aria-pressed="true" aria-label="Ver agenda en lista">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <button id="sem-vista-grilla" class="sem-vista__btn" type="button" aria-pressed="false" aria-label="Ver agenda en grilla">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <rect x="4" y="4" width="7" height="7" rx="1.5"/>
+                  <rect x="13" y="4" width="7" height="7" rx="1.5"/>
+                  <rect x="4" y="13" width="7" height="7" rx="1.5"/>
+                  <rect x="13" y="13" width="7" height="7" rx="1.5"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="sem-toolbar__sub">
+            <p id="sem-mostrando" class="sem-mostrando"></p>
+            <p id="sem-horas-nota" class="sem-nota"></p>
+          </div>
+        </div>
+
+        <!-- Bloque de acceso: solo aparece si se hace clic en un CTA sin sesión -->
+        <div id="sem-access" class="sem-access" hidden></div>
+
+        <div
+          id="sem-panel"
+          class="sem-panel"
+          role="tabpanel"
+          aria-labelledby="sem-tab-0"
+          tabindex="0"></div>
+
+        <p id="sem-live" class="sr-only" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 6 · CTA FINAL -->
+    <section class="sem-final" aria-labelledby="sem-final-title">
+      <div class="container sem-final__inner">
+        <p id="sem-final-kicker" class="kicker sem-final__kicker"></p>
+        <h2 id="sem-final-title" class="sem-final__title"></h2>
+        <p id="sem-final-sub" class="sem-final__sub"></p>
+        <div id="sem-final-days" class="sem-final__days"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-social">
+          <span class="footer-social-label">Redes Sociales:</span>
+          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+        </div>
+        <div class="footer-legal-group">
+          <p id="footer-copyright" class="footer-copyright"></p>
+          <p class="footer-legal"><a href="index.html">Términos</a></p>
+          <p class="footer-legal"><a href="index.html">COPPA</a></p>
+          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+          <p class="footer-legal"><button id="sem-reset" class="sem-reset" type="button"></button></p>
+        </div>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- Popup de confirmación de reserva -->
+  <div id="sem-modal" class="sem-modal" role="dialog" aria-modal="true" aria-labelledby="sem-modal-title" hidden>
+    <div class="sem-modal-backdrop" data-close></div>
+    <div class="sem-modal-box" role="document">
+      <img
+        id="sem-modal-seal"
+        class="sem-modal-seal"
+        src="assets/logos/sellozagnaranja.png"
+        alt="Sello ZAG"
+        width="96"
+        height="96">
+      <h2 id="sem-modal-title" class="sem-modal-title"></h2>
+      <p id="sem-modal-copy" class="sem-modal-copy"></p>
+      <p id="sem-modal-detalle" class="sem-modal-detalle"></p>
+      <div class="sem-modal-actions">
+        <a
+          id="sem-modal-calendar"
+          class="sem-modal-calendar"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
+            <path d="M7 3v3M17 3v3M4.5 9.5h15M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="sem-modal-calendar-txt"></span>
+        </a>
+        <button id="sem-modal-cta" class="sem-modal-cta" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      El Seminario Somos ZAG necesita JavaScript para mostrar la agenda y reservar tu lugar.
+      Volvé a activarlo o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>
