@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout - Tienda ZAG - EAM</title>
+  <meta name="description" content="Checkout de la Tienda ZAG: deja tus datos, recoge en la Facultad en 2 días hábiles y paga en la U. No se piden datos de pago.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=31">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/tienda.css?v=2">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js?v=31" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/tienda-data.js?v=2" defer></script>
+  <script src="js/tienda-carrito.js?v=2" defer></script>
+  <script src="js/checkout.js?v=2" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <a class="header-unete btn btn--sm" href="tienda.html">Volver a la tienda</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="td-checkout" id="main">
+    <div class="container">
+      <h1 class="section-title">Checkout</h1>
+      <p class="section-sub">Recoges en la Facultad y pagas al llegar. No te pedimos tarjeta.</p>
+
+      <ol class="td-pasos" id="td-pasos" aria-label="Pasos del checkout"></ol>
+
+      <div class="td-checkout__grid">
+        <div class="td-checkout__main" id="td-main"></div>
+
+        <aside class="td-checkout__aside" aria-labelledby="td-resumen-titulo">
+          <div class="td-resumen">
+            <button
+              class="td-resumen__toggle"
+              type="button"
+              id="td-resumen-toggle"
+              aria-expanded="false"
+              aria-controls="td-resumen-body">
+              <span id="td-resumen-titulo">Ver resumen del pedido</span>
+              <span class="td-resumen__flecha" aria-hidden="true">▼</span>
+            </button>
+            <div class="td-resumen__body" id="td-resumen-body" hidden></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <div class="td-toasts" id="td-toasts" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="Foto de Taza ZAG próximamente">
+  <rect width="1200" height="1200" fill="#000000"/>
+  <g fill="none" stroke="#fff8ee" stroke-opacity="0.16" stroke-width="3">
+    <circle cx="600" cy="470" r="230"/>
+    <circle cx="600" cy="470" r="176" stroke-dasharray="14 12"/>
+  </g>
+  <g fill="#fff8ee" fill-opacity="0.2">
+    <rect x="556" y="382" width="88" height="88" rx="18"/>
+    <path d="M600 382 L688 470 L600 558 L512 470 Z" fill-opacity="0.16"/>
+  </g>
+  <g transform="translate(600 470)" fill="none" stroke="#fff8ee" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.55">
+    <circle cx="-26" cy="-26" r="30"/>
+    <path d="M-6 -12 L14 -32"/>
+    <path d="M6 -26 L14 -32 L6 -34" stroke-width="11"/>
+  </g>
+  <g>
+    <text x="600" y="600" font-family="Impact, 'Arial Black', sans-serif" font-size="62" font-weight="700" fill="#fff8ee" text-anchor="middle" letter-spacing="1">Taza ZAG</text>
+  </g>
+  <text x="600" y="640" font-family="'Helvetica Neue', Arial, sans-serif" font-size="34" font-weight="700" fill="#fff8ee" fill-opacity="0.72" text-anchor="middle" letter-spacing="3">FOTO PRÓXIMAMENTE</text>
+</svg>

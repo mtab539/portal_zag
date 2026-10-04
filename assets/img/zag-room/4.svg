@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="presentation" aria-hidden="true">
+  <rect width="1200" height="800" fill="#000000"/>
+  <g fill="none" stroke="#fff8ee" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 250 H840 V450 H300 Z"/>
+    <path d="M276 450 H864"/>
+    <path d="M360 316 H780 M360 380 H620"/>
+    <path d="M570 450 V520 M470 530 H670"/>
+  </g>
+  <text x="72" y="712" fill="#fff8ee" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3" text-transform="uppercase">TABLERO Y PROYECTOR</text>
+</svg>

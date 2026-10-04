@@ -11,9 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css?v=29">
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/content.js?v=29" defer></script>
-  <script src="js/main.js?v=26" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -23,10 +24,9 @@
       <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
         <img
           class="brand-logo"
-          src="assets/logos/logozag.svg"
+          src="assets/logos/eamzag.svg?v=3"
           alt="ZAG — logotipo del portal"
           data-fallback="ZAG">
-        <span class="brand-caption">PORTAL · 30 AÑOS</span>
       </a>
 
       <button
@@ -41,7 +41,7 @@
 
       <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
 
-      <a class="header-unete btn btn--sm" href="#unirme">Únete</a>
+      <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
     </div>
   </header>
 
@@ -49,7 +49,7 @@
 
     <!-- 1 · HERO -->
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-art" src="assets/img/fondoherozag.webp" alt="" aria-hidden="true" fetchpriority="high">
+      <img class="hero-art" src="assets/img/fondoherozag.svg?v=2" alt="" aria-hidden="true" fetchpriority="high">
       <img class="hero-art hero-art--rot" src="assets/img/manohero.webp" alt="" aria-hidden="true" fetchpriority="high">
       <div class="container">
         <div id="hero-box"></div>
@@ -68,10 +68,34 @@
         <div class="contexto-grid" data-reveal>
           <div class="contexto-media">
             <img class="contexto-img" src="assets/img/zigvszag.svg" alt="Ilustración del concepto ZIG vs. ZAG: todos hacen zig, nosotros hacemos zag." role="img" width="1440" height="810" />
+
+            <div class="contexto-hotspots">
+              <div class="hotspot hotspot--zig">
+                <button type="button" class="hotspot-trigger" aria-describedby="ctip-zig">
+                  <span class="sr-only">Qué significa ZIG</span>
+                </button>
+                <div id="ctip-zig" role="tooltip" class="ctip">
+                  <p class="ctip-title"><span class="ctip-term ctip-term--zig">ZIG</span></p>
+                  <p class="ctip-text">En un mundo saturado de copias y productos iguales (ZIG), ya no basta con competir; hay que diferenciarse de forma radical e ir por el camino opuesto (ZAG).</p>
+                  <p class="ctip-sign">— Marty Neumeier</p>
+                  <span class="ctip-arrow" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <div class="hotspot hotspot--zag">
+                <button type="button" class="hotspot-trigger" aria-describedby="ctip-zag">
+                  <span class="sr-only">Qué significa ZAG</span>
+                </button>
+                <div id="ctip-zag" role="tooltip" class="ctip">
+                  <p class="ctip-title"><span class="ctip-term ctip-term--zag">ZAG</span></p>
+                  <p class="ctip-text">Durante 30 años cada generación de estudiantes y egresados de la EAM ha sumado un nuevo zag, convirtiendo 3 décadas en la prueba viva de que atreverse a pensar fuera de la caja es la clave del éxito.</p>
+                  <span class="ctip-arrow" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="contexto-copy" aria-hidden="true"></div>
     </section>
 
     <!-- 4 · CARRUSEL — FOTOS DEL PRIMER EVENTO -->
@@ -157,19 +181,6 @@
       </div>
     </section>
 
-    <!-- ÚNETE — salida explícita para quien no tiene tira (corrección H2) -->
-    <section id="unirme" class="section" aria-label="Únete al ZAG">
-      <div class="container">
-        <p id="unirme-kicker" class="kicker"></p>
-        <div class="unirme-layout" data-reveal>
-          <div class="unirme-side">
-            <img id="unirme-image" class="unirme-image" src="" alt="Únete al ZAG" loading="lazy">
-          </div>
-          <div id="unirme-grid" class="unirme-grid"></div>
-        </div>
-      </div>
-    </section>
-
     <!-- 8 · FRASE FINAL -->
     <section class="close-block" aria-labelledby="close-cta">
       <div class="container" data-reveal>
@@ -185,20 +196,29 @@
   <!-- 9 · FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-row">
-        <div class="footer-social">
-          <span class="footer-social-label">Redes Sociales:</span>
-          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
         </div>
-        <div class="footer-legal-group">
-          <p id="footer-copyright" class="footer-copyright"></p>
-          <p class="footer-legal"><a href="index.html">Términos</a></p>
-          <p class="footer-legal"><a href="index.html">COPPA</a></p>
-          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
         </div>
       </div>
-    </div>
-    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
       <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
     </a>
   </footer>

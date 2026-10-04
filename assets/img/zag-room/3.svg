@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="presentation" aria-hidden="true">
+  <rect width="1200" height="800" fill="#c0ccff"/>
+  <g fill="none" stroke="#041dad" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M600 236 C700 292 754 348 754 414 C754 480 688 512 600 512 C512 512 446 480 446 414 C446 348 500 292 600 236 Z"/>
+    <path d="M462 404 C540 448 660 448 738 404"/>
+    <path d="M600 268 m-13 0 a13 13 0 1 0 26 0 a13 13 0 1 0 -26 0"/>
+  </g>
+  <text x="72" y="712" fill="#041dad" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3" text-transform="uppercase">RINCÓN DE POOFS</text>
+</svg>

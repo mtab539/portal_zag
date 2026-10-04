@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="presentation" aria-hidden="true">
+  <rect width="1200" height="800" fill="#041dad"/>
+  <g fill="none" stroke="#fff8ee" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M520 372 V286 H680 V372"/>
+    <path d="M280 372 H920"/>
+    <path d="M324 372 V470 M876 372 V470"/>
+    <path d="M330 250 H430 V330 H330 Z M342 330 V372"/>
+  </g>
+  <text x="72" y="712" fill="#fff8ee" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3" text-transform="uppercase">MESA DE TRABAJO</text>
+</svg>

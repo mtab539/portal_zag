@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Certificado - Cursos Extraclase ZAG</title>
+  <meta name="description" content="Tu certificado de finalización de los cursos extraclase del Portal ZAG, con código de verificación.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/cursos.css?v=3">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/cursos-data.js?v=3" defer></script>
+  <script src="js/cursos-progreso.js?v=3" defer></script>
+  <script src="js/certificado.js?v=3" defer></script>
+</head>
+<body class="cursos-page cert-page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+
+      <!-- 1 · AVISO: todavía no se puede emitir -->
+      <section id="cert-locked" class="cert-locked" hidden>
+        <p id="cert-locked-icon" class="cert-box__icon" aria-hidden="true">🔒</p>
+        <h1 id="cert-locked-title" class="cert-locked__title"></h1>
+        <p id="cert-locked-copy" class="cert-locked__copy"></p>
+        <p class="cert-name__actions">
+          <a id="cert-locked-back" class="btn" href="cursos.html">Volver a los cursos</a>
+        </p>
+      </section>
+
+      <div id="cert-zona" hidden>
+
+        <!-- 2 · BARRA DE ACCIONES -->
+        <div class="cert-toolbar">
+          <a id="cert-back" class="btn btn--outline" href="cursos.html">Volver al curso</a>
+          <button id="cert-print" class="btn" type="button">Descargar PDF</button>
+          <button
+            id="cert-verify-toggle"
+            class="btn btn--outline"
+            type="button"
+            aria-expanded="false"
+            aria-controls="cert-verify">
+            Verificar certificado
+          </button>
+        </div>
+
+        <!-- 3 · NOMBRE ANTES DE EMITIR -->
+        <section id="cert-name" class="cert-name">
+          <h2 id="cert-name-title" class="cert-name__title"></h2>
+          <p id="cert-name-copy" class="cert-name__copy"></p>
+          <form id="cert-name-form" class="cert-name__field" novalidate>
+            <label id="cert-name-label" class="cert-name__label" for="cert-name-input"></label>
+            <input
+              id="cert-name-input"
+              class="cert-name__input"
+              type="text"
+              autocomplete="name"
+              maxlength="60"
+              placeholder="Nombre y apellido">
+            <div class="cert-name__actions">
+              <button id="cert-name-cta" class="btn" type="submit">Generar certificado</button>
+            </div>
+          </form>
+          <p id="cert-name-default" class="cert-name__default"></p>
+        </section>
+
+        <!-- 4 · HOJA A4 -->
+        <article id="cert-sheet" class="cert-sheet" aria-labelledby="cert-sheet-name">
+          <div class="cert-sheet__pattern" aria-hidden="true"></div>
+          <div class="cert-sheet__inner">
+            <p id="cert-portal" class="cert-sheet__portal"></p>
+            <h1 id="cert-kicker" class="cert-sheet__kicker"></h1>
+            <p id="cert-se" class="cert-sheet__se"></p>
+            <p id="cert-sheet-name" class="cert-sheet__name"></p>
+            <div class="cert-sheet__rule" aria-hidden="true"></div>
+            <p id="cert-sheet-curso" class="cert-sheet__course"></p>
+            <p id="cert-sheet-copy" class="cert-sheet__copy"></p>
+            <ul class="cert-sheet__facts">
+              <li class="cert-fact">
+                <span id="cert-fact-duracion-label" class="cert-fact__label"></span>
+                <span id="cert-fact-duracion" class="cert-fact__value"></span>
+              </li>
+              <li class="cert-fact">
+                <span id="cert-fact-modulos-label" class="cert-fact__label"></span>
+                <span id="cert-fact-modulos" class="cert-fact__value"></span>
+              </li>
+              <li class="cert-fact">
+                <span id="cert-fact-fecha-label" class="cert-fact__label"></span>
+                <span id="cert-fact-fecha" class="cert-fact__value"></span>
+              </li>
+            </ul>
+            <div class="cert-sheet__foot">
+              <div class="cert-sign">
+                <span class="cert-sign__line" aria-hidden="true">ZAG</span>
+                <span id="cert-sign-name" class="cert-sign__name"></span>
+                <span id="cert-sign-role" class="cert-sign__role"></span>
+              </div>
+              <img
+                class="cert-stamp"
+                src="assets/logos/sellozagnaranja.png"
+                alt="Sello ZAG"
+                width="118"
+                height="118"
+                data-fallback="Sello ZAG">
+            </div>
+          </div>
+          <p id="cert-code" class="cert-code"></p>
+        </article>
+
+        <!-- 5 · VERIFICADOR -->
+        <section id="cert-verify" class="cert-verify" hidden>
+          <h2 class="cert-verify__title">Verificar certificado</h2>
+          <p id="cert-verify-copy" class="cert-verify__copy"></p>
+          <form id="cert-verify-form" class="cert-verify__row" novalidate>
+            <label class="cursos-sr" for="cert-verify-input">Código del certificado</label>
+            <input
+              id="cert-verify-input"
+              class="cert-verify__input"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="ZAG-…">
+            <button id="cert-verify-cta" class="btn" type="submit">Verificar</button>
+          </form>
+          <p id="cert-verify-result" class="cert-verify__result" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <p id="cert-vivo" class="cursos-sr" role="status" aria-live="polite"></p>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+</body>
+</html>

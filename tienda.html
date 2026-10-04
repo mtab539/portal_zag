@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda ZAG - EAM</title>
+  <meta name="description" content="Merch oficial del ZAG. Tu nivel desbloquea tu estilo: accesorios, ropa y día a día. Recoges en la Facultad en 2 días hábiles y pagas en la U.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=31">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/tienda.css?v=2">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js?v=31" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/tienda-data.js?v=2" defer></script>
+  <script src="js/tienda-carrito.js?v=2" defer></script>
+  <script src="js/tienda.js?v=2" defer></script>
+</head>
+<body class="tienda-body">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- ============ ANUNCIO ============ -->
+  <div class="td-anuncio" role="region" aria-label="Aviso de la tienda">
+    <div class="td-anuncio__inner" id="td-anuncio"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="tienda-chip" class="td-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="zag-hero tienda-hero" aria-labelledby="td-hero-title">
+    <div class="zag-hero__pattern" aria-hidden="true">
+      <div class="zag-hero__pattern-track">
+        <div class="zag-hero__pattern-band"></div>
+        <div class="zag-hero__pattern-band"></div>
+      </div>
+    </div>
+    <span class="tienda-hero__garabato tienda-hero__garabato--izq" aria-hidden="true">Zag</span>
+    <span class="tienda-hero__garabato tienda-hero__garabato--der" aria-hidden="true">Merch</span>
+    <div class="container zag-hero__inner">
+      <p class="kicker zag-hero__pill">MERCH OFICIAL</p>
+      <h1 class="zag-hero__title" id="td-hero-title">TIENDA <span class="zag-hero__title-accent">ZAG</span></h1>
+      <p class="zag-hero__sub">Tu nivel desbloquea tu estilo. Lo que aún no puedes tener, ya lo puedes mirar.</p>
+      <p class="tienda-hero__estado" id="td-hero-estado"></p>
+    </div>
+  </section>
+
+  <!-- ============ BARRA DE LA TIENDA ============ -->
+  <div class="td-barra">
+    <div class="container td-barra__inner">
+      <div class="td-cats" id="td-cats" role="tablist" aria-label="Categorías de la tienda"></div>
+      <div class="td-barra__fin">
+        <label class="td-switch" for="td-solo-mio">
+          <input type="checkbox" id="td-solo-mio">
+          <span>Solo lo que puedo comprar</span>
+        </label>
+        <a class="td-link-pedidos" href="#pedidos">Mis pedidos</a>
+        <button
+          class="td-carrito-btn"
+          id="td-carrito-btn"
+          type="button"
+          aria-label="Abrir carrito"
+          aria-controls="td-carrito">
+          <span class="td-carrito-btn__icon" aria-hidden="true">&#128717;</span>
+          <span class="td-carrito-btn__txt">Carrito</span>
+          <span class="td-contador" id="td-contador" hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============ BANNER DEL PRODUCTO ESTRELLA ============ -->
+    <div class="container">
+      <section class="td-banner" id="td-banner" aria-labelledby="td-banner-titulo"></section>
+    </div>
+
+    <!-- ============ CATÁLOGO ============ -->
+    <div class="container">
+      <div id="catalogo"></div>
+    </div>
+
+    <!-- ============ MIS PEDIDOS ============ -->
+    <section class="section" id="pedidos" hidden aria-labelledby="td-pedidos-titulo">
+      <div class="container">
+        <p class="kicker">MIS PEDIDOS</p>
+        <h2 class="section-title" id="td-pedidos-titulo">Tus pedidos</h2>
+        <p class="section-sub">Cada pedido se recoge en la Facultad y se paga al llegar.</p>
+        <div id="td-pedidos-lista"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button class="td-reset-demo" type="button" id="td-reset-demo">
+              Reiniciar demo de tienda
+            </button>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- ============ FICHA RÁPIDA ============ -->
+  <div
+    class="td-overlay"
+    id="td-ficha"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="td-ficha-nombre">
+    <div class="td-ficha__panel" id="td-ficha-panel"></div>
+  </div>
+
+  <!-- ============ CARRITO ============ -->
+  <div
+    class="td-overlay td-carrito"
+    id="td-carrito"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="td-carrito-titulo">
+    <div class="td-carrito__panel">
+      <div class="td-panel__head">
+        <h2 class="td-panel__titulo" id="td-carrito-titulo">Tu carrito</h2>
+        <button class="td-ficha__close" type="button" id="td-carrito-cerrar" aria-label="Cerrar carrito">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="td-panel__body" id="td-carrito-body"></div>
+      <div class="td-panel__foot" id="td-carrito-foot"></div>
+    </div>
+  </div>
+
+  <!-- ============ ACCESO / MODO DEMO ============ -->
+  <div
+    class="td-overlay td-acceso"
+    id="td-acceso"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="td-acceso-titulo">
+    <div class="td-acceso__box">
+      <button class="td-ficha__close" type="button" id="td-acceso-cerrar" aria-label="Cerrar">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img src="assets/logos/sellozagnaranja.png" alt="" width="64" height="64">
+      <h2 class="td-acceso__titulo" id="td-acceso-titulo">Activa tu perfil</h2>
+      <p class="td-acceso__texto">
+        La tienda se abre para todos, pero el merch se desbloquea con tu nivel.
+        Entra en modo demo y simula el nivel que quieras.
+      </p>
+      <div class="td-acceso__box" id="td-acceso-box"></div>
+      <p class="td-acceso__actual" id="td-acceso-actual" hidden></p>
+    </div>
+  </div>
+
+  <!-- Carrito flotante (mobile) -->
+  <button class="td-flotante" type="button" id="td-flotante" aria-controls="td-carrito">
+    <span aria-hidden="true">&#128717;</span>
+    <span>Carrito</span>
+    <span class="td-contador" id="td-contador-flotante" hidden>0</span>
+  </button>
+
+  <!-- Toasts: el contador y los avisos se anuncian aquí -->
+  <div class="td-toasts" id="td-toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+  <p class="td-sr" id="td-aviso-rol" role="status" aria-live="polite" aria-atomic="true"></p>
+</body>
+</html>

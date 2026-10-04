@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img">
+  <title>Sello STRATEGIST</title>
+  <g transform="rotate(-8 60 60)">
+    <circle cx="60" cy="60" r="55" fill="none" stroke="#041dad" stroke-width="3.5"/>
+    <circle cx="60" cy="60" r="50" fill="none" stroke="#041dad" stroke-width="1.1" stroke-dasharray="3 4"/>
+    <circle cx="60" cy="60" r="46.5" fill="none" stroke="#041dad" stroke-width="1.6"/>
+    <g fill="#041dad"><circle cx="60" cy="56" r="15" fill="none" stroke="#041dad" stroke-width="3"/><circle cx="60" cy="56" r="5.5"/><path d="M60 32v8M60 72v8M36 56h8M76 56h8" stroke="#041dad" stroke-width="3" stroke-linecap="round" fill="none"/></g>
+    <text x="60" y="103" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+          font-size="11.5" font-weight="700" letter-spacing="1.3" fill="#041dad">STRATEGIST</text>
+  </g>
+</svg>

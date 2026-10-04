@@ -89,6 +89,7 @@
   /* ---- Paleta por rol (corregido H4: un solo azul por rol, naranja únicamente CTA) ---- */
   --color-cta: #ff5c01;            /* Naranja — acción principal. Único CTA primario. */
   --color-cta-text: #ff5c01;       /* Naranja de marca aplicado a TEXTOS. Ojo: sobre blanco/crema da 3.10:1 / 2.94:1, así que solo alcanza AA en texto grande (≥24px o ≥18.66px bold) o sobre oscuro. Para texto chico sobre claro usar --color-cta-ink. */
+  --color-cta-ink: #9a3412;        /* Naranja oscuro — texto chico de acento sobre fondo claro: 7.31:1 sobre blanco, 4.64:1 sobre --color-light-blue, 6.93:1 sobre crema. Mantiene el tono sin depender del color solo. */
   --color-brand-deep: #041dad;     /* Azul profundo — marca / estructura / nivel Master */
   --color-functional: #1144ff;     /* Azul funcional — links, chips, acentos (nunca CTA) */
   --color-light-blue: #c0ccff;     /* Celeste claro — fondos suaves / nivel Strategist */
@@ -121,6 +122,9 @@
   --glass-text-muted: rgba(255, 248, 238, 0.7);
   --cover-scrim: rgba(0, 0, 0, 0.45);           /* velo sobre la portada de la tarjeta */
   --cover-scrim-soft: rgba(0, 0, 0, 0.28);
+  /* Velo leve de la portada de curso: al quitar el patrón el texto ya pasa
+     AA sobre el color plano, así que esto solo da profundidad, no legibilidad. */
+  --cover-veil-leve: rgba(0, 0, 0, 0.15);
   --cover-gradient: rgba(0, 0, 0, 0.7);         /* degradado inferior de la portada */
   --veil-strong: rgba(0, 0, 0, 0.6);            /* fondo del modal */
   --shadow-deep: rgba(0, 0, 0, 0.4);

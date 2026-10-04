@@ -351,7 +351,7 @@
     var actions = el('div', 'muro-access-actions');
     var primary = document.createElement('a');
     primary.className = 'btn';
-    primary.href = 'proximamente.html';
+    primary.href = 'registro.html';
     primary.textContent = UI.accessCtaPrimary;
     actions.appendChild(primary);
 

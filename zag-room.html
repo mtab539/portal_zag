@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZAG Room - EAM</title>
+  <meta name="description" content="El ZAG Room: el territorio físico de la Sociedad ZAG en el campus de la EAM. Un lugar para estudiar, crear y recibir mentorías, abierto desde CREATOR. Reserva tu puesto por bloques de 2 horas.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=31">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/zag-room.css?v=4">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js?v=31" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/zag-room-data.js?v=3" defer></script>
+  <script src="js/zag-room.js?v=3" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="zag-room-chip" class="zr-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- A · HERO — mismas clases compartidas que el Muro y las Mentorías -->
+    <section class="zag-hero zag-room-hero" aria-labelledby="zr-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="zr-hero-pill" class="kicker zag-hero__pill"></p>
+        <h1 id="zr-hero-title" class="zag-hero__title"></h1>
+        <p id="zr-hero-sub" class="zag-hero__sub"></p>
+        <p id="zr-hero-estado" class="zag-room-hero__estado"></p>
+        <p class="zag-room-hero__cta">
+          <a id="zr-hero-cta" class="btn btn--hero" href="#reservar"></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- B · FOTO PRINCIPAL + ESTADO EN VIVO -->
+    <section class="zr-foto" aria-label="El ZAG Room en el campus de la EAM">
+      <div class="container">
+        <div class="zr-foto-marco">
+          <img
+            id="zr-foto-img"
+            class="zr-foto-img"
+            src="assets/img/zagroom.svg"
+            width="1440"
+            height="810"
+            alt="El ZAG Room en el campus de la EAM: mesas largas, tablero y luz natural.">
+          <ul id="zr-foto-chips" class="zr-foto-chips"></ul>
+          <p id="zr-foto-vivo" class="zr-foto-vivo"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- C · MANIFIESTO -->
+    <section class="zr-manifiesto" aria-labelledby="zr-manifiesto-title">
+      <div class="container zr-manifiesto-inner">
+        <p id="zr-manifiesto-kicker" class="zr-manifiesto-kicker"></p>
+        <h2 id="zr-manifiesto-title" class="zr-manifiesto-texto"></h2>
+      </div>
+    </section>
+
+    <!-- D · PARA QUÉ SIRVE -->
+    <section class="section" aria-labelledby="zr-usos-title">
+      <div class="container">
+        <p id="zr-usos-kicker" class="kicker"></p>
+        <h2 id="zr-usos-title" class="section-title"></h2>
+        <div id="zr-usos-grid" class="zr-usos-grid"></div>
+      </div>
+    </section>
+
+    <!-- E · EL ESPACIO -->
+    <section class="section section--surface" aria-labelledby="zr-espacio-title">
+      <div class="container">
+        <p id="zr-espacio-kicker" class="kicker"></p>
+        <h2 id="zr-espacio-title" class="section-title"></h2>
+
+        <h3 id="zr-amenidades-kicker" class="zr-paso-titulo zr-subtitulo"></h3>
+        <ul id="zr-amenidades" class="zr-amenidades"></ul>
+      </div>
+    </section>
+
+    <!-- F · RESERVA -->
+    <section id="reservar" class="section" aria-labelledby="zr-reserva-title">
+      <div class="container">
+        <p id="zr-reserva-kicker" class="kicker"></p>
+        <h2 id="zr-reserva-title" class="section-title"></h2>
+
+        <p id="zr-live" class="sr-only" role="status" aria-live="polite"></p>
+
+        <div class="zr-reserva-layout">
+          <div>
+            <div id="zr-bloqueo" class="zr-bloqueo" hidden>
+              <span aria-hidden="true">🔒</span>
+              <span id="zr-bloqueo-texto"></span>
+            </div>
+
+            <!-- 1 · día -->
+            <div class="zr-paso">
+              <h3 id="zr-paso-dia" class="zr-paso-titulo"></h3>
+              <div id="zr-dias" class="zr-dias" role="group" aria-labelledby="zr-paso-dia"></div>
+            </div>
+
+            <!-- 2 · bloque -->
+            <div class="zr-paso">
+              <h3 id="zr-paso-bloque" class="zr-paso-titulo"></h3>
+              <ul id="zr-bloques" class="zr-bloques"></ul>
+            </div>
+
+            <!-- 3 · mapa de la semana -->
+            <div class="zr-paso">
+              <h3 id="zr-paso-mapa" class="zr-paso-titulo"></h3>
+              <p id="zr-mapa-desc" class="zr-paso-nota"></p>
+              <div class="zr-mapa-wrap">
+                <div id="zr-mapa" class="zr-mapa" role="grid" aria-labelledby="zr-paso-mapa" aria-describedby="zr-mapa-desc"></div>
+              </div>
+              <ul id="zr-mapa-leyenda" class="zr-mapa-leyenda"></ul>
+            </div>
+          </div>
+
+          <!-- resumen sticky -->
+          <aside class="zr-resumen" aria-labelledby="zr-resumen-titulo">
+            <div class="zr-resumen-foto">
+              <img src="assets/img/zagroom.svg" width="1440" height="810" alt="El ZAG Room en el campus de la EAM." loading="lazy">
+              <p class="zr-resumen-lugar"></p>
+            </div>
+            <div class="zr-resumen-body">
+              <h3 id="zr-resumen-titulo" class="zr-resumen-titulo"></h3>
+              <p id="zr-resumen-eleccion" class="zr-resumen-eleccion zr-resumen-eleccion--vacio"></p>
+              <p id="zr-resumen-semana" class="zr-resumen-semana"></p>
+              <ul id="zr-resumen-puntos" class="zr-puntos"></ul>
+              <button id="zr-resumen-cta" class="btn zr-resumen-cta" type="button" disabled></button>
+              <p id="zr-resumen-aviso" class="zr-resumen-aviso" hidden></p>
+              <a id="zr-resumen-nivel" class="zr-resumen-link" href="perfil.html#retos" hidden></a>
+              <p id="zr-resumen-nota" class="zr-resumen-nota"></p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- bloque de acceso / modo demo -->
+        <div id="zr-acceso" class="zr-acceso" hidden>
+          <h2 class="zr-acceso-title"></h2>
+          <p class="zr-acceso-copy"></p>
+          <div class="zr-acceso-actions">
+            <a id="zr-acceso-primario" class="zr-btn-outline" href="perfil.html#retos">Ver cómo subir de nivel</a>
+            <button id="zr-acceso-demo" class="btn" type="button" aria-expanded="false">Entrar en modo demo</button>
+          </div>
+          <div id="zr-acceso-box" class="zr-acceso-box" hidden>
+            <p id="zr-acceso-box-label" class="zr-acceso-box-label"></p>
+            <label class="sr-only" for="zr-acceso-select" id="zr-acceso-select-label"></label>
+            <select id="zr-acceso-select" class="zr-acceso-select"></select>
+            <p id="zr-acceso-hint" class="zr-acceso-hint"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- G · MIS RESERVAS Y EL PASE -->
+    <section id="zr-pases" class="section zr-pases" aria-labelledby="zr-pases-title" hidden>
+      <div class="container">
+        <p id="zr-pases-kicker" class="kicker"></p>
+        <h2 id="zr-pases-title" class="section-title"></h2>
+        <p id="zr-pases-vacio" class="zr-pases-vacio" hidden></p>
+        <ul id="zr-pases-lista" class="zr-pases-lista"></ul>
+        <button id="zr-pases-anteriores-btn" class="zr-mosaico-ver" type="button" hidden>Ver anteriores</button>
+        <div id="zr-pases-anteriores" class="zr-pases-anteriores" hidden>
+          <h3 class="zr-paso-titulo">Anteriores</h3>
+          <ul id="zr-pases-lista-anteriores" class="zr-pases-lista"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- H · REGLAS -->
+    <section class="section" aria-labelledby="zr-reglas-title">
+      <div class="container">
+        <p class="kicker">Reglas del espacio</p>
+        <h2 id="zr-reglas-title" class="section-title" style="color:var(--color-brand-deep)">Lo que hay que <span class="zr-highlight">saber</span></h2>
+        <ul id="zr-reglas" class="zr-reglas"></ul>
+
+        <!-- I · FAQ -->
+        <div class="zr-faq">
+          <p class="kicker">Preguntas</p>
+          <h2 class="section-title" style="color:var(--color-brand-deep)">Preguntas <span class="zr-highlight">frecuentes</span></h2>
+          <div id="zr-faq"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- J · CTA FINAL -->
+    <section class="zr-cierre" aria-labelledby="zr-cierre-title">
+      <div class="container zr-cierre-inner">
+        <h2 id="zr-cierre-title" class="zr-cierre-title"></h2>
+        <p class="zr-cierre-cta-wrap">
+          <a id="zr-cierre-cta" class="btn btn--hero" href="#reservar"></a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- barra fija de mobile: el resumen, versión compacta -->
+  <div id="zr-barra" class="zr-barra-movil" hidden>
+    <div class="zr-barra-info">
+      <strong id="zr-barra-titulo"></strong>
+      <span id="zr-barra-detalle"></span>
+    </div>
+    <button id="zr-barra-cta" class="btn" type="button" disabled></button>
+  </div>
+
+  <!-- barra de reserva (mobile) duplica el estado del resumen sticky -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button id="zr-reset" class="zr-reset" type="button"></button>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- LIGHTBOX de fotos -->
+  <div id="zr-lightbox" class="zr-lightbox" role="dialog" aria-modal="true" aria-label="Fotos del ZAG Room" hidden>
+    <div class="zr-lightbox-backdrop" data-close></div>
+    <button id="zr-lightbox-cerrar" class="zr-lightbox-cerrar" type="button" aria-label="Cerrar las fotos">✕</button>
+    <div id="zr-lightbox-track" class="zr-lightbox-track">
+      <button id="zr-lightbox-prev" class="zr-lightbox-nav" type="button" aria-label="Foto anterior">‹</button>
+      <figure class="zr-lightbox-slide" role="group" aria-live="polite"></figure>
+      <button id="zr-lightbox-next" class="zr-lightbox-nav" type="button" aria-label="Foto siguiente">›</button>
+    </div>
+    <p id="zr-lightbox-pie" class="zr-lightbox-pie"></p>
+  </div>
+
+  <!-- PASE A PANTALLA COMPLETA -->
+  <div id="zr-pase-full" class="zr-pase-full" role="dialog" aria-modal="true" aria-labelledby="zr-pase-full-title" hidden>
+    <button id="zr-pase-full-cerrar" class="zr-pase-full-cerrar" type="button" aria-label="Cerrar el pase">✕</button>
+    <div class="zr-pase-full-inner">
+      <h2 id="zr-pase-full-title" class="sr-only">Tu pase del ZAG Room</h2>
+      <div id="zr-pase-full-body"></div>
+      <p id="zr-pase-full-note" class="zr-pase-full-note"></p>
+    </div>
+  </div>
+
+  <!-- POPUP DE CONFIRMACIÓN -->
+  <div id="zr-modal" class="zr-modal" role="dialog" aria-modal="true" aria-labelledby="zr-modal-title" hidden>
+    <div class="zr-modal-backdrop" data-close></div>
+    <div class="zr-modal-box" role="document">
+      <span class="zr-modal-check" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="56" height="56" focusable="false">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M14 25l7 7 14-16" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <h2 id="zr-modal-title" class="zr-modal-title"></h2>
+      <p id="zr-modal-copy" class="zr-modal-copy"></p>
+      <p id="zr-modal-codigo" class="zr-modal-codigo"></p>
+      <div class="zr-modal-actions">
+        <a id="zr-modal-pase" class="zr-pase-btn zr-pase-btn--principal" href="#zr-pases">Ver mi pase</a>
+        <a id="zr-modal-calendar" class="zr-btn-outline" href="#" target="_blank" rel="noopener noreferrer">Agregar a Google Calendar</a>
+        <button id="zr-modal-cta" class="zr-btn-outline" type="button">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="zr-noscript">
+      El ZAG Room necesita JavaScript para mostrar la disponibilidad y reservar.
+      Volvé a activarlo o escribinos a la EAM y te guardamos el puesto.
+    </p>
+  </noscript>
+</body>
+</html>

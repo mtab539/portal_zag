@@ -11,14 +11,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css?v=30">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/seminario.css?v=1">
-  <script src="js/content.js?v=29" defer></script>
-  <script src="js/main.js?v=26" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/seminario.css?v=3">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
   <script src="js/zag-session.js" defer></script>
   <script src="js/zag-reserva.js?v=1" defer></script>
-  <script src="js/seminario-data.js?v=1" defer></script>
-  <script src="js/seminario.js?v=1" defer></script>
+  <script src="js/seminario-data.js?v=3" defer></script>
+  <script src="js/seminario.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -28,10 +29,9 @@
       <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
         <img
           class="brand-logo"
-          src="assets/logos/logozag.svg"
+          src="assets/logos/eamzag.svg?v=3"
           alt="ZAG — logotipo del portal"
           data-fallback="ZAG">
-        <span class="brand-caption">PORTAL · 30 AÑOS</span>
       </a>
 
       <button
@@ -48,53 +48,58 @@
 
       <div class="header-right">
         <div id="sem-session-chip" class="sem-session-chip" hidden></div>
-        <a class="header-unete btn btn--sm" href="index.html#unirme">Únete</a>
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
       </div>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- 1 · HERO — voz rompedora sobre fondo negro -->
+    <!-- 1 · HERO — layout dos columnas -->
     <section class="sem-hero" aria-labelledby="sem-hero-title">
-      <div class="sem-hero__pattern" aria-hidden="true"></div>
       <div class="container sem-hero__inner">
-        <p id="sem-hero-kicker" class="kicker sem-hero__kicker"></p>
-        <h1 id="sem-hero-title" class="sem-hero__title" aria-label="Somos ZAG">
-          <span class="sem-hero__somos">SOMOS</span>
-          <span class="sem-hero__zag">ZAG</span>
-        </h1>
-        <p id="sem-hero-sub" class="sem-hero__sub"></p>
-
-        <ul id="sem-hero-chips" class="sem-hero__chips" aria-label="Cuándo y dónde"></ul>
-
-        <div id="sem-countdown" class="sem-countdown" aria-live="off">
-          <div class="sem-countdown__item">
-            <span id="sem-count-dias" class="sem-countdown__num">—</span>
-            <span class="sem-countdown__label">días</span>
-          </div>
-          <div class="sem-countdown__item">
-            <span id="sem-count-horas" class="sem-countdown__num">—</span>
-            <span class="sem-countdown__label">horas</span>
-          </div>
-          <div class="sem-countdown__item">
-            <span id="sem-count-min" class="sem-countdown__num">—</span>
-            <span class="sem-countdown__label">minutos</span>
-          </div>
-          <div class="sem-countdown__item">
-            <span id="sem-count-seg" class="sem-countdown__num">—</span>
-            <span class="sem-countdown__label">segundos</span>
-          </div>
-        </div>
-        <p id="sem-countdown-msg" class="sem-countdown__msg" hidden></p>
-
-        <div class="sem-hero__actions">
-          <a id="sem-hero-cta" class="sem-hero__cta sem-btn" href="#agenda"></a>
-          <p id="sem-hero-cupos" class="sem-hero__cupos"></p>
+        <div class="sem-hero__col-title">
+          <p id="sem-hero-kicker" class="kicker sem-hero__kicker"></p>
+          <h1 id="sem-hero-title" class="sem-hero__title" aria-label="Somos ZAG">
+            <span class="sem-hero__somos">SOMOS</span>
+            <span class="sem-hero__zag">ZAG</span>
+          </h1>
         </div>
 
-        <div id="sem-hero-days" class="sem-hero__days"></div>
+        <div class="sem-hero__col-info">
+          <p id="sem-hero-sub" class="sem-hero__sub"></p>
+
+          <ul id="sem-hero-chips" class="sem-hero__chips" aria-label="Cuándo y dónde"></ul>
+
+          <div id="sem-countdown" class="sem-countdown" aria-live="off">
+            <div class="sem-countdown__item">
+              <span id="sem-count-dias" class="sem-countdown__num">—</span>
+              <span class="sem-countdown__label">días</span>
+            </div>
+            <div class="sem-countdown__item">
+              <span id="sem-count-horas" class="sem-countdown__num">—</span>
+              <span class="sem-countdown__label">horas</span>
+            </div>
+            <div class="sem-countdown__item">
+              <span id="sem-count-min" class="sem-countdown__num">—</span>
+              <span class="sem-countdown__label">minutos</span>
+            </div>
+            <div class="sem-countdown__item">
+              <span id="sem-count-seg" class="sem-countdown__num">—</span>
+              <span class="sem-countdown__label">segundos</span>
+            </div>
+          </div>
+          <p id="sem-countdown-msg" class="sem-countdown__msg" hidden></p>
+
+          <div class="sem-hero__actions">
+            <a id="sem-hero-cta" class="sem-hero__cta sem-btn" href="#agenda"></a>
+            <p id="sem-hero-cupos" class="sem-hero__cupos"></p>
+          </div>
+
+          <div id="sem-hero-days" class="sem-hero__days"></div>
+        </div>
       </div>
+
     </section>
 
     <!-- 2 · MARQUEE — mismas clases compartidas que el index -->
@@ -190,21 +195,30 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-row">
-        <div class="footer-social">
-          <span class="footer-social-label">Redes Sociales:</span>
-          <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
         </div>
-        <div class="footer-legal-group">
-          <p id="footer-copyright" class="footer-copyright"></p>
-          <p class="footer-legal"><a href="index.html">Términos</a></p>
-          <p class="footer-legal"><a href="index.html">COPPA</a></p>
-          <p class="footer-legal"><a href="index.html">Privacidad</a></p>
-          <p class="footer-legal"><button id="sem-reset" class="sem-reset" type="button"></button></p>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
         </div>
       </div>
-    </div>
-    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button id="sem-reset" class="sem-reset" type="button"></button>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
       <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
     </a>
   </footer>

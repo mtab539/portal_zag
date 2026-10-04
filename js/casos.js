@@ -73,14 +73,12 @@
     if (sub) sub.textContent = ui.sub;
     if (scroll) scroll.textContent = ui.scroll;
 
-    if (!title) return;
-    title.textContent = '';
-
-    ui.title.forEach(function (txt, idx) {
-      var span = el('span', 'casos-hero-line ' + (idx === 0 ? 'casos-hero-line--light' : 'casos-hero-line--accent'));
-      span.textContent = txt;
-      title.appendChild(span);
-    });
+    /* El lettering del título vive en la imagen de fondo del hero (CSS),
+       así que el h1 de texto se oculta. */
+    if (title) {
+      title.textContent = '';
+      title.hidden = true;
+    }
   }
 
   /* ============================================================
@@ -153,7 +151,7 @@
 
     var primary = document.createElement('a');
     primary.className = 'btn';
-    primary.href = 'proximamente.html';
+    primary.href = 'registro.html';
     primary.textContent = ui.accesoCta1;
     actions.appendChild(primary);
 

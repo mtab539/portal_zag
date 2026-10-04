@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="presentation" aria-hidden="true">
+  <rect width="1200" height="800" fill="#1144ff"/>
+  <g fill="none" stroke="#fff8ee" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M420 236 H780 V560 H420 Z"/>
+    <path d="M600 236 V560"/>
+    <path d="M540 392 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 M660 392 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0"/>
+    <path d="M462 296 H556 M462 336 H556 M644 296 H738 M644 336 H738"/>
+  </g>
+  <text x="72" y="712" fill="#fff8ee" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3" text-transform="uppercase">LOCKERS</text>
+</svg>

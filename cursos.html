@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursos Extraclase ZAG - EAM</title>
+  <meta name="description" content="Cursos extraclase del Portal ZAG: lo que el pensum no te cuenta, grabado por egresados que ya lo viven. Se desbloquea en nivel Creator.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/cursos.css?v=3">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/cursos-data.js?v=3" defer></script>
+  <script src="js/cursos-progreso.js?v=3" defer></script>
+  <script src="js/cursos.js?v=3" defer></script>
+</head>
+<body class="cursos-page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="cursos-session-chip" class="cursos-tag cursos-tag--nivel" hidden></div>
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO — clases compartidas con el resto del portal -->
+    <section class="zag-hero" aria-labelledby="cursos-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="cursos-hero-pill" class="kicker zag-hero__pill"></p>
+        <h1 id="cursos-hero-title" class="zag-hero__title"></h1>
+        <p id="cursos-hero-sub" class="zag-hero__sub"></p>
+
+        <!-- Píldora de estado: progreso al Sello ZAG -->
+        <div class="cursos-hero-status">
+          <p id="cursos-sello-pill" class="cursos-sello-pill" hidden>
+            <span id="cursos-sello-dots" class="cursos-sello-pill__dots" aria-hidden="true"></span>
+            <span id="cursos-sello-count" class="cursos-sello-pill__count"></span>
+          </p>
+          <div id="cursos-hero-links" class="cursos-hero-links"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · CATÁLOGO -->
+    <section class="cursos-wrap" aria-labelledby="cursos-catalogo-title">
+      <div class="container">
+
+        <div class="catalogo-head">
+          <div>
+            <p id="cursos-catalogo-eyebrow" class="kicker"></p>
+            <h2 id="cursos-catalogo-title" class="section-title"></h2>
+          </div>
+          <div id="cursos-catalogo-stats" class="catalogo-stats"></div>
+        </div>
+
+        <!-- Tabs con contador -->
+        <div
+          id="cursos-tabs"
+          class="cursos-tabs"
+          role="tablist"
+          aria-label="Filtrar cursos por estado"></div>
+
+        <!-- Rejilla de tarjetas (la inyecta js/cursos.js) -->
+        <div id="cursos-grid" class="cursos-grid" aria-live="polite"></div>
+
+        <p id="cursos-empty" class="cursos-empty" hidden></p>
+
+        <!-- Panel de acceso y utilidades de demo -->
+        <div id="cursos-demo" class="cursos-demo"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 3 · MODAL de certificado listo / Sello ZAG ganado -->
+  <div
+    id="cursos-modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cursos-modal-title"
+    hidden>
+    <div class="modal__box">
+      <button id="cursos-modal-close" class="modal__close" type="button" aria-label="Cerrar">✕</button>
+      <p id="cursos-modal-icon" class="modal__icon" aria-hidden="true"></p>
+      <h2 id="cursos-modal-title" class="modal__title"></h2>
+      <p id="cursos-modal-copy" class="modal__copy"></p>
+      <div id="cursos-modal-actions" class="modal__actions"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button id="cursos-reset" class="mentorias-reset" type="button"></button>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+</body>
+</html>

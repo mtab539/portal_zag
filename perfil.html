@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tu pasaporte ZAG: sellos, retos, niveles y todo lo que desbloqueas en la Sociedad ZAG.">
+  <title>Mi perfil · Portal ZAG</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/perfil.css?v=2">
+  <script src="js/zag-session.js?v=2" defer></script>
+  <script src="js/perfil-data.js?v=2" defer></script>
+  <script src="js/zag-perfil.js?v=2" defer></script>
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/perfil.js?v=2" defer></script>
+</head>
+<body class="perfil-page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img class="brand-logo" src="assets/logos/eamzag.svg?v=3" alt="ZAG — logotipo del portal" data-fallback="ZAG">
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span><span class="nav-toggle--close">Cerrar</span>
+      </button>
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+      <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+    </div>
+  </header>
+
+  <main id="main" class="perfil-main">
+    <p class="visually-hidden" id="p-live" role="status" aria-live="polite"></p>
+
+    <!-- A. Cabecera de nivel -->
+    <section id="perfil-hero" class="p-hero nivel-rookie" aria-labelledby="p-nombre">
+      <div class="container p-hero__inner">
+        <div class="p-hero__avatar-wrap">
+          <div class="p-avatar" id="p-avatar" aria-hidden="true">Z</div>
+          <button class="p-avatar__btn" id="p-cambiar-foto" type="button">Cambiar foto</button>
+          <input type="file" id="p-foto-input" accept="image/*" hidden aria-label="Subir nueva foto de perfil">
+        </div>
+        <div class="p-hero__info">
+          <p class="kicker p-kicker" id="p-kicker">PERFIL ZAG</p>
+          <h1 class="p-nombre" id="p-nombre" tabindex="-1">Tu perfil</h1>
+          <p class="p-nivel-line">
+            <span class="p-nivel" id="p-nivel">ROOKIE</span>
+            <button class="p-info-btn" id="p-nivel-info" type="button" aria-expanded="false" aria-label="Qué significa este nivel">i</button>
+            <span class="p-tooltip" id="p-nivel-tooltip" role="tooltip" hidden></span>
+          </p>
+          <p class="p-identidad" id="p-identidad">EXPLORADOR</p>
+          <p class="p-meta-line" id="p-meta-line"></p>
+          <p class="p-links" id="p-links">
+            <button class="p-link" id="p-editar" type="button">Editar perfil</button>
+            <span aria-hidden="true">·</span>
+            <button class="p-link" id="p-logout" type="button">Cerrar sesión</button>
+          </p>
+        </div>
+        <div class="p-hero__progreso">
+          <div class="p-progreso" id="p-progreso">
+            <div class="p-progreso__top">
+              <span class="p-progreso__label" id="p-progreso-label">0 / 6 sellos</span>
+              <button class="p-info-btn" id="p-progreso-info" type="button" aria-expanded="false" aria-label="Cómo funcionan los sellos">i</button>
+              <span class="p-tooltip" id="p-progreso-tooltip" role="tooltip" hidden></span>
+              <span class="p-progreso__next" id="p-progreso-next"></span>
+            </div>
+            <div class="p-barra" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="p-barra" aria-label="Sellos del nivel actual">
+              <div class="p-barra__fill" id="p-barra-fill"></div>
+            </div>
+          </div>
+          <p class="p-tope" id="p-tope" hidden>Nivel tope. Construyes cultura, no la persigues.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="p-demo-banner" id="demo-banner" hidden>
+      <div class="container">
+        <span>VISTA DEMO · <strong id="demo-level-label"></strong> · nada de esto modifica un perfil real</span>
+        <a href="registro.html">Inscribirme de verdad</a>
+      </div>
+    </div>
+
+    <!-- B. Pasaporte ZAG -->
+    <section class="p-section" id="sellos" aria-labelledby="pasaporte-title">
+      <div class="container">
+        <div class="pasaporte" id="pasaporte-card">
+          <div class="pasaporte__head">
+            <div>
+              <p class="kicker">MIS SELLOS</p>
+              <h2 class="pasaporte__title" id="pasaporte-title">PASAPORTE ZAG</h2>
+            </div>
+            <p class="pasaporte__titular">Titular: <strong id="pasaporte-nombre"></strong></p>
+          </div>
+          <p class="pasaporte__nivel" id="pasaporte-nivel"></p>
+          <div class="pasaporte__grid" id="pasaporte-grid" aria-label="Casillas de sellos del nivel actual"></div>
+          <div class="pasaporte__anteriores" id="pasaporte-anteriores" hidden>
+            <p class="pasaporte__anteriores-label">Páginas anteriores</p>
+            <div class="pasaporte__anteriores-row" id="pasaporte-anteriores-row"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- C. Vista previa de niveles -->
+    <section class="p-section p-section--tight" aria-labelledby="chips-title">
+      <div class="container">
+        <div class="p-section-head">
+          <div>
+            <p class="kicker">VISTA PREVIA DE NIVELES</p>
+            <h2 class="p-h2" id="chips-title">El camino completo</h2>
+          </div>
+          <p class="p-preview-aviso" id="preview-aviso" hidden>Estás viendo <strong id="preview-nivel"></strong> · <button class="p-link" id="preview-volver" type="button">Volver a mi nivel</button></p>
+        </div>
+        <div class="chips-niveles" id="chips-niveles" role="group" aria-label="Previsualizar otro nivel"></div>
+      </div>
+    </section>
+
+    <!-- D. Retos -->
+    <section class="p-section p-section--surface" id="retos" aria-labelledby="retos-title">
+      <div class="container">
+        <div class="p-section-head">
+          <div>
+            <p class="kicker">TUS PRÓXIMOS PASOS</p>
+            <h2 class="p-h2" id="retos-title">Retos de <span id="retos-level"></span></h2>
+          </div>
+          <p class="p-lead-small" id="retos-sub"></p>
+        </div>
+        <div class="retos-list" id="retos-list"></div>
+        <p class="p-readonly" id="retos-readonly" hidden>Estás previsualizando este nivel: aquí no puedes sumar sellos.</p>
+      </div>
+    </section>
+
+    <!-- E. Desbloqueos + mapa -->
+    <section class="p-section" id="desbloqueos" aria-labelledby="unlocks-title">
+      <div class="container">
+        <div class="p-section-head">
+          <div>
+            <p class="kicker">YA DESBLOQUEASTE</p>
+            <h2 class="p-h2" id="unlocks-title">Lo que ya es tuyo</h2>
+          </div>
+          <a class="text-link" href="tienda.html">Explorar la Tienda ↗</a>
+        </div>
+        <div class="unlock-grid" id="unlock-grid"></div>
+
+        <!-- F. Tarjeta AL SUBIR A -->
+        <div class="next-card" id="next-card"></div>
+
+        <div class="mapa">
+          <p class="kicker">MAPA DE NIVELES</p>
+          <h3 class="p-h3">Qué da cada nivel</h3>
+          <div class="mapa-rows" id="mapa-rows"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- G. Actividad -->
+    <section class="p-section p-section--surface" aria-labelledby="actividad-title">
+      <div class="container p-actividad__grid">
+        <div>
+          <p class="kicker">TU HISTORIA</p>
+          <h2 class="p-h2" id="actividad-title">Actividad reciente</h2>
+          <div class="actividad-list" id="actividad-list"></div>
+        </div>
+        <aside class="p-demo-tools">
+          <p class="kicker">HERRAMIENTAS DEMO</p>
+          <p class="p-demo-tools__nota">Atajos de presentación. Solo afectan este navegador.</p>
+          <div class="p-demo-tools__botones" id="demo-tools"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Level-up -->
+  <dialog class="levelup" id="levelup-dialog" aria-labelledby="levelup-title">
+    <div class="confetti" id="levelup-confetti" aria-hidden="true"></div>
+    <button class="levelup__close" id="levelup-close" type="button" aria-label="Cerrar felicitación">×</button>
+    <div class="levelup__stamp" id="levelup-stamp" aria-hidden="true"></div>
+    <p class="kicker" id="levelup-kicker">¡SUBISTE DE NIVEL!</p>
+    <h2 class="levelup__title" id="levelup-title">AHORA ERES ROOKIE</h2>
+    <p class="levelup__identidad" id="levelup-identidad"></p>
+    <p class="levelup__copy" id="levelup-copy"></p>
+    <ul class="levelup__list" id="levelup-list"></ul>
+    <div class="levelup__actions">
+      <button class="btn btn--cta" id="levelup-ver" type="button">Ver lo que desbloqueé</button>
+      <a class="btn btn--outline-dark" href="tienda.html">Ir a la Tienda</a>
+    </div>
+  </dialog>
+
+  <!-- Editar perfil -->
+  <dialog class="editar" id="editar-dialog" aria-labelledby="editar-title">
+    <button class="levelup__close" id="editar-close" type="button" aria-label="Cerrar edición">×</button>
+    <p class="kicker">TU PERFIL</p>
+    <h2 class="p-h3" id="editar-title">Editar perfil</h2>
+    <form id="editar-form" novalidate>
+      <div class="form-field">
+        <label class="form-label" for="edit-nombre">Nombre completo</label>
+        <input id="edit-nombre" type="text" autocomplete="name" required aria-describedby="edit-nombre-error">
+        <span class="field-error" id="edit-nombre-error"></span>
+      </div>
+      <div class="form-field" id="edit-semestre-field">
+        <label class="form-label" for="edit-semestre">Semestre</label>
+        <select id="edit-semestre" aria-describedby="edit-semestre-error">
+          <option value="">Elige</option>
+          <option value="1">1.º</option><option value="2">2.º</option><option value="3">3.º</option>
+          <option value="4">4.º</option><option value="5">5.º</option><option value="6">6.º</option>
+          <option value="7">7.º</option><option value="8">8.º</option>
+        </select>
+        <span class="field-error" id="edit-semestre-error"></span>
+      </div>
+      <div class="form-field" id="edit-egreso-field" hidden>
+        <label class="form-label" for="edit-egreso">Año de egreso</label>
+        <input id="edit-egreso" type="number" inputmode="numeric" min="1980" max="2035" aria-describedby="edit-egreso-error">
+        <span class="field-error" id="edit-egreso-error"></span>
+      </div>
+      <div class="form-field">
+        <span class="form-label" id="edit-foto-label">Foto</span>
+        <label class="upload-control" for="edit-foto">
+          <span class="upload-avatar" id="edit-avatar-preview" aria-hidden="true">+</span>
+          <span id="edit-avatar-label">Cambiar foto · máximo 5 MB</span>
+          <input id="edit-foto" type="file" accept="image/*" aria-labelledby="edit-foto-label" aria-describedby="edit-foto-error">
+        </label>
+        <span class="field-error" id="edit-foto-error"></span>
+      </div>
+      <div class="editar__actions">
+        <button class="btn btn--cta" type="submit">Guardar cambios</button>
+        <button class="text-button" id="editar-cancelar" type="button">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer"><div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio"><img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG"></a></footer>
+</body>
+</html>

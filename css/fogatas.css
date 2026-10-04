@@ -11,8 +11,12 @@
    ============================================================ */
 
 .fogatas {
-  background: var(--color-cream);
+  background: var(--color-white);
   padding-bottom: var(--s-8);
+}
+
+.fogatas-head {
+  display: none;
 }
 
 .fogatas-head {
@@ -59,25 +63,25 @@
   --f-muted: color-mix(in srgb, var(--color-cream) 84%, transparent);
   --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
   --f-cta-bg: var(--color-cta);
-  --f-cta-ink: var(--color-black);
+  --f-cta-ink: var(--color-cream);
 }
 
 .fogata--t2 {
   --f-bg: var(--color-cta);
-  --f-ink: var(--color-black);
-  --f-muted: color-mix(in srgb, var(--color-black) 72%, transparent);
-  --f-chip-bg: color-mix(in srgb, var(--color-black) 14%, transparent);
-  --f-cta-bg: var(--color-black);
-  --f-cta-ink: var(--color-cream);
+  --f-ink: var(--color-cream);
+  --f-muted: color-mix(in srgb, var(--color-cream) 72%, transparent);
+  --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
+  --f-cta-bg: var(--color-cream);
+  --f-cta-ink: var(--color-cta);
 }
 
 .fogata--t3 {
-  --f-bg: var(--color-black);
+  --f-bg: var(--color-brand-deep);
   --f-ink: var(--color-cream);
   --f-muted: color-mix(in srgb, var(--color-cream) 50%, transparent);
   --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
   --f-cta-bg: var(--color-cta);
-  --f-cta-ink: var(--color-black);
+  --f-cta-ink: var(--color-cream);
 }
 
 .fogata--t4 {
@@ -179,7 +183,8 @@
   font-size: clamp(1.6rem, 4.2vw, 2.3rem);
   font-weight: 800;
   line-height: 1.02;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
@@ -480,6 +485,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: var(--s-6);
+  padding-top: var(--s-7);
 }
 
 .fogatas-tabs {
@@ -542,11 +548,11 @@
    ============================================================ */
 
 .fogatas-access {
-  max-width: 760px;
+  max-width: 560px;
   margin: 0 auto var(--s-6);
-  padding: var(--s-6);
+  padding: var(--s-5);
   border-radius: var(--radius-card);
-  background: var(--color-brand-deep);
+  background: var(--color-functional);
   color: var(--color-cream);
   text-align: center;
 }
@@ -590,7 +596,7 @@
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;

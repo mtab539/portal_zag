@@ -17,13 +17,13 @@ window.ZAG_CASOS = (function () {
   ];
 
   var ui = {
-    kicker: 'Campañas',
+    kicker: 'Fracasos',
     title: ['Campañas reales', 'ZIG reales'],
     sub: 'Campañas de marcas enormes que hicieron zig cuando debían hacer zag. Aquí no se esconden: se estudian.',
     scroll: 'Baja y mira quién hizo zig ↓',
 
-    accesoKicker: 'SOLO PARA LA TRIBU',
-    accesoTitulo: 'Los Casos ZIG son solo para la tribu.',
+    accesoKicker: 'Exclusivo',
+    accesoTitulo: 'Los Casos ZIG son solo para la tribu',
     accesoCopy: 'Activa tu perfil ZAG para estudiar cada fracaso y su lección.',
     accesoCta1: 'Activar mi perfil',
     accesoCta2: 'Entrar en modo demo',

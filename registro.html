@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Activa tu perfil ZAG con tu correo institucional EAM: empiezas en Rookie, gana sellos y sube de nivel.">
+  <title>Únete al ZAG · Portal ZAG</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/perfil.css?v=2">
+  <script src="js/zag-session.js?v=2" defer></script>
+  <script src="js/perfil-data.js?v=2" defer></script>
+  <script src="js/zag-perfil.js?v=2" defer></script>
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/registro.js?v=2" defer></script>
+</head>
+<body class="perfil-page registro-page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img class="brand-logo" src="assets/logos/eamzag.svg?v=3" alt="ZAG — logotipo del portal" data-fallback="ZAG">
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span><span class="nav-toggle--close">Cerrar</span>
+      </button>
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+      <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+    </div>
+  </header>
+
+  <main id="main" class="perfil-main registro-main">
+    <!-- Encabezado -->
+    <section class="registro-hero" aria-labelledby="registro-title">
+      <div class="container">
+        <p class="kicker registro-kicker">ÚNETE</p>
+        <h1 id="registro-title" class="registro-title">ACTIVA TU PERFIL ZAG</h1>
+        <p class="registro-sub">Si eres de Publicidad Digital y Mercadeo y tienes correo institucional, ya puedes ser ZAG. Sin filas, sin tiras, sin excusas.</p>
+      </div>
+    </section>
+
+    <!-- Dos columnas: sticker + tarjeta -->
+    <section class="registro-body" aria-label="Formulario de inscripción">
+      <div class="container registro-cols">
+
+        <div class="registro-left">
+          <div class="registro-sticker" id="registro-sticker">
+            <!-- STICKER: reemplazar por el sticker final (PNG con fondo transparente) -->
+            <img id="registro-sticker-img" src="assets/img/stickers/unete-al-zag.png" alt="Sticker: ¿Sólo porque zig? Únete al ZAG">
+            <div class="registro-sticker__placeholder" id="registro-sticker-placeholder" hidden>
+              <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">
+                <path d="M8 14a6 6 0 0 1 6-6h20a6 6 0 0 1 6 6v16.5L28.5 42H14a6 6 0 0 1-6-6Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M40 30.5H31a2.5 2.5 0 0 0-2.5 2.5v9Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+              </svg>
+              <span>Aquí va el sticker</span>
+            </div>
+          </div>
+          <p class="registro-sellos-line">
+            <span class="registro-mini-sellos" aria-hidden="true">
+              <img src="assets/img/sellos/sello-rookie.svg" alt="">
+              <img src="assets/img/sellos/sello-strategist.svg" alt="">
+              <img src="assets/img/sellos/sello-creator.svg" alt="">
+              <img src="assets/img/sellos/sello-master.svg" alt="">
+              <img src="assets/img/sellos/sello-senior.svg" alt="">
+            </span>
+            Empiezas en ROOKIE. 6 sellos = subes de nivel.
+          </p>
+        </div>
+
+        <div class="registro-right">
+          <!-- Tabs -->
+          <div class="registro-tabs" role="tablist" aria-label="Registro o inicio de sesión">
+            <button class="registro-tab is-active" id="tab-registro" type="button" role="tab" aria-selected="true" aria-controls="panel-registro">Inscribirme</button>
+            <button class="registro-tab" id="tab-login" type="button" role="tab" aria-selected="false" aria-controls="panel-login">Ya tengo perfil</button>
+          </div>
+
+          <div class="registro-card">
+            <div id="registro-status" class="form-status" role="status" aria-live="polite" hidden></div>
+
+            <!-- Inscribirme -->
+            <section id="panel-registro" class="registro-panel" role="tabpanel" aria-labelledby="tab-registro">
+              <p class="registro-card-kicker">INSCRÍBETE CON TU CORREO INSTITUCIONAL</p>
+              <form id="registro-form" novalidate>
+                <div class="form-grid">
+                  <div class="form-field form-field--wide">
+                    <label class="form-label" for="reg-nombre">Nombre completo</label>
+                    <input id="reg-nombre" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre completo" required aria-describedby="reg-nombre-error">
+                    <span class="field-error" id="reg-nombre-error"></span>
+                  </div>
+                  <div class="form-field form-field--wide">
+                    <label class="form-label" for="reg-correo">Correo institucional</label>
+                    <input id="reg-correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="tucorreo@eam.edu.co" required aria-describedby="reg-correo-hint reg-correo-error">
+                    <small id="reg-correo-hint">Debe terminar en @eam.edu.co</small>
+                    <span class="field-error" id="reg-correo-error"></span>
+                  </div>
+                  <div class="form-field form-field--wide">
+                    <label class="form-label" for="reg-programa">Programa</label>
+                    <select id="reg-programa" name="programa" required aria-describedby="reg-programa-error">
+                      <option value="">Elige tu programa</option>
+                      <option value="Publicidad Digital y Mercadeo">Publicidad Digital y Mercadeo</option>
+                      <option value="otro">Otro programa de la EAM</option>
+                    </select>
+                    <span class="field-error" id="reg-programa-error"></span>
+                  </div>
+                  <fieldset class="form-field form-field--wide form-role">
+                    <legend class="form-label">Soy</legend>
+                    <label class="choice"><input type="radio" name="rol" value="estudiante" checked><span>Estudiante</span></label>
+                    <label class="choice"><input type="radio" name="rol" value="egresado"><span>Egresado</span></label>
+                  </fieldset>
+                  <div class="form-field" id="semestre-field">
+                    <label class="form-label" for="reg-semestre">Semestre</label>
+                    <select id="reg-semestre" name="semestre" required aria-describedby="reg-semestre-error">
+                      <option value="">Elige</option>
+                      <option value="1">1.º</option><option value="2">2.º</option><option value="3">3.º</option>
+                      <option value="4">4.º</option><option value="5">5.º</option><option value="6">6.º</option>
+                      <option value="7">7.º</option><option value="8">8.º</option>
+                    </select>
+                    <span class="field-error" id="reg-semestre-error"></span>
+                  </div>
+                  <div class="form-field" id="egreso-field" hidden>
+                    <label class="form-label" for="reg-egreso">Año de egreso</label>
+                    <input id="reg-egreso" name="egreso" type="number" inputmode="numeric" min="1980" max="2035" placeholder="2024" aria-describedby="reg-egreso-error">
+                    <span class="field-error" id="reg-egreso-error"></span>
+                  </div>
+                  <div class="form-field form-field--wide">
+                    <span class="form-label" id="reg-foto-label">Foto de perfil <span class="optional">(opcional)</span></span>
+                    <label class="upload-control" for="reg-foto">
+                      <span class="upload-avatar" id="avatar-preview" aria-hidden="true">+</span>
+                      <span id="avatar-label">Sube una foto · máximo 5 MB</span>
+                      <input id="reg-foto" name="foto" type="file" accept="image/*" aria-labelledby="reg-foto-label" aria-describedby="reg-foto-error">
+                    </label>
+                    <span class="field-error" id="reg-foto-error"></span>
+                  </div>
+                  <label class="consent form-field--wide" for="reg-consent">
+                    <input id="reg-consent" name="consent" type="checkbox" required aria-describedby="reg-consent-error">
+                    <span>Acepto el tratamiento de mis datos para el Portal ZAG.</span>
+                  </label>
+                  <span class="field-error form-field--wide" id="reg-consent-error"></span>
+                </div>
+                <button class="btn btn--cta registro-submit" type="submit">Crear mi perfil</button>
+                <p class="form-footnote">Prototipo académico: tus datos solo se guardan en este navegador.</p>
+              </form>
+              <div class="registro-demo">
+                <button class="btn btn--outline-dark" id="demo-toggle" type="button" aria-expanded="false" aria-controls="demo-levels">Entrar en modo demo</button>
+                <div class="demo-levels" id="demo-levels" hidden></div>
+              </div>
+            </section>
+
+            <!-- Ya tengo perfil -->
+            <section id="panel-login" class="registro-panel" role="tabpanel" aria-labelledby="tab-login" hidden>
+              <p class="registro-card-kicker">ENTRA A TU PERFIL</p>
+              <form id="login-form" novalidate>
+                <div class="form-field">
+                  <label class="form-label" for="login-correo">Correo institucional</label>
+                  <input id="login-correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="tucorreo@eam.edu.co" required aria-describedby="login-correo-error">
+                  <span class="field-error" id="login-correo-error"></span>
+                </div>
+                <button class="btn btn--cta registro-submit" type="submit">Enviarme el código</button>
+              </form>
+              <p class="form-switch">¿Aún no tienes perfil? <button type="button" data-show-register>Inscríbete</button></p>
+              <div class="registro-demo">
+                <button class="btn btn--outline-dark" id="demo-toggle-login" type="button" aria-expanded="false" aria-controls="demo-levels-login">Entrar en modo demo</button>
+                <div class="demo-levels" id="demo-levels-login" hidden></div>
+              </div>
+            </section>
+
+            <!-- Código de verificación -->
+            <section id="panel-codigo" class="registro-panel" aria-labelledby="codigo-title" hidden>
+              <p class="registro-card-kicker">UN ÚLTIMO PASO</p>
+              <h2 class="registro-h2" id="codigo-title">Revisa tu correo</h2>
+              <p id="codigo-copy" class="registro-copy"></p>
+              <div class="demo-code" id="demo-code" hidden></div>
+              <form id="codigo-form" novalidate>
+                <span class="form-label" id="codigo-label">Código de 6 dígitos</span>
+                <div class="code-boxes" id="code-boxes" role="group" aria-labelledby="codigo-label" aria-describedby="codigo-error">
+                  <input class="code-box" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]" maxlength="1" aria-label="Dígito 1">
+                  <input class="code-box" type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" aria-label="Dígito 2">
+                  <input class="code-box" type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" aria-label="Dígito 3">
+                  <input class="code-box" type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" aria-label="Dígito 4">
+                  <input class="code-box" type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" aria-label="Dígito 5">
+                  <input class="code-box" type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" aria-label="Dígito 6">
+                </div>
+                <span class="field-error" id="codigo-error"></span>
+                <button class="btn btn--cta registro-submit" type="submit">Verificar y entrar</button>
+              </form>
+              <button id="codigo-reenviar" class="text-button" type="button">Reenviar código</button>
+            </section>
+
+            <!-- Otro programa -->
+            <section id="panel-otro-programa" class="registro-panel registro-otro" hidden>
+              <p class="registro-card-kicker">EL ZAG TAMBIÉN LLEGARÁ A TI</p>
+              <h2 class="registro-h2">Por ahora, este portal es para Publicidad Digital y Mercadeo.</h2>
+              <p class="registro-copy">Por ahora el Portal ZAG es solo para Publicidad Digital y Mercadeo. Pronto llevamos el ZAG a tu carrera.</p>
+              <a class="btn btn--outline-dark" href="index.html">Volver al inicio</a>
+            </section>
+
+            <!-- Bienvenida -->
+            <section id="panel-bienvenida" class="registro-panel registro-bienvenida" aria-labelledby="bienvenida-title" hidden>
+              <div class="bienvenida-stamp" aria-hidden="true">
+                <img src="assets/img/sellos/sello-rookie.svg" alt="">
+              </div>
+              <p class="registro-card-kicker">PERFIL CREADO</p>
+              <h2 class="registro-h2" id="bienvenida-title">¡Bienvenido a la tribu!</h2>
+              <p class="registro-copy">Empiezas como <strong>ROOKIE · Explorador</strong>. Completa retos, sube evidencias y estampa tus 6 sellos para subir a STRATEGIST.</p>
+              <a class="btn btn--cta registro-submit" href="perfil.html">Ver mi perfil</a>
+            </section>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio"><img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG"></a></footer>
+</body>
+</html>

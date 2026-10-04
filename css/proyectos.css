@@ -9,7 +9,7 @@
   height: calc(90svh - var(--header-height));
   min-height: 420px;
   overflow: hidden;
-  background: var(--color-brand-deep);
+  background: var(--color-brand-deep) url('../assets/img/fondoazul.svg') no-repeat center center / cover;
   color: var(--color-cream);
 }
 
@@ -76,7 +76,7 @@
   display: grid;
   place-items: center;
   padding: var(--s-6) var(--gutter) clamp(2rem, 12vh, 8rem) var(--gutter);
-  background: var(--color-cream);
+  background: var(--color-cream) url('../assets/img/fondobeige.svg') no-repeat center center / cover;
   -webkit-mask: url(#zag-smudge-mask);
   mask: url(#zag-smudge-mask);
   -webkit-mask-size: 100% 100%;
@@ -989,7 +989,7 @@
 
 /* === Formulario === */
 .proy-form-wrap {
-  background: var(--color-cream);
+  background: var(--color-white);
   color: var(--color-text);
   padding: var(--s-8) 0;
 }

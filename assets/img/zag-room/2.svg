@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="presentation" aria-hidden="true">
+  <rect width="1200" height="800" fill="#ff5c01"/>
+  <g fill="none" stroke="#000000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M470 300 H650 V392 A44 44 0 0 1 650 480 H470 A44 44 0 0 1 470 392 Z"/>
+    <path d="M650 322 H706 A38 38 0 0 1 706 398 H650"/>
+    <path d="M520 262 C540 236 500 214 520 188 M600 262 C620 236 580 214 600 188"/>
+  </g>
+  <text x="72" y="712" fill="#000000" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3" text-transform="uppercase">BARRA DE CAFÉ Y AGUA</text>
+</svg>

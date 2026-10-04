@@ -67,6 +67,18 @@ window.ZAG_SEMINARIO_APP = (function () {
     return String(s).charAt(0).toUpperCase() + String(s).slice(1);
   }
 
+  function tituloConColor(str, node) {
+    var m = String(str).match(/^(.*)\{(.+?)\}(.*)$/);
+    if (!m) { node.textContent = str; return; }
+    node.textContent = '';
+    if (m[1]) node.appendChild(document.createTextNode(m[1]));
+    var span = document.createElement('span');
+    span.className = 'sem-highlight';
+    span.textContent = m[2];
+    node.appendChild(span);
+    if (m[3]) node.appendChild(document.createTextNode(m[3]));
+  }
+
   function horaCorta(hhmm) {
     return String(hhmm).replace(/^0/, '');
   }
@@ -81,7 +93,9 @@ window.ZAG_SEMINARIO_APP = (function () {
 
   function activosFiltrados() {
     return activosDia().filter(function (a) {
-      return state.filtro === '' || a.tipo === state.filtro;
+      if (state.filtro === '') return true;
+      if (state.filtro === 'networking') return a.tipo === 'networking' || a.tipo === 'break';
+      return a.tipo === state.filtro;
     });
   }
 
@@ -135,7 +149,7 @@ window.ZAG_SEMINARIO_APP = (function () {
         text: 'Somos ZAG · ' + d.label,
         dates: inicio + '/' + sumarDia(inicio),
         details: 'Seminario Somos ZAG · Portal ZAG. Horario y lugar por confirmar.',
-        location: 'Por confirmar · EAM',
+        location: 'Auditorio Principal · EAM',
       });
     }
     var act = D.agenda.filter(function (a) { return a.dia === d.id; });
@@ -148,7 +162,7 @@ window.ZAG_SEMINARIO_APP = (function () {
       text: 'Somos ZAG · ' + d.label,
       dates: stamp(pri.inicio) + '/' + stamp(ult.fin),
       details: 'Seminario Somos ZAG · Portal ZAG.',
-      location: 'Por confirmar · EAM',
+      location: 'Auditorio Principal · EAM',
       ctz: D.TZ,
     });
   }
@@ -233,7 +247,7 @@ window.ZAG_SEMINARIO_APP = (function () {
     function rep() {
       var r = el('div', 'marquee-repeat');
       var seg = el('span', 'marquee-text', D.ui.marquee);
-      var dot = el('span', 'dot', '✦');
+      var dot = el('span', 'dot', '•');
       r.appendChild(seg);
       r.appendChild(dot);
       return r;
@@ -269,7 +283,7 @@ window.ZAG_SEMINARIO_APP = (function () {
     if (k) k.textContent = D.ui.lineupKicker;
 
     var t = $('sem-lineup-title');
-    if (t) t.textContent = D.ui.lineupTitle;
+    if (t) tituloConColor(D.ui.lineupTitle, t);
 
     var note = $('sem-lineup-note');
     if (note) note.textContent = D.ui.lineupNote;
@@ -285,10 +299,18 @@ window.ZAG_SEMINARIO_APP = (function () {
       media.style.setProperty('--sp-color', COLOR[p.color] || 'var(--color-cta)');
       media.appendChild(el('span', 'sem-speaker__iniciales', p.iniciales));
 
+      var img = document.createElement('img');
+      img.className = 'sem-speaker__foto';
+      img.alt = p.nombre;
+      img.src = p.foto;
+      img.loading = 'lazy';
+      img.onerror = function () { this.style.display = 'none'; };
+      media.appendChild(img);
+
       var nombre = el('h3', 'sem-speaker__nombre', p.nombre);
 
       var cargo = el('p', 'sem-speaker__cargo', p.cargo);
-      cargo.appendChild(el('span', 'sem-speaker__empresa', ' · ' + p.empresa));
+      if (p.empresa) cargo.appendChild(el('span', 'sem-speaker__empresa', ' · ' + p.empresa));
 
       var chip = document.createElement('button');
       chip.type = 'button';
@@ -302,6 +324,7 @@ window.ZAG_SEMINARIO_APP = (function () {
 
       li.appendChild(media);
       li.appendChild(nombre);
+      if (p.subtitulo) li.appendChild(el('p', 'sem-speaker__subtitulo', p.subtitulo));
       li.appendChild(cargo);
       li.appendChild(chip);
       grid.appendChild(li);
@@ -317,7 +340,7 @@ window.ZAG_SEMINARIO_APP = (function () {
     if (k) k.textContent = D.ui.marcaKicker;
 
     var t = $('sem-marcas-title');
-    if (t) t.textContent = D.ui.marcaTitle;
+    if (t) tituloConColor(D.ui.marcaTitle, t);
 
     var grid = $('sem-brands');
     if (!grid) return;
@@ -563,7 +586,15 @@ window.ZAG_SEMINARIO_APP = (function () {
       var p = porId(pid);
       if (!p) return;
       var item = el('div', 'sem-row__ponente');
-      item.appendChild(el('div', 'sem-row__ponente-media', p.iniciales));
+      var media = el('div', 'sem-row__ponente-media', p.iniciales);
+      var foto = document.createElement('img');
+      foto.className = 'sem-row__ponente-foto';
+      foto.alt = p.nombre;
+      foto.src = p.foto;
+      foto.loading = 'lazy';
+      foto.onerror = function () { this.style.display = 'none'; };
+      media.appendChild(foto);
+      item.appendChild(media);
       item.appendChild(el('p', 'sem-row__ponente-nombre', p.nombre));
       item.appendChild(el('p', 'sem-row__ponente-rol', p.cargo));
       wrap.appendChild(item);
@@ -580,8 +611,10 @@ window.ZAG_SEMINARIO_APP = (function () {
 
       var infoB = el('div', 'sem-row--break__info');
       infoB.appendChild(el('span', 'sem-row__icon', a.icon === 'almuerzo' ? '🍽' : '☕'));
-      infoB.appendChild(el('p', 'sem-row__meta', mayus(D.ui.tipoNames[a.tipo].replace(/s$/, ''))));
-      infoB.appendChild(el('h3', 'sem-row__titulo', a.titulo));
+      infoB.appendChild(el('p', 'sem-row__meta', D.ui.tipoSingular[a.tipo] || D.ui.tipoNames[a.tipo]));
+      var tituloB = el('h3', 'sem-row__titulo');
+      tituloConColor(a.titulo, tituloB);
+      infoB.appendChild(tituloB);
       rowB.appendChild(infoB);
       return rowB;
     }
@@ -595,8 +628,10 @@ window.ZAG_SEMINARIO_APP = (function () {
     row.appendChild(el('p', 'sem-row__hora', a.inicio + '–' + a.fin));
 
     var content = el('div', 'sem-row__contenido');
-    content.appendChild(el('p', 'sem-row__meta', mayus(D.ui.tipoNames[a.tipo].replace(/s$/, '')) + (a.sala ? ' | ' + a.sala : '')));
-    content.appendChild(el('h3', 'sem-row__titulo', a.titulo));
+    content.appendChild(el('p', 'sem-row__meta', (D.ui.tipoSingular[a.tipo] || D.ui.tipoNames[a.tipo]) + (a.sala ? ' | ' + a.sala : '')));
+    var tituloEl = el('h3', 'sem-row__titulo');
+    tituloConColor(a.titulo, tituloEl);
+    content.appendChild(tituloEl);
     content.appendChild(el('p', 'sem-row__desc', a.descripcion));
 
     if (a.temas && a.temas.length) {
@@ -839,7 +874,7 @@ window.ZAG_SEMINARIO_APP = (function () {
 
     var primary = document.createElement('a');
     primary.className = 'sem-btn sem-btn--mini';
-    primary.href = 'proximamente.html';
+    primary.href = 'registro.html';
     primary.textContent = D.ui.accessCtaPrimary;
     actions.appendChild(primary);
 

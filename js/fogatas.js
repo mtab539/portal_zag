@@ -396,16 +396,6 @@
     asis.appendChild(el('span', null, f.asistieron + (f.asistieron === 1 ? ' persona' : ' personas')));
     card.appendChild(asis);
 
-    var actions = el('div', 'fogata-actions');
-    var link = el('a', 'fogata-calendar-link');
-    link.href = buildGoogleCalendarUrl(f);
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.appendChild(icono(ICONO_CAL, 17));
-    link.appendChild(el('span', null, UI.calendarCta));
-    actions.appendChild(link);
-    card.appendChild(actions);
-
     return card;
   }
 
@@ -500,7 +490,7 @@
 
     var primary = document.createElement('a');
     primary.className = 'fogata-btn--primary';
-    primary.href = 'proximamente.html';
+    primary.href = 'registro.html';
     primary.textContent = UI.accessCtaPrimary;
     actions.appendChild(primary);
 

@@ -44,7 +44,7 @@
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 800;
@@ -54,6 +54,8 @@
 }
 
 .sem-btn:hover:not(:disabled) {
+  background: var(--color-white);
+  color: var(--color-cta);
   transform: translateY(-2px);
   box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--color-cta) 60%, transparent);
 }
@@ -94,6 +96,18 @@
   color: var(--color-text-muted);
 }
 
+/* Marquee override para seminario */
+.sem-hero + .marquee {
+  background: var(--color-brand-deep);
+}
+
+.sem-hero + .marquee .dot {
+  background: none;
+  width: auto;
+  height: auto;
+  font-size: 20px;
+}
+
 /* ============================================================
    3 · HERO
    ============================================================ */
@@ -101,37 +115,54 @@
 .sem-hero {
   position: relative;
   overflow: hidden;
-  padding: var(--s-8) 0 var(--s-7);
-  background: var(--color-black);
+  padding: var(--s-6) 0 var(--s-6);
+  background: var(--color-functional);
   color: var(--color-cream);
-}
-
-.sem-hero__pattern {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(60% 60% at 88% 12%, color-mix(in srgb, var(--color-functional) 26%, transparent), transparent 70%),
-    radial-gradient(55% 55% at 4% 92%, color-mix(in srgb, var(--color-cta) 20%, transparent), transparent 70%);
 }
 
 .sem-hero__inner {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+@media (min-width: 768px) {
+  .sem-hero__inner {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--s-6);
+  }
+}
+
+.sem-hero__col-title {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 768px) {
+  .sem-hero__col-title {
+    flex: 0 0 45%;
+  }
+}
+
+.sem-hero__col-info {
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 .sem-hero__kicker {
-  color: var(--color-light-blue);
-  margin-bottom: var(--s-4);
+  color: var(--color-cream);
+  margin-bottom: var(--s-3);
 }
 
 .sem-hero__title {
   margin: 0;
   font-family: var(--font-display-giga);
-  font-size: clamp(72px, 16vw, 200px);
+  font-size: clamp(64px, 14vw, 160px);
   font-weight: 800;
   line-height: 0.88;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
@@ -150,17 +181,18 @@
 
 .sem-hero__sub {
   max-width: 46ch;
-  margin: var(--s-1) 0 var(--s-5);
-  font-size: clamp(1.05rem, 1.2vw + 0.85rem, 1.25rem);
+  margin: 0 0 var(--s-4);
+  font-size: clamp(1rem, 1.1vw + 0.85rem, 1.15rem);
   line-height: 1.6;
   color: color-mix(in srgb, var(--color-cream) 85%, transparent);
 }
+
 
 .sem-hero__chips {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-2);
-  margin: 0 0 var(--s-6);
+  margin: 0 0 var(--s-4);
   padding: 0;
   list-style: none;
 }
@@ -181,7 +213,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-3);
-  margin-bottom: var(--s-6);
+  margin-bottom: var(--s-4);
 }
 
 .sem-countdown__item {
@@ -225,7 +257,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--s-3);
-  margin-bottom: var(--s-5);
+  margin-bottom: var(--s-3);
 }
 
 .sem-hero__cupos {
@@ -288,6 +320,8 @@
   font-family: var(--font-display-giga);
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .sem-lineup__note {
@@ -367,9 +401,24 @@
   font-family: var(--font-display-giga);
   font-size: 1.1rem;
   line-height: 1.15;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
+}
+
+.sem-speaker__subtitulo {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-cta);
+}
+
+.sem-speaker__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sem-speaker__cargo {
@@ -409,6 +458,15 @@
   outline-offset: 3px;
 }
 
+.sem-highlight {
+  color: var(--color-cta);
+}
+
+.sem-lineup .kicker,
+.sem-marcas .kicker {
+  color: var(--color-functional);
+}
+
 /* ============================================================
    5 · MARCAS
    ============================================================ */
@@ -423,6 +481,8 @@
   font-family: var(--font-display-giga);
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .sem-brands {
@@ -473,10 +533,16 @@
   font-family: var(--font-display-giga);
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 /* Barra pegajosa debajo del header del sitio */
 .sem-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
   position: sticky;
   top: var(--header-height);
   z-index: 40;
@@ -502,22 +568,23 @@
 .sem-tab {
   min-height: 44px;
   padding: 0.6rem 1.1rem;
-  border: 1px solid var(--color-border-strong);
+  border: 1px solid var(--color-cta);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-cta);
   font-family: var(--font-body);
   font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   cursor: pointer;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
 }
 
 .sem-tab.is-active {
-  border-color: var(--color-black);
-  background: var(--color-black);
-  color: var(--color-cream);
+  border-color: var(--color-cta);
+  background: var(--color-cta);
+  color: var(--color-white);
 }
 
 .sem-tab:focus-visible {
@@ -530,7 +597,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--s-3);
-  margin-top: var(--s-3);
+  margin-top: 0;
+  margin-left: auto;
 }
 
 .sem-filtro {
@@ -543,10 +611,10 @@
   gap: 0.45rem;
   min-height: 44px;
   padding: 0.55rem 1.1rem;
-  border: 1px solid var(--color-border-strong);
+  border: 1px solid var(--color-functional);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--color-functional);
+  color: var(--color-white);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 800;
@@ -606,9 +674,9 @@
 }
 
 .sem-filtro__chip.is-active {
-  border-color: var(--color-black);
-  background: var(--color-black);
-  color: var(--color-cream);
+  border-color: var(--color-functional);
+  background: var(--color-functional);
+  color: var(--color-white);
 }
 
 .sem-filtro__chip:focus-visible {
@@ -617,10 +685,7 @@
 }
 
 .sem-vista {
-  display: inline-flex;
-  overflow: hidden;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-pill);
+  display: none;
 }
 
 .sem-vista__btn {
@@ -655,7 +720,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--s-2);
-  margin-top: var(--s-3);
+  width: 100%;
+  margin-top: 0;
   font-size: 0.86rem;
   color: var(--color-text-muted);
 }
@@ -690,6 +756,8 @@
   font-family: var(--font-display-giga);
   font-size: clamp(1.25rem, 3vw, 1.7rem);
   line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .sem-strip__lugar {
@@ -843,7 +911,7 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-functional);
 }
 
 .sem-row__titulo {
@@ -852,7 +920,8 @@
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   line-height: 1.02;
   letter-spacing: -0.01em;
-  color: var(--color-text);
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .sem-row__titulo:hover {
@@ -879,7 +948,7 @@
   align-items: center;
   padding: 0.3rem 0.7rem;
   border: 1px solid var(--color-border-strong);
-  border-radius: 6px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-text-muted);
@@ -895,7 +964,7 @@
 .sem-tag--taller {
   border-color: var(--color-cta);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 .sem-tag--networking {
@@ -917,6 +986,7 @@
 }
 
 .sem-row__ponente-media {
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 4 / 5;
@@ -926,6 +996,15 @@
   font-family: var(--font-display-giga);
   font-size: 1.15rem;
   color: var(--color-brand-deep);
+  filter: grayscale(1);
+}
+
+.sem-row__ponente-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sem-row__ponente-nombre {
@@ -933,8 +1012,8 @@
   font-size: 0.84rem;
   font-weight: 800;
   line-height: 1.25;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .sem-row__ponente-rol {
@@ -1136,13 +1215,13 @@
 
 .sem-final {
   padding: var(--s-8) 0;
-  background: var(--color-black);
+  background: var(--color-functional);
   color: var(--color-cream);
   text-align: center;
 }
 
 .sem-final__kicker {
-  color: var(--color-light-blue);
+  display: none;
 }
 
 .sem-final__title {
@@ -1315,7 +1394,7 @@
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
@@ -1324,6 +1403,8 @@
 }
 
 .sem-modal-cta:hover {
+  background: var(--color-white);
+  color: var(--color-cta);
   transform: translateY(-2px);
 }
 

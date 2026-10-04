@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentorías ZAG - EAM</title>
+  <meta name="description" content="Mentorías ZAG: egresados que ya pasaron por donde vas. Grupales de máximo 8 personas o 1:1 si ya eres Senior. Pauta, branding, UX/UI, growth, audiovisual y portafolio.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=30">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/mentorias.css?v=3">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/perfil-links.js?v=2" defer></script>
+  <script src="js/zag-session.js" defer></script>
+  <script src="js/zag-reserva.js?v=1" defer></script>
+  <script src="js/mentorias-data.js?v=3" defer></script>
+  <script src="js/mentorias.js?v=3" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <div id="mentorias-session-chip" class="mentorias-session-chip" hidden></div>
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO — mismas clases compartidas que el Muro de Quiebre -->
+    <section class="zag-hero" aria-labelledby="mentorias-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="mentorias-hero-kicker" class="kicker zag-hero__pill"></p>
+        <h1 id="mentorias-hero-title" class="zag-hero__title"></h1>
+        <p id="mentorias-hero-sub" class="zag-hero__sub"></p>
+        <p id="mentorias-hero-estado" class="mentorias-hero-estado"></p>
+      </div>
+    </section>
+
+    <!-- 2 · TUS PRÓXIMAS MENTORÍAS (solo con sesión) -->
+    <section
+      id="mentorias-proximas-section"
+      class="mentorias-proximas"
+      aria-labelledby="mentorias-proximas-title"
+      hidden>
+      <div class="container">
+        <p id="mentorias-proximas-kicker" class="kicker"></p>
+        <h2 id="mentorias-proximas-title" class="mentorias-proximas-title"></h2>
+        <ul id="mentorias-proximas-lista" class="mentorias-proximas-lista"></ul>
+      </div>
+    </section>
+
+    <!-- 3 · ¿EN QUÉ NECESITAS AYUDA? -->
+    <section class="mentorias-areas" aria-labelledby="mentorias-areas-title">
+      <div class="container">
+        <p id="mentorias-areas-kicker" class="kicker"></p>
+        <h2 id="mentorias-areas-title" class="mentorias-areas-title"></h2>
+        <div id="mentorias-areas-grid" class="mentorias-areas-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4 · BUSCADOR + FILTROS -->
+    <section class="mentorios-filtros-wrap" aria-labelledby="mentorias-filtros-title">
+      <div class="container">
+        <h2 id="mentorias-filtros-title" class="sr-only">Buscar y filtrar mentores</h2>
+
+        <div class="mentorias-busca">
+          <label class="mentorias-busca-label" for="mentorias-busca">Buscar</label>
+          <div class="mentorias-busca-campo">
+            <svg class="mentorias-busca-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/>
+              <path d="M16 16l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+            </svg>
+            <input
+              id="mentorias-busca"
+              class="mentorias-busca-input"
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="">
+          </div>
+
+          <div class="mentorias-busca-opts">
+            <div class="mentorias-select-wrap">
+              <label class="mentorias-select-label" for="mentorias-modalidad">Modalidad</label>
+              <select id="mentorias-modalidad" class="mentorias-select"></select>
+            </div>
+
+            <label class="mentorias-check">
+              <input id="mentorias-solo-reservables" type="checkbox">
+              <span id="mentorias-solo-reservables-txt"></span>
+            </label>
+          </div>
+
+          <div class="mentorias-filtros-pie">
+            <p id="mentorias-contador" class="mentorias-contador" aria-live="polite"></p>
+            <button id="mentorias-limpiar" class="mentorias-limpiar" type="button" hidden></button>
+          </div>
+        </div>
+
+        <div
+          id="mentorias-chips"
+          class="mentorias-chips"
+          role="group"
+          aria-label="Filtrar por área"></div>
+      </div>
+    </section>
+
+    <!-- 5 · LOS MENTORES -->
+    <section class="mentorias-lista" aria-labelledby="mentorias-lista-title">
+      <div class="container">
+        <h2 id="mentorias-lista-title" class="sr-only">Mentores disponibles</h2>
+
+        <!-- Bloque de acceso: aparece si se pide reservar sin sesión -->
+        <div id="mentorias-access" class="mentorias-access" hidden></div>
+
+        <div id="mentorias-grid" class="mentorias-grid"></div>
+      </div>
+    </section>
+
+    <!-- 6 · 1:1 EXCLUSIVO SENIOR -->
+    <section class="mentorias-1a1" aria-labelledby="mentorias-1a1-title">
+      <div class="container">
+        <p id="mentorias-1a1-kicker" class="kicker"></p>
+        <h2 id="mentorias-1a1-title" class="mentorias-1a1-title"></h2>
+        <p id="mentorias-1a1-copy" class="mentorias-1a1-copy"></p>
+        <a id="mentorias-1a1-cta" class="btn btn--outline" href="proximamente.html"></a>
+      </div>
+    </section>
+
+    <p id="mentorias-live" class="sr-only" role="status" aria-live="polite"></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button id="mentorias-reset" class="mentorias-reset" type="button"></button>
+        </nav>
+      </div>
+    </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <!-- AGENDADOR -->
+  <div
+    id="mentorias-ag"
+    class="mentorias-ag"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mentorias-ag-title"
+    hidden>
+    <div class="mentorias-ag-backdrop" data-ag-cerrar></div>
+
+    <div class="mentorias-ag-panel" role="document">
+      <div class="mentorias-ag-head">
+        <div>
+          <p id="mentorias-ag-kicker" class="kicker"></p>
+          <h2 id="mentorias-ag-title" class="mentorias-ag-title"></h2>
+          <p id="mentorias-ag-mentor" class="mentorias-ag-mentor"></p>
+        </div>
+        <button
+          id="mentorias-ag-x"
+          class="mentorias-ag-x"
+          type="button"
+          aria-label="Cerrar agendador">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mentorias-ag-cuerpo">
+        <div class="mentorias-ag-info" aria-hidden="true"></div>
+
+        <div class="mentorias-ag-tabs" role="tablist" aria-label="Tipo de sesión">
+          <button
+            id="mentorias-ag-tab-grupal"
+            class="mentorias-ag-tab is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="mentorias-ag-panel-cal"
+            data-tipo="grupal"></button>
+          <button
+            id="mentorias-ag-tab-1a1"
+            class="mentorias-ag-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="mentorias-ag-panel-cal"
+            data-tipo="1a1"
+            tabindex="-1"></button>
+        </div>
+
+        <div
+          id="mentorias-ag-panel-cal"
+          class="mentorias-ag-panel-cal"
+          role="tabpanel"
+          aria-labelledby="mentorias-ag-tab-grupal"
+          tabindex="0">
+          <div class="mentorias-cal">
+            <div class="mentorias-cal-head">
+              <button
+                id="mentorias-cal-prev"
+                class="mentorias-cal-nav"
+                type="button"
+                aria-label="Mes anterior">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                  <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <h3 id="mentorias-cal-label" class="mentorias-cal-label" aria-live="polite"></h3>
+              <button
+                id="mentorias-cal-next"
+                class="mentorias-cal-nav"
+                type="button"
+                aria-label="Mes siguiente">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                  <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div
+              id="mentorias-cal-grid"
+              class="mentorias-cal-grid"
+              role="grid"
+              aria-labelledby="mentorias-cal-label"></div>
+
+            <p class="mentorias-cal-ayuda">
+              Navegá con las flechas del teclado. Enter elige el día.
+            </p>
+          </div>
+
+          <div class="mentorias-horas">
+            <h4 id="mentorias-horas-titulo" class="mentorias-horas-titulo"></h4>
+            <div id="mentorias-horas-lista" class="mentorias-horas-lista"></div>
+
+            <fieldset id="mentorias-mod-wrap" class="mentorias-mod-wrap" hidden>
+              <legend id="mentorias-mod-legend" class="mentorias-mod-legend"></legend>
+              <div class="mentorias-mod-opts" role="radiogroup" aria-labelledby="mentorias-mod-legend"></div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="mentorias-ag-pie">
+          <p id="mentorias-ag-resumen" class="mentorias-ag-resumen" aria-live="polite"></p>
+          <p id="mentorias-ag-msg" class="mentorias-ag-msg" role="alert"></p>
+          <button id="mentorias-ag-confirmar" class="btn btn--block" type="button" disabled></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP DE CONFIRMACIÓN -->
+  <div
+    id="mentorias-modal"
+    class="mentorias-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mentorias-modal-title"
+    hidden>
+    <div class="mentorias-modal-backdrop" data-close></div>
+    <div class="mentorias-modal-box" role="document">
+      <span class="mentorias-modal-check" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="56" height="56" focusable="false">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M14 25l7 7 14-16" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <h2 id="mentorias-modal-title" class="mentorias-modal-title"></h2>
+      <p id="mentorias-modal-copy" class="mentorias-modal-copy"></p>
+      <p id="mentorias-modal-detalle" class="mentorias-modal-detalle"></p>
+      <div class="mentorias-modal-actions">
+        <a
+          id="mentorias-modal-calendar"
+          class="mentorias-modal-calendar"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
+            <path d="M7 3v3M17 3v3M4.5 9.5h15M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="mentorias-modal-calendar-txt"></span>
+        </a>
+        <button id="mentorias-modal-cta" class="btn" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMAR CANCELACIÓN -->
+  <div
+    id="mentorias-cancel"
+    class="mentorias-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mentorias-cancel-title"
+    hidden>
+    <div class="mentorias-modal-backdrop" data-cancel-cerrar></div>
+    <div class="mentorias-modal-box" role="document">
+      <h2 id="mentorias-cancel-title" class="mentorias-modal-title"></h2>
+      <p id="mentorias-cancel-copy" class="mentorias-modal-copy"></p>
+      <div class="mentorias-modal-actions">
+        <button id="mentorias-cancel-no" class="btn btn--ghost" type="button"></button>
+        <button id="mentorias-cancel-si" class="btn btn--outline" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="mentorias-noscript">
+      Las Mentorías ZAG necesitan JavaScript para mostrar los mentores y reservar tu sesión.
+      Volvé a activarlo o escribinos a la EAM y te contamos cómo unirte al ZAG.
+    </p>
+  </noscript>
+</body>
+</html>

@@ -108,6 +108,24 @@
     return svg;
   }
 
+  /* Icono de menú desde SVG inline (hereda el color del enlace:
+     azul medio por defecto, naranja al hacer hover). */
+  function navGlyph(def) {
+    var vbW = parseFloat(def.vb.split(' ')[2]) || 100;
+    var sw = (vbW * 0.045).toFixed(1);
+    var markup =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + def.vb +
+      '" width="22" height="22" fill="currentColor" stroke="currentColor" stroke-width="' + sw +
+      '" stroke-miterlimit="10" stroke-linejoin="round" aria-hidden="true">' +
+      def.inner + '</svg>';
+    var doc = new DOMParser().parseFromString(markup, 'image/svg+xml');
+    var node = doc.documentElement;
+    if (node && node.nodeName.toLowerCase() === 'svg') {
+      return document.importNode(node, true);
+    }
+    return navIcon('compass');
+  }
+
   function navChevron() {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
@@ -147,7 +165,13 @@
           var sA = document.createElement('a');
           sA.href = child.href;
           var iconBox = el('span', 'nav-dropdown-icon');
-          iconBox.appendChild(navIcon(child.icon));
+          var key = child.iconSrc ? child.iconSrc.split('/').pop().replace(/\.svg$/, '') : '';
+          var def = key && C.navIcons ? C.navIcons[key] : null;
+          if (def) {
+            iconBox.appendChild(navGlyph(def));
+          } else {
+            iconBox.appendChild(navIcon(child.icon));
+          }
           sA.appendChild(iconBox);
           var txt = el('span', 'nav-dropdown-text');
           txt.appendChild(el('span', 'nav-dropdown-title', child.label));
@@ -193,6 +217,8 @@
     a1.className = 'btn btn--hero';
     a1.href = h.ctaPrimary.href;
     a1.textContent = h.ctaPrimary.label;
+    /* perfil-links.js lo manda a perfil.html cuando ya hay perfil */
+    a1.setAttribute('data-cta-perfil', 'true');
     var a2 = document.createElement('a');
     a2.className = 'hero-unirse';
     a2.href = h.ctaSecondary.href;
@@ -218,7 +244,8 @@
       var r = el('div', 'marquee-repeat');
       var seg = el('span', null, C.marquee.text);
       seg.className = 'marquee-text';
-      var dot = el('span', 'dot', '✦');
+      var dot = el('span', 'dot');
+      dot.setAttribute('aria-hidden', 'true');
       r.appendChild(seg);
       r.appendChild(dot);
       reps.push(r);
@@ -776,15 +803,71 @@
     btn.textContent = c.cta.label;
   }
 
+  /* Iconos de la columna de contacto (SVG inline, heredan --color-cta). */
+  function footerIcon(name) {
+    var paths = {
+      pin: '<path d="M12 21s-6-5.33-6-10a6 6 0 0 1 12 0c0 4.67-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/>',
+      phone: '<path d="M6.5 3.5h3l1.5 4-2 1.3a12 12 0 0 0 5 5l1.3-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 5 5.1 1.5 1.5 0 0 1 6.5 3.5z"/>',
+      mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+      clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    };
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (paths[name] || '') + '</svg>';
+  }
+
   function renderFooter() {
     var f = C.footer;
+
     var copyright = document.getElementById('footer-copyright');
     if (copyright) {
-      copyright.textContent = '© 2026 Portal ZAG — Todos los derechos reservados';
+      copyright.textContent = '© ' + new Date().getFullYear() +
+        ' Institución Universitaria EAM (EAM). Todos los derechos reservados.';
     }
 
-    var legal = document.getElementById('footer-legal');
-    if (legal) legal.textContent = f.legal;
+    /* Logo EAM (columna izquierda) */
+    var eamLink = document.getElementById('footer-eam-link');
+    var eamImg = document.getElementById('footer-eam-img');
+    if (eamLink && eamImg && f.logoEam) {
+      eamLink.href = f.logoEam.href;
+      eamLink.target = '_blank';
+      eamLink.rel = 'noopener noreferrer';
+      eamLink.setAttribute('aria-label', f.logoEam.alt + ' — sitio oficial');
+      eamImg.src = f.logoEam.src;
+      eamImg.alt = f.logoEam.alt;
+    }
+
+    /* Contacto & Sede (columna derecha) */
+    var contacto = document.getElementById('footer-contacto');
+    if (contacto && f.contacto) {
+      var ct = f.contacto;
+      contacto.textContent = '';
+      contacto.appendChild(el('p', 'footer-contacto-title', ct.titulo));
+      contacto.appendChild(el('span', 'footer-contacto-accent'));
+
+      var list = el('ul', 'footer-contacto-list');
+      function addRow(icon, node) {
+        var li = el('li', 'footer-contacto-item');
+        var ic = el('span', 'footer-contacto-icon');
+        ic.setAttribute('aria-hidden', 'true');
+        ic.innerHTML = footerIcon(icon);
+        var txt = el('span', 'footer-contacto-text');
+        txt.appendChild(node);
+        li.appendChild(ic);
+        li.appendChild(txt);
+        list.appendChild(li);
+      }
+      addRow('pin', document.createTextNode(ct.direccion));
+      var tel = document.createElement('a');
+      tel.href = ct.telefonoHref;
+      tel.textContent = ct.telefono;
+      addRow('phone', tel);
+      var mail = document.createElement('a');
+      mail.href = 'mailto:' + ct.correo;
+      mail.textContent = ct.correo;
+      addRow('mail', mail);
+      addRow('clock', document.createTextNode(ct.horario));
+      contacto.appendChild(list);
+    }
 
     var icons = {
       instagram: 'assets/img/instagramlogo.svg',
@@ -1069,6 +1152,86 @@
     requestAnimationFrame(frame);
   }
 
+  /* ---------- hotspots ZIG / ZAG (manifiesto) ---------- */
+  function initContextoTips() {
+    var hotspots = document.querySelectorAll('.contexto-hotspots .hotspot');
+    if (!hotspots.length) return;
+    var GUTTER = 12;
+
+    function reset(tip, arrow) {
+      tip.classList.remove('ctip--below');
+      tip.style.transform = '';
+      if (arrow) arrow.style.left = '';
+    }
+
+    function place(hotspot, tip, arrow) {
+      reset(tip, arrow);
+      var hRect = hotspot.getBoundingClientRect();
+      var tRect = tip.getBoundingClientRect();
+      var vw = document.documentElement.clientWidth;
+
+      /* Clamp horizontal: si se sale, lo pego al borde dejando un margen. */
+      var shift = 0;
+      if (tRect.left < GUTTER) shift = GUTTER - tRect.left;
+      else if (tRect.right > vw - GUTTER) shift = (vw - GUTTER) - tRect.right;
+      if (shift) {
+        tip.style.transform = 'translateX(calc(-50% + ' + Math.round(shift) + 'px))';
+      }
+
+      /* Flip vertical: si se sale por arriba, lo reubico debajo de la palabra. */
+      if (tRect.top < GUTTER) tip.classList.add('ctip--below');
+
+      /* La flecha sigue apuntando al centro de la palabra aunque el globo se mueva. */
+      var newT = tip.getBoundingClientRect();
+      var hotCenter = hRect.left + hRect.width / 2;
+      var arrowLeft = hotCenter - newT.left;
+      arrowLeft = Math.max(12, Math.min(newT.width - 12, arrowLeft));
+      if (arrow) arrow.style.left = Math.round(arrowLeft) + 'px';
+    }
+
+    function open(hotspot, tip, arrow) {
+      tip.classList.add('is-open');
+      requestAnimationFrame(function () { place(hotspot, tip, arrow); });
+    }
+
+    function close(tip, arrow) {
+      tip.classList.remove('is-open');
+      reset(tip, arrow);
+    }
+
+    hotspots.forEach(function (hotspot) {
+      var trigger = hotspot.querySelector('.hotspot-trigger');
+      var tip = hotspot.querySelector('.ctip');
+      var arrow = tip ? tip.querySelector('.ctip-arrow') : null;
+      if (!trigger || !tip) return;
+
+      hotspot.addEventListener('mouseenter', function () { open(hotspot, tip, arrow); });
+      hotspot.addEventListener('mouseleave', function () { close(tip, arrow); });
+      trigger.addEventListener('focus', function () { open(hotspot, tip, arrow); });
+      trigger.addEventListener('blur', function () { close(tip, arrow); });
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') { close(tip, arrow); trigger.blur(); }
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+      hotspots.forEach(function (hotspot) {
+        var tip = hotspot.querySelector('.ctip');
+        if (tip) close(tip, tip.querySelector('.ctip-arrow'));
+      });
+    });
+
+    window.addEventListener('resize', function () {
+      hotspots.forEach(function (hotspot) {
+        var tip = hotspot.querySelector('.ctip');
+        if (tip && tip.classList.contains('is-open')) {
+          place(hotspot, tip, tip.querySelector('.ctip-arrow'));
+        }
+      });
+    });
+  }
+
   /* ---------- init ---------- */
   function init() {
     renderNav(document.getElementById('primary-nav'), C.nav);
@@ -1083,6 +1246,7 @@
     renderFooter();
 
     initTooltips();
+    initContextoTips();
     initNav();
     initAccordion();
     initBrandLogos();

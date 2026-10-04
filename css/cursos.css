@@ -1,0 +1,2247 @@
+/* ============================================================
+   PORTAL ZAG — Cursos Extraclase
+   ------------------------------------------------------------
+   Catálogo · Portada · Player · Sidebar módulos
+   Quiz · Comentarios · Certificado · Print
+
+   Regla de la casa: ni un hex suelto aquí. Todo sale de
+   css/tokens.css. Reutiliza .container, .btn, .kicker,
+   .section-title, .zag-hero y las clases muro-cc* del Muro.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. BASE Y UTILIDADES DE LA SECCIÓN
+   ------------------------------------------------------------ */
+.cursos-page {
+  background: var(--color-bg);
+}
+
+.cursos-wrap {
+  padding: var(--s-7) 0 var(--s-8);
+}
+
+/* Estado vacío de los filtros */
+.cursos-empty {
+  margin: var(--s-6) 0 0;
+  padding: var(--s-6);
+  background: var(--color-grey-soft);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+/* Botón secundario: contorno en vez de relleno. Existe como
+   .btn--outline solo dentro del scope de mentorías/seminario, así
+   que se define aquí para las páginas de cursos. */
+.btn--outline {
+  background: transparent;
+  color: var(--color-black);
+  border-color: var(--color-border-strong);
+}
+
+.btn--outline:hover {
+  background: var(--color-black);
+  color: var(--color-cream);
+}
+
+/* Etiqueta genérica (nivel, estado) */
+.cursos-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--color-grey-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-black);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cursos-tag--nivel {
+  background: var(--color-light-blue);
+  border-color: transparent;
+  color: var(--color-brand-deep);
+}
+
+.cursos-tag--nivel[data-nivel='creator'] {
+  background: var(--color-cta);
+  color: var(--color-white);
+}
+
+.cursos-tag--nivel[data-nivel='master'] {
+  background: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+.cursos-tag--nivel[data-nivel='senior'] {
+  background: var(--color-black);
+  color: var(--color-cream);
+}
+
+/* ------------------------------------------------------------
+   2. HERO — píldora de estado, progreso y accesos
+   ------------------------------------------------------------ */
+.cursos-hero-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+/* Píldora de progreso del Sello ZAG: ●●○ · 2 de 3 */
+.cursos-sello-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 25px var(--color-halo);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cursos-sello-pill__dots {
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--color-cta);
+}
+
+.cursos-sello-pill__count {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.cursos-hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.cursos-hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.cursos-hero-link:hover {
+  border-color: var(--color-brand-deep);
+  color: var(--color-brand-deep);
+}
+
+.cursos-hero-link[aria-current='page'] {
+  background: var(--color-brand-deep);
+  border-color: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+/* Panel de perfil demo / ayuda de acceso */
+.cursos-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding: var(--s-4);
+  background: var(--color-grey-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.cursos-demo__nivel {
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.cursos-demo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* ------------------------------------------------------------
+   3. CATÁLOGO — resumen, tabs y rejilla
+   ------------------------------------------------------------ */
+.catalogo-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+
+.catalogo-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* Tabs tipo Skool con contador */
+.cursos-tabs {
+  display: flex;
+  gap: var(--s-1);
+  margin-bottom: var(--s-5);
+  padding: 5px;
+  background: var(--color-grey-soft);
+  border-radius: var(--radius-pill);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cursos-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.cursos-tab {
+  flex: 1 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 var(--s-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.cursos-tab:hover {
+  color: var(--color-text);
+}
+
+.cursos-tab[aria-selected='true'] {
+  background: var(--color-white);
+  border-color: var(--color-border);
+  color: var(--color-black);
+  box-shadow: 0 4px 12px var(--color-halo);
+}
+
+.cursos-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+  color: var(--color-black);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.cursos-tab[aria-selected='true'] .cursos-tab__count {
+  background: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+.cursos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+}
+
+/* --- Tarjeta de curso --- */
+.curso-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 34px -24px var(--shadow-deep);
+  transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+}
+
+.curso-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px -22px var(--shadow-deep);
+}
+
+/* Portada: bloque de color plano, con texto legible.
+   El patronaje se quitó a pedido: la tapa queda limpia. */
+.curso-card__cover {
+  position: relative;
+  min-height: 168px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  background-color: var(--curso-color, var(--color-brand-deep));
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.curso-card__cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, var(--cover-veil-leve) 100%);
+  pointer-events: none;
+}
+
+.curso-card__emoji {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  z-index: 1;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.curso-card__titulo {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+/* Portada negra necesita crema, no blanco, para mantener el contraste */
+.curso-card[data-color='black'] .curso-card__titulo,
+.curso-card[data-color='black'] .curso-card__meta {
+  color: var(--color-cream);
+}
+
+/* Los dos tonos claros de la rotación (celeste y naranja) NO admiten
+   texto blanco: 1.58:1 y 3.1:1. Sobre --color-light-blue va azul
+   profundo (7.5:1) y sobre --color-cta va negro (6.8:1); ambos
+   superan AA para texto normal, no solo para texto grande. */
+.curso-card[data-color='light-blue'] .curso-card__titulo,
+.curso-card[data-color='light-blue'] .curso-card__meta {
+  color: var(--color-brand-deep);
+}
+
+.curso-card[data-color='cta'] .curso-card__titulo,
+.curso-card[data-color='cta'] .curso-card__meta {
+  color: var(--color-black);
+}
+
+/* El velo inferior es negro: sobre los tonos claros taparía el
+   texto, así que se apaga. */
+.curso-card[data-color='light-blue'] .curso-card__cover::after,
+.curso-card[data-color='cta'] .curso-card__cover::after {
+  background: none;
+}
+
+.curso-card__meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.curso-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  flex: 1;
+  padding: var(--s-4);
+}
+
+.curso-card__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.curso-card__facts b {
+  color: var(--color-black);
+  font-weight: 800;
+}
+
+/* Barra de progreso de la tarjeta */
+.curso-card__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.curso-card__progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.cursos-bar {
+  height: 7px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.cursos-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--curso-color, var(--color-brand-deep));
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+.curso-card__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-2);
+}
+
+.curso-card__cta {
+  flex: 1;
+  justify-content: center;
+}
+
+.curso-card__cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-cta-text);
+}
+
+/* Overlay de bloqueo sobre la tarjeta entera */
+.curso-card__lock {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  text-align: center;
+  background: var(--veil-strong);
+  color: var(--color-cream);
+}
+
+.curso-card__lock-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.curso-card__lock-text {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.curso-card__lock .btn {
+  background: var(--color-cream);
+  color: var(--color-brand-deep);
+}
+
+.curso-card__lock .btn:hover {
+  background: var(--color-white);
+}
+
+/* ------------------------------------------------------------
+   4. PORTADA / LAYOUT DEL CURSO
+   ------------------------------------------------------------ */
+.curso-page {
+  background: var(--color-bg);
+}
+
+/* Barra de progreso superior, pegajosa */
+.curso-topbar {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 40;
+  background: var(--scrim-brand);
+  color: var(--color-cream);
+  box-shadow: 0 8px 24px -18px var(--shadow-deep);
+}
+
+.curso-topbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 52px;
+  padding-top: var(--s-2);
+  padding-bottom: var(--s-2);
+}
+
+.curso-topbar__back {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+  color: var(--color-cream);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.curso-topbar__back:hover {
+  background: var(--glass-fill-strong);
+}
+
+.curso-topbar__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.curso-topbar__pct {
+  flex: none;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-cream);
+  white-space: nowrap;
+}
+
+.curso-topbar__bar {
+  height: 5px;
+  background: var(--glass-fill-strong);
+  overflow: hidden;
+}
+
+.curso-topbar__bar .cursos-bar__fill {
+  background: var(--color-cta);
+}
+
+/* Rejilla principal 1fr + 360px */
+.curso-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  align-items: start;
+  padding: var(--s-6) 0 var(--s-8);
+}
+
+/* Sin esto el `min-width:auto` del grid deja que el contenido más ancho
+   (los tabs con scroll) expanda la columna y genere scroll horizontal. */
+.curso-layout > * {
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------
+   5. PLAYER
+   ------------------------------------------------------------ */
+.player {
+  background: var(--color-night);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 44px -26px var(--shadow-deep);
+}
+
+.player__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: var(--color-black);
+}
+
+.player__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Placeholder con los datos del video pendiente */
+.player__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  text-align: center;
+  color: var(--color-cream);
+  background:
+    radial-gradient(circle at 50% 42%, var(--glass-fill-strong), transparent 62%),
+    var(--color-black);
+}
+
+.player__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.player__title {
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(19px, 4.2vw, 27px);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--color-cream);
+}
+
+.player__note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--glass-text-soft);
+  max-width: 44ch;
+}
+
+/* Botón play simulado: la vista previa corre 6 s */
+.player__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: var(--color-cta);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.player__play:hover {
+  transform: translateY(-1px);
+}
+
+.player__play-ic {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.player__playing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  background: var(--color-black);
+  color: var(--color-cream);
+}
+
+/* Reproducción simulada: barra que avanza en 6 segundos */
+.player__sim {
+  width: min(320px, 74%);
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-fill-strong);
+  overflow: hidden;
+}
+
+.player__sim-fill {
+  height: 100%;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-cta);
+  transition: width 100ms linear;
+}
+
+.player__sim-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--glass-text-soft);
+}
+
+.player__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--color-night);
+}
+
+.player__kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--glass-text-soft);
+}
+
+.player__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.player__dur {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--glass-text-soft);
+}
+
+/* Botón de completar la lección */
+.lesson-done {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  background: var(--color-grey-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.lesson-done.is-done {
+  background: var(--color-white);
+  border-color: var(--color-brand-deep);
+}
+
+.lesson-done__state {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.lesson-done.is-done .lesson-done__state {
+  color: var(--color-brand-deep);
+}
+
+.lesson-done__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-left: auto;
+}
+
+/* ------------------------------------------------------------
+   6. TABS DEL CURSO
+   ------------------------------------------------------------ */
+.curso-tabs {
+  display: flex;
+  gap: var(--s-1);
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.curso-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.curso-tab {
+  position: relative;
+  flex: none;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.curso-tab::after {
+  content: '';
+  position: absolute;
+  left: var(--s-3);
+  right: var(--s-3);
+  bottom: -1px;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
+.curso-tab:hover {
+  color: var(--color-text);
+}
+
+.curso-tab[aria-selected='true'] {
+  color: var(--color-black);
+}
+
+.curso-tab[aria-selected='true']::after {
+  background: var(--color-cta);
+}
+
+.curso-panel {
+  padding: var(--s-5) 0 0;
+}
+
+.curso-panel[hidden] {
+  display: none;
+}
+
+.curso-panel p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text);
+  max-width: 68ch;
+}
+
+.curso-panel h3 {
+  margin: var(--s-5) 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.curso-panel ul {
+  margin: 0;
+  padding-left: var(--s-4);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.curso-panel li + li {
+  margin-top: 6px;
+}
+
+/* Materiales descargables */
+.materiales-list {
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.material-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--color-grey-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.material-item__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.material-item__size {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.material-item__cta {
+  flex: none;
+  padding: 8px 15px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.material-item__cta:hover {
+  border-color: var(--color-brand-deep);
+  color: var(--color-brand-deep);
+}
+
+/* ------------------------------------------------------------
+   7. TARJETA DEL PROFESOR
+   ------------------------------------------------------------ */
+.profe-card {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding: var(--s-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.profe-card__avatar {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  background: var(--color-light-blue);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display-deca);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-brand-deep);
+  overflow: hidden;
+}
+
+.profe-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profe-card__label {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.profe-card__name {
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.profe-card__role {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.profe-card__cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 15px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-deep);
+  color: var(--color-cream);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.profe-card__cta:hover {
+  background: var(--color-cta);
+  color: var(--color-white);
+}
+
+/* ------------------------------------------------------------
+   8. SIDEBAR DE MÓDULOS (acordeón)
+   ------------------------------------------------------------ */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 64px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.side-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.side-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.side-panel__title {
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.side-panel__pct {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-brand-deep);
+  white-space: nowrap;
+}
+
+.side-panel__body {
+  padding: var(--s-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Módulo plegable */
+.mod {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mod:last-child {
+  border-bottom: 0;
+}
+
+.mod__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mod__btn:hover {
+  background: var(--color-grey-soft);
+}
+
+.mod__btn[aria-expanded='true'] {
+  color: var(--color-black);
+}
+
+.mod__chev {
+  flex: none;
+  width: 18px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.mod__btn[aria-expanded='true'] .mod__chev {
+  transform: rotate(90deg);
+}
+
+.mod__name {
+  flex: 1;
+  min-width: 0;
+}
+
+.mod__count {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.mod__list {
+  margin: 0;
+  padding: 0 0 var(--s-2);
+  list-style: none;
+}
+
+.mod[hidden] {
+  display: none;
+}
+
+.mod-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px var(--s-4);
+  border: 0;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mod-item:hover {
+  background: var(--color-grey-soft);
+}
+
+.mod-item[aria-current='true'] {
+  border-left-color: var(--color-cta);
+  background: var(--color-grey-soft);
+  font-weight: 800;
+}
+
+.mod-item.is-done .mod-item__check {
+  background: var(--color-brand-deep);
+  border-color: var(--color-brand-deep);
+  color: var(--color-cream);
+}
+
+.mod-item__check {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: transparent;
+}
+
+.mod-item__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.mod-item__dur {
+  flex: none;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* Fila del quiz dentro del módulo */
+.mod-quiz {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px var(--s-4);
+  border: 0;
+  border-left: 3px solid transparent;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mod-quiz:hover {
+  background: var(--color-beige);
+}
+
+.mod-quiz[aria-current='true'] {
+  border-left-color: var(--color-cta);
+}
+
+.mod-quiz__state {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.mod-quiz.is-passed .mod-quiz__state {
+  color: var(--color-brand-deep);
+}
+
+/* Panel del certificado en el sidebar */
+.cert-box {
+  padding: var(--s-4);
+  text-align: center;
+}
+
+.cert-box__icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.cert-box__title {
+  margin: var(--s-2) 0 4px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.cert-box__copy {
+  margin: 0 0 var(--s-3);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.cert-box.is-locked .cert-box__icon {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+.cert-box.is-ready {
+  background: var(--color-surface);
+}
+
+/* Botón fijo "Siguiente lección" en móvil */
+.next-fab {
+  position: fixed;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--s-3);
+  z-index: 45;
+  display: none;
+  box-shadow: 0 16px 34px -14px var(--shadow-deep);
+}
+
+@media (max-width: 719px) {
+  .next-fab.is-visible {
+    display: inline-flex;
+  }
+}
+
+/* ------------------------------------------------------------
+   9. QUIZ
+   ------------------------------------------------------------ */
+.quiz {
+  margin-top: var(--s-5);
+  padding: var(--s-5) 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.quiz__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.quiz__progress {
+  flex: 1;
+  min-width: 180px;
+}
+
+.quiz__progress-text {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.quiz__score {
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--color-brand-deep);
+}
+
+.quiz__q {
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(20px, 4.5vw, 27px);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.quiz__options {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-4);
+  padding: 0;
+  border: 0;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.quiz-option:hover {
+  border-color: var(--color-border-strong);
+}
+
+.quiz-option input {
+  flex: none;
+  margin-top: 3px;
+  accent-color: var(--color-cta);
+}
+
+.quiz-option__text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.quiz-option:has(input:checked) {
+  border-color: var(--color-brand-deep);
+  background: var(--color-surface);
+}
+
+.quiz-option:has(input:focus-visible) {
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--focus-ring-cta);
+}
+
+/* Revisión: qué opción marcaste y por qué */
+.quiz-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.quiz-opt + .quiz-opt {
+  margin-top: var(--s-2);
+}
+
+.quiz-opt.is-correct {
+  border-color: var(--color-brand-deep);
+  background: var(--color-surface);
+}
+
+.quiz-opt.is-wrong {
+  border-color: var(--color-cta);
+}
+
+.quiz-opt__mark {
+  flex: none;
+  font-weight: 800;
+}
+
+.quiz-opt.is-correct .quiz-opt__mark {
+  color: var(--color-brand-deep);
+}
+
+.quiz-opt.is-wrong .quiz-opt__mark {
+  color: var(--color-cta-text);
+}
+
+.quiz-opt__why {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.quiz__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+.quiz__nav {
+  margin-left: auto;
+}
+
+.quiz__error {
+  margin: var(--s-3) 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-cta-text);
+}
+
+/* Resultado */
+.quiz__result {
+  padding: var(--s-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.quiz__result.is-pass {
+  background: var(--color-white);
+  border-color: var(--color-brand-deep);
+}
+
+.quiz__result-title {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(24px, 6vw, 34px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.quiz__result-copy {
+  margin: 0 0 var(--s-4);
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------
+   10. COMENTARIOS (reutiliza el contrato muro-cc* del Muro)
+   ------------------------------------------------------------ */
+.comments {
+  margin-top: var(--s-4);
+}
+
+.comments__list {
+  display: grid;
+  gap: var(--s-3);
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment {
+  padding: var(--s-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.comment__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-2);
+}
+
+.comment__avatar {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-light-blue);
+  color: var(--color-brand-deep);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comment__who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.comment__name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.comment__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.comment__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+.comment__like {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.comment__like:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.comment__like.is-liked {
+  border-color: var(--color-cta);
+  background: var(--color-surface);
+  color: var(--color-cta-text);
+}
+
+.comment__reply-btn {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--color-functional);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.comment__reply-btn:hover {
+  color: var(--color-brand-deep);
+  text-decoration: underline;
+}
+
+.comment__replies {
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 0;
+  padding: var(--s-3) 0 0 var(--s-4);
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.comment__reply {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.comment__reply b {
+  color: var(--color-black);
+  font-weight: 800;
+}
+
+.comments__empty {
+  margin: var(--s-4) 0 0;
+  padding: var(--s-5);
+  background: var(--color-grey-soft);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------
+   11. ACCESO / BLOQUEO dentro del curso
+   ------------------------------------------------------------ */
+.curso-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding: var(--s-6) var(--s-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.curso-locked__icon {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.curso-locked__title {
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(21px, 5vw, 28px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.curso-locked__copy {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.curso-locked__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+}
+
+.lesson-gate {
+  padding: var(--s-4);
+  background: var(--color-grey-soft);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   12. MODAL (certificado listo / sello ganado)
+   ------------------------------------------------------------ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: var(--veil-strong);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal__box {
+  position: relative;
+  width: min(460px, 100%);
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 30px 70px -30px var(--shadow-deep);
+  text-align: center;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-text-muted);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.modal__icon {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.modal__title {
+  margin: var(--s-3) 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(24px, 6vw, 32px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.modal__copy {
+  margin: 0 0 var(--s-5);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+}
+
+/* ------------------------------------------------------------
+   13. CERTIFICADO
+   ------------------------------------------------------------ */
+.cert-page {
+  background: var(--color-grey-soft);
+}
+
+.cert-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: var(--s-5) 0 0;
+}
+
+/* Formulario para fijar el nombre antes de emitir */
+.cert-name {
+  width: min(520px, 100%);
+  margin: var(--s-5) auto 0;
+  padding: var(--s-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.cert-name__title {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 21px;
+  text-transform: uppercase;
+}
+
+.cert-name__copy {
+  margin: 0 0 var(--s-4);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.cert-name__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  text-align: left;
+}
+
+.cert-name__label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cert-name__input {
+  width: 100%;
+  padding: 13px var(--s-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.cert-name__input:focus-visible {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--focus-ring-cta);
+}
+
+.cert-name__default {
+  margin: var(--s-3) 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.cert-name__actions {
+  margin-top: var(--s-4);
+}
+
+/* Verificador de código */
+.cert-verify {
+  width: min(520px, 100%);
+  margin: var(--s-5) auto 0;
+  padding: var(--s-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.cert-verify__title {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+.cert-verify__copy {
+  margin: 0 0 var(--s-3);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.cert-verify__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.cert-verify__input {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px var(--s-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.cert-verify__input:focus-visible {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--focus-ring-cta);
+}
+
+.cert-verify__result {
+  margin: var(--s-3) 0 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cert-verify__result.is-ok {
+  color: var(--color-brand-deep);
+}
+
+.cert-verify__result.is-error {
+  color: var(--color-cta-text);
+}
+
+/* La hoja del certificado: A4 apaisado */
+.cert-sheet {
+  --cert-ink: var(--color-black);
+
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  aspect-ratio: 297 / 210;
+  margin: var(--s-6) auto;
+  padding: var(--s-6);
+  background: var(--color-white);
+  border: 3px solid var(--color-brand-deep);
+  /* Doble borde: el exterior es el del marco, este es el interior. */
+  box-shadow:
+    inset 0 0 0 1px var(--color-brand-deep),
+    inset 0 0 0 7px var(--color-white),
+    inset 0 0 0 8px var(--color-brand-deep);
+  color: var(--cert-ink);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Patrón lateral del certificado */
+.cert-sheet__pattern {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 22%;
+  background-image: url('../assets/img/patronzag2.svg');
+  background-repeat: repeat;
+  background-size: auto 34%;
+  background-position: right center;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cert-sheet__inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 24%;
+}
+
+.cert-sheet__portal {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
+}
+
+.cert-sheet__kicker {
+  margin: var(--s-4) 0 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(17px, 3vw, 28px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.cert-sheet__se {
+  margin: var(--s-4) 0 0;
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.cert-sheet__name {
+  margin: var(--s-2) 0 0;
+  font-family: var(--font-accent);
+  font-size: clamp(34px, 6.6vw, 64px);
+  line-height: 1.1;
+  color: var(--color-brand-deep);
+}
+
+.cert-sheet__rule {
+  width: 88px;
+  height: 3px;
+  margin: var(--s-3) 0;
+  background: var(--color-cta);
+  border-radius: var(--radius-pill);
+}
+
+.cert-sheet__course {
+  margin: 0;
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(15px, 2.6vw, 24px);
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.cert-sheet__copy {
+  margin: var(--s-2) 0 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.cert-sheet__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin: var(--s-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cert-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cert-fact__label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cert-fact__value {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.cert-sheet__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-top: auto;
+  padding-top: var(--s-4);
+}
+
+/* Firma del director */
+.cert-sign {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 240px;
+}
+
+.cert-sign__line {
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border-strong);
+  font-family: var(--font-accent);
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--color-brand-deep);
+}
+
+.cert-sign__name {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.cert-sign__role {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Sello naranja, inclinado */
+.cert-stamp {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: clamp(88px, 12vw, 118px);
+  height: auto;
+  transform: rotate(-8deg);
+}
+
+.cert-code {
+  position: absolute;
+  left: var(--s-6);
+  bottom: var(--s-3);
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Estado "no terminado" */
+.cert-locked {
+  width: min(560px, 100%);
+  margin: var(--s-7) auto;
+  padding: var(--s-6) var(--s-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.cert-locked__title {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display-giga);
+  font-weight: 400;
+  font-size: clamp(21px, 5vw, 28px);
+  text-transform: uppercase;
+}
+
+.cert-locked__copy {
+  margin: 0 0 var(--s-4);
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+/* En móvil la hoja se lee vertical; el patrón baja a una franja. */
+@media (max-width: 719px) {
+  .cert-sheet {
+    aspect-ratio: auto;
+    min-height: 560px;
+    padding: var(--s-5) var(--s-4);
+  }
+
+  .cert-sheet__inner {
+    padding-right: 0;
+  }
+
+  .cert-sheet__pattern {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    background-size: auto 100%;
+    opacity: 0.35;
+  }
+
+  .cert-sheet__foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-4);
+  }
+
+  .cert-code {
+    position: static;
+    margin-top: var(--s-4);
+  }
+}
+
+/* ------------------------------------------------------------
+   14. RESPONSIVE — ≥ 720px tablet, ≥ 1024px escritorio
+   ------------------------------------------------------------ */
+@media (min-width: 720px) {
+  .cursos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .player__caption {
+    padding: var(--s-4) var(--s-5);
+  }
+
+  .lesson-done__nav {
+    margin-left: auto;
+  }
+
+  .sidebar {
+    position: sticky;
+  }
+
+  .next-fab {
+    left: auto;
+    right: var(--s-5);
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Layout del LMS: contenido 1fr + sidebar 360px */
+  .curso-layout {
+    grid-template-columns: 1fr 360px;
+  }
+
+  .cursos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .curso-card__cover {
+    min-height: 190px;
+  }
+}
+
+/* ------------------------------------------------------------
+   15. PRINT — el certificado sale en una sola página A4 apaisada
+   ------------------------------------------------------------ */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: var(--color-white);
+  }
+
+  /* Todo lo que no es la hoja desaparece. */
+  .site-header,
+  .site-footer,
+  .cert-toolbar,
+  .cert-name,
+  .cert-verify,
+  .cert-locked,
+  .modal,
+  .next-fab,
+  .zag-hero,
+  .patron-strip {
+    display: none !important;
+  }
+
+  .cert-page,
+  .cert-sheet {
+    background: var(--color-white);
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .cert-sheet {
+    width: 297mm;
+    height: 210mm;
+    max-width: none;
+    aspect-ratio: auto;
+    min-height: 0;
+    border: 3px solid var(--color-brand-deep);
+    /* print-color-adjust mantiene el borde y el sello al imprimir */
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    page-break-after: avoid;
+    break-after: avoid-page;
+  }
+
+  /* La franja de patrón lateral, al respaldo de la hoja. */
+  .cert-sheet__pattern {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    opacity: 0.5;
+  }
+
+  .cert-stamp {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* ------------------------------------------------------------
+   16. ACCESIBILIDAD
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .curso-card,
+  .cursos-bar__fill,
+  .mod__chev,
+  .player__sim-fill,
+  .player__play {
+    transition: none;
+    animation: none;
+  }
+
+  .player__sim-fill {
+    transition: none;
+  }
+}
+
+.cursos-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
