@@ -304,9 +304,16 @@
     var nivel = nivelVisible();
     var readonly = isDemo || !!previewLevel;
     $('retos-readonly').hidden = !readonly;
-    setText('retos-level', D.nombre(nivel));
+    var rl = $('retos-level');
+    if (rl) { rl.innerHTML = '<span class="title-accent">' + D.nombre(nivel) + '</span>'; }
     var sig = D.nivelSiguiente(nivel);
     setText('retos-sub', sig ? D.UI.perfil.retosSub(D.nombre(nivel), D.nombre(sig)) : D.UI.perfil.nivelTope);
+
+    var esFuturo = previewLevel && D.indice(previewLevel) > D.indice(displayLevel);
+    if (esFuturo) {
+      host.appendChild(node('p', 'retos-tope', 'Sube a ' + D.nombre(nivel) + ' para desbloquear estos retos.'));
+      return;
+    }
 
     var retos = D.retos(nivel);
     if (!retos.length) {
@@ -400,17 +407,36 @@
     var zona = node('label', 'dropzone');
     var input = node('input'); input.type = 'file'; input.accept = 'image/*';
     input.className = 'dropzone__input';
-    var texto = node('span', 'dropzone__texto', 'Arrastra una foto aquí o haz clic para elegirla');
-    texto.appendChild(node('small', null, 'image/* · máximo 5 MB'));
-    zona.appendChild(input); zona.appendChild(texto);
+
+    var iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    iconSvg.setAttribute('class', 'dropzone__icon');
+    iconSvg.setAttribute('viewBox', '0 0 48 48');
+    iconSvg.setAttribute('width', '48');
+    iconSvg.setAttribute('height', '48');
+    iconSvg.setAttribute('aria-hidden', 'true');
+    iconSvg.innerHTML = '<rect x="6" y="10" width="36" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="18" cy="22" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 32l10-8 8 6 6-4 12 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>';
+
+    var titulo = node('span', 'dropzone__title', 'Foto evidencia');
+    var browse = node('span', 'dropzone__browse', 'or browse files');
+
+    zona.appendChild(input);
+    zona.appendChild(iconSvg);
+    zona.appendChild(titulo);
+    zona.appendChild(browse);
     zona.setAttribute('tabindex', '0');
 
     function mostrarPreview(data) {
       zona.classList.add('dropzone--con-img');
-      texto.textContent = '';
+      iconSvg.style.display = 'none';
+      titulo.style.display = 'none';
+      browse.style.display = 'none';
+      var existing = zona.querySelector('.dropzone__preview');
+      if (existing) existing.remove();
+      var cambiar = zona.querySelector('.dropzone__cambiar');
+      if (cambiar) cambiar.remove();
       var im = node('img', 'dropzone__preview'); im.src = data; im.alt = 'Vista previa de la evidencia';
-      texto.appendChild(im);
-      texto.appendChild(node('span', 'dropzone__cambiar', 'Cambiar'));
+      zona.appendChild(im);
+      zona.appendChild(node('span', 'dropzone__cambiar', 'Cambiar'));
       submit.disabled = false;
     }
     function leer(file) {

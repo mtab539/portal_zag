@@ -428,7 +428,7 @@
     {
       id: 'creator',
       art: 'creador',
-      bg: '#ff5c01', fg: '#fff8ee',
+      bg: '#fe5b00', fg: '#fff8ee',
       flipTilt: -6, dismissTilt: -40,
       icon: 'M13 2 4 14h6l-1 8 9-12h-6z'
     },
@@ -653,7 +653,7 @@
   /* ---------- render: paneles "Descubre el ZAG" (expandibles, estilo panel-grid) ---------- */
   var PANEL_TONES = [
     { tone: 'comunidad', bg: '#041dad', fg: '#fff8ee' },
-    { tone: 'eventos', bg: '#ff5c01', fg: '#fff8ee' },
+    { tone: 'eventos', bg: '#fe5b00', fg: '#fff8ee' },
     { tone: 'aprende', bg: '#1144ff', fg: '#fff8ee' },
     { tone: 'zagroom', bg: '#041dad', fg: '#fff8ee' },
     { tone: 'tienda', bg: '#000000', fg: '#fff8ee' },
@@ -667,8 +667,15 @@
 
     var accTitle = document.getElementById('acc-title');
     accTitle.textContent = '';
-    accTitle.appendChild(el('span', 'zpanel-title-part', a.title.split(' tiene para ti')[0]));
-    accTitle.appendChild(el('span', 'zpanel-title-part zpanel-title-part--accent', ' tiene para ti'));
+    if (a.titleAccent && a.title.indexOf(a.titleAccent) !== -1) {
+      var parts = a.title.split(a.titleAccent);
+      accTitle.appendChild(el('span', 'zpanel-title-part', parts[0]));
+      accTitle.appendChild(el('span', 'zpanel-title-part zpanel-title-part--accent', a.titleAccent));
+      if (parts[1]) accTitle.appendChild(document.createTextNode(parts[1]));
+    } else {
+      accTitle.appendChild(el('span', 'zpanel-title-part', a.title.split(' tiene para ti')[0]));
+      accTitle.appendChild(el('span', 'zpanel-title-part zpanel-title-part--accent', ' tiene para ti'));
+    }
 
     var grid = document.getElementById('panel-grid');
 

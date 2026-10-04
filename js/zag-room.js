@@ -774,12 +774,12 @@
       leg.textContent = '';
       [
         { key: '', txt: UI.leyendaDisponible },
-        { key: ' --pocos', txt: UI.leyendaPocos },
-        { key: ' --lleno', txt: UI.leyendaLleno },
-        { key: ' --paso', txt: UI.leyendaPaso },
+        { key: '--pocos', txt: UI.leyendaPocos },
+        { key: '--lleno', txt: UI.leyendaLleno },
+        { key: '--paso', txt: UI.leyendaPaso },
       ].forEach(function (l) {
         var li = el('li');
-        var k = el('span', 'zr-mapa-key' + l.key);
+        var k = el('span', l.key ? 'zr-mapa-key ' + 'zr-mapa-key' + l.key : 'zr-mapa-key');
         k.setAttribute('aria-hidden', 'true');
         li.appendChild(k);
         li.appendChild(document.createTextNode(l.txt));

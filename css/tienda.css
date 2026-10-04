@@ -70,7 +70,7 @@ body.td-abierto { overflow: hidden; }
 }
 [data-nivel='creator'] {
   --nivel-bg: var(--color-cta);
-  --nivel-ink: var(--color-black);
+  --nivel-ink: var(--color-white);
   --nivel-line: transparent;
 }
 [data-nivel='master'] {
@@ -104,10 +104,10 @@ body.td-abierto { overflow: hidden; }
 /* Botón naranja con texto negro: 6.86:1, sí pasa AA. El .btn global
    pone blanco y se queda en 3.06:1. */
 .td-cta {
-  color: var(--color-black);
+  color: var(--color-white);
   min-height: 44px;
 }
-.td-cta:hover { color: var(--color-black); }
+.td-cta:hover { color: var(--color-white); }
 
 /* ============================================================
    ANUNCIO
@@ -302,7 +302,7 @@ body.td-abierto { overflow: hidden; }
   justify-content: center;
   border-radius: var(--radius-pill);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
   font-size: 12px;
   font-weight: 800;
   line-height: 1;
@@ -379,7 +379,7 @@ body.td-abierto { overflow: hidden; }
   background: var(--color-black);
   color: var(--color-cream);
 }
-.td-banner[data-nivel='senior'] .td-cta { background: var(--color-cta); color: var(--color-black); }
+.td-banner[data-nivel='senior'] .td-cta { background: var(--color-cta); color: var(--color-white); }
 
 /* ============================================================
    SECCIONES por nivel
@@ -448,13 +448,12 @@ body.td-abierto { overflow: hidden; }
    media fila cada una (más anchas) sin pelearse con las 3 columnas.
    ============================================================ */
 .td-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--s-4);
 }
 .td-card {
   position: relative;
-  flex: 1 1 calc(50% - var(--s-4));
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -540,7 +539,7 @@ body.td-abierto { overflow: hidden; }
   border: 0;
   border-radius: var(--radius-pill);
   background: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
   font-size: 22px;
   font-weight: 800;
   line-height: 1;
@@ -569,7 +568,7 @@ body.td-abierto { overflow: hidden; }
   white-space: nowrap;
 }
 .td-badge--nuevo { background: var(--color-functional); color: var(--color-cream); }
-.td-badge--ultimas { background: var(--color-cta); color: var(--color-black); }
+.td-badge--ultimas { background: var(--color-cta); color: var(--color-white); }
 .td-badge--agotado { background: var(--color-black); color: var(--color-cream); }
 
 .td-card__lock {
@@ -729,7 +728,7 @@ body.td-abierto { overflow: hidden; }
 .td-talla[aria-pressed='true'] {
   background: var(--color-cta);
   border-color: var(--color-cta);
-  color: var(--color-black);
+  color: var(--color-white);
 }
 .td-tallas__nota {
   margin: 0;
@@ -1027,7 +1026,7 @@ body.td-abierto { overflow: hidden; }
   font-weight: 800;
 }
 .td-paso[aria-current='step'] { color: var(--color-text); }
-.td-paso[aria-current='step'] .td-paso__n { background: var(--color-cta); color: var(--color-black); }
+.td-paso[aria-current='step'] .td-paso__n { background: var(--color-cta); color: var(--color-white); }
 .td-paso--listo .td-paso__n { background: var(--color-online); color: var(--color-white); }
 .td-pasos__raya { flex: 1 1 auto; height: 2px; background: var(--color-border); }
 
@@ -1412,8 +1411,7 @@ body.td-abierto { overflow: hidden; }
 }
 
 @media (min-width: 1024px) {
-  .td-card { flex-basis: calc(33.3333% - var(--s-4)); }
-  .td-card--ancho { flex-basis: calc(50% - var(--s-4)); }
+  .td-grid { grid-template-columns: repeat(3, 1fr); }
   .td-seccion__estado { align-items: flex-end; }
   .tienda-hero__garabato--izq { left: 10%; }
   .tienda-hero__garabato--der { right: 12%; }
@@ -1437,7 +1435,7 @@ body.td-abierto { overflow: hidden; }
     border: 0;
     border-radius: var(--radius-pill);
     background: var(--color-cta);
-    color: var(--color-black);
+    color: var(--color-white);
     font-family: var(--font-body);
     font-size: 15px;
     font-weight: 800;

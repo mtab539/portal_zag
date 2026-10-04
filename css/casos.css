@@ -30,7 +30,7 @@
   --cas-pill-fg: #0a2ea8;
 }
 .case-theme--t3 {          /* naranja */
-  --cas-bg: #ff5c01;
+  --cas-bg: #fe5b00;
   --cas-bg-deep: #c74300;
   --cas-soft: #ffe3cc;
   --cas-ink: #fff8ee;
@@ -853,8 +853,8 @@
   margin: 0;
   padding: 10px 14px;
   border-radius: var(--radius-md);
-  background: rgba(255, 92, 1, 0.22);
-  border: 1px solid rgba(255, 92, 1, 0.55);
+  background: rgba(254, 91, 0, 0.22);
+  border: 1px solid rgba(254, 91, 0, 0.55);
   color: var(--color-cream);
   font-size: 14px;
   font-weight: 600;

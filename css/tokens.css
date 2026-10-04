@@ -87,8 +87,8 @@
 
 :root {
   /* ---- Paleta por rol (corregido H4: un solo azul por rol, naranja únicamente CTA) ---- */
-  --color-cta: #ff5c01;            /* Naranja — acción principal. Único CTA primario. */
-  --color-cta-text: #ff5c01;       /* Naranja de marca aplicado a TEXTOS. Ojo: sobre blanco/crema da 3.10:1 / 2.94:1, así que solo alcanza AA en texto grande (≥24px o ≥18.66px bold) o sobre oscuro. Para texto chico sobre claro usar --color-cta-ink. */
+  --color-cta: #fe5b00;            /* Naranja — acción principal. Único CTA primario. */
+  --color-cta-text: #fe5b00;       /* Naranja de marca aplicado a TEXTOS. Ojo: sobre blanco/crema da 3.10:1 / 2.94:1, así que solo alcanza AA en texto grande (≥24px o ≥18.66px bold) o sobre oscuro. Para texto chico sobre claro usar --color-cta-ink. */
   --color-cta-ink: #9a3412;        /* Naranja oscuro — texto chico de acento sobre fondo claro: 7.31:1 sobre blanco, 4.64:1 sobre --color-light-blue, 6.93:1 sobre crema. Mantiene el tono sin depender del color solo. */
   --color-brand-deep: #041dad;     /* Azul profundo — marca / estructura / nivel Master */
   --color-functional: #1144ff;     /* Azul funcional — links, chips, acentos (nunca CTA) */
@@ -129,9 +129,9 @@
   --veil-strong: rgba(0, 0, 0, 0.6);            /* fondo del modal */
   --shadow-deep: rgba(0, 0, 0, 0.4);
   --scrim-brand: rgba(4, 29, 173, 0.92);         /* cabecera pegajosa al hacer scroll */
-  --focus-ring-cta: rgba(255, 92, 1, 0.18);
-  --border-cta-soft: rgba(255, 92, 1, 0.6);
-  --shadow-cta: rgba(255, 92, 1, 0.22);
+  --focus-ring-cta: rgba(254, 91, 0, 0.18);
+  --border-cta-soft: rgba(254, 91, 0, 0.6);
+  --shadow-cta: rgba(254, 91, 0, 0.22);
   --color-border-soft: rgba(4, 29, 173, 0.14);   /* borde sutil sobre fondo blanco */
   --shadow-card: rgba(0, 0, 0, 0.16);            /* sombra de tarjeta blanca sobre azul */
 

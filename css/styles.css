@@ -133,8 +133,9 @@ h2, h3 {
 }
 
 .btn:hover {
-  background: #e65200; /* variación del CTA, nunca otro color como CTA */
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-cta);
+  border-color: var(--color-cta);
   transform: translateY(-1px);
 }
 
@@ -148,8 +149,9 @@ h2, h3 {
 }
 
 .btn--hero:hover {
-  background: var(--color-cream);
+  background: var(--color-white);
   color: var(--color-cta);
+  border-color: var(--color-cta);
 }
 
 /*-------- Header / nav --------*/
@@ -179,7 +181,7 @@ h2, h3 {
   color: var(--color-white);
   border: 0;
   padding: 9px 18px;
-  box-shadow: 0 6px 16px -6px rgba(255, 92, 1, 0.55);
+  box-shadow: 0 6px 16px -6px rgba(254, 91, 0, 0.55);
 }
 
 .header-unete:hover {
@@ -579,8 +581,11 @@ h2, h3 {
   text-transform: uppercase;
   font-size: clamp(30px, 8vw, 52px);
   line-height: 0.98;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.02em;
+  color: var(--color-brand-deep);
 }
+
+.title-accent { color: var(--color-cta); }
 
 .zpanel-title-part {
   color: var(--color-brand-deep);
@@ -1594,8 +1599,8 @@ h2, h3 {
 .unirme-card:hover {
   transform: translateY(-10px);
   box-shadow:
-    0 0 18px 3px rgba(255, 92, 1, 0.18),
-    0 0 42px 18px rgba(255, 92, 1, 0.08),
+    0 0 18px 3px rgba(254, 91, 0, 0.18),
+    0 0 42px 18px rgba(254, 91, 0, 0.08),
     0 22px 44px -16px rgba(0, 0, 0, 0.45);
 }
 
@@ -1634,8 +1639,9 @@ h2, h3 {
 }
 
 .unirme-card .btn:hover {
-  background: var(--color-cream);
+  background: var(--color-white);
   color: var(--color-cta);
+  border-color: var(--color-cta);
 }
 
 /*-------- Frase final --------*/
@@ -1699,12 +1705,13 @@ h2, h3 {
 .close-block .btn--hero:hover {
   border: 0;
   color: var(--color-white);
-  box-shadow: 0 8px 20px -6px rgba(255, 92, 1, 0.45);
+  box-shadow: 0 8px 20px -6px rgba(254, 91, 0, 0.45);
 }
 
 .close-block .btn--hero:hover {
   background: var(--color-white);
   color: var(--color-cta);
+  border-color: var(--color-cta);
 }
 
 /*-------- Footer (estilo Kira · fondo negro) --------*/

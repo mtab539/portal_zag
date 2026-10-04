@@ -178,7 +178,7 @@
   right: 7%;
   width: 43%;
   background: linear-gradient(90deg, transparent, var(--color-hero-glow-orange), transparent);
-  box-shadow: 0 0 10px rgba(255, 92, 1, 0.8);
+  box-shadow: 0 0 10px rgba(254, 91, 0, 0.8);
 }
 
 .muro-hero-tip-arrow {
