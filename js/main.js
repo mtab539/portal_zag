@@ -369,8 +369,6 @@
 
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    var timer = null;
-
     function tick() {
       var leaving = list.lastElementChild;
       if (leaving) {
@@ -387,16 +385,10 @@
       list.insertBefore(fresh, list.firstChild);
     }
 
-    function schedule() {
-      if (timer) window.clearInterval(timer);
-      timer = window.setInterval(tick, 2600);
-    }
-
-    list.addEventListener('mouseenter', function () {
-      if (timer) window.clearInterval(timer);
-    });
-    list.addEventListener('mouseleave', schedule);
-    schedule();
+    /* Los tuits nunca se detienen: un único intervalo que corre solo,
+       sin pausa al pasar el mouse ni al salir del área (antes un
+       mouseenter detenía la animación y dejaba los tuits quietos). */
+    window.setInterval(tick, 2600);
   }
 
   /* ---------- render: perfiles (Settle — el stack se asienta con el scroll) ---------- */
@@ -980,8 +972,11 @@
   }
 
   /* ---------- nav (móvil + dropdowns) ---------- */
-  function closeDropdowns() {
+  /* Cierra los desplegables abiertos. `keep` (opcional) es el item que
+     NO se cierra: así siempre queda UN solo menú visible. */
+  function closeDropdowns(keep) {
     document.querySelectorAll('.primary-nav .has-dropdown.is-open').forEach(function (li) {
+      if (li === keep) return;
       li.classList.remove('is-open');
       var btn = li.querySelector('.nav-link--toggle');
       if (btn) btn.setAttribute('aria-expanded', 'false');
@@ -1009,9 +1004,19 @@
         e.preventDefault();
         var li = btn.closest('.has-dropdown');
         if (!li) return;
-        var open = li.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', String(open));
+        /* Solo un menú a la vez: el que esté abierto se cierra antes
+           de abrir el que se clicó (nunca quedan superpuestos). */
+        var abrir = !li.classList.contains('is-open');
+        closeDropdowns(li);
+        li.classList.toggle('is-open', abrir);
+        btn.setAttribute('aria-expanded', String(abrir));
       });
+    });
+    /* Al pasar el mouse por otro menú (el desplegable también abre por
+       hover en desktop), el que estaba abierto por clic se cierra. */
+    nav.querySelectorAll('.nav-link').forEach(function (link) {
+      var propio = link.closest('.has-dropdown');
+      link.addEventListener('mouseenter', function () { closeDropdowns(propio); });
     });
     document.addEventListener('click', function (e) {
       if (nav.contains(e.target)) return;

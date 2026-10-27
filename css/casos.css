@@ -62,155 +62,29 @@
 }
 
 /* ============================================================
-   1 · HERO (azul medio plano, todo centrado)
+   1 · HERO — idéntico al zag-hero de mentorías: azul medio plano,
+   píldora (eyebrow) arriba, título a dos líneas y un solo texto
+   corto. Se scopea por #casos-hero para no tocar el zag-hero
+   (crema) del resto de páginas.
    ============================================================ */
-.casos-hero {
-  position: relative;
-  min-height: clamp(360px, 80vw, 480px);
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-  background: var(--color-functional) url('../assets/img/herocampanas.svg') no-repeat center top / 100% auto;
-  color: var(--color-cream);
-  padding: clamp(44px, 9vw, 72px) 0 calc(var(--s-7) + 26px);
-}
-
-/* Degradado inferior para que el texto sobre el fondo se lea siempre. */
-.casos-hero::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 55%;
-  background: linear-gradient(to top, var(--color-functional) 12%, rgba(17, 68, 255, 0));
-  z-index: 0;
-  pointer-events: none;
-}
-
-.casos-hero-inner {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  text-align: center;
-}
-
-.casos-hero-kicker {
-  position: absolute;
-  top: var(--s-5);
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-pill);
-  color: var(--color-cream);
-  background: rgba(255, 255, 255, 0.14);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 2;
-  white-space: nowrap;
-}
-
-.casos-hero-title {
-  font-family: var(--font-display-giga);
-  font-weight: 400;
-  line-height: 0.95;
-  text-transform: uppercase;
-  letter-spacing: -0.015em;
-  max-width: 20ch;
-  margin: 19px auto 0;
-}
-
-.casos-hero-line {
-  display: block;
-  font-size: clamp(34px, 11vw, 64px);
-}
-
-.casos-hero-line--light {
+#casos-hero {
+  background-color: var(--color-functional);
+  background-image: none;
   color: var(--color-cream);
 }
 
-.casos-hero-line--cream {
-  color: var(--color-cream);
+#casos-hero .zag-hero__title {
+  color: var(--color-white);
 }
 
-.casos-hero-line--accent {
-  color: var(--color-cta);
+#casos-hero .zag-hero__sub {
+  color: color-mix(in srgb, var(--color-cream) 85%, transparent);
 }
 
-/* El título es la imagen del hero (lettering + doodles) */
-.casos-hero-title--art {
-  max-width: none;
-  margin: var(--s-4) auto 0;
-}
-
-.casos-hero-art {
-  display: block;
-  width: 100%;
-  max-width: 620px;
-  height: auto;
-  margin: 0 auto;
-}
-
-.casos-hero-sub {
-  font-size: 16px;
-  max-width: 34em;
-  margin: var(--s-3) auto 0;
-  color: rgba(255, 248, 238, 0.92);
-}
-
-.casos-hero-scroll {
-  margin-top: var(--s-4);
-  font-family: var(--font-display-deca);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-cream);
-  opacity: 0.92;
-}
-
-/* Franja de patrón inferior en movimiento lateral (marquee del home):
-   dos bandas idénticas que viajan -50% para cerrar el loop sin cortes. */
-.casos-hero-pattern {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  height: 26px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.casos-hero-pattern-track {
-  display: flex;
-  width: max-content;
-  height: 100%;
-  animation: casos-patron 40s linear infinite;
-}
-
-.casos-hero-pattern-band {
-  flex: none;
-  width: 100vw;
-  height: 100%;
+/* Franja de patrón inferior: la variante clara sobre azul,
+   la misma que usa mentorías en su hero azul. */
+#casos-hero .zag-hero__pattern-band {
   background-image: url('../assets/img/patronzag4.svg');
-  background-repeat: repeat-x;
-  background-size: auto 100%;
-  background-position: bottom center;
-}
-
-@keyframes casos-patron {
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* ============================================================
@@ -967,9 +841,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .casos-hero-pattern-track {
-    animation: none;
-  }
   .case-row.reveal {
     opacity: 1;
     transform: none;
@@ -985,16 +856,6 @@
    ≥ 720px — tablet
    ============================================================ */
 @media (min-width: 720px) {
-  .casos-hero {
-    min-height: clamp(420px, 45vw, 620px);
-    padding: clamp(48px, 7vh, 72px) 0 calc(var(--s-7) + 26px);
-    background-size: 100% auto;
-  }
-
-  .casos-hero-line {
-    font-size: clamp(44px, 6vw, 72px);
-  }
-
   .casos-access-actions {
     flex-direction: row;
     justify-content: center;

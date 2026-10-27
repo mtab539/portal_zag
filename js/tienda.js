@@ -476,20 +476,24 @@
     if (D.tieneTallas(p)) body.appendChild(el('p', 'td-card__desc', 'Tallas S a XL · unisex'));
     card.appendChild(body);
 
-    if (bloqueado) {
-      /* La tarjeta bloqueada sí se abre: la ficha explica cómo subir. */
-      card.tabIndex = 0;
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', p.nombre + ', bloqueado. Se desbloquea en ' + D.nivelNombre(p.nivel));
-      card.addEventListener('click', function () { abrirFicha(p.id); });
-      card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          abrirFicha(p.id);
-        }
-      });
-      return card;
-    }
+    card.style.cursor = 'pointer';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', bloqueado
+      ? p.nombre + ', bloqueado. Se desbloquea en ' + D.nivelNombre(p.nivel)
+      : p.nombre + ', ver ficha');
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.td-card__add')) return;
+      abrirFicha(p.id);
+    });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        abrirFicha(p.id);
+      }
+    });
+
+    if (bloqueado) return card;
 
     if (D.tieneTallas(p)) {
       card.appendChild(el('span', 'td-card--talla', 'Elige talla'));

@@ -375,15 +375,6 @@
   }
 
   /* ============================================================
-     MANIFIESTO
-     ============================================================ */
-
-  function renderManifiesto() {
-    txt('zr-manifiesto-kicker', D.manifiesto.kicker);
-    txt('zr-manifiesto-title', D.manifiesto.texto);
-  }
-
-  /* ============================================================
      USOS
      ============================================================ */
 
@@ -399,7 +390,15 @@
       var card = el('article', 'zr-uso');
 
       var foto = el('div', 'zr-uso-foto');
-      foto.appendChild(icono(ICONOS[u.icono], 64));
+      if (u.foto && u.foto.src) {
+        var img = document.createElement('img');
+        img.src = u.foto.src;
+        img.alt = u.foto.alt || u.titulo;
+        img.loading = 'lazy';
+        foto.appendChild(img);
+      } else {
+        foto.appendChild(icono(ICONOS[u.icono], 64));
+      }
       card.appendChild(foto);
 
       var body = el('div', 'zr-uso-body');
@@ -1512,7 +1511,6 @@
     state.dia = primerDiaUtil(D.hoyISO());
 
     renderHero();
-    renderManifiesto();
     renderUsos();
     renderEspacio();
     renderReglas();

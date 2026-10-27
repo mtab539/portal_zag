@@ -49,7 +49,7 @@ window.ZAG_NIVELES = (function () {
   var RETOS = {
     rookie: [
       { id: 'fogata', nombre: 'Asistir a una Fogata Zaggista', href: 'fogatas.html', pista: 'Llega, participa y guarda una foto del encuentro.' },
-      { id: 'podcast', nombre: 'Escuchar un episodio del podcast', href: 'proximamente.html', pista: 'Comparte qué idea te llevas del episodio.' },
+      { id: 'podcast', nombre: 'Escuchar un episodio del podcast', href: 'podcast.html', pista: 'Comparte qué idea te llevas del episodio.' },
       { id: 'muro', nombre: 'Publicar en el Muro de Quiebre', href: 'muro.html', pista: 'Escribe tu respuesta en el muro y muéstrala.' },
     ],
     strategist: [
@@ -63,7 +63,7 @@ window.ZAG_NIVELES = (function () {
       { id: 'entrega-publica', nombre: 'Entrega pública en el Muro de Quiebre', href: 'muro.html', pista: 'Presenta tu pieza en la sesión abierta.' },
     ],
     master: [
-      { id: 'podcast-ponente', nombre: 'Invitado en un episodio del podcast', href: 'proximamente.html', pista: 'Graba un episodio o comparte tu participación.' },
+      { id: 'podcast-ponente', nombre: 'Invitado en un episodio del podcast', href: 'podcast.html#invitado', pista: 'Graba un episodio o comparte tu participación.' },
       { id: 'liderar-reto', nombre: 'Liderar un reto para niveles junior', href: 'fogatas.html', pista: 'Cuéntanos qué reto lideraste y para quién.' },
       { id: 'sesion-abierta', nombre: 'Facilitar una sesión abierta en el ZAG Room', href: 'zag-room.html', pista: 'Reserva el bloque y facilítalo.' },
     ],
@@ -81,7 +81,7 @@ window.ZAG_NIVELES = (function () {
   var ITEMS = {
     rookie: [
       { titulo: 'Asistir a Fogatas', desc: 'Encuentros abiertos a todos los niveles.', href: 'fogatas.html', icono: '🔥' },
-      { titulo: 'Escuchar el podcast', desc: 'La voz de quienes ya pasaron por esto.', href: 'proximamente.html', icono: '🎙' },
+      { titulo: 'Escuchar el podcast', desc: 'La voz de quienes ya pasaron por esto.', href: 'podcast.html', icono: '🎙' },
       { titulo: 'Participar en eventos', desc: 'Seminario Somos ZAG y activaciones.', href: 'seminario.html', icono: '📣' },
       { titulo: 'Merch: Pack Stickers', desc: 'El primer sticker de tu nivel.', href: 'tienda.html', icono: '🏷' },
       { titulo: 'Merch: Manilla Rookie', desc: 'Seis sellos caben en la muñeca.', href: 'tienda.html', icono: '🏷' },
@@ -99,7 +99,7 @@ window.ZAG_NIVELES = (function () {
       { titulo: 'Merch: Botón y Tote Bag', desc: 'El kit del que crea.', href: 'tienda.html', icono: '🏷' },
     ],
     master: [
-      { titulo: 'Participar en el podcast', desc: 'Como ponente, no como escucha.', href: 'proximamente.html', icono: '🎙' },
+      { titulo: 'Participar en el podcast', desc: 'Como ponente, no como escucha.', href: 'podcast.html#invitado', icono: '🎙' },
       { titulo: 'Prioridad en proyectos y retos', desc: 'Tu propuesta se lee primero.', href: 'proyectos.html', icono: '⚡' },
       { titulo: 'ZAG Room · 5 bloques por semana', desc: 'Uso pleno del territorio.', href: 'zag-room.html', icono: '🚪' },
       { titulo: 'Merch: Gorra, buzos y termo', desc: 'Gorra, buzo azul claro, buzo azul oscuro, termo y Manilla Master.', href: 'tienda.html', icono: '🏷' },

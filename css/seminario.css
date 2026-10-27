@@ -109,82 +109,56 @@
 }
 
 /* ============================================================
-   3 · HERO
+   3 · HERO (imagen completa)
    ============================================================ */
 
 .sem-hero {
   position: relative;
   overflow: hidden;
-  padding: var(--s-6) 0 var(--s-6);
+  padding: 0;
   background: var(--color-functional);
-  color: var(--color-cream);
 }
 
-.sem-hero__inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-5);
-}
-
-@media (min-width: 768px) {
-  .sem-hero__inner {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--s-6);
-  }
-}
-
-.sem-hero__col-title {
-  flex: 0 0 auto;
-}
-
-@media (min-width: 768px) {
-  .sem-hero__col-title {
-    flex: 0 0 45%;
-  }
-}
-
-.sem-hero__col-info {
-  flex: 1 1 0%;
-  min-width: 0;
-}
-
-.sem-hero__kicker {
-  color: var(--color-cream);
-  margin-bottom: var(--s-3);
-}
-
-.sem-hero__title {
-  margin: 0;
-  font-family: var(--font-display-giga);
-  font-size: clamp(64px, 14vw, 160px);
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-
-.sem-hero__somos,
-.sem-hero__zag {
+.sem-hero__img {
   display: block;
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  object-fit: cover;
+  object-position: center;
 }
 
-.sem-hero__somos {
-  color: var(--color-cream);
+@media (min-width: 768px) {
+  .sem-hero__img {
+    height: 85vh;
+    min-height: 560px;
+  }
 }
 
-.sem-hero__zag {
-  color: var(--color-cta-text);
+/* ============================================================
+   3.5 · SECCIÓN DE INFO (debajo del marquee)
+   ============================================================ */
+
+.sem-info {
+  padding: var(--s-7) 0;
+  background: var(--color-cream);
+  color: var(--color-brand-deep);
 }
 
-.sem-hero__sub {
+.sem-info__inner {
+  display: flex;
+}
+
+.sem-info__col {
+  max-width: 640px;
+}
+
+.sem-info .sem-hero__sub {
   max-width: 46ch;
   margin: 0 0 var(--s-4);
   font-size: clamp(1rem, 1.1vw + 0.85rem, 1.15rem);
   line-height: 1.6;
-  color: color-mix(in srgb, var(--color-cream) 85%, transparent);
+  color: var(--color-text-muted);
 }
 
 
@@ -202,11 +176,11 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.45rem 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--color-cream) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-brand-deep) 30%, transparent);
   border-radius: var(--radius-pill);
   font-size: 0.92rem;
   font-weight: 600;
-  color: var(--color-cream);
+  color: var(--color-brand-deep);
 }
 
 .sem-countdown {
@@ -223,16 +197,16 @@
   gap: 0.15rem;
   min-width: 76px;
   padding: var(--s-3) var(--s-2);
-  border: 1px solid color-mix(in srgb, var(--color-cream) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-brand-deep) 18%, transparent);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--color-cream) 8%, transparent);
+  background: color-mix(in srgb, var(--color-brand-deep) 8%, transparent);
 }
 
 .sem-countdown__num {
   font-family: var(--font-display-giga);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1;
-  color: var(--color-cream);
+  color: var(--color-brand-deep);
   font-variant-numeric: tabular-nums;
 }
 
@@ -241,7 +215,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-cream) 70%, transparent);
+  color: var(--color-text-muted);
 }
 
 .sem-countdown__msg {
@@ -249,7 +223,7 @@
   font-family: var(--font-display-giga);
   font-size: clamp(2rem, 6vw, 3.5rem);
   line-height: 1;
-  color: var(--color-cream);
+  color: var(--color-brand-deep);
 }
 
 .sem-hero__actions {
@@ -264,7 +238,7 @@
   margin: 0;
   font-size: 0.92rem;
   font-weight: 600;
-  color: color-mix(in srgb, var(--color-cream) 75%, transparent);
+  color: var(--color-text-muted);
 }
 
 .sem-hero__days {
@@ -273,8 +247,32 @@
   gap: var(--s-4);
 }
 
-.sem-hero .sem-btn:focus-visible {
-  outline-color: var(--color-light-blue);
+.sem-info__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.85rem 1.75rem;
+  border: 2px solid var(--color-cta);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-cta);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.sem-info__cta:hover {
+  background: var(--color-cta);
+  color: var(--color-white);
+}
+
+.sem-info__cta:focus-visible {
+  outline: 3px solid var(--color-cta);
+  outline-offset: 3px;
 }
 
 /* Variante sobre oscuro de los bloques de reserva */

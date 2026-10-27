@@ -19,8 +19,7 @@ window.ZAG_CASOS = (function () {
   var ui = {
     kicker: 'Fracasos',
     title: ['Campañas reales', 'ZIG reales'],
-    sub: 'Campañas de marcas enormes que hicieron zig cuando debían hacer zag. Aquí no se esconden: se estudian.',
-    scroll: 'Baja y mira quién hizo zig ↓',
+    sub: 'Campañas de marcas enormes que hicieron zig cuando debían hacer zag.',
 
     accesoKicker: 'Exclusivo',
     accesoTitulo: 'Los Casos ZIG son solo para la tribu',

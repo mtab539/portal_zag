@@ -12,11 +12,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css?v=30">
   <link rel="stylesheet" href="css/styles.css?v=15">
-  <link rel="stylesheet" href="css/seminario.css?v=3">
+  <link rel="stylesheet" href="css/seminario.css?v=4">
   <script src="js/content.js?v=38" defer></script>
-  <script src="js/main.js?v=35" defer></script>
-  <script src="js/perfil-links.js?v=2" defer></script>
-  <script src="js/zag-session.js" defer></script>
+  <script src="js/main.js?v=36" defer></script>
+  <script src="js/perfil-links.js?v=4" defer></script>
+  <script src="js/zag-session.js?v=3" defer></script>
   <script src="js/zag-reserva.js?v=1" defer></script>
   <script src="js/seminario-data.js?v=3" defer></script>
   <script src="js/seminario.js?v=3" defer></script>
@@ -47,7 +47,6 @@
       <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
 
       <div class="header-right">
-        <div id="sem-session-chip" class="sem-session-chip" hidden></div>
         <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
       </div>
     </div>
@@ -55,18 +54,25 @@
 
   <main id="main">
 
-    <!-- 1 · HERO — layout dos columnas -->
-    <section class="sem-hero" aria-labelledby="sem-hero-title">
-      <div class="container sem-hero__inner">
-        <div class="sem-hero__col-title">
-          <p id="sem-hero-kicker" class="kicker sem-hero__kicker"></p>
-          <h1 id="sem-hero-title" class="sem-hero__title" aria-label="Somos ZAG">
-            <span class="sem-hero__somos">SOMOS</span>
-            <span class="sem-hero__zag">ZAG</span>
-          </h1>
-        </div>
+    <!-- 1 · HERO — imagen completa -->
+    <section class="sem-hero" aria-label="Seminario Somos ZAG">
+      <img
+        class="sem-hero__img"
+        src="assets/img/heroseminario.svg"
+        alt="Seminario Somos ZAG"
+        loading="eager">
+    </section>
 
-        <div class="sem-hero__col-info">
+    <!-- 2 · MARQUEE — mismas clases compartidas que el index -->
+    <div class="marquee" role="presentation">
+      <div id="sem-marquee" class="marquee-track"></div>
+    </div>
+
+    <!-- 2.5 · INFO DEL SEMINARIO -->
+    <section class="sem-info" aria-labelledby="sem-info-heading">
+      <div class="container sem-info__inner">
+        <div class="sem-info__col">
+          <h2 id="sem-info-heading" class="sr-only">Información del seminario</h2>
           <p id="sem-hero-sub" class="sem-hero__sub"></p>
 
           <ul id="sem-hero-chips" class="sem-hero__chips" aria-label="Cuándo y dónde"></ul>
@@ -91,21 +97,10 @@
           </div>
           <p id="sem-countdown-msg" class="sem-countdown__msg" hidden></p>
 
-          <div class="sem-hero__actions">
-            <a id="sem-hero-cta" class="sem-hero__cta sem-btn" href="#agenda"></a>
-            <p id="sem-hero-cupos" class="sem-hero__cupos"></p>
-          </div>
-
-          <div id="sem-hero-days" class="sem-hero__days"></div>
+          <a class="sem-info__cta" href="registro.html">Activa mi perfil para reservar</a>
         </div>
       </div>
-
     </section>
-
-    <!-- 2 · MARQUEE — mismas clases compartidas que el index -->
-    <div class="marquee" role="presentation">
-      <div id="sem-marquee" class="marquee-track"></div>
-    </div>
 
     <!-- 3 · LINE-UP -->
     <section class="sem-lineup" aria-labelledby="sem-lineup-title">

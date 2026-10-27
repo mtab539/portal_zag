@@ -611,6 +611,27 @@
     if (isDemo) { if (aside) aside.hidden = true; return; }
     if (aside) aside.hidden = false;
 
+    var vivir = node('button', 'p-link', '▶ (demo) vivir experiencia de sello'); vivir.type = 'button';
+    vivir.addEventListener('click', function () {
+      if (displayLevel === 'senior') { anunciar('Ya estás en el nivel tope.'); return; }
+      var retos = D.retos(displayLevel);
+      var retoDisponible = null;
+      for (var i = 0; i < retos.length; i++) {
+        if (!P.pendienteDe(retos[i].id, displayLevel)) { retoDisponible = retos[i]; break; }
+      }
+      if (!retoDisponible) { anunciar('Todos los retos ya tienen evidencia pendiente.'); return; }
+      var result = P.enviarEvidencia({ nivel: displayLevel, retoId: retoDisponible.id, img: '', nota: 'Evidencia de demostración' });
+      if (!result.ok) { anunciar('No se pudo enviar la evidencia: ' + (result.motivo || '')); return; }
+      anunciar('Evidencia enviada para "' + retoDisponible.nombre + '". Aprobación automática en 4 segundos…');
+      retoAbierto = null;
+      renderAll(false);
+      var evId = result.evidencia.id;
+      window.setTimeout(function () {
+        var actual = P.evidenciaPorId(evId);
+        if (actual && actual.estado === 'pendiente') resolverEvidencia(evId, true);
+      }, 4000);
+    });
+
     var mas = node('button', 'p-link', '(demo) +1 sello'); mas.type = 'button';
     mas.addEventListener('click', function () {
       if (displayLevel === 'senior') { anunciar('Ya estás en el nivel tope.'); return; }
@@ -629,7 +650,7 @@
       P.reiniciar();
       window.location.assign('registro.html');
     });
-    host.appendChild(mas); host.appendChild(completar); host.appendChild(reiniciar);
+    host.appendChild(vivir); host.appendChild(mas); host.appendChild(completar); host.appendChild(reiniciar);
   }
 
   /* ============================================================

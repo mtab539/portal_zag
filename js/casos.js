@@ -67,17 +67,20 @@
     var kicker = $('casos-hero-kicker');
     var title = $('casos-hero-title');
     var sub = $('casos-hero-sub');
-    var scroll = $('casos-hero-scroll');
 
     if (kicker) kicker.textContent = ui.kicker;
     if (sub) sub.textContent = ui.sub;
-    if (scroll) scroll.textContent = ui.scroll;
 
-    /* El lettering del título vive en la imagen de fondo del hero (CSS),
-       así que el h1 de texto se oculta. */
+    /* Título a dos líneas: la primera en blanco y "zig reales" en naranja. */
     if (title) {
       title.textContent = '';
-      title.hidden = true;
+      title.hidden = false;
+      title.appendChild(document.createTextNode(ui.title[0]));
+      title.appendChild(document.createElement('br'));
+      var acento = document.createElement('span');
+      acento.className = 'zag-hero__title-accent';
+      acento.textContent = ui.title[1];
+      title.appendChild(acento);
     }
   }
 
@@ -91,9 +94,9 @@
 
   function renderSessionChip() {
     var host = $('casos-session-chip');
-    var unete = document.querySelector('.header-unete');
     var level = sessionLevel();
-    if (unete) unete.hidden = !!level; /* con sesión, el chip ocupa su lugar */
+    /* El botón "Únete" lo maneja js/perfil-links.js (píldora de sesión
+       en el header). El chip por página ya no existe. */
     if (!host) return;
     host.textContent = '';
     if (!level) { host.hidden = true; return; }

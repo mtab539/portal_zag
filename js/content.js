@@ -42,7 +42,7 @@ window.ZAG_CONTENT = {
           desc: 'Conversaciones que rompen lo obvio, en tus oídos',
           icon: 'talk',
           iconSrc: 'assets/img/icons/microfono-podcast.svg',
-          href: 'proximamente.html',
+          href: 'podcast.html',
         },
         {
           label: 'Conoce los perfiles',

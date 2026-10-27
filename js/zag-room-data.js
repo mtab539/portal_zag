@@ -436,12 +436,15 @@ window.ZAG_ROOM = (function () {
     texto: 'Un cuarto pensado para hacer zag: mesas largas, un tablero que nunca está limpio y café para lo que salga.',
   };
 
+  /* Cada uso puede traer su foto (assets/img/zagroom<n>.svg). Si no
+     tiene, se pinta el ícono de siempre. */
   var usos = [
     {
       id: 'estudiar',
       icono: 'book',
       titulo: 'Estudiar',
       texto: 'Silencio relativo, buena luz y enchufes para todos.',
+      foto: { src: 'assets/img/zagroom3.svg', alt: 'Mesas del ZAG Room listas para estudiar.' },
       link: { label: 'Reservar un puesto', href: '#reservar', flecha: '▷' },
     },
     {
@@ -449,6 +452,7 @@ window.ZAG_ROOM = (function () {
       icono: 'board',
       titulo: 'Crear',
       texto: 'Tablero, proyector y espacio para armar la próxima campaña.',
+      foto: { src: 'assets/img/zagroom4.svg', alt: 'Zona de creación del ZAG Room con tablero y proyector.' },
       link: { label: 'Reservar un puesto', href: '#reservar', flecha: '▷' },
     },
     {
@@ -456,6 +460,7 @@ window.ZAG_ROOM = (function () {
       icono: 'people',
       titulo: 'Mentorías',
       texto: 'Aquí se dan las mentorías presenciales con egresados.',
+      foto: { src: 'assets/img/zagroom5.svg', alt: 'Espacio del ZAG Room preparado para las mentorías.' },
       link: { label: 'Ver mentorías', href: 'mentorias.html', flecha: '▷' },
     },
   ];

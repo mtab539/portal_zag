@@ -6,8 +6,9 @@
 /* === Hero smudge === */
 .smudge-root {
   position: relative;
-  height: calc(90svh - var(--header-height));
-  min-height: 420px;
+  /* Igual que el zag-hero de las demás páginas (380px), un poco más pequeño */
+  height: 340px;
+  min-height: 340px;
   overflow: hidden;
   background: var(--color-brand-deep) url('../assets/img/fondoazul.svg') no-repeat center center / cover;
   color: var(--color-cream);
@@ -56,7 +57,7 @@
   margin: 0;
   font-family: var(--font-display-giga);
   font-weight: 400;
-  font-size: clamp(3.6rem, 16vw, 21rem);
+  font-size: clamp(2.75rem, 11vw, 11.5rem);
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -75,7 +76,7 @@
   z-index: 2;
   display: grid;
   place-items: center;
-  padding: var(--s-6) var(--gutter) clamp(2rem, 12vh, 8rem) var(--gutter);
+  padding: var(--s-6) var(--gutter) clamp(1.5rem, 6vh, 4rem) var(--gutter);
   background: var(--color-cream) url('../assets/img/fondobeige.svg') no-repeat center center / cover;
   -webkit-mask: url(#zag-smudge-mask);
   mask: url(#zag-smudge-mask);
@@ -91,7 +92,7 @@
   max-width: 78%;
   font-family: var(--font-display-giga);
   font-weight: 400;
-  font-size: clamp(1.15rem, 5vw, 7rem);
+  font-size: clamp(1rem, 3.4vw, 3.5rem);
   line-height: 1.04;
   text-align: center;
   text-wrap: balance;
@@ -135,21 +136,23 @@
   /* el contenido del hero es pequeno en tablet y movil: menos alto y la
      frase mas pegada a la pastilla, para que no quede un vacio en medio */
   .smudge-root {
-    height: calc(80svh - var(--header-height));
+    height: 300px;
+    min-height: 300px;
   }
 
   .smudge-back {
-    padding-bottom: clamp(2.5rem, 14vh, 8rem);
+    padding-bottom: clamp(1.25rem, 5vh, 3rem);
   }
 }
 
 @media (max-width: 560px) {
   .smudge-root {
-    height: calc(78svh - var(--header-height));
+    height: 280px;
+    min-height: 280px;
   }
 
   .smudge-back {
-    padding-bottom: clamp(3rem, 17vh, 9rem);
+    padding-bottom: clamp(1.25rem, 5vh, 3rem);
   }
 }
 
@@ -164,10 +167,15 @@
 }
 
 /* fallback estático: reduced-motion o sin máscara SVG */
+.smudge-root.is-static {
+  height: auto;
+  min-height: 0;
+}
+
 .smudge-root.is-static .smudge-front {
   position: relative;
   inset: auto;
-  min-height: 52svh;
+  min-height: 240px;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -188,7 +196,7 @@
   -webkit-mask: none;
   mask: none;
   padding: var(--s-7) var(--gutter);
-  min-height: 40svh;
+  min-height: 140px;
 }
 
 .smudge-root.is-static .smudge-svg,
@@ -1064,6 +1072,10 @@
   margin: var(--s-2) 0 0;
   font-size: 13px;
   color: var(--color-text-muted);
+}
+
+.proy-author[hidden] {
+  display: none;
 }
 
 .proy-author {

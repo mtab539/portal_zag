@@ -60,6 +60,13 @@ window.ZAG_SESSION = (function () {
     return sesionPersistida();
   }
 
+  /* Avisa al header (perfil-links.js) que el estado cambió, para que
+     repinte el botón "Únete" / la píldora de sesión al instante. */
+  function avisar() {
+    try { window.dispatchEvent(new CustomEvent('zag:session')); }
+    catch (e) { /* sin CustomEvent */ }
+  }
+
   /* Atajo de demostración. Solo sesión. */
   function write(obj) {
     var s = valida(obj);
@@ -67,6 +74,7 @@ window.ZAG_SESSION = (function () {
     demoEnMemoria = { name: s.name, level: s.level, origen: 'demo' };
     try { window.localStorage.setItem(LS_SESSION, JSON.stringify({ name: s.name, level: s.level })); }
     catch (e) { /* sin storage */ }
+    avisar();
   }
 
   /* Escritura desde el perfil real: limpia cualquier override de
@@ -78,6 +86,7 @@ window.ZAG_SESSION = (function () {
     if (!s) return;
     try { window.localStorage.setItem(LS_SESSION, JSON.stringify({ name: s.name, level: s.level })); }
     catch (e) { /* sin storage */ }
+    avisar();
   }
 
   /* Cerrar sesión: se va el perfil entero, no solo la sesión. */
@@ -89,6 +98,7 @@ window.ZAG_SESSION = (function () {
       window.localStorage.removeItem('zag_perfil_sellos');
       window.localStorage.removeItem('zag_perfil_evidencias');
     } catch (e) { /* sin storage */ }
+    avisar();
   }
 
   return {

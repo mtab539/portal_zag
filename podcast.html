@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Podcast ZAG — Portal ZAG</title>
+  <meta name="description" content="Podcast ZAG: la voz de egresados y docentes del programa de Publicidad Digital y Mercadeo de la EAM, sin filtro de clase.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=31">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/podcast.css?v=1">
+  <script src="js/content.js?v=38" defer></script>
+  <script src="js/main.js?v=36" defer></script>
+  <script src="js/perfil-links.js?v=4" defer></script>
+  <script src="js/zag-session.js?v=32" defer></script>
+  <script src="js/mentorias-data.js" defer></script>
+  <script src="js/perfil-data.js" defer></script>
+  <script src="js/podcast-data.js?v=1" defer></script>
+  <script src="js/podcast.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <a class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- A · HERO -->
+    <section class="zag-hero podcast-hero" aria-labelledby="podcast-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="podcast-hero-kicker" class="kicker zag-hero__pill"></p>
+        <h1 id="podcast-hero-title" class="zag-hero__title"></h1>
+        <p id="podcast-hero-sub" class="zag-hero__sub"></p>
+        <div id="podcast-hero-btns" class="podcast-hero__btns"></div>
+        <p id="podcast-hero-estado" class="podcast-hero__estado" hidden></p>
+      </div>
+    </section>
+
+    <!-- Gate: bloque de acceso + contenido con blur -->
+    <div id="podcast-gate" class="podcast-gate">
+
+      <!-- Bloque de acceso (sin sesión) -->
+      <div id="podcast-access" class="podcast-access" hidden>
+        <div class="podcast-access-card">
+          <p class="kicker" id="podcast-access-kicker"></p>
+          <h2 class="podcast-access-title" id="podcast-access-title"></h2>
+          <p class="podcast-access-copy" id="podcast-access-copy"></p>
+          <div class="podcast-access-actions" id="podcast-access-actions"></div>
+        </div>
+      </div>
+
+      <div class="podcast-content" id="podcast-content">
+
+        <!-- B · Episodio destacado -->
+        <section class="podcast-destacado podcast-section" aria-labelledby="podcast-dest-title">
+          <div class="container podcast-destacado-grid">
+            <div class="podcast-destacado__info">
+              <p class="kicker" id="podcast-dest-kicker"></p>
+              <h2 class="podcast-destacado__title" id="podcast-dest-title"></h2>
+              <div class="podcast-destacado__meta" id="podcast-dest-meta"></div>
+              <p class="podcast-destacado__resumen" id="podcast-dest-resumen"></p>
+              <div class="podcast-player" id="podcast-dest-player"></div>
+              <div class="podcast-destacado__actions" id="podcast-dest-actions"></div>
+            </div>
+            <div class="podcast-destacado__cover" id="podcast-dest-cover"></div>
+          </div>
+        </section>
+
+        <!-- C · Mosaico de episodios -->
+        <section id="episodios" class="podcast-section" aria-labelledby="podcast-mosaico-title">
+          <div class="container">
+            <p class="kicker" id="podcast-mosaico-kicker"></p>
+            <h2 class="podcast-section__title" id="podcast-mosaico-title"></h2>
+            <div class="podcast-mosaico-grid" id="podcast-mosaico-grid"></div>
+          </div>
+        </section>
+
+        <!-- E · Playlist completa -->
+        <section class="podcast-section" aria-labelledby="podcast-playlist-title">
+          <div class="container">
+            <p class="kicker" id="podcast-playlist-kicker"></p>
+            <h2 class="podcast-section__title" id="podcast-playlist-title"></h2>
+            <div class="podcast-player" id="podcast-playlist-player"></div>
+            <p id="podcast-playlist-link" hidden></p>
+          </div>
+        </section>
+
+        <!-- F · Participa -->
+        <section id="invitado" class="podcast-section" aria-labelledby="podcast-participa-title">
+          <div class="container">
+            <p class="kicker" id="podcast-participa-kicker"></p>
+            <h2 class="podcast-section__title" id="podcast-participa-title"></h2>
+            <div class="podcast-participa-grid" id="podcast-participa-grid">
+              <div class="podcast-card-invitado" id="podcast-card-invitado"></div>
+              <div class="podcast-card-propon" id="podcast-card-propon"></div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- .podcast-content -->
+    </div><!-- #podcast-gate -->
+
+    <!-- Ficha de episodio (panel lateral / fullscreen mobile) -->
+    <div id="podcast-ficha-overlay" class="podcast-ficha-overlay" role="dialog" aria-modal="true" aria-label="Ficha del episodio" hidden>
+      <div class="podcast-ficha" id="podcast-ficha"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="podcast-toast" class="podcast-toast" aria-live="polite"></div>
+
+    <!-- Live region -->
+    <p id="podcast-live" class="sr-only" role="status" aria-live="polite"></p>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+          <button class="td-reset-demo" type="button" id="podcast-reset-demo">
+            Reiniciar demo del podcast
+          </button>
+        </nav>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+</body>
+</html>

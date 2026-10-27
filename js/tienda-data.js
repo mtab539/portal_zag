@@ -181,6 +181,32 @@ window.ZAG_TIENDA = (function () {
       stock: 15,
       alt: 'Tote bag del ZAG'
     },
+    {
+      id: 'camiseta-blanca',
+      nombre: 'Camiseta ZAG Blanca',
+      precio: 60000,
+      nivel: 2,
+      categoria: 'ropa',
+      descripcion: 'Blanca como las ideas que todavía no se ensucian.',
+      img: 'assets/img/merch/camiseta-blanca.png',
+      placeholder: 'assets/img/merch/ph-boton.svg',
+      tallas: TALLAS_ROPA.slice(),
+      stock: 20,
+      alt: 'Camiseta ZAG blanca'
+    },
+    {
+      id: 'camiseta-azul',
+      nombre: 'Camiseta ZAG Azul',
+      precio: 60000,
+      nivel: 2,
+      categoria: 'ropa',
+      descripcion: 'Azul como el fondo del ZAG: profundo y sin disculpas.',
+      img: 'assets/img/merch/camiseta-azul.png',
+      placeholder: 'assets/img/merch/ph-boton.svg',
+      tallas: TALLAS_ROPA.slice(),
+      stock: 20,
+      alt: 'Camiseta ZAG azul'
+    },
 
     /* ---- MASTER ---- */
     {

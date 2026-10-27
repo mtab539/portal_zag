@@ -309,7 +309,11 @@
      Chip de sesión
      ============================================================ */
   function renderSessionChip() {
+    /* El chip del header se eliminó: el estado de sesión vive solo en
+       el header (js/perfil-links.js). La función queda por si vuelve
+       el elemento. */
     var host = $('muro-session-chip');
+    if (!host) return;
     host.textContent = '';
     if (!state.session) {
       host.hidden = true;

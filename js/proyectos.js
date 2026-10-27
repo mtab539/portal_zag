@@ -459,10 +459,16 @@
   }
 
   function approve(id) {
-    state.sent = state.sent.filter(function (x) { return x.id !== id; });
+    /* No se borra: pasa a publicado y queda en la grilla junto al
+       resto de los proyectos (sin la insignia "en revisión"). */
+    state.sent.forEach(function (x) {
+      if (x.id === id) x.enRevision = false;
+    });
     saveSent();
     renderGrid();
-    announce('Proyecto aprobado. Ya aparece como un proyecto normal.');
+    renderBell();
+    drawBellPanel();
+    announce('Proyecto aprobado. Ya aparece publicado en la lista.');
   }
 
   function renderGrid() {
