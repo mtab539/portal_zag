@@ -480,7 +480,7 @@
     card.style.color = cfg.fg;
     card.dataset.flipTilt = String(cfg.flipTilt);
     card.dataset.dismissTilt = String(cfg.dismissTilt);
-    card.style.backgroundImage = 'url("assets/img/' + (cfg.art || cfg.id) + '-tarjeta.svg")';
+    card.style.backgroundImage = 'url("assets/img/' + (cfg.art || cfg.id) + '-tarjeta.svg?v=2")';
     card.style.backgroundSize = 'cover';
     card.style.backgroundPosition = 'center';
     card.classList.add('settle-card--imagen');

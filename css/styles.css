@@ -785,7 +785,7 @@ h2, h3 {
   aspect-ratio: 1280 / 304;
   margin-top: var(--s-5);
   margin-bottom: calc(-1 * var(--s-8));
-  background: url('../assets/img/fondolineaszag.svg') center / 100% 100% no-repeat;
+  background: url('../assets/img/fondolineaszag.svg?v=2') center / 100% 100% no-repeat;
 }
 
 /*-------- Acordeón de imágenes (TailwindImageAccordion) --------*/
@@ -1217,7 +1217,7 @@ h2, h3 {
 }
 
 .settle-card--front-img {
-  background-image: url("../assets/img/presentacion-tarjeta.svg");
+  background-image: url("../assets/img/presentacion-tarjeta.svg?v=2");
   background-size: cover;
   background-position: center;
   justify-content: flex-end;
