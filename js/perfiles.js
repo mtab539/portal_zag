@@ -322,10 +322,11 @@
       posterItems.push(item);
     });
 
-    /* Dar dimensiones al stack */
+    /* Dar dimensiones al stack: ocupa todo el ancho disponible */
     function sizePosterStack() {
-      var maxW = Math.min(520, postersStack.parentElement.clientWidth * 0.9);
+      var maxW = postersStack.parentElement.clientWidth * 0.95;
       postersStack.style.width  = maxW + 'px';
+      postersStack.style.height = 'auto';
     }
     sizePosterStack();
     window.addEventListener('resize', sizePosterStack);
