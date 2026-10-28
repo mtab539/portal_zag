@@ -708,6 +708,13 @@
   line-height: 1.4;
 }
 
+/* El desplegable nativo (Windows/Android) hereda el color del select:
+   sin fondo y texto explícitos las opciones quedan blanco sobre blanco. */
+.casos-field select option {
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+
 .casos-field textarea {
   resize: vertical;
   min-height: 96px;

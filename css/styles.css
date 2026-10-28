@@ -2550,3 +2550,11 @@ h2, h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* --- Select nativo: las opciones (Windows/Android) se pintan con el estilo
+     del sistema. Si el select trae color/fondo propios, las opciones quedan
+     blanco sobre blanco; esto las deja siempre legibles. --- */
+select option {
+  background-color: var(--color-white);
+  color: var(--color-text);
+}

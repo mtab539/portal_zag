@@ -49,7 +49,7 @@ window.ZAG_CONTENT = {
           desc: 'De Rookie a Senior: así se sube en la comunidad',
           icon: 'compass',
           iconSrc: 'assets/img/icons/perfiles.svg',
-          href: 'index.html#perfiles',
+          href: 'perfiles.html',
         },
       ],
     },

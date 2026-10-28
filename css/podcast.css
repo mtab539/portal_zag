@@ -877,6 +877,13 @@
   color: var(--color-cream);
 }
 
+/* El desplegable nativo (Windows/Android) hereda el color crema:
+   las opciones necesitan fondo y texto explícitos. */
+.podcast-card-invitado .podcast-field select option {
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+
 .podcast-field textarea {
   resize: vertical;
   min-height: 80px;

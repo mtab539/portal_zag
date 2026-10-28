@@ -335,6 +335,13 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   cursor: pointer;
 }
 
+/* El desplegable nativo (Windows/Android) hereda el color blanco:
+   las opciones necesitan fondo y texto explícitos. */
+.mentorias-select option {
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+
 .mentorias-check {
   display: flex;
   align-items: center;

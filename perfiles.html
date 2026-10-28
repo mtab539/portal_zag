@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conoce los perfiles — Portal ZAG</title>
+  <meta name="description" content="5 niveles, un mismo camino: Rookie, Strategist, Creator, Master y Senior. Descubre qué desbloqueas en cada nivel de la comunidad ZAG de la EAM.">
+  <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
+  <link rel="stylesheet" href="css/styles.css?v=18">
+  <link rel="stylesheet" href="css/escarapela.css">
+  <link rel="stylesheet" href="css/perfiles.css">
+  <script src="js/content.js?v=39" defer></script>
+  <script src="js/main.js?v=38" defer></script>
+  <script src="js/perfil-links.js?v=5" defer></script>
+  <script src="js/zag-session.js?v=33" defer></script>
+  <script src="js/perfil-data.js" defer></script>
+  <script src="js/zag-perfil.js" defer></script>
+  <script src="js/perfiles-data.js" defer></script>
+  <script src="js/escarapela.js" defer></script>
+  <script src="js/perfiles.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Barra de progreso de scroll -->
+  <div id="pf-progress" class="pf-progress-bar" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="ZAG — inicio del portal">
+        <img
+          class="brand-logo"
+          src="assets/logos/eamzag.svg?v=3"
+          alt="ZAG — logotipo del portal"
+          data-fallback="ZAG">
+      </a>
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav">
+        <span class="nav-toggle--open">Menú</span>
+        <span class="nav-toggle--close">Cerrar</span>
+      </button>
+
+      <ul id="primary-nav" class="primary-nav" aria-label="Navegación principal"></ul>
+
+      <div class="header-right">
+        <a id="pf-header-cta" class="header-unete btn btn--sm" href="registro.html">Únete</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- A · HERO -->
+    <section class="zag-hero perfiles-hero" aria-labelledby="pf-hero-title">
+      <div class="zag-hero__pattern" aria-hidden="true">
+        <div class="zag-hero__pattern-track">
+          <div class="zag-hero__pattern-band"></div>
+          <div class="zag-hero__pattern-band"></div>
+        </div>
+      </div>
+      <div class="container zag-hero__inner">
+        <p id="pf-hero-pill" class="kicker zag-hero__pill">COMUNIDAD ZAG</p>
+        <h1 id="pf-hero-title" class="zag-hero__title">
+          CONOCE LOS <span class="zag-hero__title-accent">PERFILES</span>
+        </h1>
+        <p class="zag-hero__sub">5 niveles, un mismo camino: atreverse a ir en contra del zig.</p>
+        <div class="perfiles-hero-actions">
+          <a id="pf-hero-cta" class="btn btn--hero" href="registro.html">Unirme a la comunidad zaggista</a>
+          <a class="btn btn--outline" href="#perfiles">Ver los 5 perfiles ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- B · INTRO CON ESCARAPELA -->
+    <section class="pf-intro" aria-labelledby="pf-intro-title">
+      <div class="container">
+        <div class="pf-intro__grid">
+          <div class="pf-intro__text">
+            <p class="pf-intro__eyebrow">NO SE REGALA, SE GANA</p>
+            <h2 id="pf-intro-title" class="pf-intro__title">CADA NIVEL SE <span class="accent">GANA.</span></h2>
+            <p class="pf-intro__parrafo">En la comunidad ZAG nadie llega sabiéndolo todo. Empiezas como Rookie, completas retos, sumas sellos en tu Pasaporte ZAG y, cada 6 sellos, subes de nivel. Cada nivel te abre puertas nuevas: mentorías, cursos, el ZAG Room, el podcast y merch que solo lleva quien se lo ganó.</p>
+            <div class="pf-intro__stats">
+              <div class="pf-intro__stat">
+                <span class="pf-intro__stat-num">5</span>
+                <span class="pf-intro__stat-label">niveles</span>
+              </div>
+              <div class="pf-intro__stat">
+                <span class="pf-intro__stat-num">6</span>
+                <span class="pf-intro__stat-label">sellos por nivel</span>
+              </div>
+              <div class="pf-intro__stat">
+                <span class="pf-intro__stat-num">1</span>
+                <span class="pf-intro__stat-label">comunidad</span>
+              </div>
+            </div>
+            <p class="pf-intro__hint" aria-live="off">
+              <span class="pf-intro__hint-arrow" aria-hidden="true">↓</span>
+              Haz scroll y conoce los perfiles ↓
+            </p>
+          </div>
+          <div class="pf-intro__escarapela">
+            <div id="escarapela" role="presentation"></div>
+            <p class="escarapela-hint">Arrástrala · tócala para darle la vuelta</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- C · PERFILES -->
+    <section id="perfiles" class="pf-section" aria-labelledby="pf-section-title">
+      <div class="container">
+
+        <!-- C1. Cabecera -->
+        <div class="pf-cabecera">
+          <div class="pf-cabecera__left">
+            <p class="pf-cabecera__eyebrow">LOS 5 PERFILES</p>
+            <h2 id="pf-section-title" class="pf-cabecera__title">
+              ELIGE TU PRÓXIMO<br><span class="accent">NIVEL.</span>
+            </h2>
+          </div>
+          <div class="pf-cabecera__right">
+            <p class="pf-cabecera__sub">Cinco perfiles, un mismo camino. Haz scroll y mira qué desbloqueas en cada uno.</p>
+          </div>
+        </div>
+        <hr class="pf-cabecera__hr">
+
+        <!-- C2. Bloque sticky (≥1024px) -->
+        <div class="pf-sticky-wrap">
+          <div class="pf-sticky-height">
+            <div class="pf-sticky-panel" id="pf-sticky-panel">
+              <!-- Col izquierda: info del nivel activo -->
+              <div class="pf-sticky__left">
+                <div
+                  id="pf-sticky-left-inner"
+                  class="pf-sticky__left-inner"
+                  aria-live="polite"
+                  aria-label="Información del perfil actual">
+                  <!-- JS rellena este bloque -->
+                </div>
+                <ul id="pf-nav-dots" class="pf-nav-dots" aria-label="Navegar entre perfiles"></ul>
+              </div>
+
+              <!-- Separador -->
+              <div class="pf-sticky__divider" aria-hidden="true"></div>
+
+              <!-- Col derecha: tarjetas apiladas -->
+              <div class="pf-sticky__right">
+                <div class="pf-posters-stack" id="pf-posters-stack">
+                  <!-- Círculo de fondo -->
+                  <div class="pf-poster-glow" id="pf-glow" aria-hidden="true"></div>
+                  <!-- JS inserta las 5 tarjetas aquí -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C2b. Tarjetas apiladas (mobile) -->
+        <div class="pf-cards-mobile" id="pf-cards-mobile">
+          <!-- JS inserta las 5 tarjetas aquí -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- C3. Cierre -->
+    <section class="pf-cierre" aria-labelledby="pf-cierre-title">
+      <div class="container">
+        <div class="pf-cierre__inner">
+          <h2 id="pf-cierre-title" class="pf-cierre__title">
+            TU PRIMER SELLO TE <span class="accent">ESPERA</span>
+          </h2>
+          <p id="pf-cierre-sub" class="pf-cierre__sub">Inscríbete con tu correo institucional y empieza hoy como Rookie.</p>
+          <a id="pf-cierre-cta" class="btn btn--hero" href="registro.html">Unirme a la comunidad zaggista →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--brand">
+          <a class="footer-eam" id="footer-eam-link">
+            <img class="footer-eam-img" id="footer-eam-img" alt="">
+          </a>
+          <div class="footer-social">
+            <span class="footer-social-label">Redes Sociales:</span>
+            <div id="footer-social" class="social-pill" aria-label="Redes sociales del ZAG"></div>
+          </div>
+        </div>
+        <div class="footer-col footer-col--contact">
+          <address id="footer-contacto" class="footer-contacto"></address>
+        </div>
+      </div>
+      <div class="footer-legal-bar">
+        <p id="footer-copyright" class="footer-copyright"></p>
+        <nav class="footer-legal-links" aria-label="Enlaces legales">
+          <a href="index.html">Política de privacidad</a>
+          <a href="index.html">Tratamiento de Datos Personales</a>
+          <a href="https://eam.edu.co/servidor_media/pdfs/normatividad/7.1TRATAMIENTO%20DE%20DATOS.pdf" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+        </nav>
+      </div>
+    </div>
+    <a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+    </a>
+  </footer>
+
+  <noscript>
+    <p style="padding: 24px; font-family: system-ui; text-align: center;">
+      Esta página necesita JavaScript para mostrar los perfiles ZAG. Actívalo o escríbenos a la EAM para conocer más sobre la comunidad.
+    </p>
+  </noscript>
+</body>
+</html>
