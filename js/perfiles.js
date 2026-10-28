@@ -231,16 +231,6 @@
       };
       stickerWrap.appendChild(img);
       poster.appendChild(stickerWrap);
-
-      var foot = el('div', 'pf-poster-foot');
-      var left = el('span');
-      left.textContent = perfil.nombre;
-      var right = el('span');
-      right.textContent = 'NIVEL ' + (perfil.orden + 1);
-      foot.appendChild(left);
-      foot.appendChild(right);
-      poster.appendChild(foot);
-
       wrap.appendChild(poster);
       return wrap;
     }
