@@ -14,8 +14,8 @@
   }
 
   function init() {
-    if (window.__profilesInitialized) return;
-    window.__profilesInitialized = true;
+    /* Si ya hay stickers creados, no volver a inicializar */
+    if (document.querySelectorAll('.pf-poster-item').length > 0) return;
     var PERFILES = window.ZAG_PERFILES && window.ZAG_PERFILES.PERFILES;
     var UI       = window.ZAG_PERFILES && window.ZAG_PERFILES.UI;
     var NIVELES  = window.ZAG_NIVELES;
