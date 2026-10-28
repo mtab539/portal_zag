@@ -209,31 +209,12 @@
       containerEl.appendChild(ctaEl);
     }
 
-    /* Construye la tarjeta póster */
+    /* Construye la tarjeta póster: SOLO el sticker grande, sin fondo ni textos */
     function buildPoster(perfil) {
       var wrap = el('div', 'pf-poster');
       wrap.style.setProperty('--pf-nivel-bg', 'var(' + perfil.bg + ')');
       wrap.style.setProperty('--pf-nivel-fg', 'var(' + perfil.fg + ')');
 
-      var bg = el('div', 'pf-poster__bg');
-      var pat = el('div', 'pf-poster__pattern');
-      var content = el('div', 'pf-poster__content');
-
-      /* Cabecera del póster */
-      var header = el('div', 'pf-poster__header');
-      var leftHead = el('div');
-      var nEl = el('p', 'pf-poster__nombre');
-      nEl.textContent = perfil.nombre;
-      var aEl = el('p', 'pf-poster__apodo');
-      aEl.textContent = perfil.apodo;
-      leftHead.appendChild(nEl);
-      leftHead.appendChild(aEl);
-      var numEl = el('p', 'pf-poster__num');
-      numEl.textContent = pad(perfil.orden + 1);
-      header.appendChild(leftHead);
-      header.appendChild(numEl);
-
-      /* Sticker */
       var stickerWrap = el('div', 'pf-poster__sticker');
       var img = el('img');
       img.src = perfil.sticker;
@@ -246,26 +227,8 @@
         stickerWrap.appendChild(fb);
       };
       stickerWrap.appendChild(img);
-
-      content.appendChild(header);
-      content.appendChild(stickerWrap);
-
-      wrap.appendChild(bg);
-      wrap.appendChild(pat);
-      wrap.appendChild(content);
+      wrap.appendChild(stickerWrap);
       return wrap;
-    }
-
-    /* Pie de tarjeta */
-    function buildPosterFoot(perfil) {
-      var foot = el('div', 'pf-poster-foot');
-      var left = el('span');
-      left.textContent = perfil.nombre;
-      var right = el('span');
-      right.textContent = 'NIVEL ' + (perfil.orden + 1);
-      foot.appendChild(left);
-      foot.appendChild(right);
-      return foot;
     }
 
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
@@ -280,12 +243,10 @@
 
         /* Póster */
         var poster = buildPoster(perfil);
-        var foot   = buildPosterFoot(perfil);
         var posterWrap = el('div');
         posterWrap.style.setProperty('--pf-nivel-bg', 'var(' + perfil.bg + ')');
         posterWrap.style.setProperty('--pf-nivel-fg', 'var(' + perfil.fg + ')');
         posterWrap.appendChild(poster);
-        posterWrap.appendChild(foot);
 
         /* Info */
         var info = el('div', 'pf-info');
@@ -336,14 +297,12 @@
       item.style.setProperty('--pf-nivel-fg', 'var(' + perfil.fg + ')');
 
       var poster = buildPoster(perfil);
-      var foot   = buildPosterFoot(perfil);
 
       /* Accesibilidad */
       item.setAttribute('aria-hidden', i !== 0 ? 'true' : 'false');
       if (i !== 0) item.setAttribute('inert', '');
 
       item.appendChild(poster);
-      item.appendChild(foot);
       postersStack.appendChild(item);
       posterItems.push(item);
     });

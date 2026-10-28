@@ -572,7 +572,7 @@
   background: var(--color-cta);
 }
 
-/* Tarjetas del lado derecho */
+/* Tarjetas del lado derecho: SOLO el sticker grande */
 .pf-posters-stack {
   position: relative;
   width: 100%;
@@ -582,8 +582,8 @@
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
+  align-items: center;
+  justify-content: center;
 }
 .pf-poster-item[aria-hidden="true"] {
   pointer-events: none;
@@ -607,6 +607,38 @@
   position: relative;
   z-index: 1;
   transform: rotate(-3deg);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-poster__sticker {
+  width: 82%;
+  max-width: 280px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-poster__sticker img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.25));
+}
+/* Fallback del sticker */
+.pf-poster__sticker-fallback {
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--pf-nivel-fg, var(--color-brand-deep));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display-giga);
+  font-size: clamp(40px, 8vw, 80px);
+  opacity: 0.8;
 }
 /* Estado por defecto (debajo) */
 .pf-poster-item.is-below .pf-poster {
