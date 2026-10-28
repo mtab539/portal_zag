@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><title>perfiles-scroll-check</title></head>
+<body>
+<pre id="out">…</pre>
+<script>
+(function(){
+  var f = document.createElement('iframe');
+  f.style.cssText = 'width:1440px;height:1400px;border:0';
+  document.body.appendChild(f);
+  fetch('perfiles.html').then(r=>r.text()).then(function(fs){
+    var d = f.contentDocument; d.open(); d.write(fs); d.close();
+    setTimeout(function(){
+      var w = f.contentWindow;
+      // Scroll al punto medio del sticky-height para ver el sticker activo
+      var sh = d.querySelector('.pf-sticky-height');
+      if (sh) {
+        var total = sh.offsetHeight - w.innerHeight;
+        w.scrollTo(0, total * 0.5);
+      }
+      setTimeout(function(){
+        var items = d.querySelectorAll('.pf-poster-item');
+        var lines = ['Items: ' + items.length];
+        items.forEach(function(item, i){
+          var img = item.querySelector('.pf-poster__sticker img') || item.querySelector('.pf-poster__sticker-fallback');
+          var cs = w.getComputedStyle(item);
+          lines.push('Item ' + i + ': opacity=' + cs.opacity + ' transform=' + cs.transform + ' aria-hidden=' + item.getAttribute('aria-hidden') + ' src=' + (img ? img.src : 'ninguna'));
+        });
+        document.getElementById('out').textContent = lines.join('\n');
+        document.title = 'CHECK-LISTO';
+      }, 500);
+    }, 2000);
+  });
+})();
+</script>
+</body>
+</html>

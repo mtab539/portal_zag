@@ -302,6 +302,10 @@
     var currentIdx = 0;
     var posterItems = [];
 
+    /* Limpiar stack por si acaso */
+    postersStack.innerHTML = '';
+    posterItems = [];
+
     /* Insertar los 5 stickers en el stack (absolutos, apilados) */
     PERFILES.forEach(function (perfil, i) {
       var item = buildPoster(perfil);
