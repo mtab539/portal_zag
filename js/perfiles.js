@@ -251,7 +251,8 @@
        MOBILE: Tarjetas apiladas
     ============================================================ */
     var mobileContainer = document.getElementById('pf-cards-mobile');
-    if (mobileContainer) {
+    var isMobile = window.matchMedia('(max-width: 1023px)').matches;
+    if (mobileContainer && isMobile) {
       PERFILES.forEach(function (perfil) {
         var card = el('div', 'pf-card-mobile');
 
@@ -298,7 +299,8 @@
     var glow          = document.getElementById('pf-glow');
     var progressBar   = document.getElementById('pf-progress');
 
-    if (!stickyWrap || !leftInner || !postersStack) return;
+    var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    if (!isDesktop || !stickyWrap || !leftInner || !postersStack) return;
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var currentIdx = 0;
