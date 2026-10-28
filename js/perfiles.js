@@ -14,6 +14,8 @@
   }
 
   function init() {
+    if (window.__profilesInitialized) return;
+    window.__profilesInitialized = true;
     var PERFILES = window.ZAG_PERFILES && window.ZAG_PERFILES.PERFILES;
     var UI       = window.ZAG_PERFILES && window.ZAG_PERFILES.UI;
     var NIVELES  = window.ZAG_NIVELES;
