@@ -209,25 +209,37 @@
       containerEl.appendChild(ctaEl);
     }
 
-    /* Construye la tarjeta póster: SOLO el sticker grande, sin fondo ni textos */
+    /* Construye el contenedor del sticker grande (sin tarjeta, sin fondo) */
     function buildPoster(perfil) {
-      var wrap = el('div', 'pf-poster');
+      var wrap = el('div', 'pf-poster-item');
       wrap.style.setProperty('--pf-nivel-bg', 'var(' + perfil.bg + ')');
       wrap.style.setProperty('--pf-nivel-fg', 'var(' + perfil.fg + ')');
+
+      var poster = el('div', 'pf-poster');
 
       var stickerWrap = el('div', 'pf-poster__sticker');
       var img = el('img');
       img.src = perfil.sticker;
       img.alt = 'Sticker del nivel ' + perfil.nombre;
       img.onerror = function () {
-        /* Fallback: inicial en Extenda 60 */
         stickerWrap.removeChild(img);
         var fb = el('div', 'pf-poster__sticker-fallback');
         fb.textContent = perfil.nombre.charAt(0);
         stickerWrap.appendChild(fb);
       };
       stickerWrap.appendChild(img);
-      wrap.appendChild(stickerWrap);
+      poster.appendChild(stickerWrap);
+
+      var foot = el('div', 'pf-poster-foot');
+      var left = el('span');
+      left.textContent = perfil.nombre;
+      var right = el('span');
+      right.textContent = 'NIVEL ' + (perfil.orden + 1);
+      foot.appendChild(left);
+      foot.appendChild(right);
+      poster.appendChild(foot);
+
+      wrap.appendChild(poster);
       return wrap;
     }
 
@@ -290,28 +302,22 @@
     var currentIdx = 0;
     var posterItems = [];
 
-    /* Insertar las 5 tarjetas en el stack (absolutos, apilados) */
+    /* Insertar los 5 stickers en el stack (absolutos, apilados) */
     PERFILES.forEach(function (perfil, i) {
-      var item = el('div', 'pf-poster-item');
-      item.style.setProperty('--pf-nivel-bg', 'var(' + perfil.bg + ')');
-      item.style.setProperty('--pf-nivel-fg', 'var(' + perfil.fg + ')');
-
-      var poster = buildPoster(perfil);
+      var item = buildPoster(perfil);
 
       /* Accesibilidad */
       item.setAttribute('aria-hidden', i !== 0 ? 'true' : 'false');
       if (i !== 0) item.setAttribute('inert', '');
 
-      item.appendChild(poster);
       postersStack.appendChild(item);
       posterItems.push(item);
     });
 
-    /* Dar dimensiones al stack basadas en la tarjeta */
+    /* Dar dimensiones al stack */
     function sizePosterStack() {
-      var maxW = Math.min(320, postersStack.parentElement.clientWidth * 0.88);
+      var maxW = Math.min(520, postersStack.parentElement.clientWidth * 0.9);
       postersStack.style.width  = maxW + 'px';
-      postersStack.style.height = (maxW * 1.25 + 56) + 'px'; /* aspect 4:5 + pie */
     }
     sizePosterStack();
     window.addEventListener('resize', sizePosterStack);
@@ -336,29 +342,19 @@
       });
     });
 
-    /* Renderizar estado de una tarjeta */
+    /* Renderizar estado de un sticker */
     function updatePosters(idx) {
       posterItems.forEach(function (item, i) {
-        item.classList.remove('is-active', 'is-below', 'is-entering');
-        if (i < idx) {
-          item.classList.add('is-below');
-          item.setAttribute('aria-hidden', 'true');
-          item.setAttribute('inert', '');
-        } else if (i === idx) {
+        item.classList.remove('is-active');
+        if (i === idx) {
           item.setAttribute('aria-hidden', 'false');
           item.removeAttribute('inert');
-          /* Clase is-entering solo sin reduced-motion y cuando cambia */
           item.classList.add('is-active');
         } else {
           item.setAttribute('aria-hidden', 'true');
           item.setAttribute('inert', '');
         }
       });
-
-      /* Glow */
-      if (glow) {
-        glow.style.background = 'var(' + PERFILES[idx].bg + ')';
-      }
 
       /* Nav dots */
       var dots = navDotsList.querySelectorAll('.pf-nav-dot');
@@ -368,7 +364,7 @@
     }
 
     /* Renderizar contenido izquierdo */
-    function updateLeft(idx, direction) {
+    function updateLeft(idx) {
       if (!reduced) {
         leftInner.classList.add('is-exiting');
       }
@@ -399,6 +395,7 @@
     /* Scroll handler con RAF */
     var rafId = 0;
     var lastIdx = -1;
+    var stickyTop = stickyHeight.getBoundingClientRect().top + window.pageYOffset;
 
     function onScroll() {
       if (rafId) return;
@@ -406,18 +403,17 @@
         rafId = 0;
         if (!stickyHeight) return;
 
-        var rect  = stickyHeight.getBoundingClientRect();
-        var total = stickyHeight.offsetHeight - window.innerHeight;
+        var scrollY = window.pageYOffset;
+        var total   = stickyHeight.offsetHeight - window.innerHeight;
         if (total <= 0) return;
 
-        var progress = Math.max(0, Math.min(1, -rect.top / total));
+        var progress = Math.max(0, Math.min(1, (scrollY - stickyTop) / total));
         var idx      = Math.min(PERFILES.length - 1, Math.floor(progress * PERFILES.length));
 
         /* Barra de progreso */
         var stickyPanel = document.getElementById('pf-sticky-panel');
         if (progressBar && stickyPanel) {
-          var panelRect = stickyHeight.getBoundingClientRect();
-          var isVisible = panelRect.top < window.innerHeight && panelRect.bottom > 0;
+          var isVisible = scrollY >= stickyTop && scrollY < stickyTop + stickyHeight.offsetHeight;
           progressBar.classList.toggle('is-visible', isVisible);
           if (isVisible) {
             progressBar.style.width = (progress * 100).toFixed(1) + '%';
@@ -425,12 +421,11 @@
         }
 
         if (idx === lastIdx) return;
-        var direction = idx > lastIdx ? 1 : -1;
         lastIdx = idx;
         currentIdx = idx;
 
         updatePosters(idx);
-        updateLeft(idx, direction);
+        updateLeft(idx);
       });
     }
 
