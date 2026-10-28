@@ -452,6 +452,7 @@
   position: sticky;
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
+  min-height: 600px;
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   gap: 0;
@@ -482,6 +483,7 @@
   padding-right: var(--s-5);
   position: relative;
   height: 100%;
+  min-height: 600px;
 }
 
 /* Transición del contenido izquierdo */
@@ -575,21 +577,22 @@
   justify-content: center;
 }
 .pf-poster__sticker {
-  width: 96%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .pf-poster__sticker img {
-  width: 100%;
+  width: auto;
   height: 100%;
   object-fit: contain;
   transform: rotate(-4deg);
   filter: drop-shadow(0 24px 40px rgba(0,0,0,.18));
 }
 .pf-poster__sticker-fallback {
-  width: 90%;
+  width: 100%;
+  height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 3px solid var(--pf-nivel-fg, var(--color-brand-deep));
@@ -601,21 +604,8 @@
   opacity: 0.9;
   transform: rotate(-4deg);
 }
-/* Pie de sticker: nombre izquierda, NIVEL N derecha */
 .pf-poster-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: var(--s-3);
-  margin-top: var(--s-2);
-  border-top: 1px solid var(--color-border-soft);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  width: 96%;
-  max-width: none;
+  display: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .pf-poster-item {
