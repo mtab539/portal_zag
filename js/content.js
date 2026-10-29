@@ -24,7 +24,7 @@ window.ZAG_CONTENT = {
           href: 'muro.html',
         },
         {
-          label: 'Blog de Fracasos',
+          label: 'Blog de ZIG Reales',
           desc: 'Errores que no se repiten: los éxitos se cocinan',
           icon: 'fail',
           iconSrc: 'assets/img/icons/blog-errores.svg',
@@ -258,7 +258,7 @@ window.ZAG_CONTENT = {
     title: 'Descubre todo lo que el ZAG tiene para ti',
     titleAccent: 'ZAG',
     items: [
-      { title: 'Comunidad', img: 'assets/img/comunidad.jpg', desc: 'Todo el universo Zaggista en un solo lugar para explorar testimonios reales, fracasos estratégicos, proyectos innovadores, episodios del podcast y el sistema de perfiles que define a nuestra cultura.', link: '#muro' },
+      { title: 'Comunidad', img: 'assets/img/comunidad.jpg', desc: 'Todo el universo Zaggista en un solo lugar para explorar testimonios reales, casos ZIG estratégicos, proyectos innovadores, episodios del podcast y el sistema de perfiles que define a nuestra cultura.', link: '#muro' },
       { title: 'Eventos', desc: 'Espacios diseñados para vivir la cultura fuera del aula alternando entre encuentros alrededor de una fogata y seminarios especializados diseñados para fortalecer el pensamiento Zaggista.', tips: ['fogata'], link: 'fogatas.html' },
       { title: 'Aprende más', desc: 'Superar la teoría básica requiere cruzar la visión técnica de cursos extracurriculares con la guía de líderes dispuestos a impulsar nuevos talentos.', link: 'cursos.html' },
       { title: 'ZAG Room', desc: 'El territorio físico de la Sociedad ZAG destinado a la co-creación, las mentorías avanzadas y el encuentro exclusivo de las mentes que lideran la comunidad.', tips: ['zagroom', 'sociedadzag'], link: 'zag-room.html' },

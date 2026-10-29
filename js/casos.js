@@ -1,5 +1,5 @@
 /* ============================================================
-   PORTAL ZAG — Casos ZIG (Blog de Fracasos)
+   PORTAL ZAG — Casos ZIG (Blog de ZIG Reales)
    - Hero centrado en plano: kicker, titular y CTA de scroll
      (parallax con el cursor y el scroll; el slot 1 se puede
      arrastrar en escritorio).
@@ -124,7 +124,7 @@
     var level = sessionLevel();
     if (!level) return;
 
-    var count = el('p', 'casos-count', D.casos.length + ' casos · ' + D.casos.length + ' fracasos');
+    var count = el('p', 'casos-count', D.casos.length + ' casos ZIG');
     host.appendChild(count);
 
     var exit = el('button', 'casos-exit', 'Salir de la demo');

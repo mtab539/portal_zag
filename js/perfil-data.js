@@ -58,7 +58,7 @@ window.ZAG_NIVELES = (function () {
       { id: 'referido', nombre: 'Traer un referido nuevo', href: 'registro.html', pista: 'Una captura del registro de tu referido.' },
     ],
     creator: [
-      { id: 'fracaso-propio', nombre: 'Compartir tu propio fracaso en el Blog de Fracasos', href: 'casos.html', pista: 'Cuenta tu caso ZIG y guarda una captura del envío.' },
+      { id: 'fracaso-propio', nombre: 'Compartir tu propio ZIG en el Blog de ZIG Reales', href: 'casos.html', pista: 'Cuenta tu caso ZIG y guarda una captura del envío.' },
       { id: 'zag-room', nombre: 'Reservar y usar el ZAG Room', href: 'zag-room.html', pista: 'Reserva un bloque y asiste.' },
       { id: 'entrega-publica', nombre: 'Entrega pública en el Muro de Quiebre', href: 'muro.html', pista: 'Presenta tu pieza en la sesión abierta.' },
     ],
@@ -74,7 +74,7 @@ window.ZAG_NIVELES = (function () {
      anteriores. "TODOS" no pide nivel: con perfil o sin él. */
   var TODOS = [
     { titulo: 'Muro de Quiebre', desc: 'Escribe y lee lo que la tribu se dice.', href: 'muro.html', icono: '✳' },
-    { titulo: 'Blog de Fracasos', desc: 'Casos ZIG contados sin filtro.', href: 'casos.html', icono: '✳' },
+    { titulo: 'Blog de ZIG Reales', desc: 'Casos ZIG contados sin filtro.', href: 'casos.html', icono: '✳' },
     { titulo: 'Proyectos fuera del ZIG', desc: 'Tu caso publicado con evidencia.', href: 'proyectos.html', icono: '✳' },
   ];
 

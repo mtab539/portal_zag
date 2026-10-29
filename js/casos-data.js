@@ -1,5 +1,5 @@
 /* ============================================================
-   PORTAL ZAG — Casos ZIG (Blog de Fracasos)
+   PORTAL ZAG — Casos ZIG (Blog de ZIG Reales)
    Datos reales de campañas que hicieron zig y los textos de la
    interfaz. Todo el texto se inserta con textContent (nada de
    innerHTML con datos).
@@ -17,13 +17,13 @@ window.ZAG_CASOS = (function () {
   ];
 
   var ui = {
-    kicker: 'Fracasos',
+    kicker: 'Blog de ZIG Reales',
     title: ['Campañas reales', 'ZIG reales'],
     sub: 'Campañas de marcas enormes que hicieron zig cuando debían hacer zag.',
 
     accesoKicker: 'Exclusivo',
     accesoTitulo: 'Los Casos ZIG son solo para la tribu',
-    accesoCopy: 'Activa tu perfil ZAG para estudiar cada fracaso y su lección.',
+    accesoCopy: 'Activa tu perfil ZAG para estudiar cada caso ZIG y su lección.',
     accesoCta1: 'Activar mi perfil',
     accesoCta2: 'Entrar en modo demo',
     accesoLabel: 'Elige tu nivel de la demo',
