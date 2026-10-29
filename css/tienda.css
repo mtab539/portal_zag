@@ -953,7 +953,9 @@ body.td-abierto { overflow: hidden; }
 }
 .td-totales__fila span:last-child { font-family: var(--font-display-deca); }
 .td-totales__fila--desc { color: var(--color-cta-ink); }
+#td-carrito-titulo { color: var(--color-brand-deep); }
 .td-totales__fila--total {
+  color: var(--color-brand-deep);
   margin-top: var(--s-1);
   padding-top: var(--s-3);
   border-top: 1px solid var(--color-border-strong);
