@@ -136,13 +136,13 @@ window.ZAG_CONTENT = {
     sub: 'Activaciones de la campaña de expectativa «El fin del Zig» y la inducción de nuestros nuevos Zaggistas 2026-II.',
     items: [
       {
-        img: 'assets/img/evento/equipo.jpg',
+        img: 'assets/img/evento/equipo.webp',
         alt: 'El equipo organizador del evento ZAG',
         tag: 'Tribu Zaggista',
         caption: 'Este es el equipo detrás de la ejecución que rompió la línea recta en Expo U.',
       },
       {
-        img: 'assets/img/evento/creadores.jpg',
+        img: 'assets/img/evento/creadores.webp',
         alt: 'Las mentes del ZAG: Tattiana Bernal y Mariana Tabares',
         tag: 'Las mentes del ZAG',
         caption: 'El fin del zig fue ideado y dirigido por Tattiana Bernal y Mariana Tabares (Matti); y junto a su equipo hicieron de Expo U, un espacio ZAG.',
@@ -154,31 +154,31 @@ window.ZAG_CONTENT = {
         caption: 'Bernardo, el director de mercadeo recibió a nuevos zaggistas para empezar el semestre fuera de la caja.',
       },
       {
-        img: 'assets/img/evento/induccion.jpg',
+        img: 'assets/img/evento/induccion.webp',
         alt: 'Primer contacto ZAG en la inducción',
         tag: 'Primer contacto ZAG',
         caption: 'Este fue el primer paso para pertenecer a una comunidad que se atreve a pensar diferente.',
       },
       {
-        img: 'assets/img/evento/induccion2.jpg',
+        img: 'assets/img/evento/induccion2.webp',
         alt: 'Cultura en movimiento durante la inducción ZAG',
         tag: 'Cultura en movimiento',
         caption: 'Los nuevos estudiantes de la EAM pasaron de ser espectadores a convertirse en miembros de la comunidad ZAG.',
       },
       {
-        img: 'assets/img/evento/camiseta.jpg',
+        img: 'assets/img/evento/camiseta.webp',
         alt: 'Ctrl ZAG: la camiseta oficial del ZAG',
         tag: 'Ctrl ZAG',
         caption: 'Una muestra real de cómo el ZAG se sostiene en la capacidad de crear mundos nuevos frente a quienes están listos para el reto.',
       },
       {
-        img: 'assets/img/evento/rectora.jpg',
+        img: 'assets/img/evento/rectora.webp',
         alt: 'La rectora acompañando la comunidad ZAG',
         tag: 'Somos ZAG',
         caption: 'Más allá de compromisos administrativos, la rectora está presente para validar el esfuerzo de quienes no se conforman con lo básico.',
       },
       {
-        img: 'assets/img/evento/videojuego.jpg',
+        img: 'assets/img/evento/videojuego.webp',
         alt: 'Talento Zaggista programando un videojuego interactivo',
         tag: 'Talento Zaggista',
         caption: 'Mientras otros leen la teoría, el talento zaggista está programando realidades interactivas que atraen a los demás.',
@@ -258,7 +258,7 @@ window.ZAG_CONTENT = {
     title: 'Descubre todo lo que el ZAG tiene para ti',
     titleAccent: 'ZAG',
     items: [
-      { title: 'Comunidad', img: 'assets/img/comunidad.jpg', desc: 'Todo el universo Zaggista en un solo lugar para explorar testimonios reales, casos ZIG estratégicos, proyectos innovadores, episodios del podcast y el sistema de perfiles que define a nuestra cultura.', link: '#muro' },
+      { title: 'Comunidad', img: 'assets/img/comunidad.webp', desc: 'Todo el universo Zaggista en un solo lugar para explorar testimonios reales, casos ZIG estratégicos, proyectos innovadores, episodios del podcast y el sistema de perfiles que define a nuestra cultura.', link: '#muro' },
       { title: 'Eventos', desc: 'Espacios diseñados para vivir la cultura fuera del aula alternando entre encuentros alrededor de una fogata y seminarios especializados diseñados para fortalecer el pensamiento Zaggista.', tips: ['fogata'], link: 'fogatas.html' },
       { title: 'Aprende más', desc: 'Superar la teoría básica requiere cruzar la visión técnica de cursos extracurriculares con la guía de líderes dispuestos a impulsar nuevos talentos.', link: 'cursos.html' },
       { title: 'ZAG Room', desc: 'El territorio físico de la Sociedad ZAG destinado a la co-creación, las mentorías avanzadas y el encuentro exclusivo de las mentes que lideran la comunidad.', tips: ['zagroom', 'sociedadzag'], link: 'zag-room.html' },
@@ -275,13 +275,13 @@ window.ZAG_CONTENT = {
       {
         title: 'Ya soy ZAG',
         desc: 'Entra con tu correo institucional y sigue tu camino de sellos, retos y niveles.',
-        img: 'assets/img/cajazag.jpg',
+        img: 'assets/img/cajazag.webp',
         cta: { label: 'Ver mi perfil', href: 'perfil.html' },
       },
       {
         title: 'Quiero ser parte',
         desc: 'Inscríbete con tu correo EAM: empiezas en ROOKIE y subes de nivel con 6 sellos.',
-        img: 'assets/img/camiseta-zag.jpg',
+        img: 'assets/img/camiseta-zag.webp',
         cta: { label: 'Inscribirme', href: 'registro.html' },
       },
     ],

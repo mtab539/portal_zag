@@ -23,6 +23,8 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  /* Nada (tooltips ocultos, sombras, patrones) debe ensanchar la página en móvil. */
+  overflow-x: clip;
 }
 
 img {
@@ -609,6 +611,12 @@ h2, h3 {
   grid-template-columns: 1fr;
   gap: var(--s-4);
   justify-items: center;
+}
+
+.contexto-hint__toque { display: none; }
+@media (hover: none) {
+  .contexto-hint__cursor { display: none; }
+  .contexto-hint__toque { display: inline; }
 }
 
 /* Instrucción sobre la ilustración: invita a pasar el cursor por ZIG / ZAG. */
@@ -1375,7 +1383,7 @@ h2, h3 {
 
 .zpanel--comunidad {
   background-color: transparent;
-  background-image: url("../assets/img/comunidad.jpg");
+  background-image: url("../assets/img/comunidad.webp");
   background-size: cover;
   background-position: center;
 }
@@ -2173,6 +2181,28 @@ h2, h3 {
   font-size: 13px;
 }
 
+/* Móvil: la definición se muestra como una tarjeta fija al pie de la pantalla,
+   siempre completa y sin ensanchar la página. */
+@media (max-width: 720px) {
+  .tip .tip-box,
+  .hero-title .tip .tip-box {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 16px;
+    top: auto;
+    width: auto;
+    max-width: none;
+    transform: none;
+    font-size: 14px;
+    z-index: 200;
+  }
+  .tip .tip-box::after { display: none; }
+}
+
+/* Los globos ocultos (ZIG / ZAG, definiciones) no deben ensanchar la página. */
+main { overflow-x: clip; }
+
 /*-------- Logos de marca (con fallback de texto) --------*/
 
 /*-------- Reveal on scroll --------*/
@@ -2607,4 +2637,45 @@ h2, h3 {
 select option {
   background-color: var(--color-white);
   color: var(--color-text);
+}
+
+/* ============================================================
+   MÓVIL — zonas táctiles cómodas
+   Controles de texto pequeños (reiniciar demo, compartir, quitar…)
+   y los botones "i" de definiciones crecen su área de toque sin
+   cambiar el diseño. Mínimo ~40px en pantallas táctiles.
+   ============================================================ */
+@media (max-width: 720px) {
+  .mentorias-reset,
+  .fogatas-reset,
+  .sem-reset,
+  .zr-reset,
+  .muro-reset-demo,
+  .casos-exit,
+  .podcast-destacado__share,
+  .td-item__quitar,
+  .muro-more,
+  .muro-link,
+  .hero-unirse,
+  .zr-uso-link,
+  .p-link {
+    padding-block: 10px;
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+
+  .hero-unirse,
+  .muro-link,
+  .zr-uso-link {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Botones "i" de definición: el círculo se ve igual, el toque es más amplio. */
+  .tip { position: relative; }
+  .tip::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
+  }
 }

@@ -243,7 +243,7 @@
       '.zag-user__salir{border:0;background:none;padding:2px 4px;color:var(--color-cta);font-size:.76rem;font-weight:800;cursor:pointer;white-space:nowrap}',
       '.zag-user__salir:hover{text-decoration:underline}',
       '@media(min-width:720px){.zag-user{order:0;justify-self:end}.header-right{justify-self:end}}',
-      '@media(max-width:719px){.header-right{gap:6px}.zag-user{gap:5px;padding:3px 6px 3px 3px}.zag-user__foto{width:28px;height:28px;font-size:.72rem}.zag-user__nivel{font-size:.66rem}.zag-user__demo{padding:3px 7px;font-size:.56rem;letter-spacing:.08em}.zag-user__salir{font-size:.68rem;padding:2px 2px}}',
+      '@media(max-width:719px){.header-right{gap:6px}.zag-user{gap:5px;padding:3px 6px 3px 3px}.zag-user__foto{width:28px;height:28px;font-size:.72rem}.zag-user__nivel{font-size:.7rem}.zag-user__demo{padding:3px 7px;font-size:.625rem;letter-spacing:.06em}.zag-user__salir{font-size:.72rem;padding:9px 4px;margin:-7px 0}}',
     ].join('');
     document.head.appendChild(style);
   }

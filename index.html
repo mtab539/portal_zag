@@ -9,13 +9,16 @@
   <link rel="apple-touch-icon" href="assets/logos/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" href="assets/fonts/Extenda-60-Giga.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/tokens.css?v=29">
-  <link rel="stylesheet" href="css/styles.css?v=19">
+  <link rel="stylesheet" href="css/styles.css?v=22">
+  <script src="js/perf.js" defer></script>
   <script src="js/zag-session.js?v=34" defer></script>
   <script src="js/content.js?v=40" defer></script>
   <script src="js/main.js?v=38" defer></script>
-  <script src="js/perfil-links.js?v=9" defer></script>
+  <script src="js/perfil-links.js?v=10" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -67,9 +70,9 @@
     <section class="section section--surface" aria-label="Manifiesto ZIG vs ZAG">
       <div class="container">
         <div class="contexto-grid" data-reveal>
-          <p class="contexto-hint">Pasa el cursor por las palabras para ver qué significa cada una</p>
+          <p class="contexto-hint"><span class="contexto-hint__cursor">Pasa el cursor por las palabras para ver qué significa cada una</span><span class="contexto-hint__toque">Toca las palabras para ver qué significa cada una</span></p>
           <div class="contexto-media">
-            <img class="contexto-img" src="assets/img/zigvszag.svg" alt="Ilustración del concepto ZIG vs. ZAG: todos hacen zig, nosotros hacemos zag." role="img" width="1440" height="810" />
+            <img class="contexto-img" src="assets/img/zigvszag.svg" alt="Ilustración del concepto ZIG vs. ZAG: todos hacen zig, nosotros hacemos zag." role="img" width="1440" height="810" loading="lazy" decoding="async" />
 
             <div class="contexto-hotspots">
               <div class="hotspot hotspot--zig">
@@ -124,7 +127,7 @@
         </div>
         <div class="muro-grid" data-reveal>
           <figure class="muro-media">
-            <img src="assets/img/tribuzaggista1.svg" alt="La Tribu Zaggista celebrando el quiebre del zig" width="430" height="430">
+            <img src="assets/img/tribuzaggista1.svg" alt="La Tribu Zaggista celebrando el quiebre del zig" width="430" height="430" loading="lazy" decoding="async">
           </figure>
           <div class="muro-side">
             <div id="muro-list" class="muro-list"></div>
@@ -156,7 +159,7 @@
               <div id="settle-back"></div>
             </div>
             <div class="settle-sticker-wrap">
-              <img id="settle-sticker" class="settle-sticker" src="assets/img/sticker-noapto.png" alt="Sticker no apto — ZAG" width="160" height="160" loading="lazy">
+              <img id="settle-sticker" class="settle-sticker" src="assets/img/sticker-noapto.webp" alt="Sticker no apto — ZAG" width="160" height="160" loading="lazy">
             </div>
 
             <footer class="settle-chrome settle-chrome--bottom">
@@ -187,8 +190,8 @@
     <section class="close-block" aria-labelledby="close-cta">
       <div class="container" data-reveal>
         <div class="close-landing-wrap">
-          <img class="close-landing" src="assets/img/fraselanding.svg?v=2" alt="30 años rompiendo lo obvio">
-          <img class="close-icons" src="assets/img/iconosfrase.svg" alt="" aria-hidden="true">
+          <img class="close-landing" src="assets/img/fraselanding.svg?v=2" alt="30 años rompiendo lo obvio" loading="lazy" decoding="async">
+          <img class="close-icons" src="assets/img/iconosfrase.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         </div>
         <a id="close-cta" class="btn btn--hero"></a>
       </div>
@@ -201,7 +204,7 @@
       <div class="footer-main">
         <div class="footer-col footer-col--brand">
           <a class="footer-eam" id="footer-eam-link">
-            <img class="footer-eam-img" id="footer-eam-img" alt="">
+            <img class="footer-eam-img" id="footer-eam-img" alt="" loading="lazy" decoding="async">
           </a>
           <div class="footer-social">
             <span class="footer-social-label">Redes Sociales:</span>
@@ -221,7 +224,7 @@
         </nav>
       </div>
     </div><a class="footer-logo" href="index.html" aria-label="ZAG — inicio del portal">
-      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG">
+      <img src="assets/img/patronzag3.svg" alt="Patrón Cultura Zaggista" data-fallback="ZAG" loading="lazy" decoding="async">
     </a>
   </footer>
 

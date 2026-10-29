@@ -156,7 +156,7 @@
   display: flex; align-items: center; gap: 12px; margin-top: 18px;
   color: var(--color-text-muted); font-size: .85rem; font-weight: 500;
 }
-.registro-mini-sellos { display: inline-flex; align-items: center; }
+.registro-mini-sellos { display: inline-flex; align-items: center; flex: none; padding-right: 7px; }
 .registro-mini-sellos img { width: 26px; height: 26px; margin-right: -7px; mix-blend-mode: multiply; }
 
 .registro-tabs {

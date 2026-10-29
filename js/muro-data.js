@@ -359,7 +359,7 @@ window.ZAG_MURO = (function () {
     },
     {
       id: 'p14',
-      author: { name: 'Tattiana B.', initials: 'TB', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-tattiana.png' },
+      author: { name: 'Tattiana B.', initials: 'TB', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-tattiana.webp' },
       text: 'Dirijo cuentas hace años y siempre creí que mi trabajo era que todo encajara. El ZAG me enseñó lo contrario: el quiebre no es un momento, es una forma de leer la realidad. Hoy mi mejor pitch no fue el más limpio, fue el que dejó ver la fisura y la convirtió en gancho.',
       createdAt: ago(3 * DAY + 4 * HOUR),
       likes: 118,
@@ -374,7 +374,7 @@ window.ZAG_MURO = (function () {
     },
     {
       id: 'p15',
-      author: { name: 'Nicolas C.', initials: 'NC', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-nicolas.png' },
+      author: { name: 'Nicolas C.', initials: 'NC', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-nicolas.webp' },
       text: 'Los años me enseñaron que el directo de arte también dirige la mirada de la gente. Por eso rompo las composiciones "correctas": si un layout se ve perfecto pero no mueve nada, es solo decoración. Aquí aprendí que la exigencia no es perfección, es que cada cuadro tenga una intención.',
       createdAt: ago(5 * DAY + 6 * HOUR),
       likes: 109,
@@ -389,7 +389,7 @@ window.ZAG_MURO = (function () {
     },
     {
       id: 'p16',
-      author: { name: 'Carlos L.', initials: 'CL', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-carlos.png' },
+      author: { name: 'Carlos L.', initials: 'CL', level: 'senior', isAdmin: false, photo: 'assets/img/perfil-carlos.webp' },
       text: 'Llevo diez años haciendo fotografía de producto y cada vez me convenzo más de que la verdad también se ilumina. El ZAG me devolvió el amor por el error: aquella toma que iba "mal" terminó siendo la portada. Cuando el plan falla, el ojo se despierta.',
       createdAt: ago(20 * HOUR),
       likes: 127,
@@ -416,9 +416,9 @@ window.ZAG_MURO = (function () {
     seedPosts: SEED,
     heroTeam: [
       { name: 'Mariana T.', role: 'Trafficker', photo: 'assets/img/perfil-mariana.jpg' },
-      { name: 'Tattiana B.', role: 'Directora de Arte', photo: 'assets/img/perfil-tattiana.png' },
-      { name: 'Nicolas C.', role: 'Diseñador', photo: 'assets/img/perfil-nicolas.png' },
-      { name: 'Carlos L.', role: 'Publicista y Docente', photo: 'assets/img/perfil-carlos.png' },
+      { name: 'Tattiana B.', role: 'Directora de Arte', photo: 'assets/img/perfil-tattiana.webp' },
+      { name: 'Nicolas C.', role: 'Diseñador', photo: 'assets/img/perfil-nicolas.webp' },
+      { name: 'Carlos L.', role: 'Publicista y Docente', photo: 'assets/img/perfil-carlos.webp' },
     ],
   };
 })();

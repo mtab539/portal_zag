@@ -62,7 +62,7 @@ window.ZAG_SEMINARIO = (function () {
       empresa: '',
       iniciales: 'HT',
       color: 'azul',
-      foto: 'assets/img/ponentes/hernan.jpg',
+      foto: 'assets/img/ponentes/hernan.webp',
     },
     {
       id: 'jardin-botanico',
@@ -89,7 +89,7 @@ window.ZAG_SEMINARIO = (function () {
       empresa: 'Manizales',
       iniciales: 'CJ',
       color: 'azul',
-      foto: 'assets/img/ponentes/cjmartins.png',
+      foto: 'assets/img/ponentes/cjmartins.webp',
     },
     {
       id: 'agencia-conexion',
@@ -98,7 +98,7 @@ window.ZAG_SEMINARIO = (function () {
       empresa: 'Armenia',
       iniciales: 'AC',
       color: 'azulprofundo',
-      foto: 'assets/img/ponentes/conexionagencia.jpg',
+      foto: 'assets/img/ponentes/conexionagencia.webp',
     },
     {
       id: 'agencias-moderador',
@@ -117,7 +117,7 @@ window.ZAG_SEMINARIO = (function () {
       subtitulo: 'Creadoras del ZAG - Agencia Matti',
       iniciales: 'MT',
       color: 'azul',
-      foto: 'assets/img/ponentes/matti.jpg',
+      foto: 'assets/img/ponentes/matti.webp',
     },
   ];
 

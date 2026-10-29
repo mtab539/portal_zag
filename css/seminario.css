@@ -122,14 +122,16 @@
 .sem-hero__img {
   display: block;
   width: 100%;
-  height: 70vh;
-  min-height: 420px;
+  /* Móvil: la ilustración se ve completa (lleva el título dentro de la imagen). */
+  height: auto;
+  aspect-ratio: 1281 / 530;
   object-fit: cover;
   object-position: center;
 }
 
 @media (min-width: 768px) {
   .sem-hero__img {
+    aspect-ratio: auto;
     height: 85vh;
     min-height: 560px;
   }
@@ -458,6 +460,7 @@
 
 .sem-highlight {
   color: var(--color-cta);
+  overflow-wrap: anywhere;
 }
 
 .sem-lineup .kicker,

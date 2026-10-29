@@ -135,7 +135,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'lun', hora: '10:00' },
         { dia: 'mie', hora: '18:00' },
       ],
-      foto: 'assets/img/mentores/camilo-torres.jpg',
+      foto: 'assets/img/mentores/camilo-torres.webp',
       fotoFuente: 'https://pixabay.com/photos/male-model-portrait-man-face-7275452/',
     },
     {
@@ -165,7 +165,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'mar', hora: '11:00' },
         { dia: 'jue', hora: '16:00' },
       ],
-      foto: 'assets/img/mentores/laura-gomez.jpg',
+      foto: 'assets/img/mentores/laura-gomez.webp',
       fotoFuente: 'https://pixabay.com/photos/woman-smile-model-fashion-female-7895953/',
     },
     {
@@ -192,7 +192,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'mie', hora: '17:00' },
         { dia: 'vie', hora: '10:00' },
       ],
-      foto: 'assets/img/mentores/daniel-rueda.jpg',
+      foto: 'assets/img/mentores/daniel-rueda.webp',
       fotoFuente: 'https://pixabay.com/photos/young-clever-faces-people-happy-4549901/',
     },
     {
@@ -219,7 +219,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'mar', hora: '16:00' },
         { dia: 'jue', hora: '11:00' },
       ],
-      foto: 'assets/img/mentores/valeria-pinzon.jpg',
+      foto: 'assets/img/mentores/valeria-pinzon.webp',
       fotoFuente: 'https://pixabay.com/photos/idea-pointing-raise-hand-raise-3082824/',
     },
     {
@@ -246,7 +246,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'mar', hora: '10:00' },
         { dia: 'vie', hora: '16:30' },
       ],
-      foto: 'assets/img/mentores/sofia-arango.jpg',
+      foto: 'assets/img/mentores/sofia-arango.webp',
       fotoFuente: 'https://pixabay.com/photos/woman-businesswoman-office-laptop-10489004/',
     },
     {
@@ -273,7 +273,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'lun', hora: '18:00' },
         { dia: 'jue', hora: '10:30' },
       ],
-      foto: 'assets/img/mentores/mateo-restrepo.jpg',
+      foto: 'assets/img/mentores/mateo-restrepo.webp',
       fotoFuente: 'https://pixabay.com/photos/man-freelance-technology-work-job-6494289/',
     },
     {
@@ -300,7 +300,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'vie', hora: '15:00' },
         { dia: 'mar', hora: '19:00' },
       ],
-      foto: 'assets/img/mentores/juan-esteban-cardona.jpg',
+      foto: 'assets/img/mentores/juan-esteban-cardona.webp',
       fotoFuente: 'https://pixabay.com/photos/black-professional-4334648/',
     },
     {
@@ -327,7 +327,7 @@ window.ZAG_MENTORIAS = (function () {
         { dia: 'lun', hora: '09:00' },
         { dia: 'mie', hora: '12:00' },
       ],
-      foto: 'assets/img/mentores/andres-quintero.jpg',
+      foto: 'assets/img/mentores/andres-quintero.webp',
       fotoFuente: 'https://pixabay.com/photos/teacher-lecturer-writer-counselor-99741/',
     },
   ];
