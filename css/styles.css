@@ -2757,4 +2757,21 @@ select option {
     background-size: cover !important;
     background-position: center !important;
   }
+
+  /* ---- Frase final: los iconos flotan centrados sobre la frase, sin bajar hasta el botón ---- */
+  .close-landing-wrap {
+    margin-bottom: var(--s-6);
+  }
+  .close-icons {
+    animation-name: close-icons-float-m;
+  }
+  @keyframes close-icons-float-m {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) translateY(-6px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-12px);
+    }
+  }
 }
