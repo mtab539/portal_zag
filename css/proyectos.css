@@ -1024,6 +1024,7 @@
 }
 
 .proy-gate {
+  margin-bottom: var(--s-6);
   padding: var(--s-5);
   border: 2px dashed var(--color-border-strong);
   border-radius: var(--radius-md);

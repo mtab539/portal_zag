@@ -229,9 +229,14 @@
 
 .p-hero {
   background: var(--nivel-fondo); color: var(--nivel-tinta);
-  padding: clamp(40px, 6vw, 72px) 0;
+  padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 7vw, 88px);
   transition: background-color var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out);
+  position: relative; overflow: hidden;
 }
+/* Franja de patrón inferior: la misma de los heros del portal (.zag-hero__pattern, styles.css).
+   Sobre los fondos azul y negro se usa la variante clara, como en Mentorías y Casos. */
+.p-hero__inner { position: relative; z-index: 1; }
+.nivel-master .zag-hero__pattern-band, .nivel-senior .zag-hero__pattern-band { background-image: url('../assets/img/patronzag4.svg'); }
 .p-hero__inner {
   display: grid; grid-template-columns: auto minmax(0, 1.25fr) minmax(270px, .75fr);
   gap: clamp(24px, 4vw, 56px); align-items: center;
@@ -359,7 +364,8 @@
 .pasaporte__anteriores { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--color-border); }
 .pasaporte__anteriores-label { margin: 0 0 12px; color: var(--color-text-muted); font-size: .76rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .pasaporte__anteriores-row { display: flex; flex-wrap: wrap; gap: 10px; }
-.mini-pagina { border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-white); overflow: hidden; }
+.mini-pagina { position: relative; border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-white); }
+.mini-pagina[open] { z-index: 3; }
 .mini-pagina__sum { display: flex; align-items: center; gap: 10px; padding: 8px 12px; cursor: pointer; list-style: none; }
 .mini-pagina__sum::-webkit-details-marker { display: none; }
 .mini-pagina__img { width: 38px; height: 38px; }
@@ -367,7 +373,19 @@
 .mini-pagina__txt strong { font-size: .82rem; }
 .mini-pagina__txt span { color: var(--color-text-muted); font-size: .74rem; }
 .mini-pagina__sellos { display: flex; gap: 6px; padding: 0 12px 12px; }
-.mini-sello { display: grid; place-items: center; width: 34px; height: 34px; border: 1px dashed var(--color-border-strong); border-radius: 50%; }
+.mini-sello { position: relative; display: grid; place-items: center; width: 34px; height: 34px; border: 1px dashed var(--color-border-strong); border-radius: 50%; }
+.mini-sello--lleno { cursor: help; }
+.mini-sello--lleno:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+/* Globo con el reto con el que se ganó ese sello (hover o foco por teclado/toque) */
+.mini-sello[data-tip]::after {
+  content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; z-index: 5;
+  width: max-content; max-width: 210px; padding: 8px 12px; border-radius: 10px;
+  background: var(--color-black); color: var(--color-cream);
+  font-size: .76rem; font-weight: 600; line-height: 1.35; text-align: center; white-space: normal;
+  transform: translate(-50%, 4px); opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.mini-sello[data-tip]:hover::after, .mini-sello[data-tip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
 .mini-sello--lleno { border-style: none; }
 .mini-sello img { width: 100%; height: 100%; mix-blend-mode: multiply; }
 
@@ -547,15 +565,17 @@
 
 /* Confeti */
 .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; border-radius: inherit; }
-.confetti__pieza { position: absolute; top: -18px; width: 9px; height: 14px; border-radius: 2px; animation-name: zag-confetti; animation-timing-function: linear; animation-fill-mode: forwards; }
+.confetti__pieza { position: absolute; top: -18px; width: 9px; height: 14px; border-radius: 2px; animation-name: zag-confetti; animation-timing-function: linear; animation-fill-mode: both; }
 .confetti__pieza.c1 { background: var(--color-cta); }
 .confetti__pieza.c2 { background: var(--color-functional); }
 .confetti__pieza.c3 { background: var(--color-light-blue); }
 .confetti__pieza.c4 { background: var(--color-brand-deep); }
 .confetti__pieza.c5 { background: var(--color-cream); }
+/* Cae hasta el borde inferior del diálogo (--caida) y se desvanece; el JS retira cada pieza al terminar. */
 @keyframes zag-confetti {
   0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(560px) rotate(var(--giro, 360deg)); opacity: .3; }
+  80% { opacity: 1; }
+  100% { transform: translateY(var(--caida, 560px)) rotate(var(--giro, 360deg)); opacity: 0; }
 }
 
 /* Editar perfil */

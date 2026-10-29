@@ -61,10 +61,10 @@ window.ZAG_TIENDA = (function () {
   };
 
   /* ------------------------------------------------------------
-     Catálogo — 18 productos, 3 por nivel salvo Master (5) y Senior (4).
-     stock: la mayoría 20 o más; tres con 5 o menos llevan el badge
-     "Últimas unidades"; el Termo está agotado a propósito para ver
-     el estado AGOTADO; Pines y Chaqueta son "Nuevo".
+     Catálogo — 19 productos. Master: gorra, termo, manilla y pañoleta;
+     Senior: los dos buzos (producto estrella), taza y manilla.
+     stock: la mayoría 20 o más; los de 5 o menos llevan el badge
+     "Últimas unidades"; Pines es "Nuevo".
      ------------------------------------------------------------ */
   var productos = [
     /* ---- ROOKIE ---- */
@@ -215,7 +215,7 @@ window.ZAG_TIENDA = (function () {
       precio: 55000,
       nivel: 3,
       categoria: 'ropa',
-      descripcion: 'No apto para mentes promedio. Para la maleta, la chaqueta o donde quieras incomodar.',
+      descripcion: 'No apto para mentes promedio. Para la maleta, el buzo o donde quieras incomodar.',
       img: 'assets/img/merch/gorra.png',
       placeholder: 'assets/img/merch/ph-gorra.svg',
       stock: 12,
@@ -225,7 +225,7 @@ window.ZAG_TIENDA = (function () {
       id: 'buzo-azul-claro',
       nombre: 'Buzo ZAG Azul Claro',
       precio: 98000,
-      nivel: 3,
+      nivel: 4,
       categoria: 'ropa',
       descripcion: 'El uniforme de quien ya no necesita presentación.',
       img: 'assets/img/merch/buzo-azul-claro.png',
@@ -238,7 +238,7 @@ window.ZAG_TIENDA = (function () {
       id: 'buzo-azul-oscuro',
       nombre: 'Buzo ZAG Azul Oscuro',
       precio: 98000,
-      nivel: 3,
+      nivel: 4,
       categoria: 'ropa',
       descripcion: 'La versión nocturna de las mismas ideas, con más brillo.',
       img: 'assets/img/merch/buzo-azul.png',
@@ -256,7 +256,7 @@ window.ZAG_TIENDA = (function () {
       descripcion: 'Tostado a las 2 de la mañana, mientras esto sigue caliente.',
       img: 'assets/img/merch/termos.png',
       placeholder: 'assets/img/merch/ph-termo.svg',
-      stock: 0,
+      stock: 14,
       alt: 'Termo del ZAG'
     },
     {
@@ -274,24 +274,10 @@ window.ZAG_TIENDA = (function () {
 
     /* ---- SENIOR ---- */
     {
-      id: 'chaqueta',
-      nombre: 'Chaqueta ZAG',
-      precio: 140000,
-      nivel: 4,
-      categoria: 'ropa',
-      descripcion: 'Estrena tu nivel. Y llega temprano a cada reunión.',
-      img: 'assets/img/merch/chaqueta.png',
-      placeholder: 'assets/img/merch/ph-chaqueta.svg',
-      tallas: TALLAS_ROPA.slice(),
-      stock: 8,
-      badge: 'nuevo',
-      alt: 'Chaqueta negra del ZAG'
-    },
-    {
       id: 'panoleta',
       nombre: 'Pañoleta ZAG',
       precio: 32000,
-      nivel: 4,
+      nivel: 3,
       categoria: 'accesorios',
       descripcion: 'Frío, viento, ideas. Sin filtro.',
       img: 'assets/img/merch/panoleta.png',
@@ -340,7 +326,7 @@ window.ZAG_TIENDA = (function () {
      ------------------------------------------------------------ */
   var ui = {
     anuncio: 'Tu nivel desbloquea tu estilo · Recoges en la Facultad en 2 días hábiles · Pagas en la U',
-    anuncioSenior: '✦ Eres SENIOR: 15% de descuento en toda la tienda ✦',
+    anuncioSenior: 'Eres SENIOR: 15% de descuento en toda la tienda',
 
     hero: {
       pill: 'MERCH OFICIAL',

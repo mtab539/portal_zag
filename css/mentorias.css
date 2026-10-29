@@ -169,6 +169,9 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
 
 .mentorias-areas { padding: var(--s-7) 0 var(--s-6); }
 
+/* destino del botón "Elegí mentor para tu 1:1": deja ver el inicio de la lista bajo el header fijo */
+.mentorias-lista { scroll-margin-top: 88px; }
+
 .mentorias-areas-title {
   margin: var(--s-2) 0 var(--s-5);
   font-family: var(--font-display-giga);
@@ -176,7 +179,7 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   font-weight: 800;
   line-height: 1.1;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--color-brand-deep);
 }
 
 .mentorias-areas-grid {

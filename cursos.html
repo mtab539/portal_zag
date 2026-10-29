@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css?v=30">
   <link rel="stylesheet" href="css/styles.css?v=18">
-  <link rel="stylesheet" href="css/cursos.css?v=3">
+  <link rel="stylesheet" href="css/cursos.css?v=4">
   <script src="js/content.js?v=39" defer></script>
   <script src="js/main.js?v=38" defer></script>
   <script src="js/perfil-links.js?v=6" defer></script>
@@ -20,7 +20,7 @@
   <script src="js/zag-reserva.js?v=1" defer></script>
   <script src="js/cursos-data.js?v=3" defer></script>
   <script src="js/cursos-progreso.js?v=3" defer></script>
-  <script src="js/cursos.js?v=3" defer></script>
+  <script src="js/cursos.js?v=4" defer></script>
 </head>
 <body class="cursos-page">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -68,12 +68,8 @@
         <h1 id="cursos-hero-title" class="zag-hero__title"></h1>
         <p id="cursos-hero-sub" class="zag-hero__sub"></p>
 
-        <!-- Píldora de estado: progreso al Sello ZAG -->
+        <!-- Accesos rápidos (solo aparecen si hay curso en progreso o certificado) -->
         <div class="cursos-hero-status">
-          <p id="cursos-sello-pill" class="cursos-sello-pill" hidden>
-            <span id="cursos-sello-dots" class="cursos-sello-pill__dots" aria-hidden="true"></span>
-            <span id="cursos-sello-count" class="cursos-sello-pill__count"></span>
-          </p>
           <div id="cursos-hero-links" class="cursos-hero-links"></div>
         </div>
       </div>

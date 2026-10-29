@@ -84,30 +84,7 @@
     }
     txt('cursos-hero-sub', UI.hero.sub);
 
-    renderSelloPill();
     renderHeroLinks();
-  }
-
-  /* Píldora de estado: ●●○ · 2 de 3 */
-  function renderSelloPill() {
-    var pill = $('cursos-sello-pill');
-    if (!pill) return;
-    var s = Z.progresoSello();
-    if (!s.completos) {
-      pill.hidden = true;
-      return;
-    }
-    txt('cursos-sello-dots', s.puntos);
-    /* Con sellos ya ganados el contador vuelve a 0: hay que decirlo,
-       o parece que el último curso no contaba. */
-    txt('cursos-sello-count', s.ganados > 0
-      ? t('catalogo', 'selloGanado', { ganados: s.ganados, n: s.enCurso, total: s.objetivo })
-      : t('catalogo', 'proximoSello', {
-        puntos: '',
-        n: s.enCurso,
-        total: s.objetivo,
-      }).trim());
-    pill.hidden = false;
   }
 
   /* Enlaces rápidos: al curso que estabas viendo, y al certificado. */
@@ -509,7 +486,6 @@
   /* ---------- render global ---------- */
   function renderTodo() {
     renderChipSesion();
-    renderSelloPill();
     renderHeroLinks();
     renderStats();
     renderTabs();

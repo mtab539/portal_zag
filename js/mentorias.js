@@ -421,12 +421,10 @@
     if (!cta) return;
 
     if (esSenior()) {
+      /* Solo lleva a la lista de mentores: la persona elige a quién reservar. */
       cta.textContent = 'Elegí mentor para tu 1:1 ↓';
-      cta.href = '#mentorias-lista-title';
-      cta.onclick = function () {
-        var primera = D.mentores[0];
-        abrirAg(primera.id, '1a1');
-      };
+      cta.href = '#mentorias-lista';
+      cta.onclick = null;
     } else {
       cta.textContent = UI.unoAUnoCta;
       cta.href = 'perfil.html#retos';

@@ -102,12 +102,12 @@ window.ZAG_NIVELES = (function () {
       { titulo: 'Participar en el podcast', desc: 'Como ponente, no como escucha.', href: 'podcast.html#invitado', icono: '🎙' },
       { titulo: 'Prioridad en proyectos y retos', desc: 'Tu propuesta se lee primero.', href: 'proyectos.html', icono: '⚡' },
       { titulo: 'ZAG Room · 5 bloques por semana', desc: 'Uso pleno del territorio.', href: 'zag-room.html', icono: '🚪' },
-      { titulo: 'Merch: Gorra, buzos y termo', desc: 'Gorra, buzo azul claro, buzo azul oscuro, termo y Manilla Master.', href: 'tienda.html', icono: '🏷' },
+      { titulo: 'Merch: Gorra, termo y pañoleta', desc: 'Gorra, termo, pañoleta y Manilla Master.', href: 'tienda.html', icono: '🏷' },
     ],
     senior: [
       { titulo: 'Mentorías personalizadas (1:1)', desc: 'Acompañamiento uno a uno.', href: 'mentorias.html', icono: '🧭' },
       { titulo: 'ZAG Room permanente', desc: 'Bloques ilimitados. El territorio es tuyo.', href: 'zag-room.html', icono: '🚪' },
-      { titulo: 'Merch completo + 15% en Tienda', desc: 'Todo el catálogo y el descuento Senior.', href: 'tienda.html', icono: '🏷' },
+      { titulo: 'Merch completo + 15% en Tienda', desc: 'Los buzos ZAG, todo el catálogo y el descuento Senior.', href: 'tienda.html', icono: '🏷' },
     ],
   };
 

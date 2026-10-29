@@ -95,31 +95,8 @@
   margin-top: var(--s-4);
 }
 
-/* Píldora de progreso del Sello ZAG: ●●○ · 2 de 3 */
-.cursos-sello-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 18px;
-  border-radius: var(--radius-pill);
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 8px 25px var(--color-halo);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.cursos-sello-pill__dots {
-  font-size: 15px;
-  letter-spacing: 2px;
-  color: var(--color-cta);
-}
-
-.cursos-sello-pill__count {
-  color: var(--color-text-muted);
-  font-weight: 600;
-}
+/* Sin enlaces no ocupa espacio: el hero mide igual que el resto de heros del portal */
+.cursos-hero-status:not(:has(.cursos-hero-link)) { display: none; }
 
 .cursos-hero-links {
   display: flex;
@@ -352,7 +329,7 @@
 
 .curso-card[data-color='cta'] .curso-card__titulo,
 .curso-card[data-color='cta'] .curso-card__meta {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 /* El velo inferior es negro: sobre los tonos claros taparía el
@@ -715,7 +692,7 @@
   justify-content: space-between;
   gap: var(--s-3);
   padding: var(--s-4);
-  background: var(--color-night);
+  background: var(--color-brand-deep);
 }
 
 .player__kicker {
@@ -851,6 +828,7 @@
   font-size: 19px;
   text-transform: uppercase;
   letter-spacing: -0.01em;
+  color: var(--color-brand-deep);
 }
 
 .curso-panel ul {
@@ -966,6 +944,8 @@
   font-size: 19px;
   line-height: 1;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-deep);
 }
 
 .profe-card__role {
@@ -1028,6 +1008,7 @@
   font-size: 17px;
   line-height: 1;
   text-transform: uppercase;
+  color: var(--color-brand-deep);
 }
 
 .side-panel__pct {
@@ -1127,12 +1108,13 @@
 }
 
 .mod-item:hover {
-  background: var(--color-grey-soft);
+  background: color-mix(in srgb, var(--color-light-blue) 45%, transparent);
 }
 
+/* Lección seleccionada: celeste de la marca (antes un beige que no es de la paleta) */
 .mod-item[aria-current='true'] {
   border-left-color: var(--color-cta);
-  background: var(--color-grey-soft);
+  background: var(--color-light-blue);
   font-weight: 800;
 }
 
@@ -1185,11 +1167,12 @@
 }
 
 .mod-quiz:hover {
-  background: var(--color-beige);
+  background: color-mix(in srgb, var(--color-light-blue) 45%, transparent);
 }
 
 .mod-quiz[aria-current='true'] {
   border-left-color: var(--color-cta);
+  background: var(--color-light-blue);
 }
 
 .mod-quiz__state {
@@ -1206,17 +1189,17 @@
 
 /* Panel del certificado en el sidebar */
 .cert-box {
-  padding: var(--s-4);
+  padding: var(--s-3) var(--s-4);
   text-align: center;
 }
 
 .cert-box__icon {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
 }
 
 .cert-box__title {
-  margin: var(--s-2) 0 4px;
+  margin: 4px 0 2px;
   font-size: 15px;
   font-weight: 800;
   color: var(--color-black);
@@ -1587,13 +1570,15 @@
 /* ------------------------------------------------------------
    11. ACCESO / BLOQUEO dentro del curso
    ------------------------------------------------------------ */
+.curso-locked[hidden] { display: none; }
+
 .curso-locked {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--s-3);
+  gap: var(--s-2);
   margin-top: var(--s-5);
-  padding: var(--s-6) var(--s-4);
+  padding: var(--s-4);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -1601,7 +1586,7 @@
 }
 
 .curso-locked__icon {
-  font-size: 30px;
+  font-size: 22px;
   line-height: 1;
 }
 

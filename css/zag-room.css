@@ -1581,6 +1581,16 @@
   width: 100%;
 }
 
+/* Botones del popup de reserva: los tres delgados y del mismo alto
+   (antes los contornos eran de 2px y casi el doble de altos que "Ver mi pase"). */
+.zr-modal-actions .zr-btn-outline,
+.zr-modal-actions .zr-pase-btn {
+  min-height: 38px;
+  padding: 8px 18px;
+  border-width: 1px;
+  font-size: 13px;
+}
+
 .zr-pill-ok {
   display: inline-flex;
   align-items: center;

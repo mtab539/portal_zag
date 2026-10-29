@@ -107,7 +107,7 @@ body.td-abierto { overflow: hidden; }
   color: var(--color-white);
   min-height: 44px;
 }
-.td-cta:hover { color: var(--color-white); }
+.td-cta:hover { color: var(--color-cta); }
 
 /* ============================================================
    ANUNCIO
@@ -362,6 +362,7 @@ body.td-abierto { overflow: hidden; }
   font-size: 15px;
   font-weight: 800;
 }
+.td-banner__fila { margin: var(--s-5) 0 0; }
 .td-banner__foto {
   flex: 0 0 42%;
   align-self: stretch;
@@ -380,6 +381,8 @@ body.td-abierto { overflow: hidden; }
   color: var(--color-cream);
 }
 .td-banner[data-nivel='senior'] .td-cta { background: var(--color-cta); color: var(--color-white); }
+.td-banner .td-cta:hover,
+.td-banner[data-nivel='senior'] .td-cta:hover { background: var(--color-white); color: var(--color-cta); }
 
 /* ============================================================
    SECCIONES por nivel
@@ -473,7 +476,7 @@ body.td-abierto { overflow: hidden; }
   align-items: center;
   justify-content: center;
   padding: var(--s-4);
-  background: var(--color-cream);
+  background: var(--color-white);
 }
 .td-card__foto img {
   width: 100%;
@@ -659,13 +662,22 @@ body.td-abierto { overflow: hidden; }
   font-weight: 800;
   cursor: pointer;
 }
+.td-panel__head .td-ficha__close {
+  position: static;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+}
+.td-panel__head .td-ficha__close span { display: block; line-height: 1; transform: translateY(-1px); }
 .td-ficha__grid { display: flex; flex-direction: column; }
+.td-ficha__body .td-chip { align-self: flex-start; }
 .td-ficha__foto {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--s-7) var(--s-5);
-  background: var(--color-cream);
+  background: var(--color-white);
 }
 .td-ficha__foto img {
   width: 100%;
@@ -874,7 +886,8 @@ body.td-abierto { overflow: hidden; }
   justify-content: center;
   padding: var(--s-1);
   border-radius: var(--radius-md);
-  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
 }
 .td-item__foto img { width: 100%; height: 100%; object-fit: contain; }
 .td-item__info { min-width: 0; }
@@ -1395,6 +1408,13 @@ body.td-abierto { overflow: hidden; }
   .td-cats { order: 1; }
 
   .td-banner { padding: var(--s-6); }
+  #td-ficha { align-items: center; justify-content: center; padding: var(--s-6); }
+  #td-ficha .td-ficha__panel {
+    width: min(820px, 100%);
+    max-height: min(560px, 100%);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  }
   .td-ficha__grid { flex-direction: row; align-items: stretch; }
   .td-ficha__foto { flex: 0 0 46%; padding: var(--s-6); }
   .td-ficha__body { flex: 1 1 auto; }

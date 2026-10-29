@@ -191,10 +191,16 @@
         checkSpan.style.fontSize = '18px';
         llegarWrap.appendChild(checkSpan);
       } else {
-        /* 6 círculos */
+        /* 6 sellos del nivel anterior (los mismos de la página Únete) */
+        var previo = PERFILES[perfil.orden - 1];
         var sellosWrap = el('div', 'pf-sellos');
         for (var s = 0; s < 6; s++) {
-          var sello = el('span', 'pf-sello' + (perfil.id === 'rookie' ? ' pf-sello--rookie' : ''));
+          var sello = el('img', 'pf-sello');
+          sello.src = 'assets/img/sellos/sello-' + previo.id + '.svg';
+          sello.alt = '';
+          sello.setAttribute('aria-hidden', 'true');
+          sello.width = 44;
+          sello.height = 44;
           sellosWrap.appendChild(sello);
         }
         llegarWrap.appendChild(sellosWrap);
@@ -311,15 +317,6 @@
       postersStack.appendChild(item);
       posterItems.push(item);
     });
-
-    /* Dar dimensiones al stack: ocupa todo el ancho disponible */
-    function sizePosterStack() {
-      var maxW = postersStack.parentElement.clientWidth * 0.95;
-      postersStack.style.width  = maxW + 'px';
-      postersStack.style.height = 'auto';
-    }
-    sizePosterStack();
-    window.addEventListener('resize', sizePosterStack);
 
     /* Puntos de navegación */
     PERFILES.forEach(function (perfil, i) {

@@ -24,7 +24,7 @@
 
   var realProfile = P.get();
   var session = S.read();
-  if (!realProfile && !session) { window.location.replace('registro.html'); return; }
+  if (!realProfile && !session && !requestedDemo) { window.location.replace('registro.html'); return; }
 
   var isDemo = !!requestedDemo || (!realProfile && !!session);
 
@@ -120,8 +120,16 @@
 
   function nombreReto(nivel, retoId) {
     if (retoId === 'cursos-extraclase') return '3 cursos extraclase';
+    if (retoId === 'senior-nivel') return 'Nivel Senior alcanzado';
     var r = D.reto(nivel, retoId);
     return r ? r.nombre : 'Reto';
+  }
+
+  /* Frase corta del globo de un sello anterior: con qué reto se ganó. */
+  function fraseSello(nivel, sello) {
+    var r = sello && D.reto(nivel, sello.retoId);
+    if (sello && sello.retoId === 'cursos-extraclase') return 'Ganado con: 3 cursos extraclase';
+    return r ? 'Ganado con: ' + r.nombre : 'Ganado superando un reto';
   }
 
   /* ============================================================
@@ -201,6 +209,12 @@
     setText('pasaporte-nivel', 'Página ' + (D.indice(displayLevel) + 1) + ' de 5 · Sello ' + meta.nombre);
 
     var seals = P.sellosDe(displayLevel).slice(0, 6);
+    /* Senior es el nivel tope: no hay retos que sumar, así que el tablero
+       se muestra completo, con los 6 sellos ya estampados. */
+    if (displayLevel === 'senior') {
+      var llegada = P.historial().filter(function (h) { return h.nivel === 'senior'; })[0];
+      while (seals.length < 6) seals.push({ retoId: 'senior-nivel', fecha: llegada ? llegada.fecha : new Date().toISOString(), origen: 'nivel' });
+    }
     var pending = P.evidencias().filter(function (e) { return e.nivel === displayLevel && e.estado === 'pendiente'; });
 
     for (var i = 0; i < 6; i += 1) {
@@ -261,8 +275,14 @@
       for (var j = 0; j < 6; j += 1) {
         var m = node('span', 'mini-sello' + (j < sellosNivel.length ? ' mini-sello--lleno' : ''));
         if (j < sellosNivel.length) {
-          var mi = selloImg(h.nivel, 'Sello ' + (j + 1) + ' de ' + D.nombre(h.nivel));
+          var frase = fraseSello(h.nivel, sellosNivel[j]);
+          var mi = selloImg(h.nivel, '');
           m.appendChild(mi);
+          /* Foco por teclado/toque además del hover: el globo sale de data-tip (CSS). */
+          m.tabIndex = 0;
+          m.setAttribute('role', 'img');
+          m.setAttribute('aria-label', 'Sello ' + (j + 1) + ' de ' + D.nombre(h.nivel) + '. ' + frase);
+          m.setAttribute('data-tip', frase);
         }
         mini.appendChild(m);
       }
@@ -679,15 +699,21 @@
   /* ============================================================
      LEVEL-UP
      ============================================================ */
+  /* Debe llamarse con el diálogo ya abierto: la caída se mide contra su alto real.
+     Cada pieza se desvanece al llegar abajo y se retira al terminar, para que
+     no quede congelada encima de los botones. */
   function lanzarConfetti(host) {
     host.textContent = '';
     if (reducedMotion) return;
+    var caida = Math.max(host.offsetHeight, 320) + 24;
     for (var i = 0; i < 70; i += 1) {
       var p = node('span', 'confetti__pieza c' + (i % 5 + 1));
       p.style.left = (Math.random() * 100) + '%';
       p.style.animationDelay = (Math.random() * 0.9) + 's';
       p.style.animationDuration = (2.2 + Math.random() * 1.6) + 's';
       p.style.setProperty('--giro', Math.round(Math.random() * 720 - 360) + 'deg');
+      p.style.setProperty('--caida', caida + 'px');
+      p.addEventListener('animationend', function () { this.remove(); });
       host.appendChild(p);
     }
   }
@@ -711,9 +737,9 @@
     var list = $('levelup-list'); list.textContent = '';
     D.resumenDesbloqueos(evt.a).forEach(function (text) { list.appendChild(node('li', null, text)); });
 
-    lanzarConfetti($('levelup-confetti'));
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
+    lanzarConfetti($('levelup-confetti'));
     $('levelup-close').focus();
     anunciar('¡Subiste de nivel! Ahora eres ' + meta.nombre + '.');
   }
