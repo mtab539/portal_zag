@@ -686,6 +686,7 @@
 .pf-cierre--cta .btn--azul:hover {
   background: var(--color-functional);
   color: var(--color-white);
+  border-color: var(--color-white);
 }
 
 /* === Mobile === */
@@ -724,7 +725,7 @@
   .pf-poster { flex: 0 0 220px; }
   .pf-info { flex: 1; }
 
-  .pf-cierre__inner { align-items: flex-start; }
+  .pf-cierre__inner { align-items: center; }
 }
 
 @media (min-width: 1024px) {
