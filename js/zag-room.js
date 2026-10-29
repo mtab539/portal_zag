@@ -738,7 +738,9 @@
           celda.setAttribute('aria-label',
             D.diaLargo(d.fechaISO) + ', ' + D.rango12(b) + ': ' + UI.estadoPaso);
         } else {
-          if (e.libres === 0) {
+          if (e.mio) {
+            celda.classList.add('zr-mapa-celda--mio');
+          } else if (e.libres === 0) {
             celda.classList.add('zr-mapa-celda--lleno');
             celda.disabled = true;
           } else if (e.libres <= 2) {
@@ -776,6 +778,7 @@
         { key: '--pocos', txt: UI.leyendaPocos },
         { key: '--lleno', txt: UI.leyendaLleno },
         { key: '--paso', txt: UI.leyendaPaso },
+        { key: '--mio', txt: 'Mío' },
       ].forEach(function (l) {
         var li = el('li');
         var k = el('span', l.key ? 'zr-mapa-key ' + 'zr-mapa-key' + l.key : 'zr-mapa-key');

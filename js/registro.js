@@ -292,18 +292,121 @@
   });
 
   /* ---------- modo demo (atajo de presentación) ---------- */
+  /* La demo pide (opcional) tu nombre, semestre y foto para que el
+     perfil se vea completo; si los dejas vacíos entra como "Invitado Demo".
+     Se guardan solo en la demo (zag_demo_*), nunca en un perfil real. */
+  var demoSeq = 0;
+  function crearCampo(id, etiqueta, control, nota) {
+    var wrap = document.createElement('div');
+    wrap.className = 'form-field';
+    var label = document.createElement('label');
+    label.className = 'form-label'; label.htmlFor = id; label.textContent = etiqueta;
+    if (nota) {
+      var opt = document.createElement('span');
+      opt.className = 'optional'; opt.textContent = ' ' + nota;
+      label.appendChild(opt);
+    }
+    control.id = id;
+    wrap.appendChild(label); wrap.appendChild(control);
+    return wrap;
+  }
+
   function buildDemoLevels(host) {
+    demoSeq += 1;
+    var uid = 'demo' + demoSeq;
+    var previo = P.demoPerfil();
+    var fotoDemo = previo && previo.foto ? previo.foto : '';
+
+    var intro = document.createElement('p');
+    intro.className = 'demo-intro';
+    intro.textContent = 'Ponle tu nombre, semestre y foto a la demo para que se vea completa (opcional). Luego elige el nivel.';
+    host.appendChild(intro);
+
+    var campos = document.createElement('div');
+    campos.className = 'demo-campos';
+
+    var nombre = document.createElement('input');
+    nombre.type = 'text'; nombre.autocomplete = 'name'; nombre.placeholder = 'Invitado Demo';
+    nombre.value = previo ? previo.nombre : '';
+    campos.appendChild(crearCampo(uid + '-nombre', 'Tu nombre', nombre));
+
+    var semestre = document.createElement('select');
+    var base = document.createElement('option'); base.value = ''; base.textContent = 'Elige'; semestre.appendChild(base);
+    for (var n = 1; n <= 8; n += 1) {
+      var o = document.createElement('option'); o.value = String(n); o.textContent = n + '.º'; semestre.appendChild(o);
+    }
+    semestre.value = previo && previo.semestre ? String(previo.semestre) : '';
+    campos.appendChild(crearCampo(uid + '-semestre', 'Semestre', semestre));
+    host.appendChild(campos);
+
+    /* foto: misma vista previa circular que el registro */
+    var fotoWrap = document.createElement('div');
+    fotoWrap.className = 'form-field';
+    var fotoLabel = document.createElement('span');
+    fotoLabel.className = 'form-label'; fotoLabel.id = uid + '-foto-label'; fotoLabel.textContent = 'Foto de perfil ';
+    var fotoOpt = document.createElement('span'); fotoOpt.className = 'optional'; fotoOpt.textContent = '(opcional)';
+    fotoLabel.appendChild(fotoOpt);
+    var upload = document.createElement('label');
+    upload.className = 'upload-control'; upload.htmlFor = uid + '-foto';
+    var avatar = document.createElement('span');
+    avatar.className = 'upload-avatar'; avatar.setAttribute('aria-hidden', 'true');
+    var avatarTxt = document.createElement('span');
+    var inputFoto = document.createElement('input');
+    inputFoto.type = 'file'; inputFoto.accept = 'image/*'; inputFoto.id = uid + '-foto';
+    inputFoto.setAttribute('aria-labelledby', uid + '-foto-label');
+    var err = document.createElement('span');
+    err.className = 'field-error'; err.setAttribute('aria-live', 'polite');
+    function pintarAvatar(data) {
+      avatar.textContent = '';
+      if (data) {
+        var img = document.createElement('img'); img.src = data; img.alt = '';
+        avatar.appendChild(img);
+        avatarTxt.textContent = 'Cambiar foto · máximo 5 MB';
+      } else {
+        avatar.textContent = '+';
+        avatarTxt.textContent = 'Sube una foto · máximo 5 MB';
+      }
+    }
+    pintarAvatar(fotoDemo);
+    inputFoto.addEventListener('change', function () {
+      err.textContent = '';
+      var file = this.files && this.files[0];
+      if (!file) return;
+      if (!/^image\//.test(file.type)) { err.textContent = 'Elige un archivo de imagen.'; this.value = ''; return; }
+      if (file.size > P.MAX_PESO) { err.textContent = 'La imagen pesa más de 5 MB.'; this.value = ''; return; }
+      P.leerArchivo(file).then(function (data) { return P.recortarCuadrado(data, 320); }).then(function (data) {
+        if (!data) throw new Error('imagen');
+        fotoDemo = data; pintarAvatar(data);
+      }).catch(function () { err.textContent = 'No pudimos leer esa imagen.'; });
+    });
+    upload.appendChild(avatar); upload.appendChild(avatarTxt); upload.appendChild(inputFoto);
+    fotoWrap.appendChild(fotoLabel); fotoWrap.appendChild(upload); fotoWrap.appendChild(err);
+    host.appendChild(fotoWrap);
+
+    var entrar = document.createElement('p');
+    entrar.className = 'form-label demo-entrar'; entrar.textContent = 'Entrar como';
+    host.appendChild(entrar);
+
+    var fila = document.createElement('div');
+    fila.className = 'demo-levels__row';
     D.NIVELES.forEach(function (id) {
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'demo-level-button';
       b.textContent = D.nombre(id);
       b.addEventListener('click', function () {
-        S.write({ name: 'Invitado Demo', level: id });
+        var perfil = P.iniciarDemo({
+          nivel: id,
+          nombre: nombre.value.trim(),
+          semestre: semestre.value ? Number(semestre.value) : undefined,
+          foto: fotoDemo,
+        });
+        S.write({ name: perfil ? perfil.nombre : (nombre.value.trim() || 'Invitado Demo'), level: id });
         window.location.assign('perfil.html?demo=' + encodeURIComponent(id));
       });
-      host.appendChild(b);
+      fila.appendChild(b);
     });
+    host.appendChild(fila);
   }
   [['demo-toggle', 'demo-levels'], ['demo-toggle-login', 'demo-levels-login']].forEach(function (pair) {
     var toggle = $(pair[0]), host = $(pair[1]);

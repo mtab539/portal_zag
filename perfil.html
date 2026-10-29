@@ -11,14 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css?v=29">
   <link rel="stylesheet" href="css/styles.css?v=18">
-  <link rel="stylesheet" href="css/perfil.css?v=4">
-  <script src="js/zag-session.js?v=33" defer></script>
-  <script src="js/perfil-data.js?v=3" defer></script>
-  <script src="js/zag-perfil.js?v=2" defer></script>
+  <link rel="stylesheet" href="css/perfil.css?v=5">
+  <script src="js/zag-session.js?v=34" defer></script>
+  <script src="js/perfil-data.js?v=4" defer></script>
+  <script src="js/zag-perfil.js?v=3" defer></script>
   <script src="js/content.js?v=39" defer></script>
   <script src="js/main.js?v=38" defer></script>
-  <script src="js/perfil-links.js?v=5" defer></script>
-  <script src="js/perfil.js?v=4" defer></script>
+  <script src="js/perfil-links.js?v=6" defer></script>
+  <script src="js/perfil.js?v=5" defer></script>
 </head>
 <body class="perfil-page">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- B. Pasaporte ZAG -->
-    <section class="p-section" id="sellos" aria-labelledby="pasaporte-title">
+    <section class="p-section p-section--blanca" id="sellos" aria-labelledby="pasaporte-title">
       <div class="container">
         <div class="pasaporte" id="pasaporte-card">
           <div class="pasaporte__head">
@@ -109,15 +109,20 @@
 
     <!-- C. Vista previa de niveles -->
     <section class="p-section p-section--tight" aria-labelledby="chips-title">
-      <div class="container">
-        <div class="p-section-head">
-          <div>
-            <p class="kicker">VISTA PREVIA DE NIVELES</p>
-            <h2 class="p-h2" id="chips-title">El camino <span class="title-accent">completo</span></h2>
+      <div class="container preview-grid">
+        <div class="preview-grid__main">
+          <div class="p-section-head">
+            <div>
+              <p class="kicker">VISTA PREVIA DE NIVELES</p>
+              <h2 class="p-h2" id="chips-title">El camino <span class="title-accent">completo</span></h2>
+            </div>
+            <p class="p-preview-aviso" id="preview-aviso" hidden>Estás viendo <strong id="preview-nivel"></strong> · <button class="p-link" id="preview-volver" type="button">Volver a mi nivel</button></p>
           </div>
-          <p class="p-preview-aviso" id="preview-aviso" hidden>Estás viendo <strong id="preview-nivel"></strong> · <button class="p-link" id="preview-volver" type="button">Volver a mi nivel</button></p>
+          <div class="chips-niveles" id="chips-niveles" role="group" aria-label="Previsualizar otro nivel"></div>
         </div>
-        <div class="chips-niveles" id="chips-niveles" role="group" aria-label="Previsualizar otro nivel"></div>
+        <figure class="preview-pasaporte">
+          <img src="assets/img/pasaporte.svg" alt="Pasaporte ZAG" width="540" height="540" loading="lazy">
+        </figure>
       </div>
     </section>
 

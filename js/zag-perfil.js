@@ -7,12 +7,20 @@
    API: ZagPerfil.get() · .nivel() · .sellosNivelActual()
         · .enviarEvidencia() · .aprobar() · .rechazar()
         · .subirNivelSiCorresponde() · .onChange(cb)
+
+   Modo demo: usarDemo(true) cambia TODO el módulo a un espacio de
+   almacenamiento propio (zag_demo_*). Así la demo guarda nombre,
+   foto, semestre, evidencias y sellos sin tocar nunca un perfil
+   real. iniciarDemo() crea o actualiza ese perfil de demostración.
    ============================================================ */
 window.ZagPerfil = (function () {
   'use strict';
 
   var D = window.ZAG_NIVELES;
-  var KEY = { perfil: 'zag_perfil', sellos: 'zag_perfil_sellos', evid: 'zag_perfil_evidencias' };
+  var KEY_REAL = { perfil: 'zag_perfil', sellos: 'zag_perfil_sellos', evid: 'zag_perfil_evidencias' };
+  var KEY_DEMO = { perfil: 'zag_demo_perfil', sellos: 'zag_demo_sellos', evid: 'zag_demo_evidencias' };
+  var KEY = KEY_REAL;
+  var enDemo = false;
   var listeners = [];
   var code = {};
 
@@ -39,10 +47,11 @@ window.ZagPerfil = (function () {
 
   function announce(ev) { listeners.slice().forEach(function (fn) { try { fn(ev); } catch (e) { /* listener */ } }); }
   function sync() {
-    var p = get();
-    if (p && window.ZAG_SESSION && window.ZAG_SESSION.sincronizarDesdePerfil) {
-      window.ZAG_SESSION.sincronizarDesdePerfil({ name: p.nombre, level: p.nivel });
-    }
+    var p = get(), S = window.ZAG_SESSION;
+    if (!p || !S) return;
+    /* La demo solo toca la sesión (write); el perfil real, sincronizar. */
+    if (enDemo && S.write) S.write({ name: p.nombre, level: p.nivel });
+    else if (S.sincronizarDesdePerfil) S.sincronizarDesdePerfil({ name: p.nombre, level: p.nivel });
   }
 
   function crear(data) {
@@ -75,6 +84,72 @@ window.ZagPerfil = (function () {
     Object.assign(p, limpio);
     save(KEY.perfil, p); sync(); announce({ tipo: 'perfil', perfil: p });
     return { ok: true, perfil: p };
+  }
+
+  /* ---------- modo demo ---------- */
+  function usarDemo(on) { enDemo = !!on; KEY = enDemo ? KEY_DEMO : KEY_REAL; }
+  function esDemo() { return enDemo; }
+  function enEspacio(demo, fn) {
+    var antes = enDemo;
+    usarDemo(demo);
+    try { return fn(); } finally { usarDemo(antes); }
+  }
+  function demoPerfil() { return enEspacio(true, get); }
+
+  /* Crea (o actualiza) el perfil de demostración en el nivel pedido.
+     - Mismo nivel que el perfil demo guardado: solo actualiza nombre,
+       semestre y foto; los sellos y evidencias se conservan.
+     - Otro nivel (o sin perfil demo): empieza ahí. Los niveles previos
+       quedan completos con sus 6 sellos para que "Páginas anteriores"
+       se vea como el de alguien que de verdad llegó hasta ese nivel. */
+  function iniciarDemo(data) {
+    data = data || {};
+    return enEspacio(true, function () {
+      var actual = get();
+      var nivelDemo = D.existe(data.nivel) ? data.nivel : (actual ? actual.nivel : 'rookie');
+      var nombreDemo = String(data.nombre || (actual && actual.nombre) || '').trim() || 'Invitado Demo';
+      var semestreDemo = data.semestre !== undefined ? (Number(data.semestre) || null) : (actual ? actual.semestre : 5);
+      var fotoDemo = data.foto !== undefined ? data.foto : (actual ? actual.foto : '');
+
+      if (actual && actual.nivel === nivelDemo) {
+        actualizar({ nombre: nombreDemo, semestre: semestreDemo, foto: fotoDemo });
+        return get();
+      }
+
+      var idx = D.indice(nivelDemo), ahora = Date.now(), DIA = 86400000;
+      var historial = [], sellosPrevios = {};
+      for (var i = 0; i <= idx; i += 1) {
+        var id = D.NIVELES[i];
+        historial.push({ nivel: id, fecha: new Date(ahora - (idx - i + 1) * 14 * DIA).toISOString() });
+        if (i < idx) {
+          var retos = D.retos(id);
+          sellosPrevios[id] = [0, 1, 2, 3, 4, 5].map(function (j) {
+            return {
+              retoId: retos.length ? retos[j % retos.length].id : 'demo',
+              fecha: new Date(ahora - ((idx - i) * 14 - j * 2) * DIA).toISOString(),
+              origen: 'demo', sourceId: null,
+            };
+          });
+        }
+      }
+      var p = {
+        nombre: nombreDemo, correo: '', rol: 'estudiante',
+        semestre: semestreDemo, egreso: null, foto: fotoDemo || '',
+        nivel: nivelDemo, creadoEn: historial[0].fecha, historialNiveles: historial, demo: true,
+      };
+      if (!save(KEY.perfil, p)) return null;
+      save(KEY.sellos, sellosPrevios);
+      save(KEY.evid, []);
+      sync(); announce({ tipo: 'perfil', perfil: p });
+      return p;
+    });
+  }
+
+  /* Borra solo la demo: nombre, foto, sellos y evidencias de prueba. */
+  function reiniciarDemo() {
+    [KEY_DEMO.perfil, KEY_DEMO.sellos, KEY_DEMO.evid].forEach(function (k) {
+      try { localStorage.removeItem(k); } catch (e) { /* storage */ }
+    });
   }
 
   /* ---------- sellos ---------- */
@@ -236,13 +311,15 @@ window.ZagPerfil = (function () {
   }
 
   function clear() {
-    [KEY.perfil, KEY.sellos, KEY.evid, 'zag_session'].forEach(function (k) {
+    [KEY_REAL.perfil, KEY_REAL.sellos, KEY_REAL.evid, 'zag_session'].forEach(function (k) {
       try { localStorage.removeItem(k); } catch (e) { /* storage */ }
     });
   }
 
   return {
-    LS: { PERFIL: KEY.perfil, SELLOS: KEY.sellos, EVID: KEY.evid, CURSOS: 'zag_sellos' },
+    LS: { PERFIL: KEY_REAL.perfil, SELLOS: KEY_REAL.sellos, EVID: KEY_REAL.evid, CURSOS: 'zag_sellos',
+          DEMO_PERFIL: KEY_DEMO.perfil, DEMO_SELLOS: KEY_DEMO.sellos, DEMO_EVID: KEY_DEMO.evid },
+    usarDemo: usarDemo, esDemo: esDemo, demoPerfil: demoPerfil, iniciarDemo: iniciarDemo, reiniciarDemo: reiniciarDemo,
     get: get, hayPerfil: hayPerfil, nivel: nivel, nivelIndice: nivelIndice,
     nombre: nombre, primerNombre: primerNombre, iniciales: iniciales,
     crear: crear, actualizar: actualizar,

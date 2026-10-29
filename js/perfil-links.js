@@ -25,6 +25,7 @@
   'use strict';
 
   var LS_PROFILE = 'zag_perfil';
+  var LS_DEMO = 'zag_demo_perfil';
 
   var NIVEL_NOMBRES = {
     rookie: 'ROOKIE',
@@ -38,9 +39,9 @@
     return NIVEL_NOMBRES[nivel] || String(nivel == null ? '' : nivel).toUpperCase();
   }
 
-  function perfilCrudo() {
+  function perfilCrudo(key) {
     var raw = null;
-    try { raw = window.localStorage.getItem(LS_PROFILE); } catch (e) { return null; }
+    try { raw = window.localStorage.getItem(key || LS_PROFILE); } catch (e) { return null; }
     if (!raw) return null;
     try {
       var p = JSON.parse(raw);
@@ -66,7 +67,8 @@
   function estado() {
     var demo = sesionDemo();
     if (demo) {
-      var p = perfilCrudo();
+      /* La foto de la demo es la que la persona puso en la demo, no la del perfil real. */
+      var p = perfilCrudo(LS_DEMO);
       return {
         tipo: 'demo',
         nivel: demo.level,
@@ -87,7 +89,7 @@
 
   function claveDe(est) {
     if (!est) return 'sin-sesion';
-    return est.tipo + '|' + est.nivel + '|' + (est.foto ? 'con-foto' : est.nombre);
+    return est.tipo + '|' + est.nivel + '|' + (est.foto ? 'foto-' + est.foto.length : est.nombre);
   }
 
   function nodo(tag, clase, texto) {
@@ -204,7 +206,7 @@
     observer.observe(document.body, { childList: true, subtree: true });
 
     window.addEventListener('storage', function (ev) {
-      if (ev.key === LS_PROFILE || ev.key === 'zag_session') pintar();
+      if (ev.key === LS_PROFILE || ev.key === LS_DEMO || ev.key === 'zag_session') pintar();
     });
   }
 

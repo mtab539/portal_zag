@@ -346,18 +346,34 @@
       agot.disabled = true;
       actions.appendChild(agot);
     } else if (reservada) {
+      var row = el('div', 'fogata-actions-reservado');
       var mio = el('button', 'fogata-cta fogata-cta--reservado', UI.ctaReservado);
       mio.type = 'button';
-      mio.setAttribute('aria-expanded', 'false');
-      mio.addEventListener('click', function () {
+      var btnCancelar = el('button', 'fogata-cta fogata-cta--cancelar', UI.ctaCancelar || 'Cancelar reserva');
+      btnCancelar.type = 'button';
+      btnCancelar.setAttribute('aria-expanded', 'false');
+
+      function toggleCancel() {
         var actual = card.querySelector('.fogata-cancel');
-        if (actual) { actual.remove(); mio.setAttribute('aria-expanded', 'false'); return; }
+        if (actual) {
+          actual.remove();
+          btnCancelar.setAttribute('aria-expanded', 'false');
+          mio.setAttribute('aria-expanded', 'false');
+          return;
+        }
         card.querySelector('.fogata-actions').appendChild(confirmacionCancelar(f));
+        btnCancelar.setAttribute('aria-expanded', 'true');
         mio.setAttribute('aria-expanded', 'true');
         var si = card.querySelector('.fogata-cancel-btn--si');
         if (si) si.focus();
-      });
-      actions.appendChild(mio);
+      }
+
+      mio.addEventListener('click', toggleCancel);
+      btnCancelar.addEventListener('click', toggleCancel);
+
+      row.appendChild(mio);
+      row.appendChild(btnCancelar);
+      actions.appendChild(row);
     } else if (state.session) {
       var ir = el('button', 'fogata-cta', UI.ctaReservar);
       ir.type = 'button';

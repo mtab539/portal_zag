@@ -21,19 +21,31 @@
   var params = new URLSearchParams(window.location.search);
   var requestedDemo = params.get('demo');
   if (!D.existe(requestedDemo)) requestedDemo = null;
-  if (requestedDemo) S.write({ name: 'Invitado Demo', level: requestedDemo });
 
   var realProfile = P.get();
   var session = S.read();
   if (!realProfile && !session) { window.location.replace('registro.html'); return; }
 
   var isDemo = !!requestedDemo || (!realProfile && !!session);
-  var demoLevel = requestedDemo || (session && D.existe(session.level) ? session.level : 'rookie');
-  var displayLevel = isDemo ? demoLevel : realProfile.nivel;
+
+  /* La demo trabaja sobre su propio perfil (nombre, foto, semestre,
+     evidencias y sellos de prueba) en zag_demo_*: así se ve igual de
+     completo que uno real y nunca toca un perfil real. */
+  if (isDemo) {
+    P.usarDemo(true);
+    var previo = P.get();
+    var nivelDemo = requestedDemo || (session && D.existe(session.level) ? session.level : (previo ? previo.nivel : 'rookie'));
+    P.iniciarDemo({ nivel: nivelDemo, nombre: previo ? undefined : (session && session.name) });
+  }
+
+  var perfilActivo = P.get();
+  if (!perfilActivo) { window.location.replace('registro.html'); return; }
+
+  var displayLevel = perfilActivo.nivel;
   var previewLevel = null; /* nivel previsualizado desde los chips */
 
   var timers = Object.create(null);
-  var lastSelloCount = isDemo ? 0 : P.sellosDe(displayLevel).length;
+  var lastSelloCount = P.sellosDe(displayLevel).length;
 
   /* Sello por cursos extraclase pendiente de aplicar */
   if (!isDemo && typeof P.aplicarSelloCursos === 'function') P.aplicarSelloCursos();
@@ -120,18 +132,18 @@
     var hero = $('perfil-hero');
     hero.className = 'p-hero nivel-' + displayLevel;
 
-    var perfil = isDemo ? { nombre: (session && session.name) || 'Invitado Demo', correo: '', rol: 'estudiante', semestre: 5, foto: '' } : realProfile;
+    var perfil = perfilActivo;
 
     /* avatar */
     var avatar = $('p-avatar');
     avatar.textContent = '';
-    if (perfil.foto && !isDemo) {
+    if (perfil.foto) {
       var img = node('img'); img.src = perfil.foto; img.alt = '';
       avatar.appendChild(img);
     } else {
       avatar.textContent = String(perfil.nombre || 'Z').trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0).toUpperCase(); }).join('');
     }
-    $('p-cambiar-foto').hidden = isDemo;
+    $('p-cambiar-foto').hidden = false;
 
     setText('p-kicker', 'PERFIL ZAG');
     setText('p-nombre', perfil.nombre);
@@ -142,11 +154,12 @@
     lineas.push(D.lineaRol(perfil));
     if (perfil.correo) lineas.push(perfil.correo);
     setText('p-meta-line', lineas.filter(Boolean).join(' · '));
-    $('p-links').hidden = isDemo;
+    $('p-links').hidden = false;
+    setText('p-logout', isDemo ? 'Salir del demo' : 'Cerrar sesión');
 
     /* progreso */
     var esSenior = displayLevel === 'senior';
-    var count = isDemo ? 0 : Math.min(6, P.sellosDe(displayLevel).length);
+    var count = Math.min(6, P.sellosDe(displayLevel).length);
     $('p-progreso').hidden = esSenior;
     $('p-tope').hidden = !esSenior;
     if (!esSenior) {
@@ -184,11 +197,11 @@
   function renderPasaporte(stampNuevo) {
     var grid = $('pasaporte-grid'); grid.textContent = '';
     var meta = D.meta(displayLevel);
-    setText('pasaporte-nombre', isDemo ? 'Invitado Demo' : P.nombre());
+    setText('pasaporte-nombre', P.nombre());
     setText('pasaporte-nivel', 'Página ' + (D.indice(displayLevel) + 1) + ' de 5 · Sello ' + meta.nombre);
 
-    var seals = isDemo ? [] : P.sellosDe(displayLevel).slice(0, 6);
-    var pending = isDemo ? [] : P.evidencias().filter(function (e) { return e.nivel === displayLevel && e.estado === 'pendiente'; });
+    var seals = P.sellosDe(displayLevel).slice(0, 6);
+    var pending = P.evidencias().filter(function (e) { return e.nivel === displayLevel && e.estado === 'pendiente'; });
 
     for (var i = 0; i < 6; i += 1) {
       var slot = node('div', 'casilla');
@@ -231,7 +244,7 @@
     /* páginas anteriores */
     var hostAnt = $('pasaporte-anteriores');
     var row = $('pasaporte-anteriores-row'); row.textContent = '';
-    var anteriores = isDemo ? [] : P.historial().filter(function (h) { return D.indice(h.nivel) < D.indice(displayLevel); });
+    var anteriores = P.historial().filter(function (h) { return D.indice(h.nivel) < D.indice(displayLevel); });
     anteriores.forEach(function (h) {
       var det = node('details', 'mini-pagina');
       var sum = node('summary', 'mini-pagina__sum');
@@ -302,7 +315,7 @@
   function renderRetos() {
     var host = $('retos-list'); host.textContent = '';
     var nivel = nivelVisible();
-    var readonly = isDemo || !!previewLevel;
+    var readonly = !!previewLevel;
     $('retos-readonly').hidden = !readonly;
     var rl = $('retos-level');
     if (rl) { rl.innerHTML = '<span class="title-accent">' + D.nombre(nivel) + '</span>'; }
@@ -320,7 +333,7 @@
       host.appendChild(node('p', 'retos-tope', D.UI.perfil.nivelTope));
       return;
     }
-    var completado = !isDemo && !previewLevel && P.sellosDe(nivel).length >= 6;
+    var completado = !previewLevel && P.sellosDe(nivel).length >= 6;
     if (completado) {
       host.appendChild(node('p', 'retos-tope', 'Nivel completo: tus 6 sellos ' + D.nombre(nivel) + ' están estampados.'));
       return;
@@ -370,16 +383,19 @@
           cuerpo.appendChild(prev);
         }
         var tools = node('p', 'reto__demo-links');
-        var ok = node('button', 'p-link', '(demo) simular aprobación'); ok.type = 'button';
+        if (isDemo) tools.appendChild(node('span', 'reto__demo-nota', 'Vista demo: así lo ve quien sube la evidencia mientras espera. '));
+        var ok = node('button', 'p-link', isDemo ? '▶ Simular que el encargado aprueba' : '(demo) simular aprobación'); ok.type = 'button';
         ok.addEventListener('click', function () { resolverEvidencia(est.pendiente.id, true); });
-        var no = node('button', 'p-link', '(demo) rechazar'); no.type = 'button';
+        var no = node('button', 'p-link', isDemo ? 'Simular que no la aprueba' : '(demo) rechazar'); no.type = 'button';
         no.addEventListener('click', function () { resolverEvidencia(est.pendiente.id, false); });
         tools.appendChild(ok); tools.appendChild(document.createTextNode(' · ')); tools.appendChild(no);
         cuerpo.appendChild(tools);
-        scheduleAutoApproval(est.pendiente);
+        /* En la demo no se aprueba sola: así se alcanza a mostrar el estado "en revisión". */
+        if (!isDemo) scheduleAutoApproval(est.pendiente);
         item.classList.add('reto--pendiente');
       } else if (!readonly) {
         cuerpo.appendChild(node('p', 'reto__info', D.UI.perfil.evidenciaInfo));
+        if (reto.pista) cuerpo.appendChild(node('p', 'reto__pista', reto.pista));
         if (est.rechazada) cuerpo.appendChild(node('p', 'reto__rechazada', 'Evidencia no aprobada: sube una más clara.'));
         cuerpo.appendChild(crearFormularioEvidencia(nivel, reto));
       } else {
@@ -568,7 +584,7 @@
       return;
     }
     panel.classList.remove('next-card--tope');
-    var count = (isDemo || previewLevel) ? 0 : Math.min(6, P.sellosDe(displayLevel).length);
+    var count = previewLevel ? 0 : Math.min(6, P.sellosDe(displayLevel).length);
     var left = node('div');
     left.appendChild(node('p', 'kicker', 'AL SUBIR A ' + D.nombre(next)));
     left.appendChild(node('h3', null, D.meta(next).identidad));
@@ -587,9 +603,9 @@
      ============================================================ */
   function renderActividad() {
     var host = $('actividad-list'); host.textContent = '';
-    var items = isDemo ? [] : P.actividad(8);
+    var items = P.actividad(8);
     if (!items.length) {
-      host.appendChild(node('p', 'actividad-vacia', isDemo ? 'La actividad de la vista demo no se guarda.' : 'Todavía no hay movimientos. Sube tu primera evidencia.'));
+      host.appendChild(node('p', 'actividad-vacia', 'Todavía no hay movimientos. Sube tu primera evidencia.'));
       return;
     }
     items.forEach(function (item) {
@@ -608,7 +624,6 @@
   function renderDemoTools() {
     var host = $('demo-tools'); host.textContent = '';
     var aside = host.closest('.p-demo-tools');
-    if (isDemo) { if (aside) aside.hidden = true; return; }
     if (aside) aside.hidden = false;
 
     var vivir = node('button', 'p-link', '▶ (demo) vivir experiencia de sello'); vivir.type = 'button';
@@ -645,8 +660,16 @@
       for (var i = 0; i < faltan; i += 1) P.sumarSello(displayLevel, 'demo-' + i + '-' + Date.now().toString(36), 'demo');
       P.subirNivelSiCorresponde();
     });
-    var reiniciar = node('button', 'p-link', '(demo) reiniciar perfil'); reiniciar.type = 'button';
+    var reiniciar = node('button', 'p-link', isDemo ? '(demo) reiniciar sellos y evidencias' : '(demo) reiniciar perfil'); reiniciar.type = 'button';
     reiniciar.addEventListener('click', function () {
+      if (isDemo) {
+        /* Vuelve a empezar este nivel, conservando nombre, foto y semestre. */
+        var p = P.get();
+        P.reiniciarDemo();
+        P.iniciarDemo({ nivel: displayLevel, nombre: p.nombre, semestre: p.semestre, foto: p.foto });
+        window.location.reload();
+        return;
+      }
       P.reiniciar();
       window.location.assign('registro.html');
     });
@@ -712,18 +735,19 @@
   var editFotoData = null; /* null = no tocar; '' = quitar; data = nueva */
 
   function abrirEditar() {
-    if (!realProfile) return;
+    perfilActivo = P.get();
+    if (!perfilActivo) return;
     var d = $('editar-dialog');
-    $('edit-nombre').value = realProfile.nombre || '';
-    $('edit-semestre-field').hidden = realProfile.rol === 'egresado';
-    $('edit-egreso-field').hidden = realProfile.rol !== 'egresado';
-    $('edit-semestre').value = realProfile.semestre || '';
-    $('edit-egreso').value = realProfile.egreso || '';
+    $('edit-nombre').value = perfilActivo.nombre || '';
+    $('edit-semestre-field').hidden = perfilActivo.rol === 'egresado';
+    $('edit-egreso-field').hidden = perfilActivo.rol !== 'egresado';
+    $('edit-semestre').value = perfilActivo.semestre || '';
+    $('edit-egreso').value = perfilActivo.egreso || '';
     editFotoData = null;
     var preview = $('edit-avatar-preview'); preview.textContent = '';
-    if (realProfile.foto) { var im = node('img'); im.src = realProfile.foto; im.alt = ''; preview.appendChild(im); }
+    if (perfilActivo.foto) { var im = node('img'); im.src = perfilActivo.foto; im.alt = ''; preview.appendChild(im); }
     else preview.textContent = '+';
-    $('edit-avatar-label').textContent = realProfile.foto ? 'Cambiar foto · máximo 5 MB' : 'Sube una foto · máximo 5 MB';
+    $('edit-avatar-label').textContent = perfilActivo.foto ? 'Cambiar foto · máximo 5 MB' : 'Sube una foto · máximo 5 MB';
     ['edit-nombre-error', 'edit-semestre-error', 'edit-egreso-error', 'edit-foto-error'].forEach(function (id) { setText(id, ''); });
     if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
     $('edit-nombre').focus();
@@ -759,7 +783,7 @@
     var ok = true;
     if (nombre.split(/\s+/).filter(Boolean).length < 2) { setText('edit-nombre-error', 'Escribe tu nombre completo (mínimo dos palabras).'); ok = false; } else setText('edit-nombre-error', '');
     var changes = { nombre: nombre };
-    if (realProfile.rol === 'egresado') {
+    if (perfilActivo.rol === 'egresado') {
       var year = Number($('edit-egreso').value);
       if (!year || year < 1980 || year > new Date().getFullYear() + 4) { setText('edit-egreso-error', 'Escribe un año válido.'); ok = false; }
       else { setText('edit-egreso-error', ''); changes.egreso = year; }
@@ -777,7 +801,7 @@
   $('p-cambiar-foto').addEventListener('click', function () { $('p-foto-input').click(); });
   $('p-foto-input').addEventListener('change', function () {
     var file = this.files && this.files[0];
-    if (!file || !realProfile) return;
+    if (!file || !P.get()) return;
     if (!/^image\//.test(file.type) || file.size > P.MAX_PESO) { anunciar('Elige una imagen de máximo 5 MB.'); return; }
     P.leerArchivo(file).then(function (data) { return P.recortarCuadrado(data, 320); }).then(function (data) {
       if (!data) { anunciar('No pudimos leer esa imagen.'); return; }
@@ -803,13 +827,11 @@
   }
 
   P.onChange(function (event) {
-    if (!isDemo) {
-      realProfile = P.get();
-      displayLevel = realProfile ? realProfile.nivel : displayLevel;
-      if (previewLevel && !D.existe(previewLevel)) previewLevel = null;
-    }
+    perfilActivo = P.get() || perfilActivo;
+    displayLevel = perfilActivo.nivel;
+    if (previewLevel && !D.existe(previewLevel)) previewLevel = null;
     var stampNuevo = false;
-    if (event && event.tipo === 'sello' && !isDemo) {
+    if (event && event.tipo === 'sello') {
       var ahora = P.sellosDe(displayLevel).length;
       stampNuevo = ahora > lastSelloCount;
       lastSelloCount = ahora;
@@ -822,7 +844,7 @@
   setupTooltip('p-progreso-info', 'p-progreso-tooltip', function () { return D.UI.perfil.progresoTip; });
 
   /* Carga inicial: por si los 6 sellos se completaron en otra página. */
-  var levelupInicial = isDemo ? null : P.subirNivelSiCorresponde();
+  var levelupInicial = P.subirNivelSiCorresponde();
   renderAll(false);
   if (levelupInicial) showLevelup(levelupInicial);
 })();

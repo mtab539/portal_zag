@@ -79,7 +79,7 @@
 }
 
 .zag-room-hero__estado--listo {
-  border-color: var(--color-online);
+  border-color: var(--color-cta);
 }
 
 .zag-room-hero__demo {
@@ -760,6 +760,22 @@
 /* sin opacity: bajarla a 0.85 dejaba el texto en 4.25:1 sobre celeste */
 .zr-mapa-mini { font-size: 10px; font-weight: 700; }
 
+/* celda del mapa: reserva del usuario ("mío") con fondo azul oscuro y letras blancas */
+.zr-mapa-celda--mio {
+  background: var(--color-brand-deep) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-brand-deep) !important;
+}
+
+.zr-mapa-celda--mio .zr-mapa-num,
+.zr-mapa-celda--mio .zr-mapa-mini {
+  color: var(--color-white) !important;
+}
+
+.zr-mapa-celda--mio:hover:not(:disabled) {
+  border-color: var(--color-cta) !important;
+}
+
 /* pocos puestos: naranja, con texto negro (6.78:1) */
 .zr-mapa-celda--pocos {
   background: var(--color-cta);
@@ -818,6 +834,7 @@
 .zr-mapa-key--pocos { background: var(--color-cta); border-color: var(--color-cta); }
 .zr-mapa-key--lleno { background: var(--color-border-strong); border-color: var(--color-border-strong); }
 .zr-mapa-key--paso  { background: var(--color-grey-soft); border-color: var(--color-border); }
+.zr-mapa-key--mio   { background: var(--color-brand-deep); border-color: var(--color-brand-deep); }
 
 /* ---------- tarjeta de resumen ---------- */
 
@@ -845,12 +862,11 @@
   left: var(--s-3);
   bottom: var(--s-3);
   margin: 0;
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: var(--radius-pill);
-  background: var(--glass-fill-strong);
-  border: 1px solid var(--glass-border);
-  /* el vidrio claro sobre la tarjeta pide texto oscuro: crema quedaba
-     a 1.05:1, ilegible */
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   color: var(--color-brand-deep);
   font-size: 12px;
   font-weight: 700;
@@ -1212,31 +1228,41 @@
 }
 
 .zr-pase-btn {
-  min-height: 44px;
-  padding: 11px 16px;
-  border: 2px solid var(--color-black);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 3px 10px;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: var(--color-white);
-  color: var(--color-black);
+  color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  transition: all 160ms ease;
 }
 
-.zr-pase-btn:hover:not(:disabled) { background: var(--color-black); color: var(--color-cream); }
+.zr-pase-btn:hover:not(:disabled) {
+  border-color: var(--color-brand-deep);
+  color: var(--color-brand-deep);
+  background: var(--color-light-blue);
+}
 
 .zr-pase-btn--principal {
   background: var(--color-cta);
   border-color: var(--color-cta);
   color: var(--color-white);
+  font-weight: 700;
 }
 
 .zr-pase-btn--principal:hover:not(:disabled) {
-  background: var(--color-black);
-  border-color: var(--color-black);
-  color: var(--color-cream);
+  background: var(--color-brand-deep);
+  border-color: var(--color-brand-deep);
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .zr-pase-btn:disabled {
@@ -1246,7 +1272,17 @@
   cursor: not-allowed;
 }
 
-.zr-pase-btn--peligro { border-color: var(--color-border-strong); color: var(--color-text); }
+.zr-pase-btn--peligro {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  background: transparent;
+}
+
+.zr-pase-btn--peligro:hover:not(:disabled) {
+  border-color: var(--color-cta);
+  color: var(--color-cta);
+  background: rgba(255, 85, 0, 0.06);
+}
 
 /* confirmación inline de la cancelación */
 .zr-confirm {
@@ -1302,23 +1338,43 @@
   position: absolute;
   top: var(--s-4);
   right: var(--s-4);
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-black);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   background: var(--color-white);
-  color: var(--color-black);
-  font-size: 22px;
+  color: var(--color-text);
+  font-size: 18px;
   cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.zr-pase-full-cerrar:hover {
+  background: var(--color-grey-soft);
+  border-color: var(--color-brand-deep);
 }
 
 .zr-pase-full .zr-pase-codigo { font-size: clamp(40px, 11vw, 64px); margin-top: var(--s-4); }
 .zr-pase-full .zr-pase-when { font-size: clamp(22px, 6vw, 30px); }
 .zr-pase-full .zr-pase-lugar { font-size: 17px; }
-.zr-pase-full .pase-qr { justify-content: center; color: var(--color-black); }
+.zr-pase-full .zr-pase-qr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: var(--s-4) auto;
+  text-align: center;
+}
+.zr-pase-full .pase-qr {
+  display: block;
+  margin: 0 auto;
+  width: 140px;
+  height: 140px;
+  color: var(--color-black);
+}
 .zr-pase-full .pase-qr-hole { fill: var(--color-white); }
 .zr-pase-full-note {
   margin: var(--s-5) auto 0;
@@ -1359,8 +1415,13 @@
   color: var(--color-brand-deep);
 }
 
+.zr-faq-section {
+  background: var(--color-surface-soft);
+  border-top: 1px solid var(--color-border-soft);
+}
+
 .zr-faq {
-  margin-top: var(--s-7);
+  margin-top: 0;
 }
 
 .zr-faq-item {

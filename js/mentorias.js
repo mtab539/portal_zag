@@ -90,6 +90,18 @@
     if (n) n.textContent = s == null ? '' : s;
   }
 
+  function tituloConAcento(id, texto) {
+    var n = $(id);
+    if (!n) return;
+    var partes = String(texto).trim().split(/\s+/);
+    if (partes.length > 1) {
+      var ultima = partes.pop();
+      n.innerHTML = partes.join(' ') + ' <span class="title-accent">' + ultima + '</span>';
+    } else {
+      n.textContent = texto;
+    }
+  }
+
   function svg(path, w) {
     var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     s.setAttribute('viewBox', '0 0 24 24');
@@ -428,7 +440,7 @@
 
   function renderAreas() {
     txt('mentorias-areas-kicker', UI.necesidadesKicker);
-    txt('mentorias-areas-title', UI.necesidadesTitulo);
+    tituloConAcento('mentorias-areas-title', UI.necesidadesTitulo);
 
     var grid = $('mentorias-areas-grid');
     grid.textContent = '';
@@ -723,7 +735,7 @@
 
     section.hidden = false;
     txt('mentorias-proximas-kicker', UI.proximasKicker);
-    txt('mentorias-proximas-title', UI.proximasTitulo);
+    tituloConAcento('mentorias-proximas-title', UI.proximasTitulo);
     lista.textContent = '';
 
     state.reservas

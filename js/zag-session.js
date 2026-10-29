@@ -97,6 +97,9 @@ window.ZAG_SESSION = (function () {
       window.localStorage.removeItem(LS_PERFIL);
       window.localStorage.removeItem('zag_perfil_sellos');
       window.localStorage.removeItem('zag_perfil_evidencias');
+      window.localStorage.removeItem('zag_demo_perfil');
+      window.localStorage.removeItem('zag_demo_sellos');
+      window.localStorage.removeItem('zag_demo_evidencias');
     } catch (e) { /* sin storage */ }
     avisar();
   }

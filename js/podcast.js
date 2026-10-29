@@ -213,47 +213,8 @@
 
   function renderHeroEstado() {
     var estado = $('podcast-hero-estado');
-    var s = session();
-    if (!s) { estado.hidden = true; return; }
-
-    estado.hidden = false;
-    var lvl = sessionLevel();
-    var lvlName = sessionLevelName();
-
-    var hasSellos = false;
-    if (window.ZagPerfil) {
-      var perfil = window.ZagPerfil.get();
-      if (perfil) {
-        try {
-          var sellos = JSON.parse(localStorage.getItem('zag_perfil_sellos') || '{}');
-          if (sellos.rookie) {
-            for (var i = 0; i < sellos.rookie.length; i++) {
-              if (sellos.rookie[i].id === 'podcast' && sellos.rookie[i].estado === 'aprobado') {
-                hasSellos = true; break;
-              }
-            }
-          }
-        } catch (e) { /* no storage */ }
-      }
-    }
-
-    estado.textContent = '';
-    var badge = el('span', 'podcast-badge');
-    var meta = window.ZAG_NIVELES ? window.ZAG_NIVELES.meta(lvlName) : null;
-    if (meta) {
-      badge.textContent = meta.nombre;
-      badge.style.background = meta.fondo;
-      badge.style.color = meta.texto;
-    }
-    estado.appendChild(badge);
-
-    if (lvl >= 3) {
-      estado.appendChild(document.createTextNode(' ' + UI.estadoMaster));
-    } else if (hasSellos) {
-      estado.appendChild(document.createTextNode(' ' + UI.estadoSellos));
-    } else {
-      estado.appendChild(document.createTextNode(' ' + UI.estadoRookie));
-    }
+    if (!estado) return;
+    estado.hidden = true;
   }
 
   /* ---- Acceso ---- */

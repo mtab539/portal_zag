@@ -63,7 +63,7 @@ window.ZAG_PODCAST = (function () {
       id: 'ep03',
       numero: 3,
       titulo: 'Tu primer cliente no te va a pagar lo que vales (todavía)',
-      palabraClave: 'TODAVÍA',
+      palabraClave: '(TODAVÍA)',
       resumen: 'Laura Gómez y Camilo Torres hablan sin filtro de cómo poner precio, cuándo decir que no, y cómo crecer como freelance sin regalar tu trabajo.',
       descripcion: [
         'Tu primer cliente te va a pedir «algo rápido» que se convierte en tres semanas de trabajo. Te van a pagar tarde, o poco, o con exposición. Laura y Camilo pasaron por eso, y en este episodio cuentan cuánto cobraron la primera vez, cuánto perdieron y cuándo aprendieron a decir que no.',

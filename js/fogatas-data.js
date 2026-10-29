@@ -75,11 +75,63 @@ window.ZAG_FOGATAS = (function () {
       cupos: CUPOS_MAX,
       ocupados: 4,
     },
-
-    /* ---------- PASADAS (fechas y datos inventados) ---------- */
     {
       id: 'f05',
       numero: 5,
+      tema: 'El brief que nadie entendió',
+      descripcion:
+        'Desarmamos briefs reales que llegaron torcidos del cliente: cómo leer entre líneas, qué preguntar antes de empezar a diseñar o pautar, y cómo evitar trabajar tres veces en la misma pieza sin cobrar de más.',
+      inicio: '2026-11-26T17:00:00-05:00',
+      fin: '2026-11-26T19:00:00-05:00',
+      lugar: 'Campus EAM, Cancha Bloque C',
+      anfitrion: { nombre: 'Sofía Jaramillo', iniciales: 'SJ', rol: 'Egresada 2020 · Copywriter Senior' },
+      cupos: CUPOS_MAX,
+      ocupados: 7,
+    },
+    {
+      id: 'f06',
+      numero: 6,
+      tema: 'Freelance sin morir en el intento',
+      descripcion:
+        'Cuánto cuesta tu hora, cómo no cobrar por emoción y el contrato mínimo que te salva de que no te paguen. Compartimos plantillas de cotización y cuentas bancarias sin misterio.',
+      inicio: '2026-12-03T17:30:00-05:00',
+      fin: '2026-12-03T19:30:00-05:00',
+      lugar: 'Campus EAM, Cancha Bloque C',
+      anfitrion: { nombre: 'Mateo Restrepo', iniciales: 'MR', rol: 'Egresado 2018 · Diseñador Estratégico' },
+      cupos: CUPOS_MAX,
+      ocupados: 11,
+    },
+    {
+      id: 'f07',
+      numero: 7,
+      tema: 'De la idea al pitch sin humo',
+      descripcion:
+        'Cómo venderle una idea al cliente más escéptico sin caer en presentaciones de 80 diapositivas. Técnicas de síntesis, lenguaje directo y casos reales de pitches ganados y perdidos.',
+      inicio: '2026-12-10T17:00:00-05:00',
+      fin: '2026-12-10T19:00:00-05:00',
+      lugar: 'Campus EAM, Cancha Bloque C',
+      anfitrion: { nombre: 'Valentina Morales', iniciales: 'VM', rol: 'Egresada 2021 · Directora de Cuentas' },
+      cupos: CUPOS_MAX,
+      ocupados: 8,
+    },
+    {
+      id: 'f08',
+      numero: 8,
+      tema: 'Métricas que sí mueven la aguja',
+      descripcion:
+        'Qué mirar cuando el cliente pregunta «¿y esto qué me generó?». Separamos las métricas de vanidad del impacto real en el negocio y aprendemos a presentar reportes que te renueven el contrato.',
+      inicio: '2026-12-17T16:30:00-05:00',
+      fin: '2026-12-17T18:30:00-05:00',
+      lugar: 'Campus EAM, Cancha Bloque C',
+      anfitrion: { nombre: 'Andrés Felipe Henao', iniciales: 'AH', rol: 'Egresado 2019 · Analista de Pauta & Data' },
+      cupos: CUPOS_MAX,
+      ocupados: 5,
+    },
+
+    /* ---------- PASADAS (fechas y datos inventados) ---------- */
+    {
+      id: 'f09',
+      numero: 9,
       tema: 'El fin del zig',
       descripcion:
         'La fogata que abrió la campaña de los 30 años. Nos sentamos a contar por qué este programa eligió el camino opuesto al de todos y qué queremos que pase de aquí en adelante. Chocolate, risas y cero slides.',
@@ -92,8 +144,8 @@ window.ZAG_FOGATAS = (function () {
       asistieron: 15,
     },
     {
-      id: 'f06',
-      numero: 6,
+      id: 'f10',
+      numero: 10,
       tema: 'Tu tira de fotos, tu primera pieza',
       descripcion:
         'Trajimos cámara y rollos, y salimos con una pieza cada uno. Vimos cómo bajarte de la idea perfecta y trabajar con lo que había en la bolsa terminó rindiendo más que la referencia que traías en la cabeza.',
@@ -146,7 +198,7 @@ window.ZAG_FOGATAS = (function () {
     ctaConfirmar: 'Sí, liberar',
     ctaNo: 'No',
     cancelPregunta: '¿Liberar tu cupo?',
-    cancelNota: 'Se le devuelve a quien llega después de vos.',
+    cancelNota: 'Se le devuelve a quien llega después de ti.',
 
     /* ---- Cupos ---- */
     cuposQuedan: 'Quedan',

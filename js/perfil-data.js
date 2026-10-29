@@ -58,7 +58,7 @@ window.ZAG_NIVELES = (function () {
       { id: 'referido', nombre: 'Traer un referido nuevo', href: 'registro.html', pista: 'Una captura del registro de tu referido.' },
     ],
     creator: [
-      { id: 'marca-aliada', nombre: 'Dinámica con marca aliada', href: 'seminario.html', pista: 'Participa en la dinámica completa.' },
+      { id: 'fracaso-propio', nombre: 'Compartir tu propio fracaso en el Blog de Fracasos', href: 'casos.html', pista: 'Cuenta tu caso ZIG y guarda una captura del envío.' },
       { id: 'zag-room', nombre: 'Reservar y usar el ZAG Room', href: 'zag-room.html', pista: 'Reserva un bloque y asiste.' },
       { id: 'entrega-publica', nombre: 'Entrega pública en el Muro de Quiebre', href: 'muro.html', pista: 'Presenta tu pieza en la sesión abierta.' },
     ],

@@ -68,10 +68,10 @@
 
 .fogata--t2 {
   --f-bg: var(--color-cta);
-  --f-ink: var(--color-cream);
-  --f-muted: color-mix(in srgb, var(--color-cream) 72%, transparent);
-  --f-chip-bg: color-mix(in srgb, var(--color-cream) 14%, transparent);
-  --f-cta-bg: var(--color-cream);
+  --f-ink: #ffffff;
+  --f-muted: rgba(255, 255, 255, 0.9);
+  --f-chip-bg: rgba(255, 255, 255, 0.2);
+  --f-cta-bg: #ffffff;
   --f-cta-ink: var(--color-cta);
 }
 
@@ -331,6 +331,18 @@
 }
 
 /* Reservado: botón que abre la confirmación de cancelación */
+.fogata-actions-reservado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+}
+
+.fogata-actions-reservado .fogata-cta {
+  flex: 1 1 180px;
+}
+
 .fogata-cta--reservado {
   background: transparent;
   color: var(--f-cta-bg);
@@ -340,6 +352,18 @@
 .fogata-cta--reservado:hover:not(:disabled) {
   background: var(--f-chip-bg);
   box-shadow: none;
+}
+
+.fogata-cta--cancelar {
+  background: transparent;
+  color: var(--f-ink);
+  border: 1.5px solid var(--f-muted);
+  font-size: 0.95rem;
+}
+
+.fogata-cta--cancelar:hover:not(:disabled) {
+  background: var(--f-chip-bg);
+  border-color: var(--f-ink);
 }
 
 /* Agotada: sin acción */
@@ -993,3 +1017,68 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   Asegurar que tarjetas con fondo naranja tengan textos blancos
+   ============================================================ */
+.fogata--t2 .fogata-kicker,
+.fogata--t2 .fogata-tema,
+.fogata--t2 .fogata-desc,
+.fogata--t2 .fogata-chip,
+.fogata--t2 .fogata-host-name,
+.fogata--t2 .fogata-host-rol,
+.fogata--t2 .fogata-cupos-txt,
+.fogata--t2 .fogata-cupos-txt strong,
+.fogata--t2 .fogata-tag-ultimos,
+.fogata--t2 .fogata-pasada-tag,
+.fogata--t2 .fogata-asistieron,
+.fogata--t2 .fogata-cancel-preg,
+.fogata--t2 .fogata-cancel-nota {
+  color: #ffffff !important;
+}
+
+.fogata--t2 .fogata-chip svg {
+  stroke: #ffffff;
+}
+
+.fogata--t2 .fogata-avatar {
+  background: #ffffff;
+  color: var(--color-cta);
+}
+
+.fogata--t2 .fogata-bar-fill {
+  background: #ffffff;
+}
+
+.fogata--t2 .fogata-cta--reservado {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.fogata--t2 .fogata-cta--cancelar {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.fogata--t2 .fogata-cta--cancelar:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.fogata--t2 .fogata-cancel {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.fogata--t2 .fogata-cancel-btn--si {
+  background: #ffffff;
+  color: var(--color-cta);
+}
+
+.fogata--t2 .fogata-cancel-btn--no {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
