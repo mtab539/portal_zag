@@ -232,6 +232,20 @@
     box.appendChild(eyebrow);
     box.appendChild(h1);
     box.appendChild(sub);
+    /* solo móvil (CSS): la mano va debajo del texto y antes del botón */
+    var mano = el('div', 'hero-mano');
+    mano.setAttribute('aria-hidden', 'true');
+    var manoFondo = document.createElement('img');
+    manoFondo.className = 'hero-art';
+    manoFondo.src = 'assets/img/fondoherozag.svg?v=2';
+    manoFondo.alt = '';
+    var manoImg = document.createElement('img');
+    manoImg.className = 'hero-art hero-art--rot';
+    manoImg.src = 'assets/img/manohero.webp';
+    manoImg.alt = '';
+    mano.appendChild(manoFondo);
+    mano.appendChild(manoImg);
+    box.appendChild(mano);
     box.appendChild(actions);
   }
 
@@ -1244,6 +1258,51 @@
     });
   }
 
+  /* ---------- hero (móvil): el título sale deslizándose al hacer scroll ----------
+     Primera línea hacia la izquierda, segunda hacia la derecha. Sin
+     transform en reposo para no romper el tooltip fijo del botón "i". */
+  function initHeroSalida() {
+    var title = document.querySelector('.hero-title');
+    if (!title || !window.matchMedia) return;
+    var movil = window.matchMedia('(max-width: 720px)');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var lines = title.querySelectorAll('.hero-line');
+    var ticking = false;
+
+    function reset() {
+      title.classList.remove('is-leaving');
+      lines.forEach(function (ln) {
+        ln.style.transform = '';
+        ln.style.opacity = '';
+      });
+    }
+
+    function apply() {
+      ticking = false;
+      if (!movil.matches || reduce.matches) { reset(); return; }
+      var p = Math.min(1, Math.max(0, (window.pageYOffset || 0) / 240));
+      if (p <= 0) { reset(); return; }
+      title.classList.add('is-leaving');
+      var dist = window.innerWidth + 40;
+      lines.forEach(function (ln, i) {
+        var dir = i % 2 === 0 ? -1 : 1;
+        ln.style.transform = 'translate3d(' + (dir * p * dist).toFixed(1) + 'px,0,0)';
+        ln.style.opacity = String(Math.max(0, 1 - p * 0.9).toFixed(2));
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(apply);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    apply();
+  }
+
   /* ---------- init ---------- */
   function init() {
     renderNav(document.getElementById('primary-nav'), C.nav);
@@ -1264,6 +1323,7 @@
     initBrandLogos();
     initReveals();
     initHeroCanvas();
+    initHeroSalida();
   }
 
   if (document.readyState === 'loading') {

@@ -1463,3 +1463,39 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   .mentor-card { opacity: 1; transform: none; }
   .mentoria-area:hover { transform: none; }
 }
+
+/* ============================================================
+   MÓVIL — estado del hero ("Grupales … · 1:1 …") ordenado
+   ============================================================ */
+@media (max-width: 719px) {
+  .mentorias-hero-estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 340px;
+    margin: var(--s-5) auto 0;
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .mentorias-hero-estado[hidden] { display: none; }
+  .mentorias-hero-estado__sep { display: none; }
+  .mentorias-hero-estado__item { display: block; }
+  .mentorias-hero-demo {
+    appearance: none;
+    -webkit-appearance: none;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-cta);
+    color: var(--color-white);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+  }
+}

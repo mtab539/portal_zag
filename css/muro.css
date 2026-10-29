@@ -1824,3 +1824,24 @@
     transform: scale(0.92);
   }
 }
+/* ============================================================
+   MÓVIL — comentar sin zoom y con espacio para escribir
+   iOS hace zoom al enfocar campos con texto menor de 16px, y con el
+   teclado abierto la barra fija debe caber en el viewport visible.
+   ============================================================ */
+@media (max-width: 719px) {
+  .muro-cc-text,
+  .muro-composer-text,
+  .muro-modal-text {
+    font-size: 16px;
+  }
+  .muro-cc-docked {
+    max-height: calc(var(--cc-vh, 100svh) - 12px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .muro-cc-docked .muro-cc-text {
+    min-height: 72px;
+    max-height: 32svh;
+  }
+}

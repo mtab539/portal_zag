@@ -966,20 +966,29 @@
 }
 
 /* botón "Ver proyecto" siempre visible sin hover */
-@media (hover: none) {
+@media (hover: none), (max-width: 719px) {
+  /* centrado sobre la foto de la tarjeta */
   .proy-overlay {
-    position: static;
+    position: absolute;
+    inset: 0;
     opacity: 1;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: none;
-    display: flex;
-    justify-content: flex-start;
-    padding: 0 var(--s-4) var(--s-3);
+    display: grid;
+    place-items: center;
+    padding: 0;
   }
 
   .proy-btn-ver {
     pointer-events: auto;
+  }
+}
+
+/* móvil táctil: el hero responde al dedo (sin esto el navegador lo usa para hacer scroll) */
+@media (hover: none) {
+  .smudge-root {
+    touch-action: none;
   }
 }
 

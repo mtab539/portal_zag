@@ -201,7 +201,7 @@
         var sellosWrap = el('div', 'pf-sellos');
         for (var s = 0; s < 6; s++) {
           var sello = el('img', 'pf-sello');
-          sello.src = 'assets/img/sellos/sello-' + previo.id + '.svg';
+          sello.src = 'assets/img/sellos/sello-' + previo.id + '-sm.webp';
           sello.alt = '';
           sello.setAttribute('aria-hidden', 'true');
           sello.width = 44;
@@ -259,7 +259,9 @@
     ============================================================ */
     var mobileContainer = document.getElementById('pf-cards-mobile');
     var isMobile = window.matchMedia('(max-width: 1023px)').matches;
-    if (mobileContainer && isMobile) {
+    /* En móvil (≤719px) se usa el mismo bloque sticky del escritorio */
+    var isPhone = window.matchMedia('(max-width: 719px)').matches;
+    if (mobileContainer && isMobile && !isPhone) {
       PERFILES.forEach(function (perfil) {
         var card = el('div', 'pf-card-mobile');
 
@@ -306,7 +308,7 @@
     var glow          = document.getElementById('pf-glow');
     var progressBar   = document.getElementById('pf-progress');
 
-    var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    var isDesktop = window.matchMedia('(min-width: 1024px)').matches || isPhone;
     if (!isDesktop || !stickyWrap || !leftInner || !postersStack) return;
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

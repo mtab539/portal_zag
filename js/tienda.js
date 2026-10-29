@@ -290,6 +290,25 @@
       });
       host.appendChild(b);
     });
+
+    /* menú desplegable (solo se muestra en móvil, ver tienda.css) */
+    var sel = $('td-cats-select');
+    if (sel) {
+      if (!sel.options.length) {
+        D.categorias.forEach(function (cat) {
+          var o = document.createElement('option');
+          o.value = cat.id;
+          o.textContent = cat.nombre;
+          sel.appendChild(o);
+        });
+        sel.addEventListener('change', function () {
+          filtroCategoria = sel.value;
+          pintarCategorias();
+          pintarCatalogo();
+        });
+      }
+      sel.value = filtroCategoria;
+    }
   }
 
   function pintarToggle() {

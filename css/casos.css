@@ -1015,3 +1015,10 @@
     animation: none;
   }
 }
+
+/* MÓVIL — las tarjetas dejan de solaparse para que las píldoras no queden tapadas */
+@media (max-width: 719px) {
+  .case-row + .case-row {
+    margin-top: 12px;
+  }
+}

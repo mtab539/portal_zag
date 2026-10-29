@@ -2679,3 +2679,88 @@ select option {
     inset: -12px;
   }
 }
+
+/* Imagen de la mano pensada para móvil: oculta en escritorio */
+.hero-mano {
+  display: none;
+}
+
+/* ============================================================
+   MÓVIL — ajustes de diseño (solo ≤ 720px; escritorio no cambia)
+   ============================================================ */
+@media (max-width: 719px) {
+  /* Menú: letras en el azul medio de la marca */
+  .nav-toggle,
+  .nav-link,
+  .nav-dropdown a,
+  .nav-dropdown-title {
+    color: var(--color-functional);
+  }
+  .nav-link:hover,
+  .nav-dropdown a:hover {
+    color: var(--color-brand-deep);
+  }
+}
+
+@media (max-width: 720px) {
+  /* ---- Hero del inicio: texto → mano → botón ---- */
+  .hero > .hero-art {
+    display: none;
+  }
+  .hero {
+    padding-bottom: var(--s-6);
+  }
+  .hero .hero-mano {
+    display: block;
+    position: relative;
+    aspect-ratio: 1.1 / 1;
+    margin: var(--s-4) calc(var(--gutter) * -1) var(--s-5);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero .hero-mano .hero-art {
+    object-position: 100% 50%;
+  }
+  .hero-title.is-leaving .hero-line {
+    will-change: transform, opacity;
+  }
+
+  /* ---- Perfiles (settle): la instrucción arriba, fuera de las tarjetas ---- */
+  .settle-chrome--bottom {
+    bottom: auto;
+    top: 10px;
+    justify-content: center;
+  }
+  .settle-chrome--bottom .settle-meta {
+    display: none;
+  }
+
+  /* ---- Paneles "Descubre el ZAG": franjas con el encuadre centrado ---- */
+  .zpanel-grid {
+    --closed-panel: 74px;
+    height: 660px;
+    min-height: 660px;
+  }
+  .zpanel--eventos { background-position: 50% 72%; }
+  .zpanel--aprende { background-position: 50% 82%; }
+  .zpanel--zagroom { background-position: 50% 38%; }
+  .zpanel--tienda { background-position: 50% 52%; }
+
+  /* ---- Heros compartidos: los iconos en su propia franja, sin cruzar textos ---- */
+  .zag-hero.zag-hero {
+    background-size: 100% auto !important;
+    background-position: center bottom 26px !important;
+  }
+  .zag-hero .zag-hero__inner {
+    padding-bottom: calc(32.93vw + 26px + var(--s-3)) !important;
+  }
+  .tienda-hero__garabato--izq {
+    top: auto;
+    bottom: calc(26px + 6vw);
+    left: 7%;
+  }
+  .tienda-hero__garabato--der {
+    bottom: calc(26px + 10vw);
+    right: 7%;
+  }
+}

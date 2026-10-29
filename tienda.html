@@ -13,9 +13,10 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   <link rel="preload" href="assets/fonts/Extenda-60-Giga.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/tokens.css?v=31">
-  <link rel="stylesheet" href="css/styles.css?v=22">
-  <link rel="stylesheet" href="css/tienda.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=23">
+  <link rel="stylesheet" href="css/tienda.css?v=8">
   <script src="js/perf.js" defer></script>
+  <script src="js/volver-arriba.js" defer></script>
   <script src="js/content.js?v=40" defer></script>
   <script src="js/main.js?v=38" defer></script>
   <script src="js/perfil-links.js?v=10" defer></script>
@@ -23,7 +24,7 @@
   <script src="js/zag-reserva.js?v=1" defer></script>
   <script src="js/tienda-data.js?v=4" defer></script>
   <script src="js/tienda-carrito.js?v=2" defer></script>
-  <script src="js/tienda.js?v=4" defer></script>
+  <script src="js/tienda.js?v=5" defer></script>
 </head>
 <body class="tienda-body">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -83,6 +84,8 @@
   <div class="td-barra">
     <div class="container td-barra__inner">
       <div class="td-cats" id="td-cats" role="tablist" aria-label="Categorías de la tienda"></div>
+      <!-- Solo móvil: las mismas categorías como menú desplegable -->
+      <select class="td-cats-select" id="td-cats-select" aria-label="Filtrar por categoría"></select>
       <div class="td-barra__fin">
         <label class="td-switch" for="td-solo-mio">
           <input type="checkbox" id="td-solo-mio">

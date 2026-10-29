@@ -1484,3 +1484,54 @@ body.td-abierto { overflow: hidden; }
   .td-card__foto img:hover { transform: none; }
   .tienda-hero__garabato { opacity: 0.4; }
 }
+/* ============================================================
+   MÓVIL — filtro de categorías como menú desplegable
+   ============================================================ */
+.td-cats-select { display: none; }
+
+@media (max-width: 719px) {
+  .td-cats { display: none; }
+  .td-barra__inner { flex-wrap: wrap; row-gap: var(--s-2); }
+  .td-cats-select {
+    display: block;
+    flex: 1 1 100%;
+    min-height: 46px;
+    padding: 0 44px 0 var(--s-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23041dad' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    color: var(--color-brand-deep);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 800;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  .td-barra__fin { flex: 1 1 100%; justify-content: space-between; }
+}
+
+/* ============================================================
+   MÓVIL — ficha de producto: la foto se compacta y el botón principal
+   queda fijo abajo para verse sin hacer scroll
+   ============================================================ */
+@media (max-width: 719px) {
+  .td-ficha__foto { padding: var(--s-5) var(--s-5) var(--s-2); }
+  .td-ficha__foto img {
+    width: auto;
+    max-width: 100%;
+    height: min(26svh, 220px);
+  }
+  .td-ficha__body { padding: var(--s-2) var(--s-4) var(--s-4); gap: var(--s-2); }
+  .td-ficha__body > .btn.td-cta,
+  .td-ficha__body > .td-bloqueo {
+    position: sticky;
+    bottom: var(--s-2);
+    z-index: 2;
+  }
+  .td-ficha__body > .btn.td-cta { box-shadow: 0 0 0 8px var(--color-white), 0 0 0 9px var(--color-white); }
+  .td-ficha__body > .td-bloqueo { background: var(--color-white); }
+}

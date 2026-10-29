@@ -658,16 +658,23 @@
   }
 
   function bindViewport() {
+    /* alto del teclado = lo que el viewport visual le quita al layout
+       (incluye el desplazamiento que iOS aplica al abrir el teclado) */
     function kbOffset() {
-      var h = window.visualViewport && window.visualViewport.height;
-      if (h == null) return '0px';
-      return Math.max(0, (window.innerHeight || 0) - h) + 'px';
+      var vv = window.visualViewport;
+      if (!vv) return '0px';
+      return Math.max(0, (window.innerHeight || 0) - vv.height - vv.offsetTop) + 'px';
+    }
+    function syncViewport() {
+      var root = document.documentElement;
+      root.style.setProperty('--cc-kb', kbOffset());
+      if (window.visualViewport) {
+        root.style.setProperty('--cc-vh', window.visualViewport.height + 'px');
+      }
     }
     if (window.visualViewport) {
       ['resize', 'scroll'].forEach(function (ev) {
-        window.visualViewport.addEventListener(ev, function () {
-          document.documentElement.style.setProperty('--cc-kb', kbOffset());
-        });
+        window.visualViewport.addEventListener(ev, syncViewport);
       });
     }
     window.addEventListener('resize', function () {

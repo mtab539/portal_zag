@@ -129,6 +129,14 @@
   object-position: center;
 }
 
+/* Móvil: hero más alto; se enfoca el título (derecha de la ilustración) */
+@media (max-width: 767px) {
+  .sem-hero__img {
+    aspect-ratio: 1.4 / 1;
+    object-position: 70% 50%;
+  }
+}
+
 @media (min-width: 768px) {
   .sem-hero__img {
     aspect-ratio: auto;

@@ -2230,3 +2230,19 @@
   white-space: nowrap;
   border: 0;
 }
+/* ============================================================
+   MÓVIL — página de un curso: el contenido respeta el margen lateral
+   (el padding del layout pisaba el gutter del .container) y los
+   campos de texto no provocan zoom al enfocarse (iOS: < 16px).
+   ============================================================ */
+@media (max-width: 719px) {
+  .curso-layout {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+  .curso-panel textarea,
+  .curso-panel input,
+  .curso-panel select {
+    font-size: 16px;
+  }
+}

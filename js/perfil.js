@@ -106,11 +106,14 @@
   }
 
   /* Imagen del sello con respaldo automático. */
-  function selloImg(nivel, alt) {
+  function selloImg(nivel, alt, chico) {
     var img = node('img', 'sello-img');
-    img.src = 'assets/img/sellos/sello-' + nivel + '.svg';
+    /* Tamaños chicos (miniaturas): versión ya reducida, para que no se vea
+       pixelado al encoger el original de 1264 px. */
+    img.src = 'assets/img/sellos/sello-' + nivel + (chico ? '-sm.webp' : '.svg');
     img.alt = alt || ('Sello ' + D.nombre(nivel));
-    img.loading = 'lazy';
+    img.loading = chico ? 'lazy' : 'eager';
+    img.decoding = 'async';
     img.addEventListener('error', function h() {
       img.removeEventListener('error', h);
       img.replaceWith(selloFallback(nivel));
@@ -262,7 +265,7 @@
     anteriores.forEach(function (h) {
       var det = node('details', 'mini-pagina');
       var sum = node('summary', 'mini-pagina__sum');
-      var im = selloImg(h.nivel, '');
+      var im = selloImg(h.nivel, '', true);
       im.className = 'mini-pagina__img';
       sum.appendChild(im);
       var txt = node('span', 'mini-pagina__txt');
@@ -276,7 +279,7 @@
         var m = node('span', 'mini-sello' + (j < sellosNivel.length ? ' mini-sello--lleno' : ''));
         if (j < sellosNivel.length) {
           var frase = fraseSello(h.nivel, sellosNivel[j]);
-          var mi = selloImg(h.nivel, '');
+          var mi = selloImg(h.nivel, '', true);
           m.appendChild(mi);
           /* Foco por teclado/toque además del hover: el globo sale de data-tip (CSS). */
           m.tabIndex = 0;

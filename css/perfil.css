@@ -655,3 +655,18 @@
 
 /* Los enlaces a #retos (p. ej. desde Cursos) no deben quedar bajo el header fijo. */
 #retos { scroll-margin-top: calc(var(--header-height) + var(--s-4)); }
+
+/* ============================================================
+   MÓVIL — hero con los iconos en su propia franja y viñetas del
+   mapa de niveles separadas del borde de la tarjeta
+   ============================================================ */
+@media (max-width: 719px) {
+  /* los iconos (proporción 3:1) ocupan una franja sobre el patrón, sin cruzar el texto */
+  .p-hero.p-hero[class*="nivel-"] {
+    background-size: 100% auto;
+    background-position: center bottom 26px;
+    background-repeat: no-repeat;
+    padding-bottom: calc(32.9vw + 26px + 24px);
+  }
+  .mapa-fila__items { padding-left: 38px; padding-right: 18px; }
+}

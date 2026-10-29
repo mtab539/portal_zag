@@ -779,3 +779,49 @@
   .pf-sticky__left .pf-nav-dots { margin-top: 0; }
   .pf-info__nombre { font-size: clamp(44px, min(7vw, 9vh), 96px); }
 }
+
+/* ============================================================
+   MÓVIL (≤719px) — el mismo scroll animado del escritorio:
+   el sticker arriba y la info del nivel debajo, cambiando con el scroll.
+   ============================================================ */
+@media (max-width: 719px) {
+  .pf-sticky-wrap { display: block !important; }
+  .pf-cards-mobile { display: none !important; }
+  .pf-sticky-height { height: 480svh; }
+  .pf-sticky-panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--s-2);
+    min-height: 0;
+    height: calc(100svh - var(--header-height));
+    padding: var(--s-2) 0 var(--s-3);
+  }
+  .pf-sticky__divider { display: none; }
+  .pf-sticky__right {
+    order: -1;
+    height: 24svh;
+    min-height: 130px;
+    padding: 0;
+  }
+  .pf-sticky__left {
+    padding: 0;
+    justify-content: flex-start;
+    gap: var(--s-2);
+  }
+  .pf-sticky__left-inner { gap: var(--s-2); }
+  .pf-sticky__left .pf-info { gap: var(--s-2); }
+  .pf-sticky__left .pf-info__nombre { font-size: clamp(38px, 12vw, 52px); }
+  .pf-sticky__left .pf-info__frase { font-size: 14px; line-height: 1.45; }
+  .pf-sticky__left .pf-info .btn { margin-top: 0; }
+  .pf-sticky__left .pf-info__eyebrow { display: none; }
+  .pf-sticky__left .pf-chip,
+  .pf-sticky__left .pf-chip-merch { min-height: 32px; padding: 4px 10px; }
+  .pf-sticky__left .pf-sello { width: 48px; height: 48px; }
+  .pf-poster__sticker img { transform: rotate(-4deg) scale(0.9); }
+}
+
+/* teléfonos de poca altura: el contenido tiene que caber sin scroll interno */
+@media (max-width: 719px) and (max-height: 740px) {
+  .pf-sticky__left .pf-info__frase { display: none; }
+  .pf-sticky__right { height: 20svh; }
+}

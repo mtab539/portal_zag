@@ -381,23 +381,32 @@
     }
 
     host.hidden = false;
+    /* cada dato va en su propio span: en escritorio se ve igual (en línea);
+       en móvil cada uno ocupa su línea */
+    var itemG = el('span', 'mentorias-hero-estado__item');
     var g = el('b', null, 'Grupales:');
-    host.appendChild(g);
-    host.appendChild(document.createTextNode(' ✓ desbloqueadas'));
+    itemG.appendChild(g);
+    itemG.appendChild(document.createTextNode(' ✓ desbloqueadas'));
+    host.appendChild(itemG);
 
-    host.appendChild(document.createTextNode(' · '));
+    var sep = el('span', 'mentorias-hero-estado__sep', ' · ');
+    sep.setAttribute('aria-hidden', 'true');
+    host.appendChild(sep);
+
+    var itemU = el('span', 'mentorias-hero-estado__item');
     var u = el('b', null, '1:1:');
-    host.appendChild(u);
+    itemU.appendChild(u);
 
     if (esSenior()) {
-      host.appendChild(document.createTextNode(' ✓ desbloqueada'));
+      itemU.appendChild(document.createTextNode(' ✓ desbloqueada'));
     } else {
       var n = faltanNiveles('senior');
-      host.appendChild(document.createTextNode(
+      itemU.appendChild(document.createTextNode(
         ' 🔒 te ' + (n === 1 ? 'falta' : 'faltan') + ' ' + n +
         (n === 1 ? ' nivel' : ' niveles')
       ));
     }
+    host.appendChild(itemU);
   }
 
   /* ============================================================
