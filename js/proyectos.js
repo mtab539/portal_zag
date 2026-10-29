@@ -899,7 +899,7 @@
           },
           equipo: state.equipo.slice(),
           fecha: new Date().toISOString().slice(0, 10),
-          semestre: '1° sem',
+          semestre: window.ZAG_SEMESTRE ? window.ZAG_SEMESTRE.texto() : 'Estudiante',
           periodo: '2026-1',
           link: link.value.trim(),
           destino: parseLink(link.value) || 'web',

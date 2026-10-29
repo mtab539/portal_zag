@@ -28,16 +28,21 @@
 
     /* ---- Sesión ---- */
     var sesion   = PERFIL.get();
-    var nivelId  = sesion ? PERFIL.nivel() : null;
+    /* "Dentro del portal" = perfil real o sesión de demo. */
+    var sesionPortal = window.ZAG_SESSION && window.ZAG_SESSION.read && window.ZAG_SESSION.read();
+    var dentro   = !!(sesion || sesionPortal);
+    var nivelId  = sesion ? PERFIL.nivel() : (sesionPortal && NIVELES.existe(sesionPortal.level) ? sesionPortal.level : null);
     var nivelIdx = nivelId ? NIVELES.indice(nivelId) : -1;
     var NIVEL    = nivelId ? NIVELES.meta(nivelId) : null;
 
     /* ---- CTA dinámico ---- */
     var CTA_LABEL = UI.cta.sinSesion.label;
     var CTA_HREF  = UI.cta.sinSesion.href;
-    if (sesion) {
-      CTA_LABEL = UI.cta.conSesion.label;
-      CTA_HREF  = UI.cta.conSesion.href;
+    if (dentro) {
+      /* Dentro del portal el botón lleva a los retos; en Senior ya no hay nivel que subir. */
+      var ctaSesion = nivelId === 'senior' ? UI.cta.conSesionTope : UI.cta.conSesion;
+      CTA_LABEL = ctaSesion.label;
+      CTA_HREF  = ctaSesion.href;
     }
 
     /* Actualizar CTAs estáticos del HTML */
@@ -46,7 +51,7 @@
     var cierreSub = document.getElementById('pf-cierre-sub');
     if (heroCta)   { heroCta.textContent = CTA_LABEL; heroCta.href = CTA_HREF; }
     if (cierreCta) { cierreCta.textContent = CTA_LABEL + ' →'; cierreCta.href = CTA_HREF; }
-    if (cierreSub && sesion) { cierreSub.textContent = UI.cierre.subSesion; }
+    if (cierreSub && dentro) { cierreSub.textContent = UI.cierre.subSesion; }
 
     /* Header "Únete" */
     var headerCta = document.getElementById('pf-header-cta');
@@ -80,8 +85,8 @@
 
     /* Construye la info de un perfil (columna izquierda / info de tarjeta mobile) */
     function buildInfo(perfil, containerEl) {
-      var isCurrentLevel = sesion && nivelId === perfil.id;
-      var isUnlocked     = sesion && nivelIdx > perfil.orden;
+      var isCurrentLevel = nivelId && nivelId === perfil.id;
+      var isUnlocked     = nivelId && nivelIdx > perfil.orden;
       var nivelMeta      = PERFILES.find ? PERFILES.filter(function(p){ return p.id === perfil.id; })[0] : perfil;
 
       /* Token vars para los colores del nivel */
@@ -212,8 +217,14 @@
 
       /* CTA */
       var ctaEl = el('a', 'btn btn--hero');
-      ctaEl.href = CTA_HREF;
-      ctaEl.textContent = CTA_LABEL + ' →';
+      if (isUnlocked) {
+        /* Nivel que ya superaste: el botón lleva a los retos que cumpliste. */
+        ctaEl.href = UI.cta.retosCumplidos.href;
+        ctaEl.textContent = UI.cta.retosCumplidos.label + ' →';
+      } else {
+        ctaEl.href = CTA_HREF;
+        ctaEl.textContent = CTA_LABEL + ' →';
+      }
       containerEl.appendChild(ctaEl);
     }
 

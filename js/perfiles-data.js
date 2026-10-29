@@ -54,7 +54,7 @@ window.ZAG_PERFILES = (function () {
       comoLlegar: 'Completa los 6 sellos de Strategist.',
       sticker: 'assets/img/stickers/creator-recorte.png',
       bg: '--color-cta',
-      fg: '--color-black',
+      fg: '--color-white',
     },
     {
       id: 'master',
@@ -126,7 +126,9 @@ window.ZAG_PERFILES = (function () {
     },
     cta: {
       sinSesion: { label: 'Unirme a la comunidad zaggista', href: 'registro.html' },
-      conSesion:  { label: 'Ver mi perfil',                 href: 'perfil.html'   },
+      conSesion:  { label: 'Subir de nivel',                href: 'perfil.html#retos' },
+      retosCumplidos: { label: 'Ver los retos cumplidos', href: 'perfil.html#retos' },
+      conSesionTope: { label: 'Ver mi perfil',              href: 'perfil.html'   },
     },
   };
 

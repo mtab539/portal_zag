@@ -73,7 +73,9 @@
         tipo: 'demo',
         nivel: demo.level,
         nombre: demo.name || 'Tú',
-        foto: p && typeof p.foto === 'string' ? p.foto : ''
+        foto: p && typeof p.foto === 'string' ? p.foto : '',
+        semestre: p ? Number(p.semestre) || null : null,
+        egresado: !!(p && p.rol === 'egresado')
       };
     }
 
@@ -83,7 +85,9 @@
       tipo: 'perfil',
       nivel: perfil.nivel,
       nombre: perfil.nombre,
-      foto: typeof perfil.foto === 'string' ? perfil.foto : ''
+      foto: typeof perfil.foto === 'string' ? perfil.foto : '',
+      semestre: Number(perfil.semestre) || null,
+      egresado: perfil.rol === 'egresado'
     };
   }
 
@@ -91,6 +95,17 @@
      portal que represente a la persona la muestre en vez de su inicial.
      Uso: ZAG_FOTO.url() → string ('' si no hay foto)
           ZAG_FOTO.aplicar(nodo) → true si puso la foto dentro del nodo. */
+  /* Semestre del perfil activo con el formato de las tarjetas de proyectos:
+     '5° sem', 'Egresado' o 'Estudiante' si el perfil no trae semestre. */
+  window.ZAG_SEMESTRE = {
+    texto: function () {
+      var est = estado();
+      if (est && est.egresado) return 'Egresado';
+      if (est && est.semestre) return est.semestre + '° sem';
+      return 'Estudiante';
+    }
+  };
+
   window.ZAG_FOTO = {
     url: function () {
       var est = estado();

@@ -25,6 +25,7 @@
   var MIN_STEP = 5; /* px: distancia mínima entre manchas para no saturar */
   var TAP_RATIO = 0.18; /* radio del toque simple: 18% del lado menor */
   var TAP_MIN = 24;
+  var LEAVE_MS = 350; /* fundido de las manchas al sacar el cursor del hero */
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function smoothstep(t) { t = clamp01(t); return t * t * (3 - 2 * t); }
@@ -175,6 +176,12 @@
       for (var i = 0; i < blobs.length; i++) {
         var b = blobs[i];
         var age = now - b.t0;
+        /* el cursor salió del hero: la mancha se desvanece rápido y se borra */
+        var leave = b.leaveT ? (now - b.leaveT) / LEAVE_MS : 0;
+        if (leave >= 1) {
+          if (b.node && b.node.parentNode) b.node.parentNode.removeChild(b.node);
+          continue;
+        }
         if (age >= DISSOLVE_START + DISSOLVE_MS) {
           if (b.node && b.node.parentNode) b.node.parentNode.removeChild(b.node);
           continue;
@@ -183,19 +190,30 @@
         if (age < EXPAND_MS) {
           var rp = smoothstep(age / EXPAND_MS);
           b.node.setAttribute('r', b.r0 * (1 + EXPAND_MULT * rp));
-          b.node.setAttribute('fill-opacity', '1');
+          b.node.setAttribute('fill-opacity', String(1 - leave));
         } else {
           b.node.setAttribute('r', b.r0 * (1 + EXPAND_MULT));
           var dp = power3in((age - DISSOLVE_START) / DISSOLVE_MS);
-          b.node.setAttribute('fill-opacity', String(1 - dp));
+          b.node.setAttribute('fill-opacity', String((1 - dp) * (1 - leave)));
         }
       }
       blobs = keep;
       rafId = requestAnimationFrame(frame);
     }
 
+    /* el ratón sale del hero: la animación se reinicia (solo queda el fondo azul) */
+    function onLeave() {
+      var now = performance.now();
+      for (var i = 0; i < blobs.length; i++) {
+        if (!blobs[i].leaveT) blobs[i].leaveT = now;
+      }
+      hasPoint = false;
+      moved = false;
+    }
+
     /* ---- listeners ---- */
     rootEl.addEventListener('mousemove', onMove);
+    rootEl.addEventListener('mouseleave', onLeave);
     rootEl.addEventListener('touchstart', onTouchStart, { passive: true });
     rootEl.addEventListener('touchmove', onMove, { passive: true });
 
