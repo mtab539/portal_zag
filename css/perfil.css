@@ -227,8 +227,16 @@
 .nivel-master { --nivel-fondo: var(--color-functional); --nivel-tinta: var(--color-cream); }
 .nivel-senior { --nivel-fondo: var(--color-black); --nivel-tinta: var(--color-cream); }
 
+/* Colores del texto del hero por nivel: --hero-texto (textos e iconos),
+   --hero-nivel (nombre grande del nivel) y --hero-eyebrow ("PERFIL ZAG"). */
+.nivel-rookie     { --hero-texto: var(--color-functional); --hero-nivel: var(--color-cta);        --hero-eyebrow: var(--color-brand-deep); }
+.nivel-strategist { --hero-texto: var(--color-brand-deep); --hero-nivel: var(--color-functional); --hero-eyebrow: var(--color-cta); }
+.nivel-creator    { --hero-texto: var(--color-white);      --hero-nivel: var(--color-brand-deep); --hero-eyebrow: var(--color-functional); }
+.nivel-master     { --hero-texto: var(--color-white);      --hero-nivel: var(--color-cta);        --hero-eyebrow: var(--color-brand-deep); }
+.nivel-senior     { --hero-texto: var(--color-white);      --hero-nivel: var(--color-cta);        --hero-eyebrow: var(--color-functional); }
+
 .p-hero {
-  background: var(--nivel-fondo); color: var(--nivel-tinta);
+  background: var(--nivel-fondo); color: var(--hero-texto, var(--nivel-tinta));
   padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 7vw, 88px);
   transition: background-color var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out);
   position: relative; overflow: hidden;
@@ -236,7 +244,13 @@
 /* Franja de patrón inferior: la misma de los heros del portal (.zag-hero__pattern, styles.css).
    Sobre los fondos azul y negro se usa la variante clara, como en Mentorías y Casos. */
 .p-hero__inner { position: relative; z-index: 1; }
+/* Iconos de fondo a todo el ancho del hero, según el nivel. */
+.p-hero.nivel-rookie, .p-hero.nivel-strategist { background-image: url('../assets/img/iconosperfil.svg'); }
+.p-hero.nivel-creator, .p-hero.nivel-senior { background-image: url('../assets/img/iconosperfil2.svg'); }
+.p-hero.nivel-master { background-image: url('../assets/img/iconosperfil3.svg'); }
+.p-hero.nivel-rookie, .p-hero.nivel-strategist, .p-hero.nivel-creator, .p-hero.nivel-master, .p-hero.nivel-senior { background-size: cover; background-position: center; background-repeat: no-repeat; }
 .nivel-master .zag-hero__pattern-band, .nivel-senior .zag-hero__pattern-band { background-image: url('../assets/img/patronzag4.svg'); }
+.nivel-creator .zag-hero__pattern-band { background-image: url('../assets/img/patronzag5.svg'); }
 .p-hero__inner {
   display: grid; grid-template-columns: auto minmax(0, 1.25fr) minmax(270px, .75fr);
   gap: clamp(24px, 4vw, 56px); align-items: center;
@@ -256,13 +270,13 @@
 .p-avatar__btn:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 .p-hero__info { min-width: 0; }
 /* Eyebrow en azul medio sobre los fondos claros (Rookie, Strategist); sobre naranja, azul y negro hereda el color del hero para mantener contraste */
-.p-kicker { margin: 0 0 6px; color: inherit; font-size: .78rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
-.nivel-rookie .p-kicker, .nivel-strategist .p-kicker { color: var(--color-functional); opacity: 1; }
+.p-kicker { margin: 0 0 6px; color: var(--hero-eyebrow, inherit); font-size: .78rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; opacity: 1; }
 .p-nombre { margin: 0 0 4px; font-size: clamp(1.7rem, 3.2vw, 2.6rem); line-height: 1.02; letter-spacing: -.02em; font-weight: 800; }
 .p-nivel-line { position: relative; display: flex; align-items: center; gap: 12px; margin: 0; }
 .p-nivel {
   font-family: var(--font-display-giga); font-weight: 400;
   font-size: clamp(3.2rem, 8vw, 6.4rem); line-height: .95; letter-spacing: 0; text-transform: uppercase;
+  color: var(--hero-nivel, inherit);
 }
 .p-info-btn {
   display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px;
@@ -468,6 +482,7 @@
 .evidencia__submit { justify-self: start; }
 
 /* === Desbloqueos === */
+#desbloqueos { background: var(--color-surface-soft); }
 .unlock-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .unlock-card {
   display: block; padding: 18px; border: 1px solid var(--color-border); border-radius: 18px;
@@ -484,11 +499,12 @@
 .next-card {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px;
   margin-top: 36px; padding: clamp(22px, 4vw, 40px);
-  background: var(--color-brand-deep); color: var(--color-cream); border-radius: var(--radius-card);
+  background: var(--nivel-fondo, var(--color-brand-deep)); color: var(--nivel-tinta, var(--color-cream)); border-radius: var(--radius-card);
 }
-.next-card .kicker { color: var(--color-cream); }
+/* El recuadro toma el color del nivel al que se sube (clase .nivel-* puesta desde perfil.js). */
+.next-card .kicker { color: var(--nivel-tinta, var(--color-cream)); }
 .next-card h3 { margin: 6px 0 8px; font-size: clamp(1.5rem, 3vw, 2.4rem); line-height: 1; }
-.next-card p { max-width: 640px; margin: 0; color: color-mix(in srgb, var(--color-cream) 75%, transparent); font-size: .88rem; line-height: 1.5; }
+.next-card p { max-width: 640px; margin: 0; color: color-mix(in srgb, var(--nivel-tinta, var(--color-cream)) 80%, transparent); font-size: .88rem; line-height: 1.5; }
 .next-card ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 14px 0 0; padding-left: 18px; font-size: .8rem; }
 .next-card__count { text-align: center; font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800; line-height: 1; }
 .next-card__count small { display: block; margin-top: 6px; font-size: .64rem; letter-spacing: .12em; }
@@ -636,3 +652,6 @@
   .p-hero, .p-barra__fill { transition: none; }
   *, *::before, *::after { scroll-behavior: auto !important; }
 }
+
+/* Los enlaces a #retos (p. ej. desde Cursos) no deben quedar bajo el header fijo. */
+#retos { scroll-margin-top: calc(var(--header-height) + var(--s-4)); }

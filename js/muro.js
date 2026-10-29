@@ -48,12 +48,16 @@
     return node;
   }
 
+  /* Foto del perfil de la persona (demo o real), para sus propias publicaciones. */
+  function miFoto() { return window.ZAG_FOTO ? window.ZAG_FOTO.url() : ''; }
+
   function avatarEl(author, extraClass) {
     var a = el('span', 'muro-avatar' + (extraClass ? ' ' + extraClass : ''));
-    if (author.photo) {
+    var foto = author.photo || (author.name === UI.myName ? miFoto() : '');
+    if (foto) {
       var img = document.createElement('img');
       img.className = 'muro-avatar-photo';
-      img.src = author.photo;
+      img.src = foto;
       img.alt = author.name;
       img.setAttribute('loading', 'lazy');
       a.appendChild(img);
@@ -322,7 +326,7 @@
 
     var me = el('span', 'muro-session-me');
     me.setAttribute('aria-label', UI.sessionChipAria);
-    me.appendChild(el('span', 'muro-avatar muro-avatar--' + levelClass(state.session) + ' muro-avatar--small', 'T'));
+    me.appendChild(avatarEl({ name: UI.myName, initials: 'T' }, 'muro-avatar--' + levelClass(state.session) + ' muro-avatar--small'));
     var name = el('span', null, UI.myName);
     name.appendChild(document.createTextNode(' '));
     me.appendChild(name);
@@ -1050,7 +1054,7 @@
     /* --- reposo (cerrado) --- */
     var rest = el('div', 'muro-cc-rest');
     var avatar = el('span', 'muro-cc-rest-avatar muro-cc-avatar--' + levelClass(state.session), '');
-    avatar.appendChild(el('span', 'muro-avatar muro-avatar--' + levelClass(state.session), state.session ? 'T' : ''));
+    avatar.appendChild(avatarEl({ name: UI.myName, initials: state.session ? 'T' : '' }, 'muro-avatar--' + levelClass(state.session)));
     rest.appendChild(avatar);
     var pill = el('button', 'muro-cc-pill', UI.composer.rest);
     pill.type = 'button';

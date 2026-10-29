@@ -87,6 +87,29 @@
     };
   }
 
+  /* Foto del perfil activo (demo o real) para que cualquier avatar del
+     portal que represente a la persona la muestre en vez de su inicial.
+     Uso: ZAG_FOTO.url() → string ('' si no hay foto)
+          ZAG_FOTO.aplicar(nodo) → true si puso la foto dentro del nodo. */
+  window.ZAG_FOTO = {
+    url: function () {
+      var est = estado();
+      return est && est.foto ? est.foto : '';
+    },
+    aplicar: function (nodo) {
+      var url = this.url();
+      if (!nodo || !url) return false;
+      nodo.textContent = '';
+      var img = document.createElement('img');
+      img.className = 'zag-foto-img';
+      img.src = url;
+      img.alt = '';
+      nodo.classList.add('tiene-foto');
+      nodo.appendChild(img);
+      return true;
+    }
+  };
+
   function claveDe(est) {
     if (!est) return 'sin-sesion';
     return est.tipo + '|' + est.nivel + '|' + (est.foto ? 'foto-' + est.foto.length : est.nombre);
@@ -102,6 +125,7 @@
   function crearPill(est) {
     var box = nodo('div', 'zag-user');
     box.setAttribute('data-tipo', est.tipo);
+    box.setAttribute('data-nivel', est.nivel);
 
     var link = nodo('a', 'zag-user__link');
     link.href = 'perfil.html';
@@ -186,6 +210,19 @@
       '.zag-user__link{display:inline-flex;align-items:center;gap:8px;min-width:0;text-decoration:none;color:inherit}',
       '.zag-user__foto{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;overflow:hidden;background:#c0ccff;color:var(--color-brand-deep);font-size:.85rem;font-weight:800;line-height:1}',
       '.zag-user__foto img{display:block;width:100%;height:100%;object-fit:cover}',
+      '.zag-foto-img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}',
+      '.tiene-foto{overflow:hidden;padding:0}',
+      /* el icono lleva el color de su nivel (mismos tokens que perfil-data.js) */
+      '.zag-user[data-nivel=rookie] .zag-user__foto{background:var(--color-cream);color:var(--color-black);box-shadow:inset 0 0 0 1.5px var(--color-text-muted)}',
+      '.zag-user[data-nivel=strategist] .zag-user__foto{background:var(--color-light-blue);color:var(--color-brand-deep)}',
+      '.zag-user[data-nivel=creator] .zag-user__foto{background:var(--color-cta);color:var(--color-white)}',
+      '.zag-user[data-nivel=master] .zag-user__foto{background:var(--color-functional);color:var(--color-white)}',
+      '.zag-user[data-nivel=senior] .zag-user__foto{background:var(--color-black);color:var(--color-cream)}',
+      '.zag-user[data-nivel=rookie] .zag-user__foto:has(img){box-shadow:0 0 0 2px var(--color-text-muted)}',
+      '.zag-user[data-nivel=strategist] .zag-user__foto:has(img){box-shadow:0 0 0 2px var(--color-light-blue)}',
+      '.zag-user[data-nivel=creator] .zag-user__foto:has(img){box-shadow:0 0 0 2px var(--color-cta)}',
+      '.zag-user[data-nivel=master] .zag-user__foto:has(img){box-shadow:0 0 0 2px var(--color-functional)}',
+      '.zag-user[data-nivel=senior] .zag-user__foto:has(img){box-shadow:0 0 0 2px var(--color-black)}',
       '.zag-user__nivel{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--color-black);white-space:nowrap}',
       '.zag-user__demo{padding:4px 9px;border-radius:999px;background:#c0ccff;color:var(--color-brand-deep);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}',
       '.zag-user__salir{border:0;background:none;padding:2px 4px;color:var(--color-cta);font-size:.76rem;font-weight:800;cursor:pointer;white-space:nowrap}',

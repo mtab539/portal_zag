@@ -588,13 +588,6 @@
     });
     body.appendChild(bioBtn);
 
-    body.appendChild(el('p', 'mentor-card-kicker', UI.puedeAyudarte));
-    var temas = el('ul', 'mentor-card-temas');
-    m.areas.map(nombreArea).forEach(function (a) {
-      temas.appendChild(el('li', 'mentor-tema', a));
-    });
-    body.appendChild(temas);
-
     var datos = el('dl', 'mentor-card-datos');
     [['Sesiones dadas', String(m.sesionesDadas)], ['Asistencia', m.asistencia + '%']]
       .forEach(function (par) {

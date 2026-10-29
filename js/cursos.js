@@ -260,7 +260,7 @@
       lock.appendChild(el('p', 'curso-card__lock-text',
         t('acceso', 'desbloqueaEn', { nivel: nivel })));
       var ver = el('a', 'btn btn--sm', UI.acceso.verComoSubir);
-      ver.href = 'mentorias.html';
+      ver.href = 'perfil.html#retos';
       lock.appendChild(ver);
     }
     return lock;

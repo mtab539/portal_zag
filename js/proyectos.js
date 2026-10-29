@@ -430,6 +430,7 @@
     var foot = el('div', 'proy-foot');
     var who = el('div', 'proy-who');
     var av = el('span', 'proy-avatar proy-avatar--' + norm(p.autor.nivel), p.autor.iniciales || initialsOf(p.autor.nombre));
+    if (/^enviado-/.test(String(p.id)) && window.ZAG_FOTO) window.ZAG_FOTO.aplicar(av);
     who.appendChild(av);
     var wt = el('div', 'proy-who-text');
     wt.appendChild(el('div', 'proy-card-author', p.autor.nombre));
@@ -547,6 +548,7 @@
         if (av) {
           av.className = 'proy-avatar proy-avatar--' + norm(state.session.level);
           av.textContent = initialsOf(state.session.name || 'Demo');
+          if (window.ZAG_FOTO) window.ZAG_FOTO.aplicar(av);
         }
         if (tx) tx.textContent = (state.session.name || 'Demo') + ' · ' + levelName(state.session.level);
       }

@@ -591,7 +591,7 @@
   }
 
   function renderNextCard() {
-    var panel = $('next-card'); panel.textContent = '';
+    var panel = $('next-card'); panel.textContent = ''; panel.className = 'next-card';
     var nivel = nivelVisible();
     var next = D.nivelSiguiente(nivel);
     if (!next) {
@@ -604,6 +604,7 @@
       return;
     }
     panel.classList.remove('next-card--tope');
+    panel.classList.add('nivel-' + next);
     var count = previewLevel ? 0 : Math.min(6, P.sellosDe(displayLevel).length);
     var left = node('div');
     left.appendChild(node('p', 'kicker', 'AL SUBIR A ' + D.nombre(next)));
@@ -873,4 +874,14 @@
   var levelupInicial = P.subirNivelSiCorresponde();
   renderAll(false);
   if (levelupInicial) showLevelup(levelupInicial);
+
+  /* Enlace directo a #retos (p. ej. desde Cursos): el ancla ya se resolvió
+     antes de pintar el tablero, así que se vuelve a centrar con el layout final. */
+  if (window.location.hash === '#retos') {
+    var secRetos = $('retos');
+    if (secRetos) {
+      secRetos.scrollIntoView();
+      window.addEventListener('load', function () { secRetos.scrollIntoView(); }, { once: true });
+    }
+  }
 })();

@@ -547,6 +547,7 @@
     var nivel = s && s.level ? String(s.level).toLowerCase() : 'rookie';
     avWrap.className = 'muro-cc-rest-avatar muro-cc-ring--' + nivel;
     var av = el('span', 'muro-avatar muro-avatar--' + nivel, Z.iniciales(s && s.name));
+    if (window.ZAG_FOTO) window.ZAG_FOTO.aplicar(av);
     avWrap.appendChild(av);
     rest.appendChild(avWrap);
 
@@ -634,7 +635,9 @@
     var semilla = c.mio ? -1 : (c.indiceSemilla === undefined ? -1 : c.indiceSemilla);
     var li = el('li', 'comment');
     var head = el('div', 'comment__head');
-    head.appendChild(el('span', 'comment__avatar', Z.iniciales(c.autor)));
+    var cav = el('span', 'comment__avatar', Z.iniciales(c.autor));
+    if (c.mio && window.ZAG_FOTO) window.ZAG_FOTO.aplicar(cav);
+    head.appendChild(cav);
     var who = el('div', 'comment__who');
     who.appendChild(el('span', 'comment__name', c.autor));
     if (c.nivel) {

@@ -543,7 +543,7 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--color-surface);
+  background: var(--color-surface-soft);
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -565,7 +565,7 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--color-grey-soft);
+  background: var(--color-surface-soft);
 }
 
 .mentor-card-foto {
@@ -593,8 +593,8 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
 .mentor-card--naranja .mentor-card-media { background: var(--color-cta); }
 .mentor-card--azul .mentor-card-media { background: var(--color-functional); }
 .mentor-card--azulprofundo .mentor-card-media { background: var(--color-brand-deep); }
-.mentor-card--crema .mentor-card-media { background: var(--color-beige); }
-.mentor-card--beige .mentor-card-media { background: var(--color-grey-soft); }
+.mentor-card--crema .mentor-card-media { background: var(--color-surface-soft); }
+.mentor-card--beige .mentor-card-media { background: var(--color-surface-soft); }
 
 .mentor-card-id {
   position: absolute;
@@ -602,8 +602,8 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   left: var(--s-3);
   padding: var(--s-1) var(--s-3);
   border-radius: var(--radius-pill);
-  background: var(--color-white);
-  color: var(--color-text);
+  background: var(--color-functional);
+  color: var(--color-white);
   font-family: var(--font-display-deca);
   font-size: 0.8125rem;
   font-weight: 800;
@@ -624,7 +624,7 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   padding: var(--s-1) var(--s-2);
   border-radius: var(--radius-pill);
   background: var(--color-white);
-  color: var(--color-text);
+  color: var(--color-functional);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -667,7 +667,7 @@ body:has(.mentorias-hero-estado) .zag-hero__pattern-band {
   color: var(--color-text-muted);
 }
 
-.mentor-card-bio--corta { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mentor-card-bio--corta { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 .mentor-bio-toggle {
   align-self: flex-start;
