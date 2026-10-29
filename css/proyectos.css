@@ -1440,3 +1440,25 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   MÓVIL — hero: los iconos de fondo van en una franja propia sobre el
+   patrón inferior (proporción 2.34:1), así no cruzan textos ni pastilla.
+   ============================================================ */
+@media (max-width: 719px) {
+  .smudge-root {
+    height: calc(250px + 42.7vw);
+    min-height: calc(250px + 42.7vw);
+    background-size: 100% auto;
+    background-position: center bottom 26px;
+    background-repeat: no-repeat;
+  }
+  .smudge-front {
+    padding-bottom: calc(42.7vw + 26px + 14px);
+  }
+  .smudge-back {
+    background-size: 100% auto;
+    background-position: center bottom 26px;
+    padding-bottom: calc(42.7vw + 26px + 14px);
+  }
+}

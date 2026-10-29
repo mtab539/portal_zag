@@ -239,10 +239,12 @@
     manoFondo.className = 'hero-art';
     manoFondo.src = 'assets/img/fondoherozag.svg?v=2';
     manoFondo.alt = '';
+    manoFondo.loading = 'eager';
     var manoImg = document.createElement('img');
     manoImg.className = 'hero-art hero-art--rot';
     manoImg.src = 'assets/img/manohero.webp';
     manoImg.alt = '';
+    manoImg.loading = 'eager';
     mano.appendChild(manoFondo);
     mano.appendChild(manoImg);
     box.appendChild(mano);
