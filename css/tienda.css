@@ -129,7 +129,6 @@ body.td-abierto { overflow: hidden; }
    ============================================================ */
 .tienda-hero {
   min-height: 0;
-  background: var(--color-cream);
 }
 .tienda-hero .zag-hero__inner {
   padding-top: var(--s-6);

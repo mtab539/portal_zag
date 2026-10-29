@@ -8,7 +8,6 @@
   /* usa .zag-hero base de styles.css + color override */
 }
 .perfiles-hero .zag-hero__title {
-  color: var(--color-brand-deep);
   font-size: clamp(38px, 12vw, 72px);
 }
 .perfiles-hero .zag-hero__title .zag-hero__title-accent {
@@ -34,6 +33,17 @@
   background: var(--color-brand-deep);
   color: var(--color-white);
   border-color: var(--color-brand-deep);
+}
+
+/* En el hero azul el botón secundario va en blanco. */
+.perfiles-hero .btn--outline {
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+.perfiles-hero .btn--outline:hover {
+  background: var(--color-white);
+  color: var(--color-functional);
+  border-color: var(--color-white);
 }
 
 /* === Barra de progreso === */

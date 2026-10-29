@@ -2295,6 +2295,46 @@ h2, h3 {
   }
 }
 
+/* Variantes de color del hero (mismo hero del Blog de Fracasos):
+   .zag-hero--azul = azul medio · .zag-hero--azul-oscuro = azul oscuro.
+   Ambas llevan los iconos blancos de fondo (iconosfrase2). */
+.zag-hero--azul,
+.zag-hero--azul-oscuro {
+  background-color: var(--color-functional);
+  background-image: url('../assets/img/iconosfrase2.svg');
+  background-position: center;
+  background-size: 88% auto;
+  background-repeat: no-repeat;
+  color: var(--color-cream);
+}
+
+.zag-hero--azul-oscuro {
+  background-color: var(--color-brand-deep);
+}
+
+.zag-hero--azul .zag-hero__title,
+.zag-hero--azul-oscuro .zag-hero__title {
+  color: var(--color-white);
+}
+
+.zag-hero--azul .zag-hero__title .zag-hero__title-accent,
+.zag-hero--azul-oscuro .zag-hero__title .zag-hero__title-accent {
+  color: var(--color-cta);
+}
+
+.zag-hero--azul .zag-hero__sub,
+.zag-hero--azul-oscuro .zag-hero__sub {
+  color: color-mix(in srgb, var(--color-cream) 85%, transparent);
+}
+
+.zag-hero--azul .zag-hero__pattern-band {
+  background-image: url('../assets/img/patronzag4.svg');
+}
+
+.zag-hero--azul-oscuro .zag-hero__pattern-band {
+  background-image: url('../assets/img/patronzag2.svg');
+}
+
 /* ============================================================
    ≥ 720px — tablet
    ============================================================ */

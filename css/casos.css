@@ -62,30 +62,10 @@
 }
 
 /* ============================================================
-   1 · HERO — idéntico al zag-hero de mentorías: azul medio plano,
-   píldora (eyebrow) arriba, título a dos líneas y un solo texto
-   corto. Se scopea por #casos-hero para no tocar el zag-hero
-   (crema) del resto de páginas.
+   1 · HERO — usa la variante .zag-hero--azul de styles.css (azul medio
+   con iconos de fondo y franja de patrón clara); la misma que
+   Conoce los perfiles.
    ============================================================ */
-#casos-hero {
-  background-color: var(--color-functional);
-  background-image: none;
-  color: var(--color-cream);
-}
-
-#casos-hero .zag-hero__title {
-  color: var(--color-white);
-}
-
-#casos-hero .zag-hero__sub {
-  color: color-mix(in srgb, var(--color-cream) 85%, transparent);
-}
-
-/* Franja de patrón inferior: la variante clara sobre azul,
-   la misma que usa mentorías en su hero azul. */
-#casos-hero .zag-hero__pattern-band {
-  background-image: url('../assets/img/patronzag4.svg');
-}
 
 /* ============================================================
    2 · ESCENARIO DE CASOS
