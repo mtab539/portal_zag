@@ -2745,6 +2745,12 @@ select option {
   .zpanel--aprende { background-position: 50% 82%; }
   .zpanel--zagroom { background-position: 50% 38%; }
   .zpanel--tienda { background-position: 50% 52%; }
+  /* Eventos y Tienda: el arte no llega al borde izquierdo; se amplía para que llene la franja */
+  .zpanel--eventos:not(.is-active),
+  .zpanel--tienda:not(.is-active) {
+    background-size: 120% auto;
+    background-position-x: 100%;
+  }
 
   /* ---- Heros compartidos: el fondo de iconos cubre todo el hero, detrás del texto ---- */
   .zag-hero.zag-hero {
