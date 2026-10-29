@@ -611,6 +611,16 @@ h2, h3 {
   justify-items: center;
 }
 
+/* Instrucción sobre la ilustración: invita a pasar el cursor por ZIG / ZAG. */
+.contexto-hint {
+  order: 0;
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-sm, .95rem);
+  font-weight: 600;
+  color: var(--color-functional);
+}
+
 .contexto-media {
   order: 1;
   position: relative;
