@@ -2746,21 +2746,9 @@ select option {
   .zpanel--zagroom { background-position: 50% 38%; }
   .zpanel--tienda { background-position: 50% 52%; }
 
-  /* ---- Heros compartidos: los iconos en su propia franja, sin cruzar textos ---- */
+  /* ---- Heros compartidos: el fondo de iconos cubre todo el hero, detrás del texto ---- */
   .zag-hero.zag-hero {
-    background-size: 100% auto !important;
-    background-position: center bottom 26px !important;
-  }
-  .zag-hero .zag-hero__inner {
-    padding-bottom: calc(32.93vw + 26px + var(--s-3)) !important;
-  }
-  .tienda-hero__garabato--izq {
-    top: auto;
-    bottom: calc(26px + 6vw);
-    left: 7%;
-  }
-  .tienda-hero__garabato--der {
-    bottom: calc(26px + 10vw);
-    right: 7%;
+    background-size: cover !important;
+    background-position: center !important;
   }
 }
