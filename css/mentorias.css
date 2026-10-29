@@ -21,7 +21,7 @@ body:has(.mentorias-hero-estado) .zag-hero {
 .zag-hero:has(+ * .mentorias-areas),
 body:has(.mentorias-hero-estado) .zag-hero {
   background-color: var(--color-functional);
-  background-image: none;
+  background-image: url('../assets/img/iconosfrase2.svg');
   color: var(--color-cream);
 }
 
