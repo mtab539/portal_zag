@@ -2775,3 +2775,15 @@ select option {
     }
   }
 }
+
+/* ---- Celular: la tira "Solo porque ZIG · Únete al ZAG" siempre se mueve ----
+   Muchos teléfonos traen activado "reducir movimiento" y la regla global de arriba
+   congelaba la tira; solo en móvil se mantiene el desplazamiento (lento y lineal). */
+@media (max-width: 719px) and (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-name: marquee-scroll !important;
+    animation-duration: 26s !important;
+    animation-iteration-count: infinite !important;
+    animation-timing-function: linear !important;
+  }
+}
