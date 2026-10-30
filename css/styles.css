@@ -2703,6 +2703,16 @@ select option {
   .hero {
     padding-bottom: var(--s-6);
   }
+  /* textos del hero centrados */
+  .hero-eyebrow,
+  .hero-title,
+  .hero-sub {
+    text-align: center;
+  }
+  .hero-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .hero .hero-mano {
     display: block;
     position: relative;
