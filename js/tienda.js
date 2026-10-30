@@ -923,6 +923,12 @@
       body.appendChild(aviso);
     }
 
+    var importante = el('p', 'td-carrito-importante');
+    importante.setAttribute('role', 'note');
+    importante.appendChild(el('span', 'td-carrito-importante__icono', '⚠')).setAttribute('aria-hidden', 'true');
+    importante.appendChild(el('span', null, UI.carrito.avisoCancelar));
+    foot.appendChild(importante);
+
     var ir = el('button', 'btn td-cta', UI.carrito.checkout);
     ir.type = 'button';
     ir.id = 'td-ir-checkout';

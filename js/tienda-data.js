@@ -402,6 +402,7 @@ window.ZAG_TIENDA = (function () {
       descuento: 'Descuento Senior (−15%)',
       total: 'Total',
       envio: 'Envío: no aplica · recoges en la Facultad',
+      avisoCancelar: 'Importante: solo puedes cancelar un pedido al mes. Asegúrate de lo que vas a comprar.',
       checkout: 'Ir al checkout',
       seguir: 'Seguir comprando',
       vacioTitulo: 'Tu carrito está vacío',

@@ -516,7 +516,7 @@ body.td-abierto { overflow: hidden; }
 }
 .td-card__nota {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-cta-text);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -952,7 +952,7 @@ body.td-abierto { overflow: hidden; }
   font-weight: 700;
 }
 .td-totales__fila span:last-child { font-family: var(--font-display-deca); }
-.td-totales__fila--desc { color: var(--color-cta-ink); }
+.td-totales__fila--desc { color: var(--color-cta-text); }
 #td-carrito-titulo { color: var(--color-brand-deep); }
 .td-totales__fila--total {
   color: var(--color-brand-deep);
@@ -1535,3 +1535,25 @@ body.td-abierto { overflow: hidden; }
   .td-ficha__body > .btn.td-cta { box-shadow: 0 0 0 8px var(--color-white), 0 0 0 9px var(--color-white); }
   .td-ficha__body > .td-bloqueo { background: var(--color-white); }
 }
+
+/* Descuento Senior: naranja de marca (el precio con descuento y su etiqueta) */
+.td-card__precio s + span,
+.td-ficha__precio s + .td-card__nota { color: var(--color-cta-text); }
+.td-ficha__precio .td-card__nota { margin-left: var(--s-2); }
+
+/* Aviso importante al pie del carrito */
+.td-carrito-importante {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid #e6b800;
+  border-radius: var(--radius-md);
+  background: #ffe066;
+  color: var(--color-black);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.td-carrito-importante__icono { flex: 0 0 auto; }

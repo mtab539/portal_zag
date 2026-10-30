@@ -281,6 +281,15 @@
         mobileContainer.appendChild(card);
       });
 
+      /* Enlace directo a un perfil (perfiles.html#creator) */
+      var hashTab = (window.location.hash || '').replace('#', '');
+      var cardTab = PERFILES.map(function (p) { return p.id; }).indexOf(hashTab);
+      if (cardTab > 0) {
+        var irTab = function () { mobileContainer.children[cardTab].scrollIntoView({ behavior: 'instant' }); };
+        irTab();
+        if (document.readyState !== 'complete') window.addEventListener('load', function () { setTimeout(irTab, 60); }, { once: true });
+      }
+
       /* IntersectionObserver para revelar tarjetas */
       if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         var io = new IntersectionObserver(function (entries) {
@@ -464,5 +473,28 @@
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    /* Enlace directo a un perfil (perfiles.html#creator): se abre ya posicionado
+       en ese nivel, sin recorrer los anteriores. */
+    var hashId = (window.location.hash || '').replace('#', '');
+    var hashIdx = -1;
+    PERFILES.forEach(function (p, i) { if (p.id === hashId) hashIdx = i; });
+    if (hashIdx > 0 && stickyHeight) {
+      var goTo = function () {
+        var total = stickyHeight.offsetHeight - window.innerHeight;
+        if (total <= 0) return;
+        var top = stickyHeight.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: top + ((hashIdx + 0.5) / PERFILES.length) * total, behavior: 'instant' });
+        stickyTop = top;
+        shownIdx = targetIdx = lastIdx = currentIdx = hashIdx;
+        updatePosters(hashIdx);
+        leftInner.textContent = '';
+        buildInfo(PERFILES[hashIdx], leftInner);
+        onScroll();
+      };
+      goTo();
+      /* las imágenes y fuentes cambian la altura de la página: se recoloca al cargar */
+      if (document.readyState !== 'complete') window.addEventListener('load', function () { setTimeout(goTo, 60); }, { once: true });
+    }
   }
 })();

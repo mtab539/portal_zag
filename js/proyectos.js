@@ -12,6 +12,7 @@
   var UI = D.ui;
 
   var LS = 'zag_proyectos_enviados';
+  var LS_PUB = 'zag_proyectos_publicados';
   var THEMES = ['cream', 'light', 'cta', 'white', 'black'];
 
   function $(id) { return document.getElementById(id); }
@@ -29,7 +30,8 @@
     orden: 'recientes',
     reduce: false,
     session: null,
-    sent: [],
+    sent: [],      /* enviados, en revisión: solo los ve quien los envió */
+    pub: [],       /* aprobados: pasan a la lista pública y los ve cualquier visitante */
     cats: [],
     equipo: [],
   };
@@ -149,11 +151,41 @@
       var list = raw ? JSON.parse(raw) : [];
       state.sent = Array.isArray(list) ? list : [];
     } catch (e) { state.sent = []; }
+    try {
+      var rawPub = window.localStorage.getItem(LS_PUB);
+      var listPub = rawPub ? JSON.parse(rawPub) : [];
+      state.pub = Array.isArray(listPub) ? listPub : [];
+    } catch (e) { state.pub = []; }
+    /* un envío ya aprobado deja de ser "enviado": pasa a la lista pública */
+    var aprobados = state.sent.filter(function (x) { return !x.enRevision; });
+    if (aprobados.length) {
+      state.sent = state.sent.filter(function (x) { return x.enRevision; });
+      aprobados.forEach(function (x) { publicar(x); });
+      saveSent();
+    }
+  }
+
+  function savePub() {
+    try {
+      window.localStorage.setItem(LS_PUB, JSON.stringify(state.pub.slice(0, 100)));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  /* Un proyecto aprobado se publica: queda en la lista pública, con el mismo
+     aspecto que el resto de proyectos, para cualquier visitante. */
+  function publicar(p) {
+    if (state.pub.some(function (x) { return x.id === p.id; })) return;
+    p.enRevision = false;
+    p.publico = true;
+    p.fechaPublicacion = new Date().toISOString().slice(0, 10);
+    state.pub.unshift(p);
+    savePub();
   }
 
   function saveSent() {
     try {
-      window.localStorage.setItem(LS, JSON.stringify(state.sent.slice(-50)));
+      window.localStorage.setItem(LS, JSON.stringify(state.sent.slice(0, 50)));
       return true;
     } catch (e) { return false; }
   }
@@ -308,7 +340,7 @@
      Datos
      ============================================================ */
   function all() {
-    return state.sent.concat(D.proyectos);
+    return state.sent.concat(state.pub, D.proyectos);
   }
 
   function levelMatches(proj, nivel) {
@@ -440,7 +472,9 @@
 
     var sem = el('div', 'proy-sem');
     sem.appendChild(iconBirrete());
-    sem.appendChild(document.createTextNode((p.semestre || '') + ' · ' + (p.periodo || '')));
+    var semTxt = [p.semestre ? UI.semHecho + ' ' + p.semestre : '', p.periodo || ''].filter(Boolean).join(' · ');
+    sem.appendChild(document.createTextNode(semTxt));
+    sem.title = 'Semestre en que se realizó el proyecto';
     foot.appendChild(sem);
     body.appendChild(foot);
 
@@ -460,16 +494,19 @@
   }
 
   function approve(id) {
-    /* No se borra: pasa a publicado y queda en la grilla junto al
-       resto de los proyectos (sin la insignia "en revisión"). */
-    state.sent.forEach(function (x) {
-      if (x.id === id) x.enRevision = false;
+    /* Aprobado = publicado: sale de "en revisión" y pasa a la lista pública,
+       junto al resto de los proyectos. */
+    var aprobado = null;
+    state.sent = state.sent.filter(function (x) {
+      if (x.id === id) { aprobado = x; return false; }
+      return true;
     });
+    if (aprobado) publicar(aprobado);
     saveSent();
     renderGrid();
     renderBell();
     drawBellPanel();
-    announce('Proyecto aprobado. Ya aparece publicado en la lista.');
+    announce('Proyecto aprobado. Ya está publicado y lo ve todo el mundo.');
   }
 
   function renderGrid() {
@@ -649,6 +686,8 @@
     set('proy-cat-label', UI.fCat);
     set('proy-link-label', UI.fLink);
     set('proy-link-hint', UI.fLinkHint);
+    set('proy-semestre-label', UI.fSemestre);
+    set('proy-semestre-hint', UI.fSemestreHint);
     set('proy-portada-label', UI.fPortada);
     set('proy-equipo-label', UI.fEquipo);
     set('proy-specs-summary', UI.specsTitulo);
@@ -662,6 +701,23 @@
     if (desc) desc.placeholder = UI.fDescPh;
     var link = $('proy-link');
     if (link) link.placeholder = UI.fLinkPh;
+
+    var semSel = $('proy-semestre');
+    if (semSel) {
+      var ph = document.createElement('option');
+      ph.value = ''; ph.textContent = UI.fSemestrePh;
+      semSel.appendChild(ph);
+      UI.semestresOpc.forEach(function (t) {
+        var o = document.createElement('option');
+        o.value = t; o.textContent = t.replace(' sem', ' semestre');
+        semSel.appendChild(o);
+      });
+      semSel.addEventListener('change', function () {
+        showErr('proy-semestre-error', '');
+        setInvalid('proy-semestre', false);
+        updateSubmit();
+      });
+    }
 
     var specs = $('proy-specs-list');
     if (specs) {
@@ -839,6 +895,7 @@
       if (titulo && (!titulo.value.trim() || titulo.value.trim().length > 80)) return titulo;
       if (desc && (!desc.value.trim() || desc.value.trim().length > 280)) return desc;
       if (state.cats.length === 0) return catBox;
+      if (semSel && !semSel.value) return semSel;
       if (link && parseLink(link.value) === null) return link;
       if (coverData && coverData.over) return $('proy-portada');
       if (!legal || !legal.checked) return legal;
@@ -874,6 +931,10 @@
           showErr('proy-cat-error', UI.errCat);
           var chip = catBox && catBox.querySelector('button');
           if (chip) chip.focus();
+        } else if (first === semSel) {
+          showErr('proy-semestre-error', UI.errSemestre);
+          setInvalid('proy-semestre', true);
+          first.focus();
         } else if (first === legal) {
           showErr('proy-legal-error', UI.errLegal);
           first.focus();
@@ -899,7 +960,8 @@
           },
           equipo: state.equipo.slice(),
           fecha: new Date().toISOString().slice(0, 10),
-          semestre: window.ZAG_SEMESTRE ? window.ZAG_SEMESTRE.texto() : 'Estudiante',
+          /* semestre en el que se hizo el proyecto (no el que cursa hoy la persona) */
+          semestre: semSel ? semSel.value : '',
           periodo: '2026-1',
           link: link.value.trim(),
           destino: parseLink(link.value) || 'web',
@@ -923,7 +985,7 @@
           if (covImg) { covImg.hidden = true; covImg.removeAttribute('src'); }
           if (covEmpty) covEmpty.hidden = false;
           showErr('proy-titulo-error', ''); showErr('proy-desc-error', '');
-          showErr('proy-cat-error', ''); showErr('proy-link-error', '');
+          showErr('proy-cat-error', ''); showErr('proy-link-error', ''); showErr('proy-semestre-error', '');
           showErr('proy-portada-error', ''); showErr('proy-portada-warn', '');
           showErr('proy-equipo-error', ''); showErr('proy-legal-error', '');
           setInvalid('proy-titulo', false); setInvalid('proy-desc', false);
@@ -1010,8 +1072,9 @@
     var b = $('proy-reset');
     if (!b) return;
     b.addEventListener('click', function () {
-      try { window.localStorage.removeItem(LS); } catch (e) { /* sin storage */ }
+      try { window.localStorage.removeItem(LS); window.localStorage.removeItem(LS_PUB); } catch (e) { /* sin storage */ }
       state.sent = [];
+      state.pub = [];
       /* el envío en revisión de Mariana T. es parte de la demo: se repone */
       seedDemoPendiente();
       renderGrid();
@@ -1043,7 +1106,8 @@
 
   /* Siembra el envío en revisión de Mariana T. una sola vez por navegador */
   function seedDemoPendiente() {
-    if (state.sent.some(function (p) { return p.id === DEMO_PENDIENTE.id; })) return false;
+    var ya = function (p) { return p.id === DEMO_PENDIENTE.id; };
+    if (state.sent.some(ya) || state.pub.some(ya)) return false;
     state.sent.unshift(DEMO_PENDIENTE);
     saveSent();
     return true;

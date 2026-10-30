@@ -509,10 +509,16 @@
     card.appendChild(body);
     var more = document.createElement('a');
     more.className = 'settle-more';
-    more.href = 'index.html';
+    more.href = 'perfiles.html#' + cfg.id;
     more.textContent = 'click para ver más';
     more.setAttribute('aria-label', 'Más sobre el nivel ' + cfg.name);
     card.appendChild(more);
+    /* toda la tarjeta lleva al perfil exacto en "Conoce los perfiles" */
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a')) return;
+      window.location.href = more.href;
+    });
     return card;
   }
 

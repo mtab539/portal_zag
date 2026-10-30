@@ -109,10 +109,35 @@
     if (raw) {
       try {
         var parsed = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.length) return parsed;
+        if (Array.isArray(parsed) && parsed.length) return repararFechas(parsed);
       } catch (e) { /* data corrupta → volver al seed */ }
     }
     return cloneSeed();
+  }
+
+  /* Los posts guardados con la fecha mal calculada (año negativo) recuperan la
+     fecha de su semilla; los que no tienen semilla quedan como recién publicados. */
+  function fechaValida(iso) {
+    var t = new Date(iso).getTime();
+    return isFinite(t) && t >= Date.UTC(2000, 0, 1);
+  }
+  function repararFechas(list) {
+    var seed = cloneSeed();
+    var porId = {};
+    seed.forEach(function (p) {
+      porId[p.id] = p;
+      (p.replies || []).forEach(function (r) { porId[r.id] = r; });
+    });
+    var ahora = new Date().toISOString();
+    var arreglar = function (x) {
+      if (fechaValida(x.createdAt)) return;
+      x.createdAt = (porId[x.id] && porId[x.id].createdAt) || ahora;
+    };
+    list.forEach(function (p) {
+      arreglar(p);
+      (p.replies || []).forEach(arreglar);
+    });
+    return list;
   }
 
   function savePosts() {
@@ -167,14 +192,23 @@
   };
 
   /* ---------- tiempo relativo ---------- */
+  /* Devuelve el texto completo: "hace 5 min", "hace 3 h", "hace 2 d" y, pasada
+     una semana, la fecha ("12 oct 2026"). Si la fecha no es válida, no muestra nada. */
   function relativeTime(iso) {
-    var diff = Date.now() - new Date(iso).getTime();
+    var then = new Date(iso);
+    var t = then.getTime();
+    if (!isFinite(t) || t < Date.UTC(2000, 0, 1)) return '';
+    var diff = Date.now() - t;
     if (diff < 0) diff = 0;
     var mins = Math.round(diff / 60000);
-    if (mins < 60) return UI.agoMinutes + ' ' + Math.max(1, mins);
+    if (mins < 60) return 'hace ' + Math.max(1, mins) + ' ' + UI.agoMinutes;
     var hours = Math.round(mins / 60);
-    if (hours < 24) return UI.agoHours + ' ' + hours;
-    return UI.agoDays + ' ' + Math.round(hours / 24);
+    if (hours < 24) return 'hace ' + hours + ' ' + UI.agoHours;
+    var days = Math.round(hours / 24);
+    if (days < 7) return 'hace ' + days + ' ' + UI.agoDays;
+    var opts = { day: 'numeric', month: 'short' };
+    if (then.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+    return then.toLocaleDateString('es-CO', opts).replace(/\./g, '');
   }
 
   function lastReplyTime(post) {
@@ -707,7 +741,7 @@
     }
     head.appendChild(who);
 
-    var time = el('time', 'muro-post-time', 'hace ' + relativeTime(post.createdAt));
+    var time = el('time', 'muro-post-time', relativeTime(post.createdAt));
     time.setAttribute('datetime', post.createdAt);
     head.appendChild(time);
     card.appendChild(head);
@@ -858,7 +892,7 @@
       side.appendChild(stack);
       var lr = lastReplyTime(post);
       if (lr) {
-        var note = freshTime(lr) ? UI.lastReply + ' ' + UI.composer.lastReplyNow : UI.lastReply + ' hace ' + relativeTime(lr);
+        var note = freshTime(lr) ? UI.lastReply + ' ' + UI.composer.lastReplyNow : UI.lastReply + ' ' + relativeTime(lr);
         side.appendChild(el('span', 'muro-reply-note', note));
       }
     }
@@ -971,7 +1005,7 @@
   }
 
   function replyTime(iso) {
-    return freshTime(iso) ? UI.composer.nowTime : 'hace ' + relativeTime(iso);
+    return freshTime(iso) ? UI.composer.nowTime : relativeTime(iso);
   }
 
   function freshTime(iso) {

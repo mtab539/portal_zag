@@ -12,7 +12,8 @@ window.ZAG_MURO = (function () {
   var DAY = 24 * HOUR;
 
   function ago(hours, mins) {
-    var offset = hours * HOUR + (mins || 0) * MIN;
+    /* acepta horas (ago(26)) o milisegundos (ago(3 * DAY)) */
+    var offset = (hours >= HOUR ? hours : hours * HOUR) + (mins || 0) * MIN;
     return new Date(Date.now() - offset).toISOString();
   }
 
