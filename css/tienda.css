@@ -1557,3 +1557,33 @@ body.td-abierto { overflow: hidden; }
   line-height: 1.4;
 }
 .td-carrito-importante__icono { flex: 0 0 auto; }
+.td-carrito-importante__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.td-carrito-importante__terminos {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-brand-deep);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.td-carrito-importante__terminos:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+/* Popup de términos y condiciones: al centro de la pantalla, encima del carrito */
+.td-terminos { z-index: 140; align-items: center; justify-content: center; padding: var(--gutter); }
+.td-terminos__box { max-width: 460px; max-height: 88vh; overflow-y: auto; align-items: stretch; text-align: left; }
+.td-terminos__box .td-acceso__titulo { margin-top: 0; padding-right: 40px; font-size: 22px; }
+.td-terminos__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-4);
+  padding-left: 1.2em;
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.td-terminos__ok { align-self: stretch; }

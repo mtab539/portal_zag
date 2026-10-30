@@ -403,6 +403,16 @@ window.ZAG_TIENDA = (function () {
       total: 'Total',
       envio: 'Envío: no aplica · recoges en la Facultad',
       avisoCancelar: 'Importante: solo puedes cancelar un pedido al mes. Asegúrate de lo que vas a comprar.',
+      avisoTerminos: '(aplican términos y condiciones)',
+      terminosTitulo: 'Términos y condiciones de los pedidos',
+      terminos: [
+        'Los pagos se hacen en la universidad, al recoger tu pedido.',
+        'Si tu pedido ya está siendo procesado, no se puede cancelar.',
+        'Solo puedes cancelar un pedido una vez al mes.',
+        'Si cancelas más de un pedido, se realizará un cobro que se sumará a los cobros para presentar los parciales.',
+        'Para presentar los parciales debes estar al día con tus créditos y cuotas.'
+      ],
+      terminosCerrar: 'Entendido',
       checkout: 'Ir al checkout',
       seguir: 'Seguir comprando',
       vacioTitulo: 'Tu carrito está vacío',

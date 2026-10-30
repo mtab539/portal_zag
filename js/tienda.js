@@ -143,7 +143,62 @@
     FOCO_ORIGEN = null;
   }
 
+  /* Popup de términos y condiciones: va encima del carrito sin cerrarlo. */
+  var terminosEl = null;
+  var terminosOrigen = null;
+
+  function abrirTerminos(origen) {
+    terminosOrigen = origen || null;
+    if (!terminosEl) {
+      terminosEl = el('div', 'td-overlay td-terminos');
+      terminosEl.setAttribute('role', 'dialog');
+      terminosEl.setAttribute('aria-modal', 'true');
+      terminosEl.setAttribute('aria-labelledby', 'td-terminos-titulo');
+      var caja = el('div', 'td-acceso__box td-terminos__box');
+      var x = el('button', 'td-ficha__close', null);
+      x.type = 'button';
+      x.setAttribute('aria-label', 'Cerrar');
+      x.appendChild(el('span', null, '×')).setAttribute('aria-hidden', 'true');
+      x.addEventListener('click', cerrarTerminos);
+      caja.appendChild(x);
+      var h = el('h2', 'td-acceso__titulo', UI.carrito.terminosTitulo);
+      h.id = 'td-terminos-titulo';
+      caja.appendChild(h);
+      var ul = el('ul', 'td-terminos__lista');
+      UI.carrito.terminos.forEach(function (t) { ul.appendChild(el('li', null, t)); });
+      caja.appendChild(ul);
+      var ok = el('button', 'btn td-cta td-terminos__ok', UI.carrito.terminosCerrar);
+      ok.type = 'button';
+      ok.addEventListener('click', cerrarTerminos);
+      caja.appendChild(ok);
+      terminosEl.appendChild(caja);
+      terminosEl.addEventListener('mousedown', function (e) { if (e.target === terminosEl) cerrarTerminos(); });
+      document.body.appendChild(terminosEl);
+    }
+    terminosEl.hidden = false;
+    var cerrar = terminosEl.querySelector('.td-terminos__ok');
+    if (cerrar) cerrar.focus();
+  }
+
+  function cerrarTerminos() {
+    if (!terminosEl || terminosEl.hidden) return;
+    terminosEl.hidden = true;
+    if (terminosOrigen && document.contains(terminosOrigen)) {
+      try { terminosOrigen.focus(); } catch (e) { /* el nodo ya no está */ }
+    }
+  }
+
   function alTeclear(e) {
+    if (terminosEl && !terminosEl.hidden) {
+      if (e.key === 'Escape') { e.preventDefault(); cerrarTerminos(); return; }
+      if (e.key === 'Tab') {
+        var fs = terminosEl.querySelectorAll('button');
+        var f0 = fs[0], f1 = fs[fs.length - 1];
+        if (e.shiftKey && document.activeElement === f0) { e.preventDefault(); f1.focus(); }
+        else if (!e.shiftKey && document.activeElement === f1) { e.preventDefault(); f0.focus(); }
+      }
+      return;
+    }
     if (e.key === 'Escape' && overlayAbierto) {
       e.preventDefault();
       cerrarOverlay(overlayAbierto);
@@ -926,7 +981,14 @@
     var importante = el('p', 'td-carrito-importante');
     importante.setAttribute('role', 'note');
     importante.appendChild(el('span', 'td-carrito-importante__icono', '⚠')).setAttribute('aria-hidden', 'true');
-    importante.appendChild(el('span', null, UI.carrito.avisoCancelar));
+    var impTexto = el('span', 'td-carrito-importante__texto');
+    impTexto.appendChild(document.createTextNode(UI.carrito.avisoCancelar));
+    var verTerm = el('button', 'td-carrito-importante__terminos', UI.carrito.avisoTerminos);
+    verTerm.type = 'button';
+    verTerm.setAttribute('aria-haspopup', 'dialog');
+    verTerm.addEventListener('click', function () { abrirTerminos(verTerm); });
+    impTexto.appendChild(verTerm);
+    importante.appendChild(impTexto);
     foot.appendChild(importante);
 
     var ir = el('button', 'btn td-cta', UI.carrito.checkout);
