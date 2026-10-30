@@ -337,6 +337,11 @@
     var kicker = document.getElementById('muro-kicker');
     if (!kicker) return;
     kicker.textContent = m.kicker;
+    /* Celular: sin título, el botón de información va junto al eyebrow
+       (en escritorio queda oculto por CSS; allí se usa el del título) */
+    var kickerTip = tipButton('murodequiebre');
+    kickerTip.classList.add('muro-kicker-tip');
+    kicker.appendChild(kickerTip);
     var title = document.getElementById('muro-title');
     title.textContent = '';
     title.appendChild(el('span', 'muro-part', m.titleAccent ? m.title.split(m.titleAccent)[0] : m.title));
@@ -966,6 +971,15 @@
       btn.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') btn.classList.remove('is-open');
       });
+    });
+
+    /* Táctil: tocar en cualquier otra parte cierra el globo abierto. En iPhone el botón
+       no pierde el foco ni llega un 'click' al documento desde zonas sin enlace, así que
+       se escucha 'pointerdown' (el ratón ya se cierra solo por el desenfoque). */
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      if (e.target.closest && e.target.closest('.tip')) return;
+      document.querySelectorAll('.tip.is-open').forEach(function (b) { b.classList.remove('is-open'); });
     });
   }
 

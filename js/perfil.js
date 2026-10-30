@@ -200,6 +200,13 @@
       if (ev.target === btn || ev.target === tip) return;
       tip.hidden = true; btn.setAttribute('aria-expanded', 'false');
     });
+    /* Táctil (iPhone): el 'click' no llega al documento desde zonas sin enlace,
+       así que tocar fuera también cierra el globo con 'pointerdown'. */
+    document.addEventListener('pointerdown', function (ev) {
+      if (ev.pointerType === 'mouse' || tip.hidden) return;
+      if (btn.contains(ev.target)) return;
+      tip.hidden = true; btn.setAttribute('aria-expanded', 'false');
+    });
   }
 
   /* ============================================================

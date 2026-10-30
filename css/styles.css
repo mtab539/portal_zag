@@ -2200,6 +2200,11 @@ h2, h3 {
   .tip .tip-box::after { display: none; }
 }
 
+/* La "i" del eyebrow del Muro es solo para el celular (en escritorio va la del título). */
+@media (min-width: 721px) {
+  .muro-kicker-tip { display: none; }
+}
+
 /* Los globos ocultos (ZIG / ZAG, definiciones) no deben ensanchar la página. */
 main { overflow-x: clip; }
 
@@ -2752,6 +2757,31 @@ select option {
   }
   .settle-headline {
     padding-top: 96px;
+  }
+
+  /* ---- Muro de Quiebre: sin título, la "i" junto al eyebrow y la imagen pegada a los tuits ---- */
+  .muro-section #muro-title {
+    display: none;
+  }
+  .muro-section .section-head {
+    margin-bottom: 0;
+  }
+  .muro-kicker-tip {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    font-size: 12px;
+  }
+  .muro-grid {
+    gap: var(--s-3);
+  }
+  .muro-media {
+    aspect-ratio: 1 / 0.72;
+    overflow: hidden;
+  }
+  .muro-media img {
+    height: 100%;
+    object-fit: cover;
   }
 
   /* ---- Paneles "Descubre el ZAG": franjas con el encuadre centrado ---- */
