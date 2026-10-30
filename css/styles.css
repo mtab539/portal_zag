@@ -2689,16 +2689,9 @@ select option {
    MÓVIL — ajustes de diseño (solo ≤ 720px; escritorio no cambia)
    ============================================================ */
 @media (max-width: 719px) {
-  /* Menú: letras en el azul medio de la marca */
-  .nav-toggle,
-  .nav-link,
-  .nav-dropdown a,
-  .nav-dropdown-title {
+  /* Menú: solo el botón "Menú" va en el azul medio de la marca */
+  .nav-toggle {
     color: var(--color-functional);
-  }
-  .nav-link:hover,
-  .nav-dropdown a:hover {
-    color: var(--color-brand-deep);
   }
 }
 
@@ -2733,6 +2726,22 @@ select option {
   }
   .settle-chrome--bottom .settle-meta {
     display: none;
+  }
+  .settle-hint::before {
+    display: none;
+  }
+  /* sello ZAG más grande y "Perfiles" más pequeño, pegados al eyebrow y al título */
+  .settle-chrome--top {
+    top: 44px;
+  }
+  .settle-seal {
+    width: 104px;
+  }
+  .settle-label {
+    font-size: 14px;
+  }
+  .settle-headline {
+    padding-top: 96px;
   }
 
   /* ---- Paneles "Descubre el ZAG": franjas con el encuadre centrado ---- */
