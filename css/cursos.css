@@ -2245,4 +2245,30 @@
   .curso-panel select {
     font-size: 16px;
   }
+
+  /* Comentarios: separar el campo "Escribe un comentario…" del primer comentario */
+  .curso-panel .comments__list {
+    margin-top: var(--s-5);
+  }
+
+  /* Materiales: arriba el título (con el peso) y debajo el enlace de descarga */
+  .material-item {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--s-2) var(--s-3);
+  }
+  .material-item__name {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .material-item__size {
+    flex: none;
+    padding-top: 2px;
+  }
+  .material-item__cta {
+    flex: 1 1 100%;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.3;
+  }
 }

@@ -530,6 +530,9 @@
   }
 
   /* ---------- comentarios ---------- */
+  /* En el celular el texto va en tuteo ("Escribe"); el escritorio queda como estaba. */
+  var ESCRIBE = window.matchMedia && window.matchMedia('(max-width: 719px)').matches ? 'Escribe' : 'Escribí';
+
   function renderComentarios() {
     var panel = $('panel-com');
     if (!panel || !state.leccion) return;
@@ -551,7 +554,7 @@
     avWrap.appendChild(av);
     rest.appendChild(avWrap);
 
-    var pill = el('button', 'muro-cc-pill', s ? 'Escribí un comentario…' : UI.curso.sinSesionDemo);
+    var pill = el('button', 'muro-cc-pill', s ? ESCRIBE + ' un comentario…' : UI.curso.sinSesionDemo);
     pill.type = 'button';
     if (!s) pill.disabled = true;
     rest.appendChild(pill);
@@ -567,7 +570,7 @@
     area.className = 'muro-cc-text';
     area.rows = 4;
     area.maxLength = Z.limiteComentario();
-    area.setAttribute('aria-label', 'Escribí un comentario');
+    area.setAttribute('aria-label', ESCRIBE + ' un comentario');
     area.placeholder = s ? '¿Qué te quedó dando esta lección?' : '';
     box.appendChild(area);
 
@@ -683,7 +686,7 @@
       rarea.className = 'muro-cc-text';
       rarea.rows = 2;
       rarea.maxLength = Z.limiteComentario();
-      rarea.setAttribute('aria-label', 'Escribí una respuesta');
+      rarea.setAttribute('aria-label', ESCRIBE + ' una respuesta');
       rbox.appendChild(rarea);
       var rsend = el('button', 'btn btn--sm muro-cc-send', 'Responder');
       rsend.type = 'button';
