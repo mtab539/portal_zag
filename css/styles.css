@@ -2758,20 +2758,34 @@ select option {
     background-position: center !important;
   }
 
-  /* ---- Frase final: los iconos flotan centrados sobre la frase, sin bajar hasta el botón ---- */
+  /* ---- Frase final: frase e iconos comparten exactamente el mismo recuadro ----
+     El recuadro tiene su propia proporción (la del SVG) y las dos imágenes lo llenan,
+     así los iconos quedan siempre centrados sobre la frase y nunca bajan al botón,
+     sin depender de cómo cada navegador calcule la altura de un SVG. */
   .close-landing-wrap {
+    aspect-ratio: 1920 / 632.28;
     margin-bottom: var(--s-6);
   }
+  .close-landing,
   .close-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .close-icons {
+    transform: none;
     animation-name: close-icons-float-m;
   }
   @keyframes close-icons-float-m {
     0%,
     100% {
-      transform: translate(-50%, -50%) translateY(-6px);
+      transform: translateY(0);
     }
     50% {
-      transform: translate(-50%, -50%) translateY(-12px);
+      transform: translateY(-6px);
     }
   }
 }
