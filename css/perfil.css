@@ -661,4 +661,10 @@
    ============================================================ */
 @media (max-width: 719px) {
   .mapa-fila__items { padding-left: 38px; padding-right: 18px; }
+  /* botones (i): la explicación se abre en la mitad de la pantalla */
+  .p-tooltip {
+    position: fixed; top: 50%; bottom: auto; left: 16px; right: 16px;
+    max-width: none; transform: translateY(-50%);
+    z-index: 200; font-size: .95rem;
+  }
 }
