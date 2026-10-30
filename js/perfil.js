@@ -578,6 +578,69 @@
       card.appendChild(node('span', 'unlock-card__ir', 'Explorar ↗'));
       host.appendChild(card);
     });
+    renderDesbloqueosGrupos();
+  }
+
+  /* Vista mobile de "Lo que ya es tuyo": en vez de una lista larga, un
+     botón por grupo que abre un popup con sus beneficios. En escritorio
+     este bloque va oculto por CSS y se sigue viendo la grilla de tarjetas. */
+  var GRUPOS = [
+    { id: 'comunidad', icono: '🔥', titulo: 'Comunidad y eventos', hrefs: ['fogatas.html', 'podcast.html', 'podcast.html#invitado', 'seminario.html'] },
+    { id: 'aprende', icono: '📚', titulo: 'Aprende y crece', hrefs: ['mentorias.html', 'cursos.html'] },
+    { id: 'room', icono: '🚪', titulo: 'ZAG Room', hrefs: ['zag-room.html'] },
+    { id: 'espacios', icono: '✳', titulo: 'Muro, casos y proyectos', hrefs: ['muro.html', 'casos.html', 'proyectos.html'] },
+    { id: 'merch', icono: '🏷', titulo: 'Merch y Tienda', hrefs: ['tienda.html'] },
+  ];
+
+  function renderDesbloqueosGrupos() {
+    var host = $('unlock-groups');
+    if (!host) {
+      host = node('div', 'unlock-groups'); host.id = 'unlock-groups';
+      $('unlock-grid').insertAdjacentElement('afterend', host);
+    }
+    host.textContent = '';
+    var items = D.desbloqueos(nivelVisible());
+    GRUPOS.forEach(function (g) {
+      var lista = items.filter(function (u) { return g.hrefs.indexOf(u.href) !== -1; });
+      if (!lista.length) return;
+      var btn = node('button', 'unlock-group');
+      btn.type = 'button';
+      var ic = node('span', 'unlock-group__icon', g.icono); ic.setAttribute('aria-hidden', 'true');
+      btn.appendChild(ic);
+      btn.appendChild(node('span', 'unlock-group__title', g.titulo));
+      btn.appendChild(node('span', 'unlock-group__count', lista.length + (lista.length === 1 ? ' beneficio' : ' beneficios')));
+      btn.addEventListener('click', function () { abrirGrupo(g, lista); });
+      host.appendChild(btn);
+    });
+  }
+
+  function abrirGrupo(g, lista) {
+    var d = $('unlock-pop');
+    if (!d) {
+      d = node('dialog', 'unlock-pop'); d.id = 'unlock-pop';
+      d.setAttribute('aria-labelledby', 'unlock-pop-title');
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+      document.body.appendChild(d);
+    }
+    d.textContent = '';
+    var x = node('button', 'unlock-pop__close', '×');
+    x.type = 'button'; x.setAttribute('aria-label', 'Cerrar');
+    x.addEventListener('click', function () { d.close(); });
+    d.appendChild(x);
+    d.appendChild(node('p', 'kicker', 'YA DESBLOQUEASTE'));
+    var h = node('h3', 'unlock-pop__title', g.icono + ' ' + g.titulo); h.id = 'unlock-pop-title';
+    d.appendChild(h);
+    var ul = node('ul', 'unlock-pop__list');
+    lista.forEach(function (u) {
+      var li = node('li');
+      var a = link(u.href, '', 'unlock-pop__item');
+      a.appendChild(node('strong', null, u.titulo));
+      a.appendChild(node('span', null, u.desc));
+      a.appendChild(node('em', null, 'Explorar ↗'));
+      li.appendChild(a); ul.appendChild(li);
+    });
+    d.appendChild(ul);
+    if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
   }
 
   function renderMapa() {

@@ -655,6 +655,48 @@
   .registro-mini-sellos img { width: 34px; height: 34px; margin-right: -9px; }
 }
 
+/* === Perfil: hero sin iconos de fondo y "Lo que ya es tuyo" agrupado (solo mobile) === */
+.unlock-groups { display: none; }
+@media (max-width: 719px) {
+  .p-hero.nivel-rookie, .p-hero.nivel-strategist, .p-hero.nivel-creator, .p-hero.nivel-master, .p-hero.nivel-senior { background-image: none; }
+
+  .unlock-grid { display: none; }
+  .unlock-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .unlock-group {
+    display: grid; justify-items: start; align-content: start; gap: 4px; min-height: 112px; padding: 16px;
+    border: 1px solid var(--color-border); border-radius: 18px; background: var(--color-white);
+    color: var(--color-black); font: inherit; text-align: left; cursor: pointer;
+  }
+  .unlock-group:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .unlock-group:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+  .unlock-group__icon { font-size: 1.5rem; line-height: 1; }
+  .unlock-group__title { margin-top: 6px; font-size: .95rem; font-weight: 800; line-height: 1.2; }
+  .unlock-group__count { color: var(--color-cta); font-size: .78rem; font-weight: 800; }
+
+  .unlock-pop {
+    width: min(92vw, 420px); max-height: 80vh; overflow: auto; padding: 26px 20px 22px;
+    border: 0; border-radius: var(--radius-card); background: var(--color-white); color: var(--color-black);
+  }
+  .unlock-pop::backdrop { background: color-mix(in srgb, var(--color-black) 70%, transparent); }
+  .unlock-pop[open] { animation: zag-dialog-in .26s var(--ease-out); }
+  .unlock-pop .kicker { margin: 0 0 4px; font-size: .75rem; }
+  .unlock-pop__title { margin: 0 0 14px; padding-right: 44px; font-size: 1.15rem; line-height: 1.25; }
+  .unlock-pop__close {
+    position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border: 1.5px solid var(--color-border-strong);
+    border-radius: 50%; background: transparent; color: inherit; font: inherit; font-size: 1.4rem; cursor: pointer;
+  }
+  .unlock-pop__list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .unlock-pop__item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 2px 10px; padding: 11px 14px;
+    border: 1px solid var(--color-border); border-radius: 14px;
+    background: var(--color-surface-soft); color: inherit; text-decoration: none;
+  }
+  .unlock-pop__item span { grid-column: 1 / -1; grid-row: 2; }
+  .unlock-pop__item strong { font-size: .92rem; line-height: 1.25; }
+  .unlock-pop__item span { color: var(--color-text-muted); font-size: .8rem; line-height: 1.45; }
+  .unlock-pop__item em { color: var(--color-cta); font-size: .76rem; font-style: normal; font-weight: 800; }
+}
+
 /* === Movimiento reducido === */
 @media (prefers-reduced-motion: reduce) {
   .registro-sticker > img { animation: none; }
