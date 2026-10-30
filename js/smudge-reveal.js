@@ -51,8 +51,13 @@
     var hintEl = rootEl.querySelector('.smudge-hint');
     var hintTouch = rootEl.querySelector('.smudge-hint--touch');
 
+    /* En el celular el destape se hace con el dedo (no es un movimiento automático),
+       así que se mantiene aunque el teléfono tenga activado "reducir movimiento". */
+    var isPhone = window.matchMedia &&
+      (window.matchMedia('(max-width: 719px)').matches ||
+       window.matchMedia('(hover: none) and (pointer: coarse)').matches);
     var reduce = window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isPhone;
 
     /* ---- fallback estático: reduced-motion o sin máscara SVG ---- */
     function staticMode() {
@@ -161,8 +166,10 @@
     }
 
     function frame(now) {
-      smooth.x += (target.x - smooth.x) * SMOOTHING;
-      smooth.y += (target.y - smooth.y) * SMOOTHING;
+      /* con el dedo la mancha sigue más pegada al toque que con el ratón */
+      var k = isPhone ? 0.35 : SMOOTHING;
+      smooth.x += (target.x - smooth.x) * k;
+      smooth.y += (target.y - smooth.y) * k;
 
       if (moved) {
         moved = false;
