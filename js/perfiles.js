@@ -406,6 +406,23 @@
     var lastIdx = -1;
     var stickyTop = stickyHeight.getBoundingClientRect().top + window.pageYOffset;
 
+    /* Celular: los niveles se recorren de uno en uno (nunca se salta uno aunque
+       el scroll sea rápido) y la posición del bloque se mide en cada scroll,
+       porque la página cambia de altura al cargar imágenes y fuentes. */
+    var shownIdx = 0;
+    var targetIdx = 0;
+    var stepTimer = 0;
+    var STEP_MS = 650;
+    function stepTick() {
+      stepTimer = 0;
+      if (shownIdx === targetIdx) return;
+      shownIdx += shownIdx < targetIdx ? 1 : -1;
+      currentIdx = shownIdx;
+      updatePosters(shownIdx);
+      updateLeft(shownIdx);
+      if (shownIdx !== targetIdx) stepTimer = setTimeout(stepTick, STEP_MS);
+    }
+
     function onScroll() {
       if (rafId) return;
       rafId = requestAnimationFrame(function () {
@@ -415,6 +432,7 @@
         var scrollY = window.pageYOffset;
         var total   = stickyHeight.offsetHeight - window.innerHeight;
         if (total <= 0) return;
+        if (isPhone) stickyTop = stickyHeight.getBoundingClientRect().top + scrollY;
 
         var progress = Math.max(0, Math.min(1, (scrollY - stickyTop) / total));
         var idx      = Math.min(PERFILES.length - 1, Math.floor(progress * PERFILES.length));
@@ -427,6 +445,12 @@
           if (isVisible) {
             progressBar.style.width = (progress * 100).toFixed(1) + '%';
           }
+        }
+
+        if (isPhone) {
+          targetIdx = idx;
+          if (!stepTimer && shownIdx !== targetIdx) stepTick();
+          return;
         }
 
         if (idx === lastIdx) return;

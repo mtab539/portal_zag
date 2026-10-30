@@ -787,7 +787,7 @@
 @media (max-width: 719px) {
   .pf-sticky-wrap { display: block !important; }
   .pf-cards-mobile { display: none !important; }
-  .pf-sticky-height { height: 480svh; }
+  .pf-sticky-height { height: 600svh; } /* ~1 pantalla de scroll por nivel: se ven los 5 sin saltos */
   .pf-sticky-panel {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
@@ -818,10 +818,50 @@
   .pf-sticky__left .pf-chip-merch { min-height: 32px; padding: 4px 10px; }
   .pf-sticky__left .pf-sello { width: 48px; height: 48px; }
   .pf-poster__sticker img { transform: rotate(-4deg) scale(0.9); }
+
+  /* Hero: el texto en dos líneas equilibradas, botones más pequeños y el segundo en blanco */
+  .perfiles-hero .zag-hero__sub {
+    text-wrap: balance;
+    max-width: 22em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .perfiles-hero-actions { gap: var(--s-2); }
+  .perfiles-hero-actions .btn {
+    max-width: 290px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .perfiles-hero .btn--outline {
+    background: var(--color-white);
+    color: var(--color-functional);
+    border-color: var(--color-white);
+  }
+
+  /* El botón de cada nivel debe verse siempre entero: se compacta el espacio */
+  .pf-sticky-panel { padding: var(--s-1) 0 var(--s-2); }
+  .pf-sticky__right { height: 21svh; min-height: 110px; }
+  .pf-sticky__left .pf-info__section-label { margin-bottom: var(--s-1); }
+  .pf-sticky__left .pf-info__chips { gap: 6px; }
+  .pf-sticky__left .pf-info__llegar { gap: var(--s-2); }
+  .pf-sticky__left .pf-info__llegar-text { font-size: 12px; line-height: 1.35; }
+  .pf-sticky__left .pf-info .btn { padding: 11px 20px; font-size: 14px; }
 }
 
 /* teléfonos de poca altura: el contenido tiene que caber sin scroll interno */
+@media (max-width: 719px) and (max-height: 760px) {
+  .pf-sticky__left .pf-chip,
+  .pf-sticky__left .pf-chip-merch { min-height: 28px; padding: 3px 10px; font-size: 12px; }
+  .pf-sticky__left .pf-sello { width: 40px; height: 40px; }
+}
 @media (max-width: 719px) and (max-height: 740px) {
   .pf-sticky__left .pf-info__frase { display: none; }
-  .pf-sticky__right { height: 20svh; }
+  .pf-sticky__right { height: 18svh; min-height: 96px; }
+}
+@media (max-width: 719px) and (max-height: 700px) {
+  .pf-sticky__left .pf-info__counter { display: none; }
+}
+@media (max-width: 719px) and (max-height: 680px) {
+  .pf-sticky__left .pf-info__nombre { font-size: clamp(32px, 10vw, 42px); }
+  .pf-sticky__left .pf-sello { width: 34px; height: 34px; }
 }
