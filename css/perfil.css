@@ -157,6 +157,7 @@
   color: var(--color-text-muted); font-size: .85rem; font-weight: 500;
 }
 .registro-mini-sellos { display: inline-flex; align-items: center; flex: none; padding-right: 7px; }
+.registro-mini-sellos picture { display: contents; }
 .registro-mini-sellos img { width: 26px; height: 26px; margin-right: -7px; mix-blend-mode: multiply; }
 
 .registro-tabs {
@@ -640,6 +641,18 @@
   .next-card { grid-template-columns: 1fr; }
   .next-card__count { text-align: left; }
   .levelup__actions .btn, .levelup__actions .btn--cta { width: 100%; }
+}
+
+/* === Registro: sticker y sellos (solo mobile) === */
+@media (max-width: 719px) {
+  .registro-sticker { width: min(100%, 340px); aspect-ratio: 1.18 / 1; margin-top: -18px; }
+  .registro-sticker > img {
+    width: 118%; height: auto; max-width: none; max-height: none; aspect-ratio: 1 / 1;
+    filter: drop-shadow(0 6px 8px rgba(10, 20, 80, .14));
+  }
+  .registro-sellos-line { gap: 14px; margin-top: 22px; }
+  .registro-mini-sellos { padding-right: 9px; }
+  .registro-mini-sellos img { width: 34px; height: 34px; margin-right: -9px; }
 }
 
 /* === Movimiento reducido === */
