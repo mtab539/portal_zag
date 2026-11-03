@@ -606,7 +606,18 @@
       }
 
       var window_ = (1 - SETTLE_DISMISS_START) / count;
+      /* solo la tarjeta que queda al frente del mazo (ya volteada y sin descartar)
+         recibe el clic que lleva a su perfil exacto */
+      var activa = -1;
+      if (flip >= 0.95) {
+        for (var k = count - 1; k >= 0; k--) {
+          var kStart = SETTLE_DISMISS_START + (count - 1 - k) * window_;
+          if (smoothS(mapRangeS(kStart, kStart + window_, p)) < 0.5) { activa = k; break; }
+        }
+      }
       built.forEach(function (c, i) {
+        var pe = i === activa ? 'auto' : 'none';
+        if (c.style.pointerEvents !== pe) c.style.pointerEvents = pe;
         var order = count - 1 - i;
         var dStart = SETTLE_DISMISS_START + order * window_;
         var dismiss = smoothS(mapRangeS(dStart, dStart + window_, p));
