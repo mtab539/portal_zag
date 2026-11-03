@@ -76,6 +76,15 @@ window.ZAG_TIENDA = (function () {
       categoria: 'accesorios',
       descripcion: 'Los de siempre, pero pegados en la laptop y en la libreta de apuntes que nadie vuelve a abrir.',
       img: 'assets/img/merch/stickers.webp',
+      imgs: [
+        'assets/img/merch/stickers.webp',
+        'assets/img/merch/sticker-01.webp',
+        'assets/img/merch/sticker-02.webp',
+        'assets/img/merch/sticker-03.webp',
+        'assets/img/merch/sticker-04.webp',
+        'assets/img/merch/sticker-05.webp',
+        'assets/img/merch/sticker-06.webp'
+      ],
       placeholder: 'assets/img/merch/ph-stickers.svg',
       stock: 24,
       alt: 'Pack de stickers del ZAG'
@@ -164,7 +173,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 2,
       categoria: 'accesorios',
       descripcion: 'Redondo, clásico y atemporal, como las ideas que sí funcionan.',
-      img: 'assets/img/merch/boton.webp?v=2',
+      img: 'assets/img/merch/boton.webp?v=3',
       placeholder: 'assets/img/merch/ph-boton.svg',
       stock: 3,
       alt: 'Botón del ZAG'
@@ -177,6 +186,10 @@ window.ZAG_TIENDA = (function () {
       categoria: 'dia-a-dia',
       descripcion: 'Para la maleta, el mercado o la clase a la que llegas tarde.',
       img: 'assets/img/merch/tote-bag.webp?v=2',
+      imgs: [
+        'assets/img/merch/tote-bag.webp?v=2',
+        'assets/img/merch/tote-bag-2.webp'
+      ],
       placeholder: 'assets/img/merch/ph-tote-bag.svg',
       stock: 15,
       alt: 'Tote bag del ZAG'

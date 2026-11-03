@@ -62,6 +62,86 @@
     return img;
   }
 
+  /* Carrusel de fotos de un producto (p.imgs, más de una). Desliza con el dedo
+     o con las flechas; los puntos indican en cuál va. Si el producto trae una
+     sola foto devuelve la imagen normal. */
+  function galeriaProducto(p, eager) {
+    var fotos = p.imgs && p.imgs.length > 1 ? p.imgs : null;
+    if (!fotos) return eager ? imagenPrecargada(p) : imagenProducto(p);
+
+    var gal = document.createElement('div');
+    gal.className = 'td-gal';
+    gal.setAttribute('role', 'group');
+    gal.setAttribute('aria-roledescription', 'carrusel');
+    gal.setAttribute('aria-label', 'Fotos de ' + p.nombre);
+
+    var pista = document.createElement('div');
+    pista.className = 'td-gal__pista';
+    fotos.forEach(function (src, i) {
+      var slide = document.createElement('div');
+      slide.className = 'td-gal__slide';
+      slide.setAttribute('aria-label', 'Foto ' + (i + 1) + ' de ' + fotos.length);
+      var img = document.createElement('img');
+      img.alt = (p.alt || p.nombre) + ' (' + (i + 1) + ' de ' + fotos.length + ')';
+      img.loading = (eager && i === 0) ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.src = src;
+      slide.appendChild(img);
+      pista.appendChild(slide);
+    });
+    gal.appendChild(pista);
+
+    var puntos = document.createElement('div');
+    puntos.className = 'td-gal__puntos';
+    puntos.setAttribute('aria-hidden', 'true');
+    fotos.forEach(function (_, i) {
+      var d = document.createElement('span');
+      if (i === 0) d.className = 'is-activo';
+      puntos.appendChild(d);
+    });
+
+    var actual = 0;
+    function marcar(i) {
+      actual = i;
+      Array.prototype.forEach.call(puntos.children, function (d, k) {
+        d.classList.toggle('is-activo', k === i);
+      });
+    }
+    function ir(i) {
+      i = Math.max(0, Math.min(fotos.length - 1, i));
+      pista.scrollTo({ left: i * pista.clientWidth, behavior: 'smooth' });
+      marcar(i);
+    }
+    pista.addEventListener('scroll', function () {
+      var w = pista.clientWidth;
+      if (!w) return;
+      var i = Math.round(pista.scrollLeft / w);
+      if (i !== actual) marcar(i);
+    }, { passive: true });
+
+    function flecha(dir, texto, etiqueta) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'td-gal__btn td-gal__btn--' + (dir < 0 ? 'prev' : 'next');
+      b.setAttribute('aria-label', etiqueta);
+      b.textContent = texto;
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        /* da la vuelta: de la última vuelve a la primera */
+        var i = actual + dir;
+        if (i < 0) i = fotos.length - 1;
+        if (i >= fotos.length) i = 0;
+        ir(i);
+      });
+      b.addEventListener('keydown', function (e) { e.stopPropagation(); });
+      return b;
+    }
+    gal.appendChild(flecha(-1, '‹', 'Foto anterior'));
+    gal.appendChild(flecha(1, '›', 'Foto siguiente'));
+    gal.appendChild(puntos);
+    return gal;
+  }
+
   /* Un <img> sin src, paraprecargado: la ficha grande y el banner no
      deben parpadear mientras baja la foto. */
   function imagenPrecargada(p) {
@@ -524,7 +604,7 @@
       foto.appendChild(lock);
     }
 
-    foto.appendChild(imagenProducto(p));
+    foto.appendChild(galeriaProducto(p, false));
     card.appendChild(foto);
 
     var body = el('div', 'td-card__body');
@@ -548,6 +628,8 @@
 
     if (!bloqueado) body.appendChild(el('p', 'td-card__desc', p.descripcion));
     if (D.tieneTallas(p)) body.appendChild(el('p', 'td-card__desc', 'Tallas S a XL · unisex'));
+    /* La píldora va dentro del flujo del texto, debajo de las tallas: así nunca se monta encima. */
+    if (!bloqueado && D.tieneTallas(p)) body.appendChild(el('span', 'td-card--talla', 'Elige talla'));
     card.appendChild(body);
 
     card.style.cursor = 'pointer';
@@ -557,7 +639,7 @@
       ? p.nombre + ', bloqueado. Se desbloquea en ' + D.nivelNombre(p.nivel)
       : p.nombre + ', ver ficha');
     card.addEventListener('click', function (e) {
-      if (e.target.closest('.td-card__add')) return;
+      if (e.target.closest('.td-card__add') || e.target.closest('.td-gal__btn')) return;
       abrirFicha(p.id);
     });
     card.addEventListener('keydown', function (e) {
@@ -568,10 +650,6 @@
     });
 
     if (bloqueado) return card;
-
-    if (D.tieneTallas(p)) {
-      card.appendChild(el('span', 'td-card--talla', 'Elige talla'));
-    }
 
     if (!agotado) {
       var add = el('button', 'td-card__add', '+');
@@ -702,7 +780,7 @@
 
     /* ---- Izquierda: la foto ---- */
     var foto = el('div', 'td-ficha__foto');
-    foto.appendChild(imagenPrecargada(p));
+    foto.appendChild(galeriaProducto(p, true));
     grid.appendChild(foto);
 
     /* ---- Derecha: los datos ---- */
@@ -745,7 +823,7 @@
       });
       body.appendChild(grupo);
 
-      var nota = el('p', 'td-tallas__nota', 'Unisex. ' + UI.ficha.notaNiveles);
+      var nota = el('p', 'td-tallas__nota', UI.ficha.notaNiveles);
       body.appendChild(nota);
 
       var btnGuia = el('button', 'td-guia-btn', UI.ficha.guiaTallas);
