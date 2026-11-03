@@ -26,6 +26,7 @@
   var TAP_RATIO = 0.18; /* radio del toque simple: 18% del lado menor */
   var TAP_MIN = 24;
   var LEAVE_MS = 350; /* fundido de las manchas al sacar el cursor del hero */
+  var LIFT_MS = 1400; /* fundido de las manchas al levantar el dedo (celular) */
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function smoothstep(t) { t = clamp01(t); return t * t * (3 - 2 * t); }
@@ -220,7 +221,7 @@
         var b = blobs[i];
         var age = now - b.t0;
         /* el cursor salió del hero: la mancha se desvanece rápido y se borra */
-        var leave = b.leaveT ? (now - b.leaveT) / LEAVE_MS : 0;
+        var leave = b.leaveT ? (now - b.leaveT) / (b.leaveMs || LEAVE_MS) : 0;
         if (leave >= 1 || age >= DISSOLVE_START + DISSOLVE_MS) {
           if (b.node && b.node.parentNode) b.node.parentNode.removeChild(b.node);
           continue;
@@ -253,11 +254,24 @@
       moved = false;
     }
 
+    /* el dedo se levanta: las manchas se desvanecen más rápido que por su cuenta */
+    function onLift(e) {
+      if (e.touches && e.touches.length) return;
+      var now = performance.now();
+      for (var i = 0; i < blobs.length; i++) {
+        if (!blobs[i].leaveT) { blobs[i].leaveT = now; blobs[i].leaveMs = LIFT_MS; }
+      }
+      hasPoint = false;
+      moved = false;
+    }
+
     /* ---- listeners ---- */
     rootEl.addEventListener('mousemove', onMove);
     rootEl.addEventListener('mouseleave', onLeave);
     rootEl.addEventListener('touchstart', onTouchStart, { passive: true });
     rootEl.addEventListener('touchmove', onMove, { passive: true });
+    rootEl.addEventListener('touchend', onLift, { passive: true });
+    rootEl.addEventListener('touchcancel', onLift, { passive: true });
 
     /* pista: cursor en desktop, dedo en mobile */
     var coarse = window.matchMedia && window.matchMedia('(hover: none)').matches;
