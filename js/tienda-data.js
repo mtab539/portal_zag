@@ -87,7 +87,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 0,
       categoria: 'accesorios',
       descripcion: 'Tu primera vuelta al aro. Y sí: eso ya cuenta como experiencia.',
-      img: 'assets/img/merch/manilla-rookie.webp',
+      img: 'assets/img/merch/manilla-rookie.webp?v=2',
       placeholder: 'assets/img/merch/ph-manilla-rookie.svg',
       stock: 5,
       alt: 'Manilla ZAG color crema del nivel Rookie'
@@ -99,7 +99,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 0,
       categoria: 'accesorios',
       descripcion: 'Chicos, pontiagudos y de los que se roban. Piensa mal de alguien y quédatelo conHN Peace.',
-      img: 'assets/img/merch/pines.webp',
+      img: 'assets/img/merch/pines.webp?v=2',
       placeholder: 'assets/img/merch/ph-pines.svg',
       stock: 30,
       badge: 'nuevo',
@@ -114,7 +114,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 1,
       categoria: 'accesorios',
       descripcion: 'Para cuando ya no miras la tendencia: la haces.',
-      img: 'assets/img/merch/manilla-strategist.webp',
+      img: 'assets/img/merch/manilla-strategist.webp?v=2',
       placeholder: 'assets/img/merch/ph-manilla-strategist.svg',
       stock: 20,
       alt: 'Manilla ZAG celeste del nivel Strategist'
@@ -126,7 +126,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 1,
       categoria: 'accesorios',
       descripcion: 'El llavero que no suelta, no se rinde.',
-      img: 'assets/img/merch/llavero.webp',
+      img: 'assets/img/merch/llavero.webp?v=2',
       placeholder: 'assets/img/merch/ph-llavero.svg',
       stock: 20,
       alt: 'Llavero del ZAG'
@@ -138,7 +138,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 1,
       categoria: 'accesorios',
       descripcion: 'Para el carné de siempre, pero con otro nombre y otras intenciones.',
-      img: 'assets/img/merch/cordon.webp',
+      img: 'assets/img/merch/cordon.webp?v=2',
       placeholder: 'assets/img/merch/ph-cordon.svg',
       stock: 22,
       alt: 'Cordón del ZAG para el carné'
@@ -152,7 +152,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 2,
       categoria: 'accesorios',
       descripcion: 'CREATOR: ya no sigues las tendencias, las revisas.',
-      img: 'assets/img/merch/manilla-creator.webp',
+      img: 'assets/img/merch/manilla-creator.webp?v=2',
       placeholder: 'assets/img/merch/ph-manilla-creator.svg',
       stock: 20,
       alt: 'Manilla ZAG naranja del nivel Creator'
@@ -164,7 +164,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 2,
       categoria: 'accesorios',
       descripcion: 'Redondo, clásico y atemporal, como las ideas que sí funcionan.',
-      img: 'assets/img/merch/boton.webp',
+      img: 'assets/img/merch/boton.webp?v=2',
       placeholder: 'assets/img/merch/ph-boton.svg',
       stock: 3,
       alt: 'Botón del ZAG'
@@ -176,7 +176,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 2,
       categoria: 'dia-a-dia',
       descripcion: 'Para la maleta, el mercado o la clase a la que llegas tarde.',
-      img: 'assets/img/merch/tote-bag.webp',
+      img: 'assets/img/merch/tote-bag.webp?v=2',
       placeholder: 'assets/img/merch/ph-tote-bag.svg',
       stock: 15,
       alt: 'Tote bag del ZAG'
@@ -216,7 +216,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 3,
       categoria: 'ropa',
       descripcion: 'No apto para mentes promedio. Para la maleta, el buzo o donde quieras incomodar.',
-      img: 'assets/img/merch/gorra.webp',
+      img: 'assets/img/merch/gorra.webp?v=2',
       placeholder: 'assets/img/merch/ph-gorra.svg',
       stock: 12,
       alt: 'Gorra del ZAG'
@@ -228,7 +228,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 4,
       categoria: 'ropa',
       descripcion: 'El uniforme de quien ya no necesita presentación.',
-      img: 'assets/img/merch/buzo-azul-claro.webp',
+      img: 'assets/img/merch/buzo-azul-claro.webp?v=3',
       placeholder: 'assets/img/merch/ph-buzo-azul-claro.svg',
       tallas: TALLAS_ROPA.slice(),
       stock: 10,
@@ -241,7 +241,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 4,
       categoria: 'ropa',
       descripcion: 'La versión nocturna de las mismas ideas, con más brillo.',
-      img: 'assets/img/merch/buzo-azul.webp',
+      img: 'assets/img/merch/buzo-azul.webp?v=3',
       placeholder: 'assets/img/merch/ph-buzo-azul-oscuro.svg',
       tallas: TALLAS_ROPA.slice(),
       stock: 10,
@@ -254,7 +254,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 3,
       categoria: 'dia-a-dia',
       descripcion: 'Tostado a las 2 de la mañana, mientras esto sigue caliente.',
-      img: 'assets/img/merch/termos.webp',
+      img: 'assets/img/merch/termos.webp?v=3',
       placeholder: 'assets/img/merch/ph-termo.svg',
       stock: 14,
       alt: 'Termo del ZAG'
@@ -266,7 +266,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 3,
       categoria: 'accesorios',
       descripcion: 'Nivel máximo. Igual que el insomnio.',
-      img: 'assets/img/merch/manilla-master.webp',
+      img: 'assets/img/merch/manilla-master.webp?v=2',
       placeholder: 'assets/img/merch/ph-manilla-master.svg',
       stock: 18,
       alt: 'Manilla ZAG azul profunda del nivel Master'
@@ -292,7 +292,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 4,
       categoria: 'dia-a-dia',
       descripcion: 'El café que sostiene el silencio antes del primer trago.',
-      img: 'assets/img/merch/taza.webp',
+      img: 'assets/img/merch/taza.webp?v=3',
       placeholder: 'assets/img/merch/ph-taza.svg',
       stock: 25,
       alt: 'Taza del ZAG'
@@ -304,7 +304,7 @@ window.ZAG_TIENDA = (function () {
       nivel: 4,
       categoria: 'accesorios',
       descripcion: 'Ya no representas al programa: lo diriges.',
-      img: 'assets/img/merch/manilla-senior.webp',
+      img: 'assets/img/merch/manilla-senior.webp?v=2',
       placeholder: 'assets/img/merch/ph-manilla-senior.svg',
       stock: 20,
       alt: 'Manilla ZAG negra del nivel Senior'
