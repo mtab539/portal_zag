@@ -1845,3 +1845,28 @@
     max-height: 32svh;
   }
 }
+
+/* ============================================================
+   MÓVIL (sin hover) — el nombre del hero solo se ve en el avatar tocado.
+   En pantallas táctiles :hover y :focus-within se quedan pegados al último
+   toque, así que se ignoran y manda la clase .is-open que pone el JS.
+   ============================================================ */
+@media (hover: none) {
+  .muro-hero-person:hover:not(.is-open) .muro-hero-tip,
+  .muro-hero-person:focus-within:not(.is-open) .muro-hero-tip {
+    opacity: 0;
+    transform: translateY(15px) scale(0.72);
+  }
+  .muro-hero-person:hover:not(.is-open) .muro-hero-avatar-btn {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(25, 20, 49, 0.13), 0 0 0 1px rgba(20, 19, 26, 0.06);
+  }
+  .muro-hero-person:hover:not(.is-open) .muro-hero-avatar-btn img { transform: none; }
+  .muro-hero-person.is-open { z-index: 20; }
+  .muro-hero-person.is-open .muro-hero-avatar-btn {
+    z-index: 5;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 17px 34px rgba(25, 20, 49, 0.2), 0 0 0 4px rgba(17, 68, 255, 0.14);
+  }
+  .muro-hero-person.is-open .muro-hero-avatar-btn img { transform: scale(1.08); }
+}

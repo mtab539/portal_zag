@@ -56,6 +56,9 @@
     var isPhone = window.matchMedia &&
       (window.matchMedia('(max-width: 719px)').matches ||
        window.matchMedia('(hover: none) and (pointer: coarse)').matches);
+    /* En el celular la máscara se arma con degradados radiales (CSS) en vez de la
+       máscara SVG: Safari en iOS no pinta bien `mask: url(#id)` sobre un elemento HTML. */
+    var gradMask = isPhone;
     var reduce = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isPhone;
 
@@ -69,9 +72,18 @@
       if (svg) svg.setAttribute('aria-hidden', 'true');
     }
 
-    if (reduce || !supportsMask() || !maskG || !svg) {
+    if (reduce || (!gradMask && !supportsMask()) || !maskG || !svg) {
       staticMode();
       return null;
+    }
+
+    if (gradMask && layerBack) {
+      layerBack.style.webkitMask = 'none';
+      layerBack.style.mask = 'none';
+      layerBack.style.webkitMaskRepeat = 'no-repeat';
+      layerBack.style.maskRepeat = 'no-repeat';
+      layerBack.style.webkitMaskSize = '100% 100%';
+      layerBack.style.maskSize = '100% 100%';
     }
 
     /* ---- dimensión del SVG = tamaño de la sección ---- */
@@ -123,14 +135,17 @@
         var old = blobs.shift();
         if (old.node && old.node.parentNode) old.node.parentNode.removeChild(old.node);
       }
-      var c = document.createElementNS(S, 'circle');
-      c.setAttribute('cx', x);
-      c.setAttribute('cy', y);
-      c.setAttribute('r', r0);
-      c.setAttribute('fill', '#ffffff');
-      c.setAttribute('fill-opacity', '1');
-      maskG.appendChild(c);
-      blobs.push({ node: c, x: x, y: y, r0: r0, t0: performance.now() });
+      var c = null;
+      if (!gradMask) {
+        c = document.createElementNS(S, 'circle');
+        c.setAttribute('cx', x);
+        c.setAttribute('cy', y);
+        c.setAttribute('r', r0);
+        c.setAttribute('fill', '#ffffff');
+        c.setAttribute('fill-opacity', '1');
+        maskG.appendChild(c);
+      }
+      blobs.push({ node: c, x: x, y: y, r0: r0, t0: performance.now(), r: r0, a: 1 });
       lastSpawn.x = x; lastSpawn.y = y;
     }
 
@@ -165,6 +180,27 @@
       spawn(x, y, r);
     }
 
+    var lastMaskStr = '';
+    function paintGradMask() {
+      var str;
+      if (!blobs.length) {
+        str = 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0))';
+      } else {
+        var layers = [];
+        for (var i = 0; i < blobs.length; i++) {
+          var b = blobs[i];
+          var a = Math.max(0, Math.min(1, b.a)).toFixed(3);
+          layers.push('radial-gradient(circle at ' + b.x.toFixed(1) + 'px ' + b.y.toFixed(1) + 'px, rgba(0,0,0,' + a +
+            ') ' + (b.r * 0.7).toFixed(1) + 'px, rgba(0,0,0,0) ' + b.r.toFixed(1) + 'px)');
+        }
+        str = layers.join(',');
+      }
+      if (str === lastMaskStr) return;
+      lastMaskStr = str;
+      layerBack.style.webkitMaskImage = str;
+      layerBack.style.maskImage = str;
+    }
+
     function frame(now) {
       /* con el dedo la mancha sigue más pegada al toque que con el ratón */
       var k = isPhone ? 0.35 : SMOOTHING;
@@ -185,26 +221,25 @@
         var age = now - b.t0;
         /* el cursor salió del hero: la mancha se desvanece rápido y se borra */
         var leave = b.leaveT ? (now - b.leaveT) / LEAVE_MS : 0;
-        if (leave >= 1) {
-          if (b.node && b.node.parentNode) b.node.parentNode.removeChild(b.node);
-          continue;
-        }
-        if (age >= DISSOLVE_START + DISSOLVE_MS) {
+        if (leave >= 1 || age >= DISSOLVE_START + DISSOLVE_MS) {
           if (b.node && b.node.parentNode) b.node.parentNode.removeChild(b.node);
           continue;
         }
         keep.push(b);
         if (age < EXPAND_MS) {
-          var rp = smoothstep(age / EXPAND_MS);
-          b.node.setAttribute('r', b.r0 * (1 + EXPAND_MULT * rp));
-          b.node.setAttribute('fill-opacity', String(1 - leave));
+          b.r = b.r0 * (1 + EXPAND_MULT * smoothstep(age / EXPAND_MS));
+          b.a = 1 - leave;
         } else {
-          b.node.setAttribute('r', b.r0 * (1 + EXPAND_MULT));
-          var dp = power3in((age - DISSOLVE_START) / DISSOLVE_MS);
-          b.node.setAttribute('fill-opacity', String((1 - dp) * (1 - leave)));
+          b.r = b.r0 * (1 + EXPAND_MULT);
+          b.a = (1 - power3in((age - DISSOLVE_START) / DISSOLVE_MS)) * (1 - leave);
+        }
+        if (b.node) {
+          b.node.setAttribute('r', b.r);
+          b.node.setAttribute('fill-opacity', String(b.a));
         }
       }
       blobs = keep;
+      if (gradMask) paintGradMask();
       rafId = requestAnimationFrame(frame);
     }
 

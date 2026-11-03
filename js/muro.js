@@ -251,6 +251,16 @@
     if (!host || !D.heroTeam) return;
     host.textContent = '';
 
+    /* Solo un nombre abierto a la vez: al abrir uno se cierran los demás. */
+    var cierres = [];
+    function cerrarOtros(propio) { cierres.forEach(function (c) { if (c !== propio) c(); }); }
+    var tactil = function (e) { return e && e.pointerType && e.pointerType !== 'mouse'; };
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      if (e.target.closest && e.target.closest('.muro-hero-person')) return;
+      cerrarOtros(null);
+    });
+
     D.heroTeam.forEach(function (p) {
       var person = el('div', 'muro-hero-person');
 
@@ -296,8 +306,15 @@
           raf = requestAnimationFrame(run);
         }
       }
-      function show() { visible = true; tip.classList.add('is-visible'); }
-      function hide() { visible = false; target = 0; tip.classList.remove('is-visible'); if (raf === null) raf = requestAnimationFrame(run); }
+      function show() {
+        cerrarOtros(hide);
+        visible = true; tip.classList.add('is-visible'); person.classList.add('is-open');
+      }
+      function hide() {
+        visible = false; target = 0; tip.classList.remove('is-visible'); person.classList.remove('is-open');
+        if (raf === null) raf = requestAnimationFrame(run);
+      }
+      cierres.push(hide);
       function move(e) {
         var b = btn.getBoundingClientRect();
         var d = e.clientX - (b.left + b.width / 2);
@@ -305,10 +322,11 @@
         if (raf === null) raf = requestAnimationFrame(run);
       }
 
-      btn.addEventListener('pointerenter', show);
-      btn.addEventListener('pointermove', move);
-      btn.addEventListener('pointerleave', hide);
-      btn.addEventListener('focus', show);
+      /* Con el ratón el nombre sigue al puntero; con el dedo se abre y cierra con el toque. */
+      btn.addEventListener('pointerenter', function (e) { if (!tactil(e)) show(); });
+      btn.addEventListener('pointermove', function (e) { if (!tactil(e)) move(e); });
+      btn.addEventListener('pointerleave', function (e) { if (!tactil(e)) hide(); });
+      btn.addEventListener('focus', function () { if (btn.matches(':focus-visible')) show(); });
       btn.addEventListener('blur', hide);
       btn.addEventListener('click', function () { if (visible) hide(); else show(); });
     });
